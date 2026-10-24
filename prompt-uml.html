@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Prompt UML — 52 prompt cho Visual Paradigm — Tài liệu CDIO 4</title>
-<meta name="description" content="Tài liệu đồ án CDIO 4 — Website Quản lý Thư viện Mini: conceive, phân tích thiết kế, prompt UML, kiểm thử, SQL.">
+<meta name="description" content="Tài liệu đồ án CDIO 4 — Website Quản lý Thư viện Đại học: conceive, phân tích thiết kế, prompt UML, kiểm thử, SQL.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>B</text></svg>">
 <link rel="stylesheet" href="style.css?v=9">
 </head>
@@ -108,8 +108,8 @@
 <div class="backdrop" id="backdrop"></div>
 <main class="content">
 <h1>Prompt UML — 52 prompt cho Visual Paradigm</h1>
-<p class="meta">Đồ án Website Quản lý Thư viện Mini &middot; Cập nhật lần cuối: 24/10/2026</p>
-<h1>UML PROMPT SET — Mini Library Management Web App</h1>
+<p class="meta">Đồ án Website Quản lý Thư viện Đại học &middot; Cập nhật lần cuối: 24/10/2026</p>
+<h1>UML PROMPT SET — University Library Management Web App</h1>
 <p>52 prompts; each prompt generates exactly 1 diagram in Visual Paradigm AI.
 Select the diagram type stated in the prompt title before pasting.</p>
 <h2 id="mandatory-drawing-conventions-apply-to-every-prompt">MANDATORY DRAWING CONVENTIONS (apply to every prompt)</h2>
@@ -173,7 +173,7 @@ Select the diagram type stated in the prompt title before pasting.</p>
 **Display requirement:** group the use cases by actor using boundary/package (Quản trị, Nghiệp vụ quầy, Độc giả) if the tool supports it; keep the use case names in Vietnamese with diacritics.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_1
 left to right direction
 actor Admin as Admin
 actor &quot;Thủ thư&quot; as ThuThu
@@ -181,7 +181,7 @@ actor &quot;Độc giả&quot; as DocGia
 actor &quot;Khách&quot; as Khach
 actor &quot;Scheduler/Time&quot; as Scheduler
 actor &quot;Resend email service&quot; as Resend
-rectangle &quot;Thư viện Mini&quot; {
+rectangle &quot;Thư viện Đại học&quot; {
   usecase &quot;UC01 Đăng nhập&quot; as UC01
   usecase &quot;UC02 Quản lý sách&quot; as UC02
   usecase &quot;UC03 Quản lý độc giả&quot; as UC03
@@ -242,12 +242,12 @@ UC15 .&gt; UC02 : &lt;&lt;extend&gt;&gt;
 <pre><code>Create exactly 1 Use Case Diagram. Actors: Admin, Thủ thư, Độc giả. A single use case: &quot;UC01 Đăng nhập&quot;. Draw associations from all 3 actors to the use case. Add a note: &quot;UC01 is Login only. Registration is a separate use case UC19; Admin and Thủ thư accounts are issued by the Admin (UC10)&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_2
 left to right direction
 actor Admin as Admin
 actor &quot;Thủ thư&quot; as ThuThu
 actor &quot;Độc giả&quot; as DocGia
-rectangle &quot;Thư viện Mini&quot; {
+rectangle &quot;Thư viện Đại học&quot; {
   usecase &quot;UC01 Đăng nhập&quot; as UC01
 }
 Admin --&gt; UC01
@@ -260,10 +260,10 @@ DocGia --&gt; UC01
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: &quot;UC02 Quản lý sách&quot;. Draw the association Thủ thư — UC02. Add a note: &quot;Includes: add (generates QR), edit, delete, search&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_3
 left to right direction
 actor &quot;Thủ thư&quot; as ThuThu
-rectangle &quot;Thư viện Mini&quot; {
+rectangle &quot;Thư viện Đại học&quot; {
   usecase &quot;UC02 Quản lý sách&quot; as UC02
 }
 ThuThu --&gt; UC02
@@ -274,10 +274,10 @@ ThuThu --&gt; UC02
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: &quot;UC03 Quản lý độc giả&quot;. Draw the association Thủ thư — UC03. Add a note: &quot;Includes: add (default password 123456), edit, delete, search&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_4
 left to right direction
 actor &quot;Thủ thư&quot; as ThuThu
-rectangle &quot;Thư viện Mini&quot; {
+rectangle &quot;Thư viện Đại học&quot; {
   usecase &quot;UC03 Quản lý độc giả&quot; as UC03
 }
 ThuThu --&gt; UC03
@@ -288,10 +288,10 @@ ThuThu --&gt; UC03
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. Main use case: &quot;UC04 Mượn sách&quot;. Draw the association Thủ thư — UC04. Add the use case &quot;UC11 Đặt trước sách&quot; (no actor link) and a dashed dependency line from UC04 to UC11, with a note attached: &quot;UC04 checks and marks fulfilled the reservations created by UC11 (D13)&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_5
 left to right direction
 actor &quot;Thủ thư&quot; as ThuThu
-rectangle &quot;Thư viện Mini&quot; {
+rectangle &quot;Thư viện Đại học&quot; {
   usecase &quot;UC04 Mượn sách&quot; as UC04
   usecase &quot;UC11 Đặt trước sách&quot; as UC11
 }
@@ -304,10 +304,10 @@ UC04 ..&gt; UC11
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: &quot;UC05 Trả sách&quot;. Draw the association Thủ thư — UC05. Add a note: &quot;The fine-calculation step (D7) is an internal step of UC05; do not split it into a separate use case&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_6
 left to right direction
 actor &quot;Thủ thư&quot; as ThuThu
-rectangle &quot;Thư viện Mini&quot; {
+rectangle &quot;Thư viện Đại học&quot; {
   usecase &quot;UC05 Trả sách&quot; as UC05
 }
 ThuThu --&gt; UC05
@@ -318,10 +318,10 @@ ThuThu --&gt; UC05
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: &quot;UC06 Danh sách quá hạn&quot;. Draw the association Thủ thư — UC06. Add a note: &quot;Read-only: lists borrowing loans whose due_at is before today&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_7
 left to right direction
 actor &quot;Thủ thư&quot; as ThuThu
-rectangle &quot;Thư viện Mini&quot; {
+rectangle &quot;Thư viện Đại học&quot; {
   usecase &quot;UC06 Danh sách quá hạn&quot; as UC06
 }
 ThuThu --&gt; UC06
@@ -332,11 +332,11 @@ ThuThu --&gt; UC06
 <pre><code>Create exactly 1 Use Case Diagram. Actors: Thủ thư, Admin. A single use case: &quot;UC07 Thống kê&quot;. Draw associations from both actors to the use case. Add a note: &quot;4 stat cards + top-5 chart + borrow/return history&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_8
 left to right direction
 actor &quot;Thủ thư&quot; as ThuThu
 actor Admin as Admin
-rectangle &quot;Thư viện Mini&quot; {
+rectangle &quot;Thư viện Đại học&quot; {
   usecase &quot;UC07 Thống kê&quot; as UC07
 }
 ThuThu --&gt; UC07
@@ -348,10 +348,10 @@ Admin --&gt; UC07
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Độc giả. A single use case: &quot;UC08 Sách của tôi&quot;. Draw the association Độc giả — UC08. Add a note: &quot;3 tabs: Đang mượn / Đặt trước / Lịch sử; each reader sees only their own data&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_9
 left to right direction
 actor &quot;Độc giả&quot; as DocGia
-rectangle &quot;Thư viện Mini&quot; {
+rectangle &quot;Thư viện Đại học&quot; {
   usecase &quot;UC08 Sách của tôi&quot; as UC08
 }
 DocGia --&gt; UC08
@@ -362,10 +362,10 @@ DocGia --&gt; UC08
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Admin. A single use case: &quot;UC09 Cấu hình hệ thống&quot;. Draw the association Admin — UC09. Add a note: &quot;4 parameters: loan_days, fine_per_day, max_books_per_reader, reservation_hours; apply to new loans only&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_10
 left to right direction
 actor Admin as Admin
-rectangle &quot;Thư viện Mini&quot; {
+rectangle &quot;Thư viện Đại học&quot; {
   usecase &quot;UC09 Cấu hình hệ thống&quot; as UC09
 }
 Admin --&gt; UC09
@@ -376,10 +376,10 @@ Admin --&gt; UC09
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Admin. A single use case: &quot;UC10 Quản lý tài khoản thủ thư&quot;. Draw the association Admin — UC10. Add a note: &quot;Includes: create, lock/unlock, delete; cannot delete your own account&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_11
 left to right direction
 actor Admin as Admin
-rectangle &quot;Thư viện Mini&quot; {
+rectangle &quot;Thư viện Đại học&quot; {
   usecase &quot;UC10 Quản lý tài khoản thủ thư&quot; as UC10
 }
 Admin --&gt; UC10
@@ -390,10 +390,10 @@ Admin --&gt; UC10
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Độc giả. Main use case: &quot;UC11 Đặt trước sách&quot;. Draw the association Độc giả — UC11. Add the use case &quot;UC04 Mượn sách&quot; (no actor link) and a dashed dependency line from UC11 to UC04, with a note attached: &quot;Pending reservations from UC11 are consumed by UC04 when the reader comes to the counter to pick up the book (D13)&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_12
 left to right direction
 actor &quot;Độc giả&quot; as DocGia
-rectangle &quot;Thư viện Mini&quot; {
+rectangle &quot;Thư viện Đại học&quot; {
   usecase &quot;UC11 Đặt trước sách&quot; as UC11
   usecase &quot;UC04 Mượn sách&quot; as UC04
 }
@@ -406,10 +406,10 @@ UC11 ..&gt; UC04
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Độc giả. Main use case: &quot;UC12 Hủy đặt trước&quot;. Draw the association Độc giả — UC12. Add the use case &quot;UC11 Đặt trước sách&quot; (no actor link) and a dashed dependency line from UC12 to UC11, with a note attached: &quot;UC12 turns UC11's pending reservations into cancelled&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_13
 left to right direction
 actor &quot;Độc giả&quot; as DocGia
-rectangle &quot;Thư viện Mini&quot; {
+rectangle &quot;Thư viện Đại học&quot; {
   usecase &quot;UC12 Hủy đặt trước&quot; as UC12
   usecase &quot;UC11 Đặt trước sách&quot; as UC11
 }
@@ -418,7 +418,7 @@ UC12 ..&gt; UC11
 @enduml
 </code></pre>
 <h2 id="prompt-48-uc13-use-case-diagram-notification-system">Prompt 48 — UC13 Use Case Diagram: Notification System</h2>
-<pre><code>Create exactly 1 Use Case Diagram for &quot;UC13 — Hệ thống thông báo&quot; of the mini library management system.
+<pre><code>Create exactly 1 Use Case Diagram for &quot;UC13 — Hệ thống thông báo&quot; of the university library management system.
 
 Actors: Admin, Thủ thư, Độc giả.
 
@@ -431,13 +431,13 @@ Use cases:
 Note in the diagram: &quot;The system auto-generates notifications: new reservation → librarians; approve/reject → the reader; loan created → due-date reminder; overdue → red alert.&quot;
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_48
 left to right direction
 actor Admin as Admin
 actor &quot;Thủ thư&quot; as ThuThu
 actor &quot;Độc giả&quot; as DocGia
 actor &quot;Khách&quot; as Khach
-rectangle &quot;Thư viện Mini&quot; {
+rectangle &quot;Thư viện Đại học&quot; {
   usecase &quot;UC13.1 Nhận thông báo&quot; as UC131
   usecase &quot;UC13.2 Đánh dấu đã đọc&quot; as UC132
   usecase &quot;UC13.3 Tạo thông báo&quot; as UC133
@@ -457,7 +457,7 @@ UC132 .&gt; UC131 : &lt;&lt;include&gt;&gt;
 </code></pre>
 <hr />
 <h2 id="prompt-uc16-a-use-case-diagram-bo-sung">Prompt UC16-A — Use Case Diagram (bổ sung)</h2>
-<pre><code>Add one use case to the existing use case diagram of the &quot;Library Mini&quot; system:
+<pre><code>Add one use case to the existing use case diagram of the &quot;University Library&quot; system:
 - Use case &quot;UC16 AI book search by description&quot; inside the system boundary.
 - Actors: Reader and Guest (a generalization of Reader without login) both connect to UC16.
 - UC16 includes &quot;Validate description (3-600 chars) + rate limit 10 req/60s per IP&quot;.
@@ -465,11 +465,11 @@ UC132 .&gt; UC131 : &lt;&lt;include&gt;&gt;
 Keep all existing actors and use cases unchanged.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_uc16_a
 left to right direction
 actor &quot;Độc giả&quot; as Reader
 actor &quot;Khách&quot; as Guest
-rectangle &quot;Thư viện Mini&quot; {
+rectangle &quot;Thư viện Đại học&quot; {
   usecase &quot;UC16 AI book search by description&quot; as UC16
   usecase &quot;Validate description (3-600 chars) + rate limit 10 req/60s per IP&quot; as Validate
   usecase &quot;Keyword fallback search&quot; as Fallback
@@ -481,7 +481,7 @@ Fallback .&gt; UC16 : &lt;&lt;extend&gt;&gt;
 @enduml
 </code></pre>
 <h2 id="prompt-uc17-a-use-case-diagram-bo-sung">Prompt UC17-A — Use Case Diagram (bổ sung)</h2>
-<pre><code>Add three use cases to the existing use case diagram of the &quot;Library Mini&quot; system:
+<pre><code>Add three use cases to the existing use case diagram of the &quot;University Library&quot; system:
 - &quot;UC17 Due-date reminder email&quot; connected to a Time/Scheduler actor and to Reader; it extends &quot;UC13 Notification system&quot;.
 - &quot;UC18 Forgot password via email&quot; connected to Reader (also usable by Librarian and Admin accounts that have an email).
 - &quot;UC19 Register with real email &amp; verify email&quot; connected to Reader; UC19 includes &quot;Send verification email&quot; and UC17 includes &quot;Send email via Resend&quot;.
@@ -489,14 +489,14 @@ Fallback .&gt; UC16 : &lt;&lt;extend&gt;&gt;
 Keep all existing actors and use cases unchanged.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_uc17_a
 left to right direction
 actor &quot;Time/Scheduler&quot; as Scheduler
 actor &quot;Độc giả&quot; as Reader
 actor &quot;Thủ thư&quot; as Librarian
 actor Admin as Admin
 actor &quot;Resend email service&quot; as Resend
-rectangle &quot;Thư viện Mini&quot; {
+rectangle &quot;Thư viện Đại học&quot; {
   usecase &quot;UC17 Due-date reminder email&quot; as UC17
   usecase &quot;UC18 Forgot password via email&quot; as UC18
   usecase &quot;UC19 Register with real email &amp; verify email&quot; as UC19
@@ -521,13 +521,13 @@ Resend --&gt; SendEmail
 <pre><code>Create exactly 1 Use Case Diagram. Actors: Reader, Librarian, Admin (any account that has an email). A single use case: &quot;UC18 Quên mật khẩu qua email&quot;. Draw associations from all 3 actors to the use case. Add the included use case &quot;Send reset email via Resend&quot; (external actor Resend email service outside the boundary, connected to the included use case). Add a note: &quot;The system always shows the same generic message and never reveals whether the email exists; the reset token is 30-minute, single-use, only its SHA-256 hash is stored&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_uc18_use_case
 left to right direction
 actor Reader as Reader
 actor Librarian as Librarian
 actor Admin as Admin
 actor &quot;Resend email service&quot; as Resend
-rectangle &quot;Thư viện Mini&quot; {
+rectangle &quot;Thư viện Đại học&quot; {
   usecase &quot;UC18 Quên mật khẩu qua email&quot; as UC18
   usecase &quot;Send reset email via Resend&quot; as SendReset
 }
@@ -543,12 +543,12 @@ Resend --&gt; SendReset
 <pre><code>Create exactly 1 Use Case Diagram. Actors: Khách (Guest, not logged in), Độc giả (after registration). A single use case: &quot;UC19 Đăng ký bằng email thật &amp; xác thực email&quot;. Draw associations from Khách and Độc giả to the use case. Add the included use case &quot;Send verification email via Resend&quot; (external actor Resend email service outside the boundary, connected to the included use case). Add a note: &quot;Registration creates the account with email_verified = 0; a duplicate email returns 409; the verification token is 24-hour, single-use, only its SHA-256 hash is stored; until verified, the layout shows a reminder banner and the reader can change the email (resets to unverified) or resend the verification email (1 per minute)&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_uc19_use_case
 left to right direction
 actor &quot;Khách&quot; as Guest
 actor &quot;Độc giả&quot; as Reader
 actor &quot;Resend email service&quot; as Resend
-rectangle &quot;Thư viện Mini&quot; {
+rectangle &quot;Thư viện Đại học&quot; {
   usecase &quot;UC19 Đăng ký bằng email thật &amp; xác thực email&quot; as UC19
   usecase &quot;Send verification email via Resend&quot; as SendVerify
 }
@@ -560,7 +560,7 @@ Resend --&gt; SendVerify
 </code></pre>
 <hr />
 <h2 id="activity-diagram-18-prompt">Activity Diagram (18 prompt)</h2><p>Các prompt vẽ sơ đồ Activity Diagram, giữ nguyên thứ tự Prompt gốc.</p><h2 id="prompt-0-overall-system-activity-diagram">Prompt 0 — Overall System Activity Diagram</h2>
-<pre><code>Draw ONE activity diagram covering the entire mini library management system.
+<pre><code>Draw ONE activity diagram covering the entire university library management system.
 
 Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
 - Actor: user actions — here including Khách (not logged in), Độc giả, Thủ thư, Admin (state the role in parentheses).
@@ -610,9 +610,80 @@ Background flows of the Hệ thống (no actor needed, run in parallel):
 - [Hệ thống] 'pending' reservations past expires_at (48 hours) not yet reviewed → [CSDL] UPDATE to 'expired'.
 - [Hệ thống] 'approved' reservations past pickup_at + 2 hours not yet picked up → [CSDL] UPDATE to 'expired'.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml prompt_0
+|Actor|
+start
+:Khách mở trang chủ (không cần đăng nhập);
+|Giao diện|
+:Hiển thị trang chủ: tìm sách theo tên, tìm sách theo mô tả bằng AI (UC16), danh mục sách, thống kê tổng quan;
+|Actor|
+:Khách tra cứu sách: xem trạng thái từng cuốn (Còn / Đang giữ chỗ / Đang mượn), xem chi tiết và số bản (Còn X/Y bản);
+:Khách tìm sách theo mô tả bằng AI (UC16): nhập mô tả 3-600 ký tự;
+|Hệ thống|
+:Gemini xếp hạng danh mục (tối đa 8 cuốn, kèm phần trăm khớp và lý do); nếu AI không khả dụng hoặc chưa cấu hình key thì dùng chấm điểm từ khóa dự phòng theo tiêu đề, tác giả, thể loại;
+if (Khách muốn mượn hoặc đặt trước sách?) then (không)
+  stop
+else (có)
+endif
+|Giao diện|
+:Chuyển tới trang đăng nhập hoặc đăng ký;
+|Actor|
+:Đăng nhập (UC01, chỉ đăng nhập): nhập tên đăng nhập và mật khẩu;
+:Đăng ký (UC19, tách riêng khỏi UC01): nhập họ tên, mã sinh viên, số điện thoại, tên đăng nhập, mật khẩu và email thật trên trang đăng ký; tài khoản tạo với email_verified bằng 0 và link xác thực gửi qua Resend;
+:Quên mật khẩu (UC18): nhập email tài khoản trên trang Quên mật khẩu; hệ thống luôn hiển thị cùng một thông báo chung, không tiết lộ email có tồn tại hay không; nếu tài khoản đang hoạt động có email đó thì link đặt lại mật khẩu (token 30 phút, dùng 1 lần, chỉ lưu hash SHA-256) gửi qua Resend; người đọc mở link và đặt mật khẩu mới;
+|Hệ thống|
+if (Vai trò là gì?) then (Độc giả)
+  |Actor|
+  :Độc giả tìm sách và đặt trước bản còn trống (UC11): nhập thời gian nhận mong muốn;
+  |CSDL|
+  :INSERT bảng reservations (status bằng pending, sinh code);
+  |Actor|
+  :Độc giả mở Đặt trước của tôi: xem trạng thái và lịch hẹn; đặt trước đã duyệt hiển thị mã QR và mã chữ; chỉ hủy được khi còn pending (UC12);
+  :Độc giả mang mã QR đặt trước tới quầy, Thủ thư quét và cho mượn (UC04);
+  |CSDL|
+  :INSERT bảng loans, UPDATE sách thành borrowed, UPDATE đặt trước thành fulfilled;
+  |Actor|
+  :Độc giả mở Sách của tôi: theo dõi hạn trả, nhận nhắc hạn và thông báo quá hạn (UC13);
+  :Độc giả xác thực email (UC19): nếu email_verified bằng 0 thì giao diện hiển thị banner nhắc; từ trang Hồ sơ có thể đổi email (trở về chưa xác thực và gửi link mới) hoặc gửi lại email xác thực (1 phút 1 lần); bấm link trong email thì email_verified bằng 1;
+elseif (Thủ thư) then
+  |Actor|
+  :Thủ thư quản lý sách (UC02 và UC15): CRUD, sinh book_code, tải ảnh bìa, thêm N bản cùng lúc, nhập Excel, quản lý thể loại riêng;
+  :Thủ thư mở Quản lý đặt trước;
+  |Hệ thống|
+  if (Duyệt hay từ chối? (UC11)) then (Duyệt)
+    |Actor|
+    :Thủ thư xác nhận thời gian hẹn nhận;
+    |CSDL|
+    :UPDATE reservations thành approved (giữ tới pickup_at cộng 2 giờ);
+  else (Từ chối)
+    |Actor|
+    :Thủ thư nhập lý do từ chối;
+    |CSDL|
+    :UPDATE reservations thành rejected, mở khóa sách ngay;
+  endif
+  |Actor|
+  :Thủ thư quét mã QR sách (hoặc mã đặt trước, hoặc nhập mã thủ công) và cho mượn tại quầy (UC04);
+  :Thủ thư quét mã QR nhận sách trả: tính tiền phạt trễ (D6, D7);
+  |CSDL|
+  :UPDATE loans (returned_at, fine_amount) (UC05);
+  |Actor|
+  :Thủ thư mở Quá hạn: liệt kê phiếu quá hạn, tự động gửi thông báo quá hạn cho độc giả (UC06 và UC13);
+  :Thủ thư mở Thống kê: xem số liệu và biểu đồ, xuất Excel (2 sheet) hoặc in và lưu PDF (UC07 và UC14);
+  :Thủ thư quản lý độc giả (UC03): thêm (mật khẩu mặc định), sửa, khóa;
+elseif (Admin) then
+  |Actor|
+  :Admin quản lý tài khoản thủ thư: thêm, khóa, đặt lại mật khẩu (UC10);
+  :Admin cấu hình hệ thống: sửa số ngày mượn, tiền phạt mỗi ngày, số sách tối đa, số giờ giữ đặt trước (UC09, chỉ áp dụng cho phiếu mới);
+  :Admin xem thống kê, tạo thông báo chung (UC13);
+endif
+|Hệ thống|
+stop
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-14-uc01-activity-login">Prompt 14 — UC01 Activity: Login</h2>
-<pre><code>Draw an activity diagram for use case &quot;UC01 — Đăng nhập&quot; (login only, registration is the separate use case UC19) of the mini library management system.
+<pre><code>Draw an activity diagram for use case &quot;UC01 — Đăng nhập&quot; (login only, registration is the separate use case UC19) of the university library management system.
 
 Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
 - Actor: user actions (clicking buttons, entering data, scanning QR codes).
@@ -637,9 +708,43 @@ Activity flow:
   - reader branch: [Giao diện] navigate to the &quot;Sách của tôi&quot; page.
 - End point.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml prompt_14
+|Actor|
+start
+:Người dùng mở trang đăng nhập;
+:Nhập tên đăng nhập và mật khẩu, bấm Đăng nhập;
+|Hệ thống|
+if (Tên đăng nhập và mật khẩu đúng?) then (không)
+  |Giao diện|
+  :Hiển thị thông báo Sai tên đăng nhập hoặc mật khẩu;
+  stop
+else (có)
+endif
+if (Tài khoản đang hoạt động (active bằng 1)?) then (không)
+  |Giao diện|
+  :Hiển thị thông báo Tài khoản đã bị khóa;
+  stop
+else (có)
+endif
+|Hệ thống|
+:Tạo JWT (hết hạn sau 8 giờ);
+if (Vai trò của tài khoản là gì?) then (admin)
+  |Giao diện|
+  :Chuyển tới trang admin;
+elseif (librarian) then
+  |Giao diện|
+  :Chuyển tới Dashboard thủ thư;
+elseif (reader) then
+  |Giao diện|
+  :Chuyển tới trang Sách của tôi;
+endif
+stop
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-17-uc02-activity-book-management-incl-uc15-extension">Prompt 17 — UC02 Activity: Book Management (incl. UC15 extension)</h2>
-<pre><code>Draw an activity diagram for use case &quot;UC02 — Quản lý sách&quot; and &quot;UC15 — Quản lý sách mở rộng&quot; of the mini library management system.
+<pre><code>Draw an activity diagram for use case &quot;UC02 — Quản lý sách&quot; and &quot;UC15 — Quản lý sách mở rộng&quot; of the university library management system.
 
 Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
 - Actor: user actions (clicking buttons, entering data, scanning QR codes).
@@ -667,9 +772,76 @@ Activity flow:
   - Branch &quot;Search/Filter/Sort&quot;: [Actor] enter a keyword / select a status (Còn/Đang mượn/Đang giữ chỗ) / publisher / publish year / sort order on the form.
     - [Hệ thống] query the CSDL with the conditions; [Giao diện] display the result list, go to the end point.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml prompt_17
+|Actor|
+start
+:Thủ thư mở trang Quản lý sách;
+if (Chọn hành động nào?) then (Thêm sách)
+  :Nhập tiêu đề (bắt buộc), tác giả, thể loại (chọn từ dropdown), nhà xuất bản, năm xuất bản, số bản (1-50) vào form;
+  |Hệ thống|
+  if (Có tiêu đề?) then (không)
+    |Giao diện|
+    :Hiển thị thông báo Tiêu đề không được để trống;
+    stop
+  else (có)
+  endif
+  |Hệ thống|
+  :Sinh book_code theo D14 (dạng MA_TL-seq 4 chữ số, ví dụ VH-0001; qr_code bằng book_code);
+  |CSDL|
+  :INSERT bảng books (1 dòng mỗi bản, status bằng available);
+  |Giao diện|
+  :Hiển thị mã QR để tải hoặc in và báo Đã tạo N bản;
+elseif (Sửa sách) then
+  :Chọn một cuốn sách, sửa thông tin (qr_code và book_code không được đổi); có thể tải ảnh bìa mới (JPEG, PNG, WebP tối đa 2MB, file cũ tự xóa);
+  |Hệ thống|
+  if (Dữ liệu hợp lệ?) then (không)
+    |Giao diện|
+    :Hiển thị lỗi;
+  else (có)
+    |CSDL|
+    :UPDATE bảng books;
+    |Giao diện|
+    :Báo thành công;
+  endif
+elseif (Xóa sách) then
+  |Hệ thống|
+  if (Sách đang ở trạng thái Còn (available)?) then (không)
+    |Giao diện|
+    :Hiển thị thông báo Không thể xóa sách đang được mượn;
+    stop
+  else (có)
+  endif
+  |CSDL|
+  :DELETE bảng books;
+  |Giao diện|
+  :Báo thành công;
+elseif (Nhập Excel (UC15)) then
+  :Tải file mẫu, chọn file .xlsx (tối đa 5MB);
+  |Hệ thống|
+  if (File hợp lệ?) then (không)
+    |Giao diện|
+    :Hiển thị lỗi;
+  else (có)
+    :Kiểm tra từng dòng;
+    |CSDL|
+    :INSERT các dòng hợp lệ;
+    |Giao diện|
+    :Báo Tạo thành công X cuốn kèm danh sách dòng lỗi và lý do;
+  endif
+elseif (Tìm kiếm, lọc, sắp xếp) then
+  :Nhập từ khóa, chọn trạng thái (Còn, Đang mượn, Đang giữ chỗ), nhà xuất bản, năm xuất bản, thứ tự sắp xếp trên form;
+  |Hệ thống|
+  :Truy vấn CSDL theo điều kiện;
+  |Giao diện|
+  :Hiển thị danh sách kết quả;
+endif
+stop
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-20-uc03-activity-reader-management">Prompt 20 — UC03 Activity: Reader Management</h2>
-<pre><code>Draw an activity diagram for use case &quot;UC03 — Quản lý độc giả&quot; of the mini library management system.
+<pre><code>Draw an activity diagram for use case &quot;UC03 — Quản lý độc giả&quot; of the university library management system.
 
 Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
 - Actor: user actions (clicking buttons, entering data, scanning QR codes).
@@ -692,9 +864,51 @@ Activity flow:
       - Branch Yes: [Giao diện] show &quot;Độc giả còn N cuốn chưa trả, không thể xóa&quot;, go to the end point.
       - Branch No: [CSDL] DELETE table users; [Giao diện] report success, go to the end point.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml prompt_20
+|Actor|
+start
+:Thủ thư mở trang Quản lý độc giả;
+if (Chọn hành động nào?) then (Thêm độc giả)
+  :Nhập họ tên (bắt buộc), mã sinh viên, số điện thoại, tên đăng nhập (bắt buộc) vào form;
+  |Hệ thống|
+  if (Tên đăng nhập đã tồn tại trong CSDL?) then (có)
+    |Giao diện|
+    :Hiển thị thông báo Tên đăng nhập đã được sử dụng;
+    stop
+  else (không)
+  endif
+  |Hệ thống|
+  :Hash mật khẩu mặc định 123456 bằng bcrypt;
+  |CSDL|
+  :INSERT bảng users (role bằng reader, active bằng 1);
+  |Giao diện|
+  :Báo thành công kèm mật khẩu mặc định để thủ thư đưa cho độc giả;
+elseif (Sửa độc giả) then
+  :Chọn một độc giả, sửa họ tên, mã sinh viên, số điện thoại (tên đăng nhập không đổi);
+  |CSDL|
+  :UPDATE bảng users;
+  |Giao diện|
+  :Báo thành công;
+elseif (Xóa độc giả) then
+  |Hệ thống|
+  if (Độc giả còn phiếu chưa trả (loans.status bằng borrowing)?) then (có)
+    |Giao diện|
+    :Hiển thị thông báo Độc giả còn N cuốn chưa trả, không thể xóa;
+    stop
+  else (không)
+  endif
+  |CSDL|
+  :DELETE bảng users;
+  |Giao diện|
+  :Báo thành công;
+endif
+stop
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-23-uc04-activity-borrow-book">Prompt 23 — UC04 Activity: Borrow Book</h2>
-<pre><code>Draw an activity diagram for use case &quot;UC04 — Mượn sách&quot; of the mini library management system.
+<pre><code>Draw an activity diagram for use case &quot;UC04 — Mượn sách&quot; of the university library management system.
 
 Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
 - Actor: user actions (clicking buttons, entering data, scanning QR codes).
@@ -732,9 +946,68 @@ Activity flow:
 - [Giao diện] Show a borrow-success message with the due date (format dd/mm/yyyy hh:mm).
 - End point.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml prompt_23
+|Actor|
+start
+:Thủ thư bấm Mượn sách;
+:Quét mã QR trên sách bằng camera, hoặc nhập mã thủ công vào ô Nhập mã sách thủ công (có nút dán từ clipboard) rồi bấm Tìm;
+|Hệ thống|
+if (Mã là mã đặt trước còn hiệu lực (reservations.code)?) then (có)
+  |Giao diện|
+  :Hiển thị thẻ đặt trước (sách, độc giả, lịch hẹn); độc giả được cố định theo đặt trước;
+else (không)
+  :Tra cứu sách theo qr_code hoặc book_code;
+  if (Sách tồn tại?) then (không)
+    |Giao diện|
+    :Hiển thị thông báo Không tìm thấy sách;
+    stop
+  else (có)
+  endif
+  if (Sách đang ở trạng thái Còn (available)?) then (không)
+    |Giao diện|
+    :Hiển thị thông báo Sách đang được mượn bởi tên độc giả;
+    stop
+  else (có)
+  endif
+  |Actor|
+  :Thủ thư tìm và chọn độc giả mượn (danh sách có sẵn, mặc định sắp xếp theo lần mượn gần nhất);
+  |Hệ thống|
+  if (Độc giả tồn tại và tài khoản đang hoạt động (active bằng 1)?) then (không)
+    |Giao diện|
+    :Hiển thị lỗi tương ứng (Không tìm thấy độc giả hoặc Tài khoản độc giả đã bị khóa);
+    stop
+  else (có)
+  endif
+  if (Độc giả đang mượn dưới giới hạn tối đa (max_books_per_reader trong settings, mặc định 5)?) then (không)
+    |Giao diện|
+    :Hiển thị thông báo Độc giả đã mượn tối đa N cuốn;
+    stop
+  else (có)
+  endif
+endif
+if (Sách có đặt trước đang hoạt động? (D13)) then (có, của độc giả khác)
+  |Giao diện|
+  :Hiển thị thông báo Sách đã được tên độc giả đặt trước;
+  stop
+else (không, hoặc của chính độc giả này)
+endif
+|Actor|
+:Bấm Xác nhận mượn (hoặc Cho mượn trong luồng mã đặt trước);
+|Hệ thống|
+:Tạo phiếu mượn trong 1 transaction: borrowed_at bằng thời điểm hiện tại, due_at bằng borrowed_at cộng loan_days (từ settings, mặc định 14 ngày);
+|CSDL|
+:INSERT bảng loans, UPDATE bảng books SET status bằng borrowed; nếu có đặt trước của đúng độc giả này thì UPDATE bảng reservations SET status bằng fulfilled (tất cả thành công hoặc tất cả rollback);
+|Hệ thống|
+:Gửi thông báo nhắc hạn trả cho độc giả (UC13);
+|Giao diện|
+:Hiển thị thông báo mượn thành công kèm hạn trả (định dạng dd/mm/yyyy hh:mm);
+stop
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-26-uc05-activity-return-book">Prompt 26 — UC05 Activity: Return Book</h2>
-<pre><code>Draw an activity diagram for use case &quot;UC05 — Trả sách&quot; of the mini library management system.
+<pre><code>Draw an activity diagram for use case &quot;UC05 — Trả sách&quot; of the university library management system.
 
 Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
 - Actor: user actions (clicking buttons, entering data, scanning QR codes).
@@ -761,9 +1034,45 @@ Activity flow:
 - [Giao diện] Show the return-success message (+ the fine amount if any).
 - End point.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml prompt_26
+|Actor|
+start
+:Thủ thư bấm Trả sách;
+:Quét mã QR trên sách bằng camera;
+|Hệ thống|
+:Tìm phiếu mượn đang mở (status bằng borrowing) của cuốn sách trong CSDL;
+if (Có phiếu mượn đang mở?) then (không)
+  |Giao diện|
+  :Hiển thị thông báo Sách này không trong trạng thái cho mượn;
+  stop
+else (có)
+endif
+:Tính số ngày quá hạn bằng CEIL((ngày hiện tại trừ hạn trả) / 86400) (D6); trả đúng hạn hoặc sớm thì bằng 0;
+if (Số ngày quá hạn lớn hơn 0?) then (có)
+  :Tiền phạt bằng số ngày quá hạn nhân mức phạt hiện tại (D7);
+  |Giao diện|
+  :Hiển thị tiền phạt cho thủ thư;
+else (không)
+  |Hệ thống|
+  :Tiền phạt bằng 0;
+endif
+|Giao diện|
+:Hiển thị form xác nhận: tên sách, độc giả, ngày mượn, hạn trả, tiền phạt;
+|Actor|
+:Bấm Xác nhận trả;
+|Hệ thống|
+:Trong 1 transaction;
+|CSDL|
+:UPDATE bảng loans SET returned_at bằng NOW(), fine_amount bằng tiền phạt, status bằng returned; UPDATE bảng books SET status bằng available;
+|Giao diện|
+:Hiển thị thông báo trả thành công (kèm tiền phạt nếu có);
+stop
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-29-uc06-activity-overdue-list">Prompt 29 — UC06 Activity: Overdue List</h2>
-<pre><code>Draw an activity diagram for use case &quot;UC06 — Xem danh sách quá hạn&quot; of the mini library management system.
+<pre><code>Draw an activity diagram for use case &quot;UC06 — Xem danh sách quá hạn&quot; of the university library management system.
 
 Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
 - Actor: user actions (clicking buttons, entering data, scanning QR codes).
@@ -783,9 +1092,28 @@ Activity flow:
 - [Giao diện] Display the list with book title, reader, phone, due date, overdue days, estimated fine; sort by overdue days descending; supports sorting by due date.
 - End point.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml prompt_29
+|Actor|
+start
+:Thủ thư mở trang Quá hạn;
+|Hệ thống|
+:Truy vấn CSDL: các phiếu đang mở (status bằng borrowing) mà hạn trả đã qua;
+if (Có phiếu quá hạn?) then (không)
+  |Giao diện|
+  :Hiển thị thông báo Không có phiếu quá hạn;
+  stop
+else (có)
+endif
+:Với mỗi phiếu: tính số ngày quá hạn (D6) và tiền phạt ước tính bằng số ngày quá hạn nhân mức phạt hiện tại (D7, không lưu vào DB); với phiếu chưa từng thông báo (overdue_notified bằng 0): gửi thông báo quá hạn cho độc giả (UC13) và đánh dấu đã thông báo trong CSDL;
+|Giao diện|
+:Hiển thị danh sách gồm tên sách, độc giả, số điện thoại, hạn trả, số ngày quá hạn, tiền phạt ước tính; sắp xếp theo số ngày quá hạn giảm dần; hỗ trợ sắp xếp theo hạn trả;
+stop
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-32-uc07-activity-statistics-incl-uc14-report-export">Prompt 32 — UC07 Activity: Statistics (incl. UC14 report export)</h2>
-<pre><code>Draw an activity diagram for use case &quot;UC07 — Thống kê&quot; and &quot;UC14 — Xuất báo cáo Excel / In PDF&quot; of the mini library management system.
+<pre><code>Draw an activity diagram for use case &quot;UC07 — Thống kê&quot; and &quot;UC14 — Xuất báo cáo Excel / In PDF&quot; of the university library management system.
 
 Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
 - Actor: user actions (clicking buttons, entering data, scanning QR codes).
@@ -807,9 +1135,41 @@ Activity flow:
   - Branch &quot;In / Lưu PDF&quot; (UC14): [Actor] click the button; [Giao diện] call window.print(); the @media print CSS prints only the report block (hides sidebar, topbar, buttons, filters); [Actor] choose a printer or &quot;Save as PDF&quot;, go to the end point.
   - Branch &quot;No&quot;: go to the end point.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml prompt_32
+|Actor|
+start
+:Người dùng mở trang Thống kê;
+|Hệ thống|
+:Đếm trong CSDL: tổng số sách, số sách đang mượn, số phiếu quá hạn (tính động), tổng số độc giả;
+|Giao diện|
+:Hiển thị 4 thẻ thống kê tổng quan;
+|Hệ thống|
+:Đếm lượt mượn theo từng cuốn sách trong CSDL, lấy top 5;
+|Giao diện|
+:Hiển thị biểu đồ cột top 5 sách mượn nhiều nhất;
+:Hiển thị bảng lịch sử mượn trả;
+|Actor|
+:Người dùng lọc theo độc giả, trạng thái, khoảng ngày và sắp xếp theo ngày mượn mới nhất hoặc cũ nhất trên form;
+if (Xuất báo cáo?) then (Xuất Excel (UC14))
+  |Hệ thống|
+  :Sinh file .xlsx (tên file chứa ngày giờ) với 2 sheet Muon tra (chi tiết phiếu khớp bộ lọc hiện tại) và Tong quan (số liệu tổng hợp);
+  |Giao diện|
+  :Tải file về máy;
+elseif (In / Lưu PDF (UC14)) then
+  :Bấm nút in;
+  |Giao diện|
+  :Gọi window.print(); CSS in ấn chỉ in khối báo cáo (ẩn sidebar, topbar, nút, bộ lọc);
+  |Actor|
+  :Chọn máy in hoặc Lưu dưới dạng PDF;
+else (Không)
+endif
+stop
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-35-uc08-activity-my-books">Prompt 35 — UC08 Activity: My Books</h2>
-<pre><code>Draw an activity diagram for use case &quot;UC08 — Xem sách của tôi&quot; of the mini library management system.
+<pre><code>Draw an activity diagram for use case &quot;UC08 — Xem sách của tôi&quot; of the university library management system.
 
 Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
 - Actor: user actions (clicking buttons, entering data, scanning QR codes).
@@ -827,9 +1187,33 @@ Activity flow:
   - Branch &quot;Lịch sử&quot;: [Hệ thống] query the CSDL for returned loans; [Giao diện] show book title, return date and fine per loan.
 - End point.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml prompt_35
+|Actor|
+start
+:Độc giả mở trang Sách của tôi;
+if (Chọn tab nào?) then (Đang mượn)
+  |Hệ thống|
+  :Truy vấn CSDL các phiếu đang mượn của độc giả;
+  |Giao diện|
+  :Hiển thị tên sách, ngày mượn, hạn trả; gắn nhãn Sắp hết hạn nếu còn tối đa 2 ngày, nhãn Quá hạn nếu đã quá hạn (tính động);
+elseif (Đặt trước) then
+  |Hệ thống|
+  :Truy vấn CSDL các đặt trước của độc giả;
+  |Giao diện|
+  :Hiển thị huy hiệu trạng thái (Chờ duyệt vàng, Đã duyệt xanh, Từ chối đỏ, Hết hạn xám), lịch hẹn khi đã duyệt, thời gian giữ còn lại; đặt trước đã duyệt hiển thị mã QR và mã chữ để đưa thủ thư tại quầy; nút Hủy chỉ xuất hiện khi còn pending;
+elseif (Lịch sử) then
+  |Hệ thống|
+  :Truy vấn CSDL các phiếu đã trả;
+  |Giao diện|
+  :Hiển thị tên sách, ngày trả và tiền phạt của từng phiếu;
+endif
+stop
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-38-uc09-activity-system-configuration">Prompt 38 — UC09 Activity: System Configuration</h2>
-<pre><code>Draw an activity diagram for use case &quot;UC09 — Cấu hình hệ thống&quot; of the mini library management system.
+<pre><code>Draw an activity diagram for use case &quot;UC09 — Cấu hình hệ thống&quot; of the university library management system.
 
 Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
 - Actor: user actions (clicking buttons, entering data, scanning QR codes).
@@ -851,9 +1235,34 @@ Activity flow:
 - [Giao diện] Show the save-success message.
 - End point.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml prompt_38
+|Actor|
+start
+:Admin mở trang Cài đặt;
+|Giao diện|
+:Hiển thị form với các tham số hiện tại: số ngày mượn, tiền phạt mỗi ngày, số sách tối đa mỗi độc giả, số giờ giữ đặt trước;
+|Actor|
+:Sửa các tham số trên form, bấm Lưu;
+|Hệ thống|
+if (Tất cả giá trị đều là số nguyên dương?) then (không)
+  |Giao diện|
+  :Hiển thị thông báo Giá trị phải là số nguyên dương, không lưu;
+  stop
+else (có)
+endif
+|CSDL|
+:UPDATE bảng settings (id bằng 1);
+|Hệ thống|
+:Các phiếu tạo sau thời điểm này dùng tham số mới; phiếu cũ giữ nguyên hạn trả và mức phạt (D10);
+|Giao diện|
+:Hiển thị thông báo lưu thành công;
+stop
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-41-uc10-activity-librarian-account-management">Prompt 41 — UC10 Activity: Librarian Account Management</h2>
-<pre><code>Draw an activity diagram for use case &quot;UC10 — Quản lý tài khoản thủ thư&quot; of the mini library management system.
+<pre><code>Draw an activity diagram for use case &quot;UC10 — Quản lý tài khoản thủ thư&quot; of the university library management system.
 
 Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
 - Actor: user actions (clicking buttons, entering data, scanning QR codes).
@@ -876,9 +1285,54 @@ Activity flow:
   - Branch &quot;Reset password&quot;: [Hệ thống] generate a new policy-compliant password, hash with bcrypt; [CSDL] UPDATE table users; [Giao diện] show the new password to the Admin (the Admin forwards it to the librarian).
 - End point.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml prompt_41
+|Actor|
+start
+:Admin mở trang Quản lý tài khoản;
+|Hệ thống|
+:Truy vấn CSDL;
+|Giao diện|
+:Hiển thị danh sách tài khoản thủ thư (tên, tên đăng nhập, trạng thái hoạt động), kèm ô tìm kiếm và sắp xếp;
+|Actor|
+if (Chọn hành động nào?) then (Thêm)
+  |Giao diện|
+  :Hiển thị form (họ tên, tên đăng nhập, mật khẩu, vai trò);
+  repeat
+    |Actor|
+    :Nhập và bấm Lưu;
+    |Hệ thống|
+    :Kiểm tra dữ liệu (tên đăng nhập chưa có trong CSDL; mật khẩu đúng chính sách: ít nhất 8 ký tự, 1 chữ hoa, 1 chữ thường, 1 chữ số hoặc ký tự đặc biệt);
+    if (Dữ liệu hợp lệ?) then (không)
+      |Giao diện|
+      :Hiển thị lỗi tương ứng;
+    endif
+  repeat while (Dữ liệu hợp lệ?) is (không)
+  |Hệ thống|
+  :Hash mật khẩu bằng bcrypt;
+  |CSDL|
+  :INSERT bảng users (role bằng librarian, active bằng 1);
+  |Giao diện|
+  :Hiển thị thông báo Thêm thành công;
+elseif (Khóa hoặc Mở khóa) then
+  |CSDL|
+  :UPDATE bảng users SET active;
+  |Giao diện|
+  :Hiển thị xác nhận. Tài khoản bị khóa không thể đăng nhập (UC01 chặn ở bước kiểm tra active);
+elseif (Đặt lại mật khẩu) then
+  |Hệ thống|
+  :Sinh mật khẩu mới đúng chính sách, hash bằng bcrypt;
+  |CSDL|
+  :UPDATE bảng users;
+  |Giao diện|
+  :Hiển thị mật khẩu mới cho Admin (Admin chuyển cho thủ thư);
+endif
+stop
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-44-uc11-activity-reserve-book-new-flow-with-approval">Prompt 44 — UC11 Activity: Reserve Book (NEW FLOW WITH APPROVAL)</h2>
-<pre><code>Draw an activity diagram for use case &quot;UC11 — Đặt trước sách&quot; (new flow with librarian approval) of the mini library management system.
+<pre><code>Draw an activity diagram for use case &quot;UC11 — Đặt trước sách&quot; (new flow with librarian approval) of the university library management system.
 
 Mandatory requirement: use exactly 4 swimlanes: Actor (Độc giả / Thủ thư) | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
 - Actor: user actions (clicking buttons, entering data, scanning QR codes).
@@ -914,9 +1368,40 @@ Automatic system flow (no actor needed):
 - [Hệ thống] 'approved' reservations past pickup_at + 2 hours with the reader not yet arrived → [CSDL] UPDATE to 'expired', unlock the book.
 - [Hệ thống] Reader scans the reservation QR code at the counter and is lent the book (UC04) → [CSDL] UPDATE to 'fulfilled'.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml prompt_44
+start
+fork
+  :Độc giả mở trang chi tiết của sách đang ở trạng thái Còn;
+  :Độc giả nhập thời gian nhận mong muốn (tùy chọn) vào form và bấm Đặt trước;
+  :Kiểm tra trong CSDL sách còn trống và chưa có đặt trước đang hoạt động; nếu không thỏa: hiển thị Sách hiện không khả dụng hoặc Cuốn này đang được giữ chỗ, kết thúc nhánh này;
+  :Sinh code ngẫu nhiên 8 ký tự;
+  :INSERT bảng reservations (status bằng pending, expires_at bằng thời gian đặt cộng reservation_hours, mặc định 48 giờ);
+  :Khóa đúng bản sách đó (các bản khác cùng tên vẫn mượn bình thường) và gửi thông báo cho thủ thư (UC13);
+  :Hiển thị thông báo Đặt trước thành công, đang chờ thủ thư duyệt;
+fork again
+  :Thủ thư mở trang Quản lý đặt trước (hiển thị huy hiệu số pending);
+  :Hiển thị danh sách đặt trước đang chờ duyệt;
+  if (Chọn?) then (Duyệt)
+    :Thủ thư xác nhận lịch hẹn nhận (pickup_at) trên form;
+    :UPDATE bảng reservations SET status bằng approved, pickup_at, reviewed_by, reviewed_at; giữ tới pickup_at cộng 2 giờ;
+    :Gửi thông báo cho độc giả kèm mã QR nhận sách (UC13);
+  else (Từ chối)
+    :Thủ thư nhập lý do (tùy chọn);
+    :UPDATE bảng reservations SET status bằng rejected, reject_reason, reviewed_by, reviewed_at; mở khóa sách ngay;
+    :Gửi thông báo cho độc giả kèm lý do (UC13);
+  endif
+fork again
+  :Đặt trước pending quá expires_at (48 giờ) chưa duyệt thì UPDATE thành expired, mở khóa sách;
+  :Đặt trước approved quá pickup_at cộng 2 giờ mà độc giả chưa tới thì UPDATE thành expired, mở khóa sách;
+  :Độc giả quét mã QR đặt trước tại quầy và được cho mượn (UC04) thì UPDATE thành fulfilled;
+end fork
+stop
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-47-uc12-activity-cancel-reservation-updated">Prompt 47 — UC12 Activity: Cancel Reservation (UPDATED)</h2>
-<pre><code>Draw an activity diagram for use case &quot;UC12 — Hủy đặt trước&quot; (updated for the new approval flow) of the mini library management system.
+<pre><code>Draw an activity diagram for use case &quot;UC12 — Hủy đặt trước&quot; (updated for the new approval flow) of the university library management system.
 
 Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
 - Actor: user actions (clicking buttons, entering data, scanning QR codes).
@@ -940,9 +1425,43 @@ Activity flow:
 
 Additional note in the diagram (as a note): 'pending' reservations past 48 hours not yet reviewed, and 'approved' reservations past the appointment + 2 hours, automatically become 'expired' (lazy, no background process needed); the reader needs no action.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml prompt_47
+|Actor|
+start
+:Độc giả mở tab Đặt trước trên trang Sách của tôi;
+|Hệ thống|
+:Truy vấn CSDL;
+|Giao diện|
+:Hiển thị danh sách đặt trước của độc giả kèm trạng thái (Chờ duyệt, Đã duyệt, Từ chối, Hết hạn) và lịch hẹn nếu có;
+|Hệ thống|
+if (Đặt trước đang ở trạng thái pending?) then (không)
+  |Giao diện|
+  :Ẩn nút Hủy;
+  stop
+else (có)
+endif
+|Actor|
+:Bấm Hủy;
+|Giao diện|
+:Hiển thị hộp thoại xác nhận;
+|Actor|
+if (Xác nhận?) then (không)
+  stop
+else (có)
+endif
+|CSDL|
+:UPDATE bảng reservations SET status bằng cancelled (mở khóa sách ngay);
+|Hệ thống|
+:Gửi thông báo cho thủ thư (UC13);
+|Giao diện|
+:Báo hủy thành công;
+stop
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-49-uc13-activity-notification-system">Prompt 49 — UC13 Activity: Notification System</h2>
-<pre><code>Draw an activity diagram for use case &quot;UC13 — Hệ thống thông báo&quot; of the mini library management system.
+<pre><code>Draw an activity diagram for use case &quot;UC13 — Hệ thống thông báo&quot; of the university library management system.
 
 Mandatory requirement: use exactly 4 swimlanes: Actor (Admin / Thủ thư / Độc giả) | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
 - Actor: user actions (clicking buttons, entering data, scanning QR codes).
@@ -973,10 +1492,77 @@ Reading flow (Độc giả/Thủ thư/Admin):
 - [CSDL] INSERT/UPDATE table notification_reads; [Giao diện] the unread count on the bell decreases accordingly.
 - End point.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml prompt_49
+start
+fork
+  :Admin hoặc Thủ thư mở trang Thông báo và bấm Tạo thông báo;
+  :Nhập tiêu đề, nội dung, chọn đối tượng (tất cả, tất cả độc giả, tất cả thủ thư, một độc giả), chọn loại (đặt trước, mượn-trả, quá hạn, chung, hệ thống), chọn có hiển thị trên trang chủ hay không;
+  :INSERT bảng notifications (trạng thái đã đọc lưu riêng ở bảng notification_reads);
+  :Cập nhật số chưa đọc trên biểu tượng chuông của người nhận;
+fork again
+  :Sự kiện tạo đặt trước mới thì INSERT thông báo loại đặt trước (vàng) gửi tất cả thủ thư;
+  :Sự kiện thủ thư duyệt hoặc từ chối đặt trước thì INSERT thông báo gửi đúng độc giả đó (kèm lịch hẹn hoặc lý do);
+  :Sự kiện tạo phiếu mượn thì INSERT thông báo loại mượn-trả (xanh) nhắc độc giả hạn trả;
+  :Sự kiện mở trang Quá hạn: với mỗi phiếu quá hạn có overdue_notified bằng 0 thì INSERT thông báo loại quá hạn (đỏ) gửi độc giả, rồi UPDATE overdue_notified bằng 1 (mỗi phiếu chỉ thông báo 1 lần);
+fork again
+  :Người dùng bấm biểu tượng chuông (hiển thị số chưa đọc, tự làm mới mỗi 5 giây);
+  :Mở trang Thông báo, hiển thị danh sách tô màu theo loại;
+  :Bấm Đánh dấu đã đọc từng thông báo hoặc Đánh dấu tất cả đã đọc;
+  :INSERT hoặc UPDATE bảng notification_reads;
+  :Số chưa đọc trên chuông giảm tương ứng;
+end fork
+stop
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-uc16-b-activity-diagram-uc16">Prompt UC16-B — Activity Diagram: UC16</h2>
 <pre><code>Draw an activity diagram for use case &quot;UC16 AI book search by description&quot;:
 Start -&gt; User selects &quot;Search by description (AI)&quot; mode on the landing page -&gt; Enter content description -&gt; Click &quot;Search with AI&quot; -&gt; System validates length (3-600 chars) [invalid -&gt; show error, back to Enter] -&gt; System checks rate limit [exceeded -&gt; show 429 message, end] -&gt; Load distinct titles catalog -&gt; Decision: Gemini API key configured and service responds within 15s? [yes -&gt; Send catalog + description to Gemini -&gt; Parse JSON result -&gt; Filter out ids not in catalog -&gt; Rank by score desc, max 8] [no/error -&gt; Keyword fallback scoring (diacritics-free tokens, weights title 3 / author 2 / category 2)] -&gt; Decision: any result? [yes -&gt; Display book grid with match % badge and reason] [no -&gt; Display empty state suggesting a clearer description] -&gt; End.
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml prompt_uc16_b
+|Actor|
+start
+:Người dùng chọn chế độ Tìm theo mô tả (AI) trên trang chủ;
+repeat
+  :Nhập mô tả nội dung;
+  :Bấm Tìm bằng AI;
+  |Hệ thống|
+  :Kiểm tra độ dài mô tả (3-600 ký tự);
+  if (Độ dài hợp lệ?) then (không)
+    |Giao diện|
+    :Hiển thị lỗi;
+  endif
+repeat while (Độ dài hợp lệ?) is (không)
+|Hệ thống|
+:Kiểm tra giới hạn tần suất;
+if (Vượt giới hạn?) then (có)
+  |Giao diện|
+  :Hiển thị thông báo 429;
+  stop
+else (không)
+endif
+|CSDL|
+:Tải danh mục các tiêu đề khác nhau;
+|Hệ thống|
+if (Đã cấu hình key Gemini và dịch vụ phản hồi trong 15 giây?) then (có)
+  :Gửi catalog và mô tả tới Gemini;
+  :Phân tích kết quả JSON;
+  :Lọc bỏ id không có trong catalog;
+  :Xếp hạng theo điểm giảm dần, tối đa 8;
+else (không hoặc lỗi)
+  :Chấm điểm từ khóa dự phòng (token bỏ dấu, trọng số tiêu đề 3, tác giả 2, thể loại 2);
+endif
+if (Có kết quả?) then (có)
+  |Giao diện|
+  :Hiển thị lưới sách kèm huy hiệu phần trăm khớp và lý do;
+else (không)
+  |Giao diện|
+  :Hiển thị trạng thái trống gợi ý mô tả rõ hơn;
+endif
+stop
+@enduml
 </code></pre>
 <h2 id="prompt-uc17-b-activity-diagram-uc17-nhac-han-qua-email">Prompt UC17-B — Activity Diagram: UC17 nhắc hạn qua email</h2>
 <pre><code>Draw an activity diagram for use case &quot;UC17 Due-date reminder email&quot; with 4 swimlanes (Scheduler, ReminderService, Resend API, Database):
@@ -986,8 +1572,37 @@ Start -&gt; User selects &quot;Search by description (AI)&quot; mode on the land
 4. ReminderService sends the email via Resend API.
 5. On success, ReminderService writes a log row into email_reminders (prevents duplicates). On failure, it logs the error and continues with the next loan.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml prompt_uc17_b
+|Scheduler|
+start
+:Kích hoạt quét lúc khởi động và mỗi 6 giờ;
+|ReminderService|
+:Tải tất cả phiếu đang mượn có email độc giả;
+|Database|
+:Truy vấn phiếu đang mượn kèm email độc giả;
+|ReminderService|
+if (Từng phiếu: hạn trong 48 giờ và chưa từng nhắc?) then (đúng)
+  :Soạn email sắp hết hạn;
+elseif (Quá hạn và (chưa từng nhắc hoặc lần nhắc cuối từ 3 ngày trở lên)?) then (đúng)
+  :Soạn email quá hạn kèm ước tính tiền phạt;
+else (không thuộc 2 trường hợp trên)
+  :Bỏ qua phiếu này;
+endif
+|Resend API|
+:Gửi email qua Resend API;
+|ReminderService|
+if (Gửi thành công?) then (có)
+  |Database|
+  :Ghi dòng log vào bảng email_reminders (chống gửi trùng);
+else (không)
+  :Ghi log lỗi và tiếp tục với phiếu tiếp theo;
+endif
+stop
+@enduml
+</code></pre>
 <h2 id="prompt-uc18-activity-diagram-uc18-quen-mat-khau">Prompt UC18 Activity Diagram: UC18 quên mật khẩu</h2>
-<pre><code>Draw an activity diagram for use case &quot;UC18 — Quên mật khẩu qua email&quot; of the mini library management system.
+<pre><code>Draw an activity diagram for use case &quot;UC18 — Quên mật khẩu qua email&quot; of the university library management system.
 
 Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
 - Actor: user actions (clicking buttons, entering data, scanning QR codes).
@@ -1011,9 +1626,45 @@ Activity flow:
   - Branch Yes: [CSDL] UPDATE table users SET password_hash (bcrypt), UPDATE table email_tokens SET used_at = now; [Giao diện] report that the password was reset successfully.
 - End point.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml prompt_uc18_activity
+|Actor|
+start
+:Người dùng mở trang Quên mật khẩu;
+:Nhập email tài khoản và gửi;
+|Giao diện|
+:Hiển thị cùng một thông báo chung ngay lập tức (không tiết lộ email có tồn tại hay không);
+|Hệ thống|
+:Tra cứu tài khoản theo email trong CSDL;
+if (Có tài khoản đang hoạt động với email đó?) then (không)
+  stop
+else (có)
+endif
+|Hệ thống|
+:Sinh token ngẫu nhiên, vô hiệu hóa token đặt lại cũ của người dùng này;
+|CSDL|
+:INSERT bảng email_tokens (purpose bằng reset_password, token_hash bằng SHA-256, expires_at bằng thời điểm hiện tại cộng 30 phút, used_at bằng NULL);
+|Hệ thống|
+:Gửi link đặt lại qua Resend;
+|Actor|
+:Mở link và nhập mật khẩu mới;
+|Hệ thống|
+if (Token hợp lệ?) then (không)
+  |Giao diện|
+  :Hiển thị thông báo link không hợp lệ hoặc đã hết hạn (400);
+  stop
+else (có)
+endif
+|CSDL|
+:UPDATE bảng users SET password_hash (bcrypt), UPDATE bảng email_tokens SET used_at bằng thời điểm hiện tại;
+|Giao diện|
+:Báo đặt lại mật khẩu thành công;
+stop
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-uc19-activity-diagram-uc19-dang-ky-va-xac-thuc-email">Prompt UC19 Activity Diagram: UC19 đăng ký và xác thực email</h2>
-<pre><code>Draw an activity diagram for use case &quot;UC19 — Đăng ký bằng email thật &amp; xác thực email&quot; of the mini library management system.
+<pre><code>Draw an activity diagram for use case &quot;UC19 — Đăng ký bằng email thật &amp; xác thực email&quot; of the university library management system.
 
 Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
 - Actor: user actions (clicking buttons, entering data, scanning QR codes).
@@ -1039,9 +1690,52 @@ Activity flow:
 - Alt flow (not verified yet): [Giao diện] the layout shows a reminder banner; [Actor] from the Profile page can change the email (resets to unverified and sends a new link) or resend the verification email (1 per minute).
 - End point.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml prompt_uc19_activity
+|Actor|
+start
+:Khách mở trang đăng ký;
+:Nhập họ tên, mã sinh viên, số điện thoại, tên đăng nhập, mật khẩu và email thật, rồi gửi;
+|Hệ thống|
+if (Định dạng email hợp lệ?) then (không)
+  |Giao diện|
+  :Hiển thị thông báo Vui lòng nhập địa chỉ email hợp lệ;
+  stop
+else (có)
+endif
+if (Email đã tồn tại trong CSDL?) then (có)
+  |Giao diện|
+  :Hiển thị lỗi trùng email (409);
+  stop
+else (không)
+endif
+|CSDL|
+:INSERT bảng users (role bằng reader, mật khẩu hash bằng bcrypt, email_verified bằng 0);
+|Hệ thống|
+:Tạo token xác thực (chỉ lưu hash SHA-256, hết hạn sau 24 giờ, dùng 1 lần) và gửi link xác thực qua Resend (gửi lỗi không làm đăng ký thất bại);
+|Giao diện|
+:Báo tạo tài khoản thành công và hiển thị banner nhắc;
+|Actor|
+:Bấm link trong email;
+|Giao diện|
+:Mở trang Xác thực email và gửi token;
+|Hệ thống|
+if (Token hợp lệ?) then (không)
+  |Giao diện|
+  :Hiển thị thông báo link không hợp lệ hoặc đã hết hạn;
+  stop
+else (có)
+endif
+|CSDL|
+:UPDATE bảng users SET email_verified bằng 1, UPDATE bảng email_tokens SET used_at bằng thời điểm hiện tại;
+|Giao diện|
+:Báo xác thực email thành công;
+stop
+@enduml
+</code></pre>
 <hr />
 <h2 id="sequence-diagram-17-prompt">Sequence Diagram (17 prompt)</h2><p>Các prompt vẽ sơ đồ Sequence Diagram, giữ nguyên thứ tự Prompt gốc.</p><h2 id="prompt-15-uc01-sequence-login">Prompt 15 — UC01 Sequence: Login</h2>
-<pre><code>Draw a sequence diagram for use case &quot;UC01 — Đăng nhập&quot; of the mini library management system.
+<pre><code>Draw a sequence diagram for use case &quot;UC01 — Đăng nhập&quot; of the university library management system.
 
 Mandatory requirements:
 - Exactly 5 lifelines in order from left to right; do NOT draw any extra lifeline.
@@ -1065,7 +1759,7 @@ Message flow:
 8. Giao diện navigates by role: admin → admin page, librarian → Dashboard, reader → &quot;Sách của tôi&quot;.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_15
 actor &quot;User&quot; as Actor
 participant &quot;LoginPage&quot; as GiaoDien
 participant &quot;Form đăng nhập&quot; as Form
@@ -1103,7 +1797,7 @@ end
 </code></pre>
 <hr />
 <h2 id="prompt-18-uc02-sequence-add-book-incl-uc15">Prompt 18 — UC02 Sequence: Add Book (incl. UC15)</h2>
-<pre><code>Draw a sequence diagram for the &quot;Add book&quot; function (UC02 + UC15) of the mini library management system.
+<pre><code>Draw a sequence diagram for the &quot;Add book&quot; function (UC02 + UC15) of the university library management system.
 
 Mandatory requirements:
 - Exactly 5 lifelines in order from left to right; do NOT draw any extra lifeline.
@@ -1126,7 +1820,7 @@ Message flow:
 7. The list of created Books is returned to Giao diện; Giao diện displays the QR codes (per book_code) for the librarian to download/print and reports &quot;Đã tạo N bản&quot;.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_18
 actor &quot;Thủ thư&quot; as Actor
 participant &quot;BookPage&quot; as GiaoDien
 participant &quot;Form thêm sách&quot; as Form
@@ -1152,7 +1846,7 @@ end
 </code></pre>
 <hr />
 <h2 id="prompt-21-uc03-sequence-add-reader">Prompt 21 — UC03 Sequence: Add Reader</h2>
-<pre><code>Draw a sequence diagram for the &quot;Add reader&quot; function (UC03) of the mini library management system.
+<pre><code>Draw a sequence diagram for the &quot;Add reader&quot; function (UC03) of the university library management system.
 
 Mandatory requirements:
 - Exactly 5 lifelines in order from left to right; do NOT draw any extra lifeline.
@@ -1175,7 +1869,7 @@ Message flow:
 7. The User object is returned to Giao diện; Giao diện shows a success message along with the default password for the librarian to hand to the reader.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_21
 actor &quot;Thủ thư&quot; as Actor
 participant &quot;ReaderPage&quot; as GiaoDien
 participant &quot;Form thêm độc giả&quot; as Form
@@ -1199,7 +1893,7 @@ end
 </code></pre>
 <hr />
 <h2 id="prompt-24-uc04-sequence-borrow-book">Prompt 24 — UC04 Sequence: Borrow Book</h2>
-<pre><code>Draw a sequence diagram for use case &quot;UC04 — Mượn sách&quot; of the mini library management system.
+<pre><code>Draw a sequence diagram for use case &quot;UC04 — Mượn sách&quot; of the university library management system.
 
 Mandatory requirements:
 - Exactly 5 lifelines in order from left to right; do NOT draw any extra lifeline.
@@ -1229,7 +1923,7 @@ Message flow:
 13. The result with the due date is returned to Giao diện; Giao diện shows the borrow-success message (format dd/mm/yyyy hh:mm).
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_24
 actor &quot;Thủ thư&quot; as Actor
 participant &quot;BorrowPage&quot; as GiaoDien
 participant &quot;Form mượn sách&quot; as Form
@@ -1285,7 +1979,7 @@ end
 </code></pre>
 <hr />
 <h2 id="prompt-27-uc05-sequence-return-book">Prompt 27 — UC05 Sequence: Return Book</h2>
-<pre><code>Draw a sequence diagram for use case &quot;UC05 — Trả sách&quot; of the mini library management system.
+<pre><code>Draw a sequence diagram for use case &quot;UC05 — Trả sách&quot; of the university library management system.
 
 Mandatory requirements:
 - Exactly 5 lifelines in order from left to right; do NOT draw any extra lifeline.
@@ -1310,7 +2004,7 @@ Message flow:
 8. Commit the transaction. The result is returned to Giao diện; Giao diện shows the return-success message.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_27
 actor &quot;Thủ thư&quot; as Actor
 participant &quot;ReturnPage&quot; as GiaoDien
 participant &quot;Form xác nhận trả sách&quot; as Form
@@ -1343,7 +2037,7 @@ end
 </code></pre>
 <hr />
 <h2 id="prompt-30-uc06-sequence-overdue-list">Prompt 30 — UC06 Sequence: Overdue List</h2>
-<pre><code>Draw a sequence diagram for use case &quot;UC06 — Xem danh sách quá hạn&quot; of the mini library management system.
+<pre><code>Draw a sequence diagram for use case &quot;UC06 — Xem danh sách quá hạn&quot; of the university library management system.
 
 Mandatory requirements:
 - Exactly 5 lifelines in order from left to right; do NOT draw any extra lifeline.
@@ -1364,7 +2058,7 @@ Message flow:
 5. The list with overdue days and estimated fines is returned to Giao diện; Giao diện renders the table sorted by overdue days descending.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_30
 actor &quot;Thủ thư&quot; as Actor
 participant &quot;OverduePage&quot; as GiaoDien
 participant &quot;Form lọc/tìm kiếm và sắp xếp&quot; as Form
@@ -1388,7 +2082,7 @@ GiaoDien -&gt; GiaoDien : Render bảng sắp xếp theo số ngày quá hạn g
 </code></pre>
 <hr />
 <h2 id="prompt-33-uc07-sequence-statistics-incl-uc14">Prompt 33 — UC07 Sequence: Statistics (incl. UC14)</h2>
-<pre><code>Draw a sequence diagram for use case &quot;UC07 — Thống kê&quot; and &quot;UC14 — Xuất báo cáo&quot; of the mini library management system.
+<pre><code>Draw a sequence diagram for use case &quot;UC07 — Thống kê&quot; and &quot;UC14 — Xuất báo cáo&quot; of the university library management system.
 
 Mandatory requirements:
 - Exactly 5 lifelines in order from left to right; do NOT draw any extra lifeline.
@@ -1414,7 +2108,7 @@ Print/PDF flow (UC14):
 7. Actor clicks &quot;In / Lưu PDF&quot; → Giao diện calls window.print(); the @media print CSS prints only the report block.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_33
 actor &quot;Thủ thư / Admin&quot; as Actor
 participant &quot;StatsPage&quot; as GiaoDien
 participant &quot;Form lọc lịch sử&quot; as Form
@@ -1441,7 +2135,7 @@ GiaoDien -&gt; GiaoDien : window.print()
 </code></pre>
 <hr />
 <h2 id="prompt-36-uc08-sequence-my-books">Prompt 36 — UC08 Sequence: My Books</h2>
-<pre><code>Draw a sequence diagram for use case &quot;UC08 — Xem sách của tôi&quot; of the mini library management system.
+<pre><code>Draw a sequence diagram for use case &quot;UC08 — Xem sách của tôi&quot; of the university library management system.
 
 Mandatory requirements:
 - Exactly 5 lifelines in order from left to right; do NOT draw any extra lifeline.
@@ -1463,7 +2157,7 @@ Message flow:
 6. The data is returned to Giao diện; Giao diện renders: the Borrowing tab (&quot;Sắp hết hạn&quot;/&quot;Quá hạn&quot; labels), the Reservations tab (status badge, appointment, QR code when approved, Cancel button when pending), the History tab (fine per loan).
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_36
 actor &quot;Độc giả&quot; as Actor
 participant &quot;MyBooksPage&quot; as GiaoDien
 participant &quot;Form 3 tab&quot; as Form
@@ -1485,7 +2179,7 @@ GiaoDien -&gt; GiaoDien : Render tab Đang mượn (nhãn &quot;Sắp hết hạ
 </code></pre>
 <hr />
 <h2 id="prompt-39-uc09-sequence-system-configuration">Prompt 39 — UC09 Sequence: System Configuration</h2>
-<pre><code>Draw a sequence diagram for use case &quot;UC09 — Cấu hình hệ thống&quot; of the mini library management system.
+<pre><code>Draw a sequence diagram for use case &quot;UC09 — Cấu hình hệ thống&quot; of the university library management system.
 
 Mandatory requirements:
 - Exactly 5 lifelines in order from left to right; do NOT draw any extra lifeline.
@@ -1507,7 +2201,7 @@ Message flow:
 6. The result is returned to Giao diện; Giao diện shows the save-success message. (New parameters apply to newly created loans only — D10.)
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_39
 actor &quot;Admin&quot; as Actor
 participant &quot;SettingsPage&quot; as GiaoDien
 participant &quot;Form cấu hình&quot; as Form
@@ -1529,7 +2223,7 @@ end
 </code></pre>
 <hr />
 <h2 id="prompt-42-uc10-sequence-add-librarian-account">Prompt 42 — UC10 Sequence: Add Librarian Account</h2>
-<pre><code>Draw a sequence diagram for use case &quot;UC10 — Quản lý tài khoản thủ thư&quot; (the add-new flow) of the mini library management system.
+<pre><code>Draw a sequence diagram for use case &quot;UC10 — Quản lý tài khoản thủ thư&quot; (the add-new flow) of the university library management system.
 
 Mandatory requirements:
 - Exactly 5 lifelines in order from left to right; do NOT draw any extra lifeline.
@@ -1552,7 +2246,7 @@ Message flow:
 7. The result is returned to Giao diện; Giao diện shows &quot;Thêm tài khoản thành công&quot; and reloads the list.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_42
 actor &quot;Admin&quot; as Actor
 participant &quot;AccountsPage&quot; as GiaoDien
 participant &quot;Form thêm tài khoản&quot; as Form
@@ -1577,7 +2271,7 @@ end
 </code></pre>
 <hr />
 <h2 id="prompt-45-uc11-sequence-reserve-and-approve-new-flow">Prompt 45 — UC11 Sequence: Reserve and Approve (NEW FLOW)</h2>
-<pre><code>Draw a sequence diagram for use case &quot;UC11 — Đặt trước sách&quot; (new flow with approval) of the mini library management system, with 2 phases: reader reserves and librarian approves.
+<pre><code>Draw a sequence diagram for use case &quot;UC11 — Đặt trước sách&quot; (new flow with approval) of the university library management system, with 2 phases: reader reserves and librarian approves.
 
 Mandatory requirements:
 - Exactly 5 lifelines in order from left to right. Phase 1: Actor (Độc giả) → Giao diện (BookDetailPage) → Form (reservation form: desired time) → Hệ thống (backend: ReservationController + ReservationService + Repository + NotificationService) → CSDL (MySQL). Phase 2: Actor (Thủ thư) → Giao diện (ReservationsPage) → Form (approval form: confirm appointment) → Hệ thống → CSDL. Do NOT draw any extra lifeline.
@@ -1600,7 +2294,7 @@ Phase 2 — Librarian approves:
 12. The result is returned to Giao diện; the &quot;Chờ duyệt&quot; badge and the reader-side status update automatically (poll every 5 seconds).
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_45
 actor &quot;Độc giả / Thủ thư&quot; as Actor
 participant &quot;BookDetailPage / ReservationsPage&quot; as GiaoDien
 participant &quot;Form đặt trước / Form duyệt&quot; as Form
@@ -1641,7 +2335,7 @@ end
 </code></pre>
 <hr />
 <h2 id="prompt-50-uc13-sequence-automatic-notification-on-reservation-approval">Prompt 50 — UC13 Sequence: Automatic Notification on Reservation Approval</h2>
-<pre><code>Draw a sequence diagram for the &quot;automatic notification when the librarian approves a reservation&quot; flow (part of UC13) in the mini library management system.
+<pre><code>Draw a sequence diagram for the &quot;automatic notification when the librarian approves a reservation&quot; flow (part of UC13) in the university library management system.
 
 Mandatory requirements:
 - Exactly 5 lifelines in order from left to right: Actor (Thủ thư) → Giao diện (ReservationsPage) → Form (approval form: confirm appointment) → Hệ thống (backend: ReservationService + NotificationService + Repository) → CSDL (MySQL). Do NOT draw any extra lifeline.
@@ -1654,7 +2348,7 @@ Message flow:
 4. Actor (Độc giả) with the web open: Giao diện polls Hệ thống: NotificationController.unreadCount() every 5 seconds → CSDL: SELECT COUNT; the unread count on the bell increases; clicking the bell reveals the new yellow notification with the pickup QR code.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_50
 actor &quot;Thủ thư / Độc giả&quot; as Actor
 participant &quot;ReservationsPage&quot; as GiaoDien
 participant &quot;Form duyệt&quot; as Form
@@ -1692,7 +2386,7 @@ Flow:
 11. LandingPage --&gt; Guest: book grid with match % and reason
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_uc16_c
 actor Guest
 participant LandingPage
 participant PublicController
@@ -1729,7 +2423,7 @@ LandingPage --&gt; Guest : book grid with match % and reason
 5. alt [invalid/expired/used token]: return 400 &quot;link invalid or expired&quot;.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_uc18
 actor Reader
 participant &quot;Giao dien&quot; as GiaoDien
 participant &quot;Form/Controller&quot; as Form
@@ -1767,7 +2461,7 @@ end
 5. alt [not verified yet]: the app layout shows a reminder banner; from the Profile page the reader can change email (resets to unverified + sends a new link) or resend the verification email (1 per minute).
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_uc19
 actor Reader
 participant &quot;Giao dien&quot; as GiaoDien
 participant &quot;Form/Controller&quot; as Form
@@ -1798,7 +2492,7 @@ end
 </code></pre>
 
 <h2 id="prompt-uc12-sequence-cancel-reservation">Prompt UC12 Sequence: Cancel Reservation</h2>
-<pre><code>Draw a sequence diagram for use case &quot;UC12 — Hủy đặt trước&quot; of the mini library management system.
+<pre><code>Draw a sequence diagram for use case &quot;UC12 — Hủy đặt trước&quot; of the university library management system.
 
 Mandatory requirements:
 - Exactly 5 lifelines in order from left to right: Actor (Độc giả) → Giao diện (MyReservationsPage, tab &quot;Đặt trước&quot; on the &quot;Sách của tôi&quot; page) → Form (confirmation dialog) → Hệ thống (backend: ReservationController + ReservationService + NotificationService) → CSDL (MySQL). Do NOT draw any extra lifeline.
@@ -1813,7 +2507,7 @@ Message flow:
 6. Hệ thống returns success → Giao diện reports the successful cancellation and refreshes the list.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_uc12_sequence
 actor &quot;Độc giả&quot; as Actor
 participant &quot;MyReservationsPage&quot; as GiaoDien
 participant &quot;Form xác nhận hủy&quot; as Form
@@ -1847,7 +2541,7 @@ end
 </code></pre>
 <hr />
 <h2 id="prompt-uc17-c-sequence-diagram-uc17-nhac-han-qua-email">Prompt UC17-C — Sequence Diagram: UC17 nhắc hạn qua email</h2>
-<pre><code>Draw a sequence diagram for use case &quot;UC17 — Nhắc hạn qua email&quot; of the mini library management system.
+<pre><code>Draw a sequence diagram for use case &quot;UC17 — Nhắc hạn qua email&quot; of the university library management system.
 
 Mandatory requirements:
 - Exactly 5 lifelines in order from left to right: Scheduler (Time, automatic trigger) → Hệ thống (EmailReminderService) → CSDL (MySQL) → Resend API (external email service) → Reader (mailbox, receives the email). Do NOT draw any extra lifeline.
@@ -1862,7 +2556,7 @@ Message flow:
 6. On success, Hệ thống → CSDL: INSERT table email_reminders (loan_id, type, recipient_email, provider_id, sent_day) (EmailReminderRepository.save). On failure, Hệ thống logs the error and continues with the next loan (no row is inserted, so the next scan retries it).
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_uc17_c
 actor Scheduler
 participant &quot;Hệ thống&quot; as HeThong
 database &quot;MySQL&quot; as CSDL
@@ -1894,7 +2588,7 @@ end
 </code></pre>
 <hr />
 <h2 id="class-diagram-17-prompt">Class Diagram (17 prompt)</h2><p>Các prompt vẽ sơ đồ Class Diagram, giữ nguyên thứ tự Prompt gốc.</p><h2 id="prompt-16-uc01-analysis-class">Prompt 16 — UC01 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC01 — Đăng nhập&quot; (login only, registration is the separate use case UC19) of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC01 — Đăng nhập&quot; (login only, registration is the separate use case UC19) of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Classes:
 - &lt;&lt;boundary&gt;&gt; LoginPage
@@ -1909,7 +2603,7 @@ Relationships:
 - UserService → User, UserService → UserRepository
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_16
 class LoginPage &lt;&lt;boundary&gt;&gt; {
 }
 class AuthController &lt;&lt;control&gt;&gt; {
@@ -1944,7 +2638,7 @@ UserService --&gt; UserRepository
 </code></pre>
 <hr />
 <h2 id="prompt-19-uc02-analysis-class">Prompt 19 — UC02 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC02 — Quản lý sách&quot; (incl. UC15) of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC02 — Quản lý sách&quot; (incl. UC15) of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Classes:
 - &lt;&lt;boundary&gt;&gt; BookPage
@@ -1962,7 +2656,7 @@ Relationships:
 - Category 1 — * Book
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_19
 class BookPage &lt;&lt;boundary&gt;&gt; {
 }
 class BookController &lt;&lt;control&gt;&gt; {
@@ -2030,7 +2724,7 @@ Category &quot;1&quot; -- &quot;*&quot; Book
 </code></pre>
 <hr />
 <h2 id="prompt-22-uc03-analysis-class">Prompt 22 — UC03 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC03 — Quản lý độc giả&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC03 — Quản lý độc giả&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Classes:
 - &lt;&lt;boundary&gt;&gt; ReaderPage
@@ -2045,7 +2739,7 @@ Relationships:
 - UserService → User, UserService → UserRepository
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_22
 class ReaderPage &lt;&lt;boundary&gt;&gt; {
 }
 class ReaderController &lt;&lt;control&gt;&gt; {
@@ -2084,7 +2778,7 @@ UserService --&gt; UserRepository
 @enduml
 </code></pre>
 <h2 id="prompt-25-uc04-analysis-class">Prompt 25 — UC04 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC04 — Mượn sách&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC04 — Mượn sách&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Classes:
 - &lt;&lt;boundary&gt;&gt; BorrowPage
@@ -2108,7 +2802,7 @@ Relationships:
 - User 1 — * Loan, Book 1 — * Loan, User 1 — * Reservation, Book 1 — * Reservation
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_25
 class BorrowPage &lt;&lt;boundary&gt;&gt; {
 }
 class LoanController &lt;&lt;control&gt;&gt; {
@@ -2188,7 +2882,7 @@ Book &quot;1&quot; -- &quot;*&quot; Reservation
 </code></pre>
 <hr />
 <h2 id="prompt-28-uc05-analysis-class">Prompt 28 — UC05 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC05 — Trả sách&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC05 — Trả sách&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Classes:
 - &lt;&lt;boundary&gt;&gt; ReturnPage
@@ -2207,7 +2901,7 @@ Relationships:
 - LoanService → LoanRepository, LoanService → BookRepository, LoanService → SettingsRepository
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_28
 class ReturnPage &lt;&lt;boundary&gt;&gt; {
 }
 class LoanController &lt;&lt;control&gt;&gt; {
@@ -2261,7 +2955,7 @@ LoanService --&gt; SettingsRepository
 </code></pre>
 <hr />
 <h2 id="prompt-31-uc06-analysis-class">Prompt 31 — UC06 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC06 — Xem danh sách quá hạn&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC06 — Xem danh sách quá hạn&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Classes:
 - &lt;&lt;boundary&gt;&gt; OverduePage
@@ -2279,7 +2973,7 @@ Relationships:
 - Each Loan is linked to one Book and one User
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_31
 class OverduePage &lt;&lt;boundary&gt;&gt; {
 }
 class LoanController &lt;&lt;control&gt;&gt; {
@@ -2320,7 +3014,7 @@ Loan &quot;*&quot; -- &quot;1&quot; User
 @enduml
 </code></pre>
 <h2 id="prompt-34-uc07-analysis-class">Prompt 34 — UC07 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC07 — Thống kê&quot; (incl. UC14) of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC07 — Thống kê&quot; (incl. UC14) of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Classes:
 - &lt;&lt;boundary&gt;&gt; StatsPage
@@ -2337,7 +3031,7 @@ Relationships:
 - StatsService → BookRepository, StatsService → LoanRepository, StatsService → UserRepository
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_34
 class StatsPage &lt;&lt;boundary&gt;&gt; {
 }
 class StatsController &lt;&lt;control&gt;&gt; {
@@ -2376,7 +3070,7 @@ StatsService --&gt; UserRepository
 </code></pre>
 <hr />
 <h2 id="prompt-37-uc08-analysis-class">Prompt 37 — UC08 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC08 — Xem sách của tôi&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC08 — Xem sách của tôi&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Classes:
 - &lt;&lt;boundary&gt;&gt; MyBooksPage
@@ -2395,7 +3089,7 @@ Relationships:
 - LoanService → Loan, ReservationService → Reservation
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_37
 class MyBooksPage &lt;&lt;boundary&gt;&gt; {
 }
 class LoanController &lt;&lt;control&gt;&gt; {
@@ -2447,7 +3141,7 @@ ReservationService --&gt; Reservation
 </code></pre>
 <hr />
 <h2 id="prompt-40-uc09-analysis-class">Prompt 40 — UC09 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC09 — Cấu hình hệ thống&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC09 — Cấu hình hệ thống&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Classes:
 - &lt;&lt;boundary&gt;&gt; SettingsPage
@@ -2462,7 +3156,7 @@ Relationships:
 - SettingsService → Settings, SettingsService → SettingsRepository
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_40
 class SettingsPage &lt;&lt;boundary&gt;&gt; {
 }
 class SettingsController &lt;&lt;control&gt;&gt; {
@@ -2492,7 +3186,7 @@ SettingsService --&gt; SettingsRepository
 @enduml
 </code></pre>
 <h2 id="prompt-43-uc10-analysis-class">Prompt 43 — UC10 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC10 — Quản lý tài khoản thủ thư&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC10 — Quản lý tài khoản thủ thư&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Classes:
 - &lt;&lt;boundary&gt;&gt; AccountsPage
@@ -2507,7 +3201,7 @@ Relationships:
 - AccountService → User, AccountService → UserRepository
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_43
 class AccountsPage &lt;&lt;boundary&gt;&gt; {
 }
 class AccountController &lt;&lt;control&gt;&gt; {
@@ -2543,7 +3237,7 @@ AccountService --&gt; UserRepository
 </code></pre>
 <hr />
 <h2 id="prompt-46-uc11-analysis-class-new-flow">Prompt 46 — UC11 Analysis Class (NEW FLOW)</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC11 — Đặt trước sách&quot; (new flow with approval) of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC11 — Đặt trước sách&quot; (new flow with approval) of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Classes:
 - &lt;&lt;boundary&gt;&gt; BookDetailPage, &lt;&lt;boundary&gt;&gt; ReservationsPage
@@ -2562,7 +3256,7 @@ Relationships:
 - Book 1 — * Reservation, User 1 — * Reservation, User 1 — * Notification
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_46
 class BookDetailPage &lt;&lt;boundary&gt;&gt; {
 }
 class ReservationsPage &lt;&lt;boundary&gt;&gt; {
@@ -2638,7 +3332,7 @@ User &quot;1&quot; -- &quot;*&quot; Notification
 </code></pre>
 <hr />
 <h2 id="prompt-uc12-analysis-class">Prompt UC12 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC12 — Hủy đặt trước&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC12 — Hủy đặt trước&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Classes:
 - &lt;&lt;boundary&gt;&gt; MyReservationsPage
@@ -2657,7 +3351,7 @@ Relationships:
 - Book 1 — * Reservation, User 1 — * Reservation, User 1 — * Notification
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_uc12_class
 class MyReservationsPage &lt;&lt;boundary&gt;&gt; {
 }
 class ReservationController &lt;&lt;control&gt;&gt; {
@@ -2724,7 +3418,7 @@ User &quot;1&quot; -- &quot;*&quot; Notification
 </code></pre>
 <hr />
 <h2 id="prompt-uc13-analysis-class">Prompt UC13 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC13 — Hệ thống thông báo&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC13 — Hệ thống thông báo&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Classes:
 - &lt;&lt;boundary&gt;&gt; NotificationsPage
@@ -2742,7 +3436,7 @@ Relationships:
 - Notification 1 — * NotificationRead, User 1 — * NotificationRead, User 1 — * Notification (via createdBy)
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_uc13_class
 class NotificationsPage &lt;&lt;boundary&gt;&gt; {
 }
 class NotificationController &lt;&lt;control&gt;&gt; {
@@ -2798,7 +3492,7 @@ User &quot;1&quot; -- &quot;*&quot; Notification
 </code></pre>
 <hr />
 <h2 id="prompt-uc16-d-analysis-class-uc16">Prompt UC16-D — Analysis Class: UC16</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC16 — Tìm sách bằng AI theo mô tả&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC16 — Tìm sách bằng AI theo mô tả&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Classes:
 - &lt;&lt;boundary&gt;&gt; LandingPage
@@ -2815,7 +3509,7 @@ Relationships:
 - BookRepository → Book
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_uc16_d
 class LandingPage &lt;&lt;boundary&gt;&gt; {
 }
 class PublicController &lt;&lt;control&gt;&gt; {
@@ -2854,7 +3548,7 @@ BookRepository --&gt; Book
 </code></pre>
 <hr />
 <h2 id="prompt-uc17-d-analysis-class-uc17">Prompt UC17-D — Analysis Class: UC17</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC17 — Nhắc hạn qua email&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC17 — Nhắc hạn qua email&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Classes:
 - &lt;&lt;control&gt;&gt; ReminderScheduler: scan() (triggered on startup and every 6 hours)
@@ -2872,7 +3566,7 @@ Relationships:
 - Loan 1 — * EmailReminder, User 1 — * Loan
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_uc17_d
 class ReminderScheduler &lt;&lt;control&gt;&gt; {
   scan()
 }
@@ -2932,7 +3626,7 @@ User &quot;1&quot; -- &quot;*&quot; Loan
 </code></pre>
 <hr />
 <h2 id="prompt-uc18-analysis-class">Prompt UC18 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC18 — Quên mật khẩu qua email&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC18 — Quên mật khẩu qua email&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Classes:
 - &lt;&lt;boundary&gt;&gt; ForgotPasswordPage, &lt;&lt;boundary&gt;&gt; ResetPasswordPage
@@ -2951,7 +3645,7 @@ Relationships:
 - User 1 — * EmailToken
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_uc18_class
 class ForgotPasswordPage &lt;&lt;boundary&gt;&gt; {
 }
 class ResetPasswordPage &lt;&lt;boundary&gt;&gt; {
@@ -3009,7 +3703,7 @@ User &quot;1&quot; -- &quot;*&quot; EmailToken
 </code></pre>
 <hr />
 <h2 id="prompt-uc19-analysis-class">Prompt UC19 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC19 — Đăng ký bằng email thật &amp; xác thực email&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC19 — Đăng ký bằng email thật &amp; xác thực email&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Classes:
 - &lt;&lt;boundary&gt;&gt; RegisterPage, &lt;&lt;boundary&gt;&gt; VerifyEmailPage, &lt;&lt;boundary&gt;&gt; ProfilePage
@@ -3029,7 +3723,7 @@ Relationships:
 - User 1 — * EmailToken
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_uc19_class
 class RegisterPage &lt;&lt;boundary&gt;&gt; {
 }
 class VerifyEmailPage &lt;&lt;boundary&gt;&gt; {
@@ -3100,7 +3794,7 @@ EmailAccountService --&gt; ResendApiClient
 User &quot;1&quot; -- &quot;*&quot; EmailToken
 @enduml
 </code></pre><h2 id="erd-1-prompt">ERD (1 prompt)</h2><p>Các prompt vẽ sơ đồ ERD, giữ nguyên thứ tự Prompt gốc.</p><h2 id="prompt-51-updated-system-wide-erd-after-the-new-features">Prompt 51 — Updated System-Wide ERD (after the new features)</h2>
-<pre><code>Draw the updated full entity relationship diagram (ERD) for the mini library management system, including the new tables and columns added in the feature update round.
+<pre><code>Draw the updated full entity relationship diagram (ERD) for the university library management system, including the new tables and columns added in the feature update round.
 
 Table users (unchanged):
 - id INT PRIMARY KEY AUTO_INCREMENT
@@ -3155,7 +3849,7 @@ Relationships:
 - users 1 — n email_tokens, loans 1 — n email_reminders
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml
+<pre><code class="language-plantuml">@startuml prompt_51
 entity users {
   * id : INT &lt;&lt;PK&gt;&gt;
   username : VARCHAR(50) &lt;&lt;unique&gt;&gt;

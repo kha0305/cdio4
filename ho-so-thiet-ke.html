@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hồ sơ phân tích &amp; thiết kế hệ thống — Tài liệu CDIO 4</title>
-<meta name="description" content="Tài liệu đồ án CDIO 4 — Website Quản lý Thư viện Mini: conceive, phân tích thiết kế, prompt UML, kiểm thử, SQL.">
+<meta name="description" content="Tài liệu đồ án CDIO 4 — Website Quản lý Thư viện Đại học: conceive, phân tích thiết kế, prompt UML, kiểm thử, SQL.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>B</text></svg>">
 <link rel="stylesheet" href="style.css?v=9">
 </head>
@@ -168,8 +168,8 @@
 <div class="backdrop" id="backdrop"></div>
 <main class="content">
 <h1>Hồ sơ phân tích &amp; thiết kế hệ thống</h1>
-<p class="meta">Đồ án Website Quản lý Thư viện Mini &middot; Cập nhật lần cuối: 23/10/2026</p>
-<h1>HỒ SƠ PHÂN TÍCH &amp; THIẾT KẾ — Web Quản Lý Thư Viện Mini</h1>
+<p class="meta">Đồ án Website Quản lý Thư viện Đại học &middot; Cập nhật lần cuối: 24/10/2026</p>
+<h1>HỒ SƠ PHÂN TÍCH &amp; THIẾT KẾ — Web Quản Lý Thư Viện Đại học</h1>
 <h2 id="do-an-cdio-4-nganh-cong-nghe-phan-mem">Đồ án CDIO 4 — Ngành Công nghệ Phần mềm</h2>
 <p>Tài liệu hợp nhất duy nhất của đồ án (thay thế mọi file .md rời rạc trước đây).</p>
 <h2 id="muc-luc">Mục lục</h2>
@@ -190,7 +190,7 @@
 <hr />
 <h1>1. Tổng quan</h1>
 <h2 id="1-tong-quan-dung-cho-bao-cao">1. TỔNG QUAN (dùng cho báo cáo)</h2>
-<p><strong>1. Tên đề tài:</strong> Xây dựng website quản lý thư viện mini.</p>
+<p><strong>1. Tên đề tài:</strong> Xây dựng website quản lý thư viện đại học.</p>
 <p><strong>2. Bối cảnh và vấn đề:</strong> Các thư viện nhỏ (thư viện khoa, tủ sách lớp, câu lạc bộ) hiện quản lý mượn/trả bằng sổ giấy hoặc file Excel. Cách làm này dễ thất lạc, khó tra cứu lịch sử, việc tính hạn trả và phạt trễ phụ thuộc vào trí nhớ của thủ thư nên hay sai sót và mất thời gian đối chiếu cuối tháng.</p>
 <p><strong>3. Mục tiêu đề tài:</strong> Xây dựng một website giúp số hóa toàn bộ quy trình mượn/trả sách: mỗi cuốn sách được gắn một mã QR duy nhất, thủ thư chỉ cần quét mã để ghi nhận mượn/trả, hệ thống tự động tính hạn trả và tiền phạt trễ, đồng thời cung cấp thống kê trực quan cho người quản lý.</p>
 <p><strong>4. Đối tượng sử dụng:</strong>
@@ -1778,7 +1778,7 @@
 <h2 id="prompt-13-uc12-use-case-diagram-huy-dat-truoc">Prompt 13 — UC12 Use Case Diagram: Hủy đặt trước</h2>
 <h2 id="tao-dung-1-diagram-loai-use-case-diagram-actor-doc-gia-use-case-chinh-uc12-huy-dat-truoc-ve-association-doc-gia-uc12-ve-them-use-case-uc11-dat-truoc-sach-khong-noi-actor-va-duong-dependency-net-dut-tu-uc12-toi-uc11-gan-note-uc12-chuyen-luot-pending-cua-uc11-thanh-cancelled-khong-them-use-case-nao-khac">Tạo đúng 1 diagram loại Use Case Diagram. Actor: Độc giả. Use case chính: "UC12 Hủy đặt trước". Vẽ association Độc giả — UC12. Vẽ thêm use case "UC11 Đặt trước sách" (không nối actor) và đường dependency nét đứt từ UC12 tới UC11, gắn note: "UC12 chuyển lượt pending của UC11 thành cancelled". Không thêm use case nào khác.</h2>
 <h2 id="prompt-14-uc01-activity-dang-nhap-dang-ky">Prompt 14 — UC01 Activity: Đăng nhập &amp; Đăng ký</h2>
-<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC01 — Đăng nhập &amp; Đăng ký&quot; của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC01 — Đăng nhập &amp; Đăng ký&quot; của hệ thống quản lý thư viện đại học.
 
 Tác nhân: Người dùng (Admin, Thủ thư, Độc giả).
 
@@ -1806,7 +1806,7 @@ Luồng hoạt động:
 </code></pre>
 <hr />
 <h2 id="prompt-15-uc01-sequence-dang-nhap">Prompt 15 — UC01 Sequence: Đăng nhập</h2>
-<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho use case &quot;UC01 — Đăng nhập&quot; của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho use case &quot;UC01 — Đăng nhập&quot; của hệ thống quản lý thư viện đại học.
 
 Yêu cầu bắt buộc: trên mỗi mũi tên thông điệp phải ghi đầy đủ tên hàm kèm tham số, không ghi mô tả chung chung.
 
@@ -1824,7 +1824,7 @@ Luồng thông điệp:
 </code></pre>
 <hr />
 <h2 id="prompt-16-uc01-class-phan-tich">Prompt 16 — UC01 Class phân tích</h2>
-<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC01 — Đăng nhập &amp; Đăng ký&quot; của hệ thống quản lý thư viện mini, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC01 — Đăng nhập &amp; Đăng ký&quot; của hệ thống quản lý thư viện đại học, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Các lớp:
 - &lt;&lt;boundary&gt;&gt; LoginPage
@@ -1841,7 +1841,7 @@ Quan hệ:
 </code></pre>
 <hr />
 <h2 id="prompt-17-uc02-activity-quan-ly-sach">Prompt 17 — UC02 Activity: Quản lý sách</h2>
-<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC02 — Quản lý sách&quot; của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC02 — Quản lý sách&quot; của hệ thống quản lý thư viện đại học.
 
 Tác nhân: Thủ thư.
 
@@ -1861,7 +1861,7 @@ Luồng hoạt động:
 </code></pre>
 <hr />
 <h2 id="prompt-18-uc02-sequence-them-sach">Prompt 18 — UC02 Sequence: Thêm sách</h2>
-<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho chức năng &quot;Thêm sách&quot; (UC02) của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho chức năng &quot;Thêm sách&quot; (UC02) của hệ thống quản lý thư viện đại học.
 
 Yêu cầu bắt buộc: trên mỗi mũi tên thông điệp phải ghi đầy đủ tên hàm kèm tham số, không ghi mô tả chung chung.
 
@@ -1879,7 +1879,7 @@ Luồng thông điệp:
 </code></pre>
 <hr />
 <h2 id="prompt-19-uc02-class-phan-tich">Prompt 19 — UC02 Class phân tích</h2>
-<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC02 — Quản lý sách&quot; của hệ thống quản lý thư viện mini, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC02 — Quản lý sách&quot; của hệ thống quản lý thư viện đại học, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Các lớp:
 - &lt;&lt;boundary&gt;&gt; BookPage
@@ -1895,7 +1895,7 @@ Quan hệ:
 </code></pre>
 <hr />
 <h2 id="prompt-20-uc03-activity-quan-ly-doc-gia">Prompt 20 — UC03 Activity: Quản lý độc giả</h2>
-<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC03 — Quản lý độc giả&quot; của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC03 — Quản lý độc giả&quot; của hệ thống quản lý thư viện đại học.
 
 Tác nhân: Thủ thư.
 
@@ -1914,7 +1914,7 @@ Luồng hoạt động:
 </code></pre>
 <hr />
 <h2 id="prompt-21-uc03-sequence-them-doc-gia">Prompt 21 — UC03 Sequence: Thêm độc giả</h2>
-<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho chức năng &quot;Thêm độc giả&quot; (UC03) của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho chức năng &quot;Thêm độc giả&quot; (UC03) của hệ thống quản lý thư viện đại học.
 
 Yêu cầu bắt buộc: trên mỗi mũi tên thông điệp phải ghi đầy đủ tên hàm kèm tham số, không ghi mô tả chung chung.
 
@@ -1931,7 +1931,7 @@ Luồng thông điệp:
 </code></pre>
 <hr />
 <h2 id="prompt-22-uc03-class-phan-tich">Prompt 22 — UC03 Class phân tích</h2>
-<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC03 — Quản lý độc giả&quot; của hệ thống quản lý thư viện mini, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC03 — Quản lý độc giả&quot; của hệ thống quản lý thư viện đại học, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Các lớp:
 - &lt;&lt;boundary&gt;&gt; ReaderPage
@@ -1947,7 +1947,7 @@ Quan hệ:
 </code></pre>
 <hr />
 <h2 id="prompt-23-uc04-activity-muon-sach">Prompt 23 — UC04 Activity: Mượn sách</h2>
-<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC04 — Mượn sách&quot; của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC04 — Mượn sách&quot; của hệ thống quản lý thư viện đại học.
 
 Tác nhân: Thủ thư.
 
@@ -1977,7 +1977,7 @@ Luồng hoạt động:
 </code></pre>
 <hr />
 <h2 id="prompt-24-uc04-sequence-muon-sach">Prompt 24 — UC04 Sequence: Mượn sách</h2>
-<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho use case &quot;UC04 — Mượn sách&quot; của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho use case &quot;UC04 — Mượn sách&quot; của hệ thống quản lý thư viện đại học.
 
 Yêu cầu bắt buộc: trên mỗi mũi tên thông điệp phải ghi đầy đủ tên hàm kèm tham số, không ghi mô tả chung chung.
 
@@ -2001,7 +2001,7 @@ Luồng thông điệp (toàn bộ bước 2–12 chạy trong một transaction
 </code></pre>
 <hr />
 <h2 id="prompt-25-uc04-class-phan-tich">Prompt 25 — UC04 Class phân tích</h2>
-<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC04 — Mượn sách&quot; của hệ thống quản lý thư viện mini, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC04 — Mượn sách&quot; của hệ thống quản lý thư viện đại học, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Các lớp:
 - &lt;&lt;boundary&gt;&gt; BorrowPage
@@ -2026,7 +2026,7 @@ Quan hệ:
 </code></pre>
 <hr />
 <h2 id="prompt-26-uc05-activity-tra-sach">Prompt 26 — UC05 Activity: Trả sách</h2>
-<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC05 — Trả sách&quot; của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC05 — Trả sách&quot; của hệ thống quản lý thư viện đại học.
 
 Tác nhân: Thủ thư.
 
@@ -2048,7 +2048,7 @@ Luồng hoạt động:
 </code></pre>
 <hr />
 <h2 id="prompt-27-uc05-sequence-tra-sach">Prompt 27 — UC05 Sequence: Trả sách</h2>
-<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho use case &quot;UC05 — Trả sách&quot; của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho use case &quot;UC05 — Trả sách&quot; của hệ thống quản lý thư viện đại học.
 
 Yêu cầu bắt buộc: trên mỗi mũi tên thông điệp phải ghi đầy đủ tên hàm kèm tham số, không ghi mô tả chung chung.
 
@@ -2071,7 +2071,7 @@ Luồng thông điệp (2 giai đoạn: xem trước rồi xác nhận):
 </code></pre>
 <hr />
 <h2 id="prompt-28-uc05-class-phan-tich">Prompt 28 — UC05 Class phân tích</h2>
-<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC05 — Trả sách&quot; của hệ thống quản lý thư viện mini, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC05 — Trả sách&quot; của hệ thống quản lý thư viện đại học, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Các lớp:
 - &lt;&lt;boundary&gt;&gt; ReturnPage
@@ -2091,7 +2091,7 @@ Quan hệ:
 </code></pre>
 <hr />
 <h2 id="prompt-29-uc06-activity-danh-sach-qua-han">Prompt 29 — UC06 Activity: Danh sách quá hạn</h2>
-<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC06 — Xem danh sách quá hạn&quot; của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC06 — Xem danh sách quá hạn&quot; của hệ thống quản lý thư viện đại học.
 
 Tác nhân: Thủ thư.
 
@@ -2107,7 +2107,7 @@ Luồng hoạt động:
 </code></pre>
 <hr />
 <h2 id="prompt-30-uc06-sequence-danh-sach-qua-han">Prompt 30 — UC06 Sequence: Danh sách quá hạn</h2>
-<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho use case &quot;UC06 — Xem danh sách quá hạn&quot; của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho use case &quot;UC06 — Xem danh sách quá hạn&quot; của hệ thống quản lý thư viện đại học.
 
 Yêu cầu bắt buộc: trên mỗi mũi tên thông điệp phải ghi đầy đủ tên hàm kèm tham số, không ghi mô tả chung chung.
 
@@ -2124,7 +2124,7 @@ Luồng thông điệp:
 </code></pre>
 <hr />
 <h2 id="prompt-31-uc06-class-phan-tich">Prompt 31 — UC06 Class phân tích</h2>
-<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC06 — Xem danh sách quá hạn&quot; của hệ thống quản lý thư viện mini, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC06 — Xem danh sách quá hạn&quot; của hệ thống quản lý thư viện đại học, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Các lớp:
 - &lt;&lt;boundary&gt;&gt; OverduePage
@@ -2143,7 +2143,7 @@ Quan hệ:
 </code></pre>
 <hr />
 <h2 id="prompt-32-uc07-activity-thong-ke">Prompt 32 — UC07 Activity: Thống kê</h2>
-<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC07 — Thống kê&quot; của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC07 — Thống kê&quot; của hệ thống quản lý thư viện đại học.
 
 Tác nhân: Thủ thư, Admin.
 
@@ -2158,7 +2158,7 @@ Luồng hoạt động:
 </code></pre>
 <hr />
 <h2 id="prompt-33-uc07-sequence-thong-ke">Prompt 33 — UC07 Sequence: Thống kê</h2>
-<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho use case &quot;UC07 — Thống kê&quot; của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho use case &quot;UC07 — Thống kê&quot; của hệ thống quản lý thư viện đại học.
 
 Yêu cầu bắt buộc: trên mỗi mũi tên thông điệp phải ghi đầy đủ tên hàm kèm tham số, không ghi mô tả chung chung.
 
@@ -2175,7 +2175,7 @@ Luồng thông điệp:
 </code></pre>
 <hr />
 <h2 id="prompt-34-uc07-class-phan-tich">Prompt 34 — UC07 Class phân tích</h2>
-<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC07 — Thống kê&quot; của hệ thống quản lý thư viện mini, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC07 — Thống kê&quot; của hệ thống quản lý thư viện đại học, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Các lớp:
 - &lt;&lt;boundary&gt;&gt; StatsPage
@@ -2194,7 +2194,7 @@ Quan hệ:
 </code></pre>
 <hr />
 <h2 id="prompt-35-uc08-activity-sach-cua-toi">Prompt 35 — UC08 Activity: Sách của tôi</h2>
-<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC08 — Xem sách của tôi&quot; của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC08 — Xem sách của tôi&quot; của hệ thống quản lý thư viện đại học.
 
 Tác nhân: Độc giả.
 
@@ -2208,7 +2208,7 @@ Luồng hoạt động:
 </code></pre>
 <hr />
 <h2 id="prompt-36-uc08-sequence-sach-cua-toi">Prompt 36 — UC08 Sequence: Sách của tôi</h2>
-<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho use case &quot;UC08 — Xem sách của tôi&quot; của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho use case &quot;UC08 — Xem sách của tôi&quot; của hệ thống quản lý thư viện đại học.
 
 Yêu cầu bắt buộc: trên mỗi mũi tên thông điệp phải ghi đầy đủ tên hàm kèm tham số, không ghi mô tả chung chung.
 
@@ -2226,7 +2226,7 @@ Luồng thông điệp:
 </code></pre>
 <hr />
 <h2 id="prompt-37-uc08-class-phan-tich">Prompt 37 — UC08 Class phân tích</h2>
-<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC08 — Xem sách của tôi&quot; của hệ thống quản lý thư viện mini, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC08 — Xem sách của tôi&quot; của hệ thống quản lý thư viện đại học, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Các lớp:
 - &lt;&lt;boundary&gt;&gt; MyBooksPage
@@ -2246,7 +2246,7 @@ Quan hệ:
 </code></pre>
 <hr />
 <h2 id="prompt-38-uc09-activity-cau-hinh-he-thong">Prompt 38 — UC09 Activity: Cấu hình hệ thống</h2>
-<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC09 — Cấu hình hệ thống&quot; của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC09 — Cấu hình hệ thống&quot; của hệ thống quản lý thư viện đại học.
 
 Tác nhân: Admin.
 
@@ -2263,7 +2263,7 @@ Luồng hoạt động:
 </code></pre>
 <hr />
 <h2 id="prompt-39-uc09-sequence-cau-hinh-he-thong">Prompt 39 — UC09 Sequence: Cấu hình hệ thống</h2>
-<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho use case &quot;UC09 — Cấu hình hệ thống&quot; của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho use case &quot;UC09 — Cấu hình hệ thống&quot; của hệ thống quản lý thư viện đại học.
 
 Yêu cầu bắt buộc: trên mỗi mũi tên thông điệp phải ghi đầy đủ tên hàm kèm tham số, không ghi mô tả chung chung.
 
@@ -2279,7 +2279,7 @@ Luồng thông điệp:
 </code></pre>
 <hr />
 <h2 id="prompt-40-uc09-class-phan-tich">Prompt 40 — UC09 Class phân tích</h2>
-<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC09 — Cấu hình hệ thống&quot; của hệ thống quản lý thư viện mini, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC09 — Cấu hình hệ thống&quot; của hệ thống quản lý thư viện đại học, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Các lớp:
 - &lt;&lt;boundary&gt;&gt; SettingsPage
@@ -2295,7 +2295,7 @@ Quan hệ:
 </code></pre>
 <hr />
 <h2 id="prompt-41-uc10-activity-quan-ly-tai-khoan-thu-thu">Prompt 41 — UC10 Activity: Quản lý tài khoản thủ thư</h2>
-<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC10 — Quản lý tài khoản thủ thư&quot; của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC10 — Quản lý tài khoản thủ thư&quot; của hệ thống quản lý thư viện đại học.
 
 Tác nhân: Admin.
 
@@ -2314,7 +2314,7 @@ Luồng hoạt động:
 </code></pre>
 <hr />
 <h2 id="prompt-42-uc10-sequence-them-thu-thu">Prompt 42 — UC10 Sequence: Thêm thủ thư</h2>
-<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho chức năng &quot;Thêm thủ thư&quot; (UC10) của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho chức năng &quot;Thêm thủ thư&quot; (UC10) của hệ thống quản lý thư viện đại học.
 
 Yêu cầu bắt buộc: trên mỗi mũi tên thông điệp phải ghi đầy đủ tên hàm kèm tham số, không ghi mô tả chung chung.
 
@@ -2331,7 +2331,7 @@ Luồng thông điệp:
 </code></pre>
 <hr />
 <h2 id="prompt-43-uc10-class-phan-tich">Prompt 43 — UC10 Class phân tích</h2>
-<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC10 — Quản lý tài khoản thủ thư&quot; của hệ thống quản lý thư viện mini, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC10 — Quản lý tài khoản thủ thư&quot; của hệ thống quản lý thư viện đại học, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Các lớp:
 - &lt;&lt;boundary&gt;&gt; AccountPage
@@ -2347,7 +2347,7 @@ Quan hệ:
 </code></pre>
 <hr />
 <h2 id="prompt-44-uc11-activity-dat-truoc-sach">Prompt 44 — UC11 Activity: Đặt trước sách</h2>
-<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC11 — Đặt trước sách&quot; của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC11 — Đặt trước sách&quot; của hệ thống quản lý thư viện đại học.
 
 Tác nhân: Độc giả.
 
@@ -2367,7 +2367,7 @@ Luồng hoạt động:
 </code></pre>
 <hr />
 <h2 id="prompt-45-uc11-sequence-dat-truoc-sach">Prompt 45 — UC11 Sequence: Đặt trước sách</h2>
-<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho use case &quot;UC11 — Đặt trước sách&quot; của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho use case &quot;UC11 — Đặt trước sách&quot; của hệ thống quản lý thư viện đại học.
 
 Yêu cầu bắt buộc: trên mỗi mũi tên thông điệp phải ghi đầy đủ tên hàm kèm tham số, không ghi mô tả chung chung.
 
@@ -2385,7 +2385,7 @@ Luồng thông điệp:
 </code></pre>
 <hr />
 <h2 id="prompt-46-uc11-class-phan-tich">Prompt 46 — UC11 Class phân tích</h2>
-<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC11 — Đặt trước sách&quot; của hệ thống quản lý thư viện mini, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC11 — Đặt trước sách&quot; của hệ thống quản lý thư viện đại học, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Các lớp:
 - &lt;&lt;boundary&gt;&gt; CatalogPage
@@ -2407,7 +2407,7 @@ Quan hệ:
 </code></pre>
 <hr />
 <h2 id="prompt-47-uc12-activity-huy-dat-truoc">Prompt 47 — UC12 Activity: Hủy đặt trước</h2>
-<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC12 — Hủy đặt trước&quot; của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC12 — Hủy đặt trước&quot; của hệ thống quản lý thư viện đại học.
 
 Tác nhân: Độc giả.
 
@@ -2424,7 +2424,7 @@ Luồng hoạt động:
 </code></pre>
 <hr />
 <h2 id="prompt-48-uc12-sequence-huy-dat-truoc">Prompt 48 — UC12 Sequence: Hủy đặt trước</h2>
-<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho use case &quot;UC12 — Hủy đặt trước&quot; của hệ thống quản lý thư viện mini.
+<pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho use case &quot;UC12 — Hủy đặt trước&quot; của hệ thống quản lý thư viện đại học.
 
 Yêu cầu bắt buộc: trên mỗi mũi tên thông điệp phải ghi đầy đủ tên hàm kèm tham số, không ghi mô tả chung chung.
 
@@ -2440,7 +2440,7 @@ Luồng thông điệp:
 </code></pre>
 <hr />
 <h2 id="prompt-49-uc12-class-phan-tich">Prompt 49 — UC12 Class phân tích</h2>
-<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC12 — Hủy đặt trước&quot; của hệ thống quản lý thư viện mini, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Vẽ biểu đồ lớp phân tích cho use case &quot;UC12 — Hủy đặt trước&quot; của hệ thống quản lý thư viện đại học, dùng stereotype &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
 Các lớp:
 - &lt;&lt;boundary&gt;&gt; MyBooksPage
@@ -2457,7 +2457,7 @@ Quan hệ:
 </code></pre>
 <hr />
 <h2 id="prompt-50-class-diagram-chung-toan-he-thong">Prompt 50 — Class diagram chung toàn hệ thống</h2>
-<pre><code>Vẽ biểu đồ lớp (class diagram) tổng thể cho hệ thống quản lý thư viện mini gồm các lớp sau, ghi đầy đủ thuộc tính, phương thức và quan hệ:
+<pre><code>Vẽ biểu đồ lớp (class diagram) tổng thể cho hệ thống quản lý thư viện đại học gồm các lớp sau, ghi đầy đủ thuộc tính, phương thức và quan hệ:
 
 Lớp Book:
 - Thuộc tính: id: int, qrCode: string, title: string, author: string, category: string, publisher: string, publishYear: int, status: string
@@ -2507,7 +2507,7 @@ Quan hệ giữa các lớp:
 </code></pre>
 <hr />
 <h2 id="prompt-51-so-do-quan-he-thuc-the-erd">Prompt 51 — Sơ đồ quan hệ thực thể (ERD)</h2>
-<pre><code>Vẽ sơ đồ quan hệ thực thể (ERD) cho cơ sở dữ liệu MySQL của hệ thống quản lý thư viện mini gồm các bảng sau:
+<pre><code>Vẽ sơ đồ quan hệ thực thể (ERD) cho cơ sở dữ liệu MySQL của hệ thống quản lý thư viện đại học gồm các bảng sau:
 
 Bảng users:
 - id INT PRIMARY KEY AUTO_INCREMENT
