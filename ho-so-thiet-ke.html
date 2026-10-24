@@ -19,74 +19,79 @@
 <div class="side-label">Tài liệu</div>
 <nav class="doc-nav">
 <a href="index.html">Mục lục tổng</a>
-<div class="nav-group">Thiết kế &amp; phân tích</div><a href="conceive.html">Conceive</a><a href="ho-so-thiet-ke.html" class="active">Hồ sơ phân tích &amp; thiết kế</a><a href="prompt-uml.html">Prompt UML (67 prompt)</a><a href="luong-hoat-dong.html">Luồng hoạt động</a><div class="nav-group">Kiểm thử</div><a href="kich-ban-kiem-thu.html">Kịch bản kiểm thử</a><div class="nav-group">Dữ liệu</div><a href="du-lieu-sql.html">SQL reset CSDL</a><div class="nav-group">Tiến độ</div><a href="tien-do.html">Tiến độ</a><a href="phan-cong.html">Phân công</a>
+<div class="nav-group">Thiết kế &amp; phân tích</div><a href="conceive.html">Conceive</a><a href="ho-so-thiet-ke.html" class="active">Hồ sơ phân tích &amp; thiết kế</a><a href="prompt-uml.html">Prompt UML (67 prompt)</a><a href="phan-ra.html">Phân rã</a><a href="luong-hoat-dong.html">Luồng hoạt động</a><div class="nav-group">Kiểm thử</div><a href="kich-ban-kiem-thu.html">Kịch bản kiểm thử</a><div class="nav-group">Dữ liệu</div><a href="du-lieu-sql.html">SQL reset CSDL</a><div class="nav-group">Tiến độ</div><a href="tien-do.html">Tiến độ</a><a href="phan-cong.html">Phân công</a>
 </nav>
 <div class="side-label">Trong trang này</div>
 <nav class="toc">
 <a href="#do-an-cdio-4-nganh-cong-nghe-phan-mem">Đồ án CDIO 4 — Ngành Công nghệ Phần mềm</a>
 <a href="#muc-luc">Mục lục</a>
 <a href="#1-tong-quan-dung-cho-bao-cao">1. TỔNG QUAN (dùng cho báo cáo)</a>
-<a href="#0-quyet-dinh-chot-khong-thay-doi-khi-code">0. QUYẾT ĐỊNH CHỐT (không thay đổi khi code)</a>
+<a href="#2-quyet-dinh-chot-khong-thay-doi-khi-code">2. Quyết định chốt (không thay đổi khi code)</a>
 <a href="#uc01-dang-nhap">UC01 — Đăng nhập</a>
 <a href="#uc02-quan-ly-sach">UC02 — Quản lý sách</a>
+<a href="#uc02a-noi-dung-gop-tu-uc15-quan-ly-sach-mo-rong" class="lv3">UC02a — Nội dung gộp từ UC15: Quản lý sách mở rộng</a>
 <a href="#uc03-quan-ly-doc-gia">UC03 — Quản lý độc giả</a>
 <a href="#uc04-muon-sach">UC04 — Mượn sách</a>
 <a href="#uc05-tra-sach">UC05 — Trả sách</a>
 <a href="#uc06-danh-sach-qua-han">UC06 — Danh sách quá hạn</a>
 <a href="#uc07-thong-ke">UC07 — Thống kê</a>
+<a href="#uc07a-noi-dung-gop-tu-uc14-xuat-bao-cao-excel-in-pdf" class="lv3">UC07a — Nội dung gộp từ UC14: Xuất báo cáo Excel / In PDF</a>
 <a href="#uc08-sach-cua-toi">UC08 — Sách của tôi</a>
+<a href="#uc08a-noi-dung-gop-tu-uc12-huy-dat-truoc" class="lv3">UC08a — Nội dung gộp từ UC12: Hủy đặt trước</a>
 <a href="#uc09-cau-hinh-he-thong">UC09 — Cấu hình hệ thống</a>
 <a href="#uc10-quan-ly-tai-khoan-thu-thu">UC10 — Quản lý tài khoản thủ thư</a>
 <a href="#uc11-dat-truoc-sach-sua-16-10-2026-them-luong-duyet-cua-thu-thu">UC11 — Đặt trước sách (sửa 16/10/2026: thêm luồng duyệt của thủ thư)</a>
-<a href="#uc12-huy-dat-truoc-gop-vao-uc08-khong-ve-rieng-o-so-do-tong-the">UC12 — Hủy đặt trước (gộp vào UC08, không vẽ riêng ở sơ đồ tổng thể)</a>
 <a href="#uc13-he-thong-thong-bao-moi-16-10-2026">UC13 — Hệ thống thông báo (mới 16/10/2026)</a>
-<a href="#uc14-xuat-bao-cao-excel-in-pdf-moi-16-10-2026">UC14 — Xuất báo cáo Excel / In PDF (mới 16/10/2026)</a>
-<a href="#uc15-quan-ly-sach-mo-rong-moi-16-10-2026">UC15 — Quản lý sách mở rộng (mới 16/10/2026)</a>
 <a href="#uc16-tim-sach-bang-ai-theo-mo-ta-noi-dung-moi-23-10-2026">UC16 — Tìm sách bằng AI theo mô tả nội dung (mới 23/10/2026)</a>
 <a href="#uc17-nhac-han-tra-sach-qua-email-moi-23-10-2026">UC17 — Nhắc hạn trả sách qua email (mới 23/10/2026)</a>
 <a href="#uc18-quen-mat-khau-dat-lai-mat-khau-qua-email-moi-23-10-2026">UC18 — Quên mật khẩu / đặt lại mật khẩu qua email (mới 23/10/2026)</a>
 <a href="#uc19-dang-ky-bang-email-that-xac-thuc-email-moi-23-10-2026">UC19 — Đăng ký bằng email thật &amp; xác thực email (mới 23/10/2026)</a>
 <a href="#ma-tran-truy-vet-actor-use-case">Ma trận truy vết (Actor × Use case)</a>
-<a href="#3-thiet-ke-co-so-du-lieu-mysql">3. Thiết kế cơ sở dữ liệu (MySQL)</a>
-<a href="#3-1-bang-users" class="lv3">3.1 Bảng users</a>
-<a href="#3-2-bang-books" class="lv3">3.2 Bảng books</a>
-<a href="#3-3-bang-loans" class="lv3">3.3 Bảng loans</a>
-<a href="#3-4-bang-reservations" class="lv3">3.4 Bảng reservations</a>
-<a href="#3-5-bang-categories-moi-16-10-2026" class="lv3">3.5 Bảng categories (mới 16/10/2026)</a>
-<a href="#3-6-bang-notifications-moi-16-10-2026" class="lv3">3.6 Bảng notifications (mới 16/10/2026)</a>
-<a href="#3-7-bang-notification-reads-moi-16-10-2026" class="lv3">3.7 Bảng notification_reads (mới 16/10/2026)</a>
-<a href="#3-8-bang-settings" class="lv3">3.8 Bảng settings</a>
-<a href="#3-6-quan-he" class="lv3">3.6 Quan hệ</a>
-<a href="#4-thiet-ke-lop-huong-doi-tuong">4. Thiết kế lớp (hướng đối tượng)</a>
-<a href="#4-1-entity-classes" class="lv3">4.1 Entity classes</a>
-<a href="#4-2-service-classes" class="lv3">4.2 Service classes</a>
-<a href="#4-3-controller-classes" class="lv3">4.3 Controller classes</a>
-<a href="#4-4-repository-classes" class="lv3">4.4 Repository classes</a>
-<a href="#5-danh-sach-api">5. Danh sách API</a>
+<a href="#5-thiet-ke-co-so-du-lieu-mysql">5. Thiết kế cơ sở dữ liệu (MySQL)</a>
+<a href="#5-1-bang-users" class="lv3">5.1 Bảng users</a>
+<a href="#5-2-bang-books" class="lv3">5.2 Bảng books</a>
+<a href="#5-3-bang-loans" class="lv3">5.3 Bảng loans</a>
+<a href="#5-4-bang-reservations" class="lv3">5.4 Bảng reservations</a>
+<a href="#5-5-bang-categories-moi-16-10-2026" class="lv3">5.5 Bảng categories (mới 16/10/2026)</a>
+<a href="#5-6-bang-notifications-moi-16-10-2026" class="lv3">5.6 Bảng notifications (mới 16/10/2026)</a>
+<a href="#5-7-bang-notification-reads-moi-16-10-2026" class="lv3">5.7 Bảng notification_reads (mới 16/10/2026)</a>
+<a href="#5-8-bang-settings" class="lv3">5.8 Bảng settings</a>
+<a href="#5-9-bang-email-tokens-moi-23-10-2026" class="lv3">5.9 Bảng email_tokens (mới 23/10/2026)</a>
+<a href="#5-10-bang-email-reminders-moi-23-10-2026" class="lv3">5.10 Bảng email_reminders (mới 23/10/2026)</a>
+<a href="#5-11-quan-he" class="lv3">5.11 Quan hệ</a>
+<a href="#6-thiet-ke-lop-huong-doi-tuong">6. Thiết kế lớp (hướng đối tượng)</a>
+<a href="#6-1-kien-truc-cai-dat-code-that-o-backend" class="lv3">6.1 Kiến trúc cài đặt (code thật ở backend)</a>
+<a href="#6-2-chuan-so-do-class-phan-tich-dung-de-ve" class="lv3">6.2 Chuẩn sơ đồ Class phân tích (dùng để vẽ)</a>
+<a href="#7-danh-sach-api">7. Danh sách API</a>
 <a href="#auth" class="lv3">Auth</a>
-<a href="#books-dang-nhap-ghi-can-role-librarian-rieng-get-mo-cho-reader-de-tra-cuu-dat-truoc" class="lv3">Books (đăng nhập; ghi cần role librarian, riêng GET mở cho reader để tra cứu/đặt trước)</a>
+<a href="#books-get-mo-cho-moi-vai-tro-da-dang-nhap-ghi-can-librarian-tru-khi-ghi-khac" class="lv3">Books (GET mở cho mọi vai trò đã đăng nhập; ghi cần librarian trừ khi ghi khác)</a>
 <a href="#readers-librarian" class="lv3">Readers (librarian)</a>
 <a href="#loans" class="lv3">Loans</a>
 <a href="#reservations" class="lv3">Reservations</a>
+<a href="#categories-get-mo-cho-moi-vai-tro-da-dang-nhap-ghi-can-librarian-admin" class="lv3">Categories (GET mở cho mọi vai trò đã đăng nhập; ghi cần librarian/admin)</a>
+<a href="#notifications" class="lv3">Notifications</a>
+<a href="#profile-da-dang-nhap" class="lv3">Profile (đã đăng nhập)</a>
+<a href="#accounts-quan-ly-tai-khoan-thu-thu-admin" class="lv3">Accounts — Quản lý tài khoản thủ thư (admin)</a>
 <a href="#stats-settings" class="lv3">Stats &amp; Settings</a>
-<a href="#6-wireframe-cac-man-hinh">6. Wireframe các màn hình</a>
-<a href="#1-so-do-tong">1. Sơ đồ tổng</a>
-<a href="#2-admin">2. Admin</a>
-<a href="#3-thu-thu">3. Thủ thư</a>
-<a href="#4-doc-gia">4. Độc giả</a>
-<a href="#5-luong-dieu-huong-chinh">5. Luồng điều hướng chính</a>
+<a href="#public-khong-can-dang-nhap-danh-cho-khach-o-landing" class="lv3">Public (không cần đăng nhập — dành cho Khách ở landing)</a>
+<a href="#8-wireframe-cac-man-hinh">8. Wireframe các màn hình</a>
+<a href="#9-1-so-do-tong">9.1 Sơ đồ tổng</a>
+<a href="#9-2-admin">9.2 Admin</a>
+<a href="#9-3-thu-thu">9.3 Thủ thư</a>
+<a href="#9-4-doc-gia">9.4 Độc giả</a>
+<a href="#9-5-luong-dieu-huong-chinh">9.5 Luồng điều hướng chính</a>
 <a href="#f-a-muon-sach-tai-quay-uc04" class="lv3">F-A. Mượn sách tại quầy (UC04)</a>
 <a href="#f-b-tra-sach-tai-quay-uc05" class="lv3">F-B. Trả sách tại quầy (UC05)</a>
 <a href="#f-c-doc-gia-dat-truoc-roi-den-lay-uc11-uc04-sua-16-10-2026" class="lv3">F-C. Độc giả đặt trước rồi đến lấy (UC11 → UC04) — sửa 16/10/2026</a>
 <a href="#f-d-quan-tri-uc09-uc10" class="lv3">F-D. Quản trị (UC09, UC10)</a>
-<a href="#6-ghi-chu-thiet-ke-chung">6. Ghi chú thiết kế chung</a>
-<a href="#2-yeu-cau-phi-chuc-nang">2. YÊU CẦU PHI CHỨC NĂNG</a>
-<a href="#2-1-hieu-nang" class="lv3">2.1 Hiệu năng</a>
-<a href="#2-2-bao-mat" class="lv3">2.2 Bảo mật</a>
-<a href="#2-3-tuong-thich-va-su-dung" class="lv3">2.3 Tương thích và sử dụng</a>
-<a href="#2-4-do-tin-cay-va-du-lieu" class="lv3">2.4 Độ tin cậy và dữ liệu</a>
-<a href="#3-kich-ban-kiem-thu">3. KỊCH BẢN KIỂM THỬ</a>
-<a href="#uc01-dang-nhap-dang-ky" class="lv3">UC01 — Đăng nhập &amp; Đăng ký</a>
+<a href="#9-6-ghi-chu-thiet-ke-chung">9.6 Ghi chú thiết kế chung</a>
+<a href="#10-yeu-cau-phi-chuc-nang">10. Yêu cầu phi chức năng</a>
+<a href="#10-1-hieu-nang" class="lv3">10.1 Hiệu năng</a>
+<a href="#10-2-bao-mat" class="lv3">10.2 Bảo mật</a>
+<a href="#10-3-tuong-thich-va-su-dung" class="lv3">10.3 Tương thích và sử dụng</a>
+<a href="#10-4-do-tin-cay-va-du-lieu" class="lv3">10.4 Độ tin cậy và dữ liệu</a>
+<a href="#11-kich-ban-kiem-thu">11. Kịch bản kiểm thử</a>
+<a href="#uc01-dang-nhap-dang-ky-xem-uc19" class="lv3">UC01 — Đăng nhập (đăng ký xem UC19)</a>
 <a href="#uc02-quan-ly-sach-2" class="lv3">UC02 — Quản lý sách</a>
 <a href="#uc03-quan-ly-doc-gia-2" class="lv3">UC03 — Quản lý độc giả</a>
 <a href="#uc04-muon-sach-2" class="lv3">UC04 — Mượn sách</a>
@@ -97,6 +102,15 @@
 <a href="#uc09-cau-hinh" class="lv3">UC09 — Cấu hình</a>
 <a href="#uc10-quan-ly-tai-khoan-thu-thu-2" class="lv3">UC10 — Quản lý tài khoản thủ thư</a>
 <a href="#uc11-dat-truoc-sach-sua-16-10-2026-them-luong-duyet" class="lv3">UC11 — Đặt trước sách (sửa 16/10/2026: thêm luồng duyệt)</a>
+<a href="#uc12-huy-dat-truoc-gop-vao-uc08" class="lv3">UC12 — Hủy đặt trước (gộp vào UC08)</a>
+<a href="#uc13-he-thong-thong-bao" class="lv3">UC13 — Hệ thống thông báo</a>
+<a href="#uc14-xuat-bao-cao-gop-vao-uc07" class="lv3">UC14 — Xuất báo cáo (gộp vào UC07)</a>
+<a href="#uc15-quan-ly-sach-mo-rong-gop-vao-uc02" class="lv3">UC15 — Quản lý sách mở rộng (gộp vào UC02)</a>
+<a href="#uc16-tim-sach-bang-ai-theo-mo-ta" class="lv3">UC16 — Tìm sách bằng AI theo mô tả</a>
+<a href="#uc17-nhac-han-qua-email" class="lv3">UC17 — Nhắc hạn qua email</a>
+<a href="#uc18-quen-mat-khau-qua-email" class="lv3">UC18 — Quên mật khẩu qua email</a>
+<a href="#uc19-dang-ky-xac-thuc-email" class="lv3">UC19 — Đăng ký &amp; xác thực email</a>
+<a href="#ho-so-anh-dai-dien-chua-co-uc-rieng" class="lv3">Hồ sơ &amp; ảnh đại diện (chưa có UC riêng)</a>
 </nav>
 </aside>
 <div class="backdrop" id="backdrop"></div>
@@ -110,7 +124,7 @@
 <ol>
 <li>Tổng quan</li>
 <li>Quyết định chốt D1–D15</li>
-<li>Đặc tả chức năng UC01–UC19</li>
+<li>Đặc tả chức năng (16 UC chính; UC12/14/15 gộp, xem ghi chú trong UC08/07/02)</li>
 <li>Ma trận truy vết</li>
 <li>Thiết kế cơ sở dữ liệu</li>
 <li>Thiết kế lớp</li>
@@ -119,7 +133,7 @@
 <li>Screenmap</li>
 <li>Yêu cầu phi chức năng</li>
 <li>Kịch bản kiểm thử</li>
-<li>Bộ prompt UML (67 prompt, xem trang Prompt UML)</li>
+<li>Bộ prompt UML (67 prompt — chỉ là con trỏ sang trang Prompt UML, không liệt kê trong file)</li>
 </ol>
 <hr />
 <h1>1. Tổng quan</h1>
@@ -131,15 +145,15 @@
 - Admin: quản lý tài khoản thủ thư và cấu hình tham số hệ thống.
 - Thủ thư: quản lý sách, độc giả, thực hiện mượn/trả, theo dõi quá hạn, xem thống kê.
 - Độc giả: tìm sách, đặt trước sách, theo dõi sách đang mượn, hạn trả và lịch sử mượn của bản thân.</p>
-<p><strong>5. Phạm vi:</strong> Hệ thống tập trung vào nghiệp vụ lõi: quản lý sách và độc giả, mượn/trả bằng quét mã QR, đặt trước sách online, tính phạt trễ tự động, danh sách quá hạn và thống kê cơ bản. Không bao gồm nhắc hạn qua email và xuất Excel trong phạm vi đồ án này.</p>
-<p><strong>6. Công nghệ sử dụng:</strong> Frontend React, backend Express viết bằng TypeScript theo kiến trúc hướng đối tượng (Entity – Service – Controller – Repository), cơ sở dữ liệu MySQL, phân tích thiết kế bằng UML (activity, sequence, class diagram) trên Visual Paradigm theo tài liệu môn CS353.</p>
+<p><strong>5. Phạm vi:</strong> Hệ thống tập trung vào nghiệp vụ lõi: quản lý sách và độc giả, mượn/trả bằng quét mã QR, đặt trước sách online, tính phạt trễ tự động, danh sách quá hạn và thống kê cơ bản. Bao gồm cả nhắc hạn qua email (UC17) và xuất Excel / in PDF (UC07, gồm UC14).</p>
+<p><strong>6. Công nghệ sử dụng:</strong> Frontend React, backend Express viết bằng TypeScript; kiến trúc cài đặt ở backend là Entity – Service – Controller – Repository (xem §6.1), còn sơ đồ Class phân tích theo chuẩn mới chỉ dùng Frm/Controller/Entity (xem §6.2 và trang Prompt UML). Cơ sở dữ liệu MySQL, phân tích thiết kế bằng UML (activity, sequence, class diagram) trên Visual Paradigm theo tài liệu môn CS353.</p>
 <hr />
 <h1>2. Quyết định chốt D1–D15</h1>
-<h2 id="0-quyet-dinh-chot-khong-thay-doi-khi-code">0. QUYẾT ĐỊNH CHỐT (không thay đổi khi code)</h2>
+<h2 id="2-quyet-dinh-chot-khong-thay-doi-khi-code">2. Quyết định chốt (không thay đổi khi code)</h2>
 <ul>
 <li><strong>D1. Vai trò:</strong> 3 role trong bảng users: <code>admin</code>, <code>librarian</code>, <code>reader</code>.</li>
 <li><strong>D2. Mã QR:</strong> mỗi cuốn sách vật lý có một <code>qr_code</code> duy nhất. Sách thêm mới: <code>qr_code = book_code</code> (mã hiển thị đọc được, VD <code>VH-0001</code>) để thủ thư dễ đọc và quét. Sách cũ (seed trước 16/10/2026): giữ <code>qr_code</code> UUID hex 32 ký tự, không đổi. Tra cứu sách chấp nhận cả 2 định dạng (<code>qr_code</code> hoặc <code>book_code</code>).</li>
-<li><strong>D3. Tham số nghiệp vụ</strong> (bảng settings, admin sửa được): <code>loan_days = 14</code>, <code>fine_per_day = 5000</code> (đồng), <code>max_books_per_reader = 5</code>.</li>
+<li><strong>D3. Tham số nghiệp vụ</strong> (bảng settings, admin sửa được): <code>loan_days = 14</code>, <code>fine_per_day = 5000</code> (đồng), <code>max_books_per_reader = 5</code>, <code>reservation_hours = 48</code> (giờ giữ sách khi đặt trước, dùng cho UC11).</li>
 <li><strong>D4. Hạn trả:</strong> <code>due_at = borrowed_at + loan_days</code> (giờ chính xác, không làm tròn ngày).</li>
 <li><strong>D5. Trạng thái phiếu mượn:</strong> <code>loans.status</code> chỉ có 2 giá trị: <code>borrowing</code> (đang mượn), <code>returned</code> (đã trả). "Quá hạn" KHÔNG lưu trong DB mà tính động: <code>returned_at IS NULL AND due_at &lt; NOW()</code>.</li>
 <li><strong>D6. Số ngày trễ:</strong> <code>overdue_days = CEIL((NOW() - due_at) / 86400)</code>, nếu âm thì = 0.</li>
@@ -154,7 +168,10 @@
 <li><strong>D15. Thể loại riêng (bảng <code>categories</code>):</strong> mỗi thể loại có <code>name</code> + <code>code</code> (ký hiệu, VD: Văn học → <code>VH</code>), cả hai unique. Xóa thể loại đang có sách dùng → bị chặn.</li>
 </ul>
 <hr />
-<h1>3. Đặc tả chức năng UC01–UC19</h1>
+<h1>3. Đặc tả chức năng (16 UC chính; UC12/14/15 gộp, xem ghi chú trong UC08/07/02)</h1>
+<blockquote>
+<p><strong>Các UC đã gộp (không có sơ đồ riêng):</strong> UC12 Hủy đặt trước → xem mục con trong UC08; UC14 Xuất báo cáo Excel / In PDF → xem mục con trong UC07; UC15 Quản lý sách mở rộng → xem mục con trong UC02. Số UC giữ nguyên để khỏi vỡ phân công, tiến độ và prompt.</p>
+</blockquote>
 <h2 id="uc01-dang-nhap">UC01 — Đăng nhập</h2>
 <ul>
 <li><strong>Tác nhân:</strong> Admin, Thủ thư, Độc giả</li>
@@ -163,10 +180,11 @@
 <li><strong>Luồng chính — Đăng nhập:</strong>
   1. Nhập username + password, bấm "Đăng nhập".
   2. Hệ thống kiểm tra users, so sánh bcrypt hash. <strong>Không kiểm tra định dạng mật khẩu</strong> (giữ tài khoản demo).
-  3. Tạo JWT (hết hạn 8 giờ); điều hướng: admin → trang quản trị, thủ thư → Dashboard, độc giả → "Sách của tôi".</li>
+  3. Tạo JWT (hết hạn 8 giờ kể từ lúc cấp); điều hướng: admin → trang quản trị, thủ thư → Dashboard, độc giả → trang tìm sách của độc giả (<code>/reader</code>).</li>
 <li><strong>Đăng ký:</strong> tài khoản mới đăng ký ở UC19 (bắt buộc email thật + xác thực email), không thuộc UC01.</li>
 <li><strong>Ngoại lệ:</strong></li>
 <li>Sai username/password → "Sai tên đăng nhập hoặc mật khẩu".</li>
+<li>Tài khoản bị khóa (<code>active = 0</code>) → 403 "Tài khoản đã bị khóa".</li>
 <li><strong>Hậu điều kiện:</strong> Đăng nhập đúng vai trò.</li>
 </ul>
 <hr />
@@ -176,10 +194,12 @@
 <li><strong>Mô tả:</strong> CRUD sách; mỗi bản vật lý có mã hiển thị <code>book_code</code> và mã QR riêng để quét mượn/trả.</li>
 <li><strong>Tiền điều kiện:</strong> Thủ thư đã đăng nhập.</li>
 <li><strong>Luồng chính — Thêm sách:</strong>
-  1. Bấm "Thêm sách", nhập: tiêu đề (bắt buộc), tác giả, thể loại (chọn từ dropdown danh mục), NXB, năm XB, <strong>số lượng bản</strong> (mặc định 1, tối đa 50).
+  1. Bấm "Thêm sách", nhập: tiêu đề (bắt buộc), tác giả, thể loại (chọn từ dropdown danh mục; lưu dạng text ở <code>books.category</code>, <strong>không phải khóa ngoại</strong> tới bảng <code>categories</code> — bảng <code>categories</code> chỉ dùng để tra mã sinh <code>book_code</code>, xem §5.11), NXB, năm XB, <strong>số lượng bản</strong> (mặc định 1, tối đa 50).
   2. Hệ thống sinh <code>book_code</code> theo D14 (<code>&lt;MÃ_TL&gt;-&lt;seq&gt;</code>, VD <code>VH-0001</code>); sách mới có <code>qr_code = book_code</code>; lưu mỗi bản với <code>status = 'available'</code>.
   3. Hiển thị mã QR (theo <code>book_code</code>) để tải/in dán lên sách.</li>
 <li><strong>Sửa:</strong> đổi thông tin (không đổi được <code>qr_code</code>, <code>book_code</code>, status tay); có thể <strong>upload ảnh bìa</strong> (JPEG/PNG/WebP, tối đa 2MB; ảnh mới thay ảnh cũ, file cũ tự xóa).</li>
+<li><strong>Lấy bìa tự động:</strong> bấm "Lấy bìa" từng cuốn hoặc "Lấy bìa tự động" cho các cuốn chưa có bìa (mặc định 10 cuốn/đợt, tối đa 20/đợt); hệ thống thử Google Books trước rồi Open Library, tải ảnh về lưu như upload tay; cuốn không tìm được bìa vẫn giữ ảnh SVG mặc định.</li>
+<li><strong>Tra cứu sách:</strong> ô tra cứu trong form thêm/sửa sách gọi <code>GET /api/books/lookup</code> (Big Book trước, iTunes fallback khi Big Book không có kết quả hoặc chưa cấu hình key); kết quả hiện dạng ứng viên để thủ thư chọn, bấm ứng viên thì điền tiêu đề/tác giả/năm XB (kèm số trang/ISBN khi Big Book có), thể loại/NXB vẫn chọn tay vì nguồn tra cứu không có NXB và thể loại tiếng Anh không khớp danh mục Việt.</li>
 <li><strong>Xóa:</strong> chỉ khi <code>status = 'available'</code>.</li>
 <li><strong>Tìm kiếm:</strong> theo tiêu đề/tác giả/thể loại (chứa chuỗi, không phân biệt hoa thường).</li>
 <li><strong>Lọc nâng cao:</strong> theo trạng thái (Còn / Đang mượn / Đang giữ chỗ), NXB, năm XB; kết hợp được với tìm kiếm.</li>
@@ -190,6 +210,28 @@
 <li>Xóa sách đang mượn → "Không thể xóa sách đang được mượn".</li>
 <li>Upload sai định dạng/dung lượng → "Chỉ chấp nhận ảnh JPEG, PNG hoặc WebP." / lỗi vượt 2MB.</li>
 <li><strong>Hậu điều kiện:</strong> Danh sách sách cập nhật; mỗi bản có <code>book_code</code> + <code>qr_code</code> riêng.</li>
+</ul>
+<hr />
+<h3 id="uc02a-noi-dung-gop-tu-uc15-quan-ly-sach-mo-rong">UC02a — Nội dung gộp từ UC15: Quản lý sách mở rộng</h3>
+<ul>
+<li><strong>Tác nhân:</strong> Thủ thư</li>
+<li><strong>Mô tả:</strong> (a) Thêm N bản copy cùng lúc; (b) Nhập sách từ Excel; (c) Quản lý thể loại riêng; (d) Lọc nâng cao kết hợp tìm kiếm + sắp xếp.</li>
+<li><strong>Tiền điều kiện:</strong> Thủ thư đã đăng nhập.</li>
+<li><strong>Luồng chính — Thêm N bản:</strong>
+  1. Trong form "Thêm sách", nhập số lượng bản (1–50).
+  2. Hệ thống tạo N dòng sách, mỗi dòng 1 <code>book_code</code> + <code>qr_code</code> riêng (D2, D14); báo "Đã tạo N bản".</li>
+<li><strong>Luồng chính — Nhập Excel:</strong>
+  1. Bấm "Nhập Excel", tải file mẫu (cột: Tiêu đề*, Tác giả, Thể loại, NXB, Năm XB, Số lượng).
+  2. Chọn file <code>.xlsx</code> (tối đa 5MB), bấm "Nhập".
+  3. Hệ thống validate từng dòng: báo số cuốn tạo thành công + danh sách dòng lỗi kèm lý do (thiếu tiêu đề, năm XB không hợp lệ, số lượng ngoài 1–50…); bỏ qua dòng trống.</li>
+<li><strong>Luồng chính — Quản lý thể loại:</strong>
+  1. Mở trang "Thể loại": thêm (tên + ký hiệu code, cả hai unique), sửa, xóa.
+  2. Xóa thể loại đang có sách dùng → bị chặn: "Không thể xóa thể loại đang có sách sử dụng".
+  3. Form thêm/sửa sách: chọn thể loại từ dropdown + nút "+" thêm nhanh thể loại mới.</li>
+<li><strong>Luồng chính — Lọc nâng cao:</strong> toolbar trang Quản lý sách có thêm dropdown Trạng thái (Còn / Đang mượn / Đang giữ chỗ), dropdown NXB, ô Năm XB; kết hợp được với tìm kiếm và sắp xếp.</li>
+<li><strong>Ngoại lệ:</strong></li>
+<li>File không phải .xlsx hoặc quá 5MB → từ chối với thông báo rõ ràng.</li>
+<li><strong>Hậu điều kiện:</strong> Sách/thể loại được cập nhật đúng; <code>book_code</code> unique toàn hệ thống.</li>
 </ul>
 <hr />
 <h2 id="uc03-quan-ly-doc-gia">UC03 — Quản lý độc giả</h2>
@@ -241,12 +283,11 @@
 <li><strong>Mô tả:</strong> Ghi nhận trả sách, tự tính phạt trễ theo D6–D7.</li>
 <li><strong>Tiền điều kiện:</strong> Thủ thư đã đăng nhập.</li>
 <li><strong>Luồng chính:</strong>
-  1. Bấm "Trả sách" → quét mã QR.
-  2. Hệ thống tìm phiếu <code>borrowing</code> của sách; hiển thị: tên sách, độc giả, ngày mượn, hạn trả.
-  3. Hệ thống tính <code>overdue_days</code> (D6); nếu &gt; 0 thì <code>fine = overdue_days × fine_per_day</code>, hiển thị.
-  4. Thủ thư bấm "Xác nhận trả".
-  5. Hệ thống: <code>returned_at = NOW()</code>, <code>fine_amount = fine</code>, <code>status = 'returned'</code>; sách về <code>available</code>.
-  6. Báo trả thành công (+ số tiền phạt nếu có).</li>
+  1. Bấm "Trả sách" → quét mã QR <strong>hoặc</strong> nhập mã sách thủ công vào ô "Nhập mã sách thủ công" (có nút <strong>Dán</strong> lấy từ clipboard, giống trang Mượn sách).
+  2. Hệ thống gọi xem trước (<code>GET /api/loans/return-preview</code>): tìm phiếu <code>borrowing</code> của sách; hiển thị: tên sách, độc giả, ngày mượn, hạn trả, số ngày trễ (D6) và tiền phạt dự kiến — <strong>chưa chốt, chưa đổi DB</strong>.
+  3. Thủ thư bấm "Xác nhận trả".
+  4. Hệ thống gọi chốt trả (<code>POST /api/loans/return { loanId }</code>): <code>returned_at = NOW()</code>, <code>fine_amount = fine</code>, <code>status = 'returned'</code>; sách về <code>available</code>.
+  5. Báo trả thành công (+ số tiền phạt nếu có).</li>
 <li><strong>Ngoại lệ:</strong></li>
 <li>2a. Không có phiếu borrowing → "Sách này không trong trạng thái cho mượn", kết thúc.</li>
 <li><strong>Hậu điều kiện:</strong> Phiếu đóng với <code>fine_amount</code> đã chốt; sách <code>available</code>.</li>
@@ -274,9 +315,28 @@
   2. Hệ thống hiển thị 4 thẻ số: tổng sách, đang mượn (<code>borrowing</code>), quá hạn (tính động), tổng độc giả.
   3. Biểu đồ cột: top 5 sách mượn nhiều nhất (đếm theo bảng loans).
   4. Bảng lịch sử mượn/trả: lọc theo độc giả, trạng thái, khoảng thời gian; sắp xếp ngày mượn mới/cũ nhất.
-  5. Bấm "Xuất Excel" → tải file <code>.xlsx</code> (tên có ngày giờ) gồm 2 sheet: "Muon tra" (chi tiết từng phiếu theo đúng bộ lọc đang xem) và "Tong quan" (các chỉ số tổng hợp).
+  5. Bấm "Xuất Excel" → tải file <code>.xlsx</code> (tên có ngày giờ) gồm 2 sheet: "Mượn trả" (chi tiết từng phiếu theo đúng bộ lọc đang xem) và "Tổng quan" (các chỉ số tổng hợp).
   6. Bấm "In / Lưu PDF" → <code>window.print()</code>; CSS <code>@media print</code> chỉ in khối báo cáo (ẩn sidebar, topbar, nút bấm, bộ lọc).</li>
 <li><strong>Hậu điều kiện:</strong> Có báo cáo tổng quan để theo dõi; file Excel/PDF phản ánh đúng bộ lọc.</li>
+</ul>
+<hr />
+<h3 id="uc07a-noi-dung-gop-tu-uc14-xuat-bao-cao-excel-in-pdf">UC07a — Nội dung gộp từ UC14: Xuất báo cáo Excel / In PDF</h3>
+<ul>
+<li><strong>Tác nhân:</strong> Thủ thư, Admin</li>
+<li><strong>Mô tả:</strong> Từ trang Thống kê, xuất báo cáo mượn/trả ra file Excel hoặc in/lưu PDF.</li>
+<li><strong>Tiền điều kiện:</strong> Đã đăng nhập với vai trò thủ thư hoặc admin; đang ở trang "Thống kê".</li>
+<li><strong>Luồng chính — Xuất Excel:</strong>
+  1. Người dùng chọn bộ lọc ở bảng Lịch sử mượn/trả (trạng thái, độc giả, từ ngày, đến ngày).
+  2. Bấm "Xuất Excel".
+  3. Hệ thống sinh file <code>.xlsx</code> (tên có ngày giờ) gồm 2 sheet: "Mượn trả" (chi tiết từng phiếu theo đúng bộ lọc đang xem: ngày mượn, sách, độc giả, hạn trả, ngày trả, trạng thái, phạt) và "Tổng quan" (các chỉ số tổng hợp).
+  4. Trình duyệt tải file về máy.</li>
+<li><strong>Luồng chính — In / Lưu PDF:</strong>
+  1. Bấm "In / Lưu PDF".
+  2. Hệ thống gọi <code>window.print()</code>; CSS <code>@media print</code> chỉ in khối báo cáo (ẩn sidebar, topbar, nút bấm, bộ lọc).
+  3. Người dùng chọn máy in hoặc "Lưu thành PDF" trong hộp thoại in của trình duyệt.</li>
+<li><strong>Ngoại lệ:</strong></li>
+<li>Không có dữ liệu theo bộ lọc → file Excel vẫn xuất với sheet "Mượn trả" trống (chỉ có header).</li>
+<li><strong>Hậu điều kiện:</strong> File Excel/PDF phản ánh đúng bộ lọc đang xem.</li>
 </ul>
 <hr />
 <h2 id="uc08-sach-cua-toi">UC08 — Sách của tôi</h2>
@@ -293,6 +353,18 @@
   3. Tab "Đặt trước": các lượt đặt của độc giả (mọi trạng thái): badge màu theo trạng thái (Chờ duyệt vàng / Đã duyệt xanh / Từ chối đỏ / Hết hạn xám), lịch hẹn đến lấy (<code>pickup_at</code>) khi đã duyệt, thời gian giữ còn lại; lượt <code>approved</code> hiện <strong>mã QR + mã chữ</strong> để đưa thủ thư ở quầy; nút "Hủy" chỉ hiện khi còn <code>pending</code> (UC12).
   4. Tab "Lịch sử": phiếu <code>returned</code> kèm <code>fine_amount</code> từng phiếu.</li>
 <li><strong>Hậu điều kiện:</strong> Độc giả nắm tình trạng mượn và đặt trước của mình.</li>
+</ul>
+<hr />
+<h3 id="uc08a-noi-dung-gop-tu-uc12-huy-dat-truoc">UC08a — Nội dung gộp từ UC12: Hủy đặt trước</h3>
+<ul>
+<li><strong>Tác nhân:</strong> Độc giả</li>
+<li><strong>Mô tả:</strong> Độc giả hủy lượt đặt trước của mình để nhả sách cho người khác.</li>
+<li><strong>Tiền điều kiện:</strong> Độc giả đã đăng nhập và có lượt đặt <code>pending</code> (chỉ hủy được khi còn chờ duyệt).</li>
+<li><strong>Luồng chính:</strong>
+  1. Độc giả mở tab "Đặt trước" trong "Sách của tôi", bấm "Hủy" ở lượt đặt.
+  2. Hệ thống hỏi xác nhận; độc giả đồng ý.
+  3. Hệ thống chuyển lượt đặt thành <code>cancelled</code>; sách về trạng thái "Còn" cho người khác đặt/mượn.</li>
+<li><strong>Hậu điều kiện:</strong> Lượt đặt thành <code>cancelled</code>; sách được giải phóng.</li>
 </ul>
 <hr />
 <h2 id="uc09-cau-hinh-he-thong">UC09 — Cấu hình hệ thống</h2>
@@ -322,17 +394,14 @@
 <li>Tự xóa chính mình hoặc xóa admin cuối cùng → từ chối.</li>
 <li><strong>Hậu điều kiện:</strong> Danh sách tài khoản cập nhật.</li>
 </ul>
-<blockquote>
-<p>Ghi chú: bảng users cần thêm cột <code>active TINYINT DEFAULT 1</code> để khóa/mở khóa (không có trong schema bản trước — đã bổ sung).</p>
-</blockquote>
 <hr />
 <h2 id="uc11-dat-truoc-sach-sua-16-10-2026-them-luong-duyet-cua-thu-thu">UC11 — Đặt trước sách (sửa 16/10/2026: thêm luồng duyệt của thủ thư)</h2>
 <ul>
-<li><strong>Tác nhân:</strong> Độc giả, Thủ thư</li>
+<li><strong>Tác nhân:</strong> Độc giả (tạo đặt trước); Thủ thư (duyệt/từ chối và quản lý đặt trước). Tạo đặt trước (<code>POST /api/reservations</code>) chỉ cho role <code>reader</code>; duyệt/từ chối chỉ cho role <code>librarian</code>.</li>
 <li><strong>Mô tả:</strong> Độc giả đặt trước online (+ ghi chú giờ mong muốn, không bắt buộc); thủ thư duyệt và chốt lịch hẹn cụ thể để độc giả đến lấy.</li>
 <li><strong>Tiền điều kiện:</strong> Độc giả đã đăng nhập.</li>
 <li><strong>Luồng chính:</strong>
-  1. Độc giả tìm kiếm sách; hệ thống hiển thị cả sách "Còn" và "Đang mượn"/"Đang giữ chỗ" (không cho đặt những cuốn này).
+  1. Độc giả tìm kiếm sách; nút "Đặt trước" chỉ hiện khi sách "Còn" và chưa có lượt đặt đang hiệu lực; sách "Đang mượn"/"Đang giữ chỗ" hiện lý do không đặt được (không cho đặt những cuốn này).
   2. Độc giả bấm "Đặt trước" ở cuốn đang "Còn", có thể nhập giờ mong muốn đến lấy.
   3. Hệ thống tạo lượt đặt: <code>reserved_at = NOW()</code>, <code>expires_at = NOW() + reservation_hours</code>, <code>status = 'pending'</code>, sinh <code>code</code> (8 ký tự A-Z0-9, unique) làm mã QR đặt trước; báo "Đặt trước thành công, đang chờ thủ thư duyệt".
   4. Thủ thư mở "Quản lý đặt trước" (menu có badge đếm số chờ duyệt), bấm "Duyệt" và chọn lịch hẹn → <code>status = 'approved'</code> (badge xanh "Đã duyệt"), giữ chỗ đến <code>pickup_at + 2</code> giờ; hoặc bấm "Không duyệt" (+ lý do, không bắt buộc) → <code>status = 'rejected'</code> (badge đỏ), sách mở lại ngay.
@@ -345,21 +414,6 @@
 <li>4a. Quá <code>expires_at</code> chưa ai duyệt → <code>expired</code> (tự động, lazy).</li>
 <li>4b. Quá <code>pickup_at + 2</code> giờ không đến lấy → <code>expired</code> (tự động, lazy).</li>
 <li><strong>Hậu điều kiện:</strong> Lượt đặt ở trạng thái đúng (<code>approved</code>/<code>rejected</code>/<code>expired</code>); sách được giữ/mở theo trạng thái.</li>
-</ul>
-<hr />
-<h2 id="uc12-huy-dat-truoc-gop-vao-uc08-khong-ve-rieng-o-so-do-tong-the">UC12 — Hủy đặt trước (gộp vào UC08, không vẽ riêng ở sơ đồ tổng thể)</h2>
-<blockquote>
-<p>Ghi chú tối ưu 24/10/2026: UC12 gộp vào UC08 Sách của tôi, không vẽ riêng ở sơ đồ tổng thể; đặc tả chi tiết dưới đây giữ lại để làm luồng hủy trong UC08.</p>
-</blockquote>
-<ul>
-<li><strong>Tác nhân:</strong> Độc giả</li>
-<li><strong>Mô tả:</strong> Độc giả hủy lượt đặt trước của mình để nhả sách cho người khác.</li>
-<li><strong>Tiền điều kiện:</strong> Độc giả đã đăng nhập và có lượt đặt <code>pending</code> (chỉ hủy được khi còn chờ duyệt).</li>
-<li><strong>Luồng chính:</strong>
-  1. Độc giả mở tab "Đặt trước" trong "Sách của tôi", bấm "Hủy" ở lượt đặt.
-  2. Hệ thống hỏi xác nhận; độc giả đồng ý.
-  3. Hệ thống chuyển lượt đặt thành <code>cancelled</code>; sách về trạng thái "Còn" cho người khác đặt/mượn.</li>
-<li><strong>Hậu điều kiện:</strong> Lượt đặt thành <code>cancelled</code>; sách được giải phóng.</li>
 </ul>
 <hr />
 <h2 id="uc13-he-thong-thong-bao-moi-16-10-2026">UC13 — Hệ thống thông báo (mới 16/10/2026)</h2>
@@ -386,52 +440,6 @@
 <li><strong>Rẽ nhánh:</strong> thông báo loại "chung" + cờ <code>show_on_landing</code> → hiện thẻ nổi ở landing (tắt được, nhớ trong session).</li>
 <li><strong>Hậu điều kiện:</strong> <code>notification_reads</code> ghi nhận trạng thái đọc theo từng user.</li>
 </ul>
-<h2 id="uc14-xuat-bao-cao-excel-in-pdf-moi-16-10-2026">UC14 — Xuất báo cáo Excel / In PDF (mới 16/10/2026)</h2>
-<blockquote>
-<p>Ghi chú tối ưu 24/10/2026: UC14 gộp vào UC07 Thống kê, không vẽ riêng ở sơ đồ tổng thể.</p>
-</blockquote>
-<ul>
-<li><strong>Tác nhân:</strong> Thủ thư, Admin</li>
-<li><strong>Mô tả:</strong> Từ trang Thống kê, xuất báo cáo mượn/trả ra file Excel hoặc in/lưu PDF.</li>
-<li><strong>Tiền điều kiện:</strong> Đã đăng nhập với vai trò thủ thư hoặc admin; đang ở trang "Thống kê".</li>
-<li><strong>Luồng chính — Xuất Excel:</strong>
-  1. Người dùng chọn bộ lọc ở bảng Lịch sử mượn/trả (trạng thái, độc giả, từ ngày, đến ngày).
-  2. Bấm "Xuất Excel".
-  3. Hệ thống sinh file <code>.xlsx</code> (tên có ngày giờ) gồm 2 sheet: "Muon tra" (chi tiết từng phiếu theo đúng bộ lọc đang xem: ngày mượn, sách, độc giả, hạn trả, ngày trả, trạng thái, phạt) và "Tong quan" (các chỉ số tổng hợp).
-  4. Trình duyệt tải file về máy.</li>
-<li><strong>Luồng chính — In / Lưu PDF:</strong>
-  1. Bấm "In / Lưu PDF".
-  2. Hệ thống gọi <code>window.print()</code>; CSS <code>@media print</code> chỉ in khối báo cáo (ẩn sidebar, topbar, nút bấm, bộ lọc).
-  3. Người dùng chọn máy in hoặc "Lưu thành PDF" trong hộp thoại in của trình duyệt.</li>
-<li><strong>Ngoại lệ:</strong></li>
-<li>Không có dữ liệu theo bộ lọc → file Excel vẫn xuất với sheet "Muon tra" trống (chỉ có header).</li>
-<li><strong>Hậu điều kiện:</strong> File Excel/PDF phản ánh đúng bộ lọc đang xem.</li>
-</ul>
-<h2 id="uc15-quan-ly-sach-mo-rong-moi-16-10-2026">UC15 — Quản lý sách mở rộng (mới 16/10/2026)</h2>
-<blockquote>
-<p>Ghi chú tối ưu 24/10/2026: UC15 gộp vào UC02 Quản lý sách, không vẽ riêng ở sơ đồ tổng thể.</p>
-</blockquote>
-<ul>
-<li><strong>Tác nhân:</strong> Thủ thư</li>
-<li><strong>Mô tả:</strong> (a) Thêm N bản copy cùng lúc; (b) Nhập sách từ Excel; (c) Quản lý thể loại riêng; (d) Lọc nâng cao kết hợp tìm kiếm + sắp xếp.</li>
-<li><strong>Tiền điều kiện:</strong> Thủ thư đã đăng nhập.</li>
-<li><strong>Luồng chính — Thêm N bản:</strong>
-  1. Trong form "Thêm sách", nhập số lượng bản (1–50).
-  2. Hệ thống tạo N dòng sách, mỗi dòng 1 <code>book_code</code> + <code>qr_code</code> riêng (D2, D14); báo "Đã tạo N bản".</li>
-<li><strong>Luồng chính — Nhập Excel:</strong>
-  1. Bấm "Nhập Excel", tải file mẫu (cột: Tiêu đề*, Tác giả, Thể loại, NXB, Năm XB, Số lượng).
-  2. Chọn file <code>.xlsx</code> (tối đa 5MB), bấm "Nhập".
-  3. Hệ thống validate từng dòng: báo số cuốn tạo thành công + danh sách dòng lỗi kèm lý do (thiếu tiêu đề, năm XB không hợp lệ, số lượng ngoài 1–50…); bỏ qua dòng trống.</li>
-<li><strong>Luồng chính — Quản lý thể loại:</strong>
-  1. Mở trang "Thể loại": thêm (tên + ký hiệu code, cả hai unique), sửa, xóa.
-  2. Xóa thể loại đang có sách dùng → bị chặn: "Không thể xóa thể loại đang có sách sử dụng".
-  3. Form thêm/sửa sách: chọn thể loại từ dropdown + nút "+" thêm nhanh thể loại mới.</li>
-<li><strong>Luồng chính — Lọc nâng cao:</strong> toolbar trang Quản lý sách có thêm dropdown Trạng thái (Còn / Đang mượn / Đang giữ chỗ), dropdown NXB, ô Năm XB; kết hợp được với tìm kiếm và sắp xếp.</li>
-<li><strong>Ngoại lệ:</strong></li>
-<li>File không phải .xlsx hoặc quá 5MB → từ chối với thông báo rõ ràng.</li>
-<li><strong>Hậu điều kiện:</strong> Sách/thể loại được cập nhật đúng; <code>book_code</code> unique toàn hệ thống.</li>
-</ul>
-<hr />
 <h2 id="uc16-tim-sach-bang-ai-theo-mo-ta-noi-dung-moi-23-10-2026">UC16 — Tìm sách bằng AI theo mô tả nội dung (mới 23/10/2026)</h2>
 <ul>
 <li><strong>Tác nhân:</strong> Độc giả, Khách (không cần đăng nhập — dùng ở landing page).</li>
@@ -443,7 +451,7 @@
   3. Backend lấy danh sách đầu sách duy nhất (title + author) kèm metadata, gửi cùng mô tả cho Gemini (<code>AiBookSearchService</code>).
   4. Gemini trả JSON gồm id + điểm phù hợp (0–100) + lý do; backend <strong>chỉ chấp nhận id có thật trong danh mục</strong> (chống AI bịa sách), tối đa 8 kết quả, sắp giảm dần theo điểm.
   5. Giao diện hiển thị lưới sách kèm huy hiệu "Khớp X%" và lý do; bấm vào sách xem chi tiết như luồng tra cứu thường.</li>
-<li><strong>Luồng thay thế (fallback):</strong> Gemini lỗi/timeout/quá hạn mức hoặc chưa cấu hình key → backend tự chấm điểm khớp từ khóa (bỏ dấu tiếng Việt, bỏ từ dừng, trọng số: tên sách 3, tác giả 2, thể loại 2) trên tên sách/tác giả/thể loại và trả kết quả kèm thông báo đang ở chế độ từ khóa.</li>
+<li><strong>Luồng thay thế (fallback):</strong> Gemini lỗi/timeout/quá hạn mức hoặc chưa cấu hình key → backend tự chấm điểm khớp từ khóa (bỏ dấu tiếng Việt, bỏ từ dừng, trọng số theo từng từ khóa: khớp tiêu đề +3, ngược lại khớp tác giả hoặc thể loại +2 (dạng else-if, không cộng dồn khi một từ khớp cả tác giả lẫn thể loại)) trên tên sách/tác giả/thể loại và trả kết quả kèm thông báo đang ở chế độ từ khóa.</li>
 <li><strong>Ngoại lệ:</strong></li>
 <li>Mô tả dưới 3 ký tự hoặc trên 600 ký tự → 400 kèm thông báo.</li>
 <li>Gọi quá 10 lần/60 giây/IP → 429 (bảo vệ quota API key).</li>
@@ -472,7 +480,7 @@
 <hr />
 <h2 id="uc18-quen-mat-khau-dat-lai-mat-khau-qua-email-moi-23-10-2026">UC18 — Quên mật khẩu / đặt lại mật khẩu qua email (mới 23/10/2026)</h2>
 <ul>
-<li><strong>Tác nhân:</strong> Độc giả (mọi vai trò có email đều dùng được).</li>
+<li><strong>Tác nhân:</strong> Mọi vai trò có email đều dùng được (độc giả, thủ thư, admin).</li>
 <li><strong>Mô tả:</strong> Người dùng quên mật khẩu tự đặt lại qua liên kết gửi về email đã đăng ký, không cần nhờ thủ thư/admin.</li>
 <li><strong>Tiền điều kiện:</strong> Tài khoản có email trong hồ sơ; hệ thống email đang bật (UC17).</li>
 <li><strong>Luồng chính:</strong>
@@ -483,7 +491,7 @@
   5. Backend kiểm tra token (đúng hash, chưa dùng, chưa hết hạn) → cập nhật <code>password_hash</code> (bcrypt) → đánh dấu token đã dùng.</li>
 <li><strong>Ngoại lệ:</strong></li>
 <li>Token sai/hết hạn/đã dùng → 400 "Liên kết không hợp lệ hoặc đã hết hạn".</li>
-<li>Yêu cầu gửi lại liên tục: mỗi tài khoản tối đa 1 email reset/phút.</li>
+<li>Yêu cầu gửi lại liên tục: <strong>chưa xác minh</strong> — chưa tìm thấy giới hạn 1 email reset/phút trong code hiện tại (chỉ thấy cooldown 1 phút cho gửi lại email xác thực ở UC19); không áp dụng giới hạn này cho tới khi xác minh.</li>
 <li>Email không tồn tại / tài khoản bị khóa → không gửi gì, vẫn trả thông điệp chung ở bước 2.</li>
 <li><strong>API:</strong> <code>POST /api/auth/forgot-password</code> <code>{ email }</code>; <code>POST /api/auth/reset-password</code> <code>{ token, newPassword }</code>.</li>
 <li><strong>Hậu điều kiện:</strong> Mật khẩu của tài khoản được thay mới; token bị vô hiệu.</li>
@@ -517,6 +525,7 @@
 <th>Admin</th>
 <th>Thủ thư</th>
 <th>Độc giả</th>
+<th>Khách</th>
 </tr>
 </thead>
 <tbody>
@@ -525,11 +534,13 @@
 <td>x</td>
 <td>x</td>
 <td>x</td>
+<td></td>
 </tr>
 <tr>
 <td>UC02 Quản lý sách</td>
 <td></td>
 <td>x</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
@@ -537,11 +548,13 @@
 <td></td>
 <td>x</td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td>UC04 Mượn sách</td>
 <td></td>
 <td>x</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
@@ -549,11 +562,13 @@
 <td></td>
 <td>x</td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td>UC06 Quá hạn</td>
 <td></td>
 <td>x</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
@@ -561,16 +576,19 @@
 <td>x</td>
 <td>x</td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td>UC08 Sách của tôi</td>
 <td></td>
 <td></td>
 <td>x</td>
+<td></td>
 </tr>
 <tr>
 <td>UC09 Cấu hình</td>
 <td>x</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -579,35 +597,41 @@
 <td>x</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td>UC11 Đặt trước sách (độc giả đặt, thủ thư duyệt)</td>
 <td></td>
 <td>x</td>
 <td>x</td>
+<td></td>
 </tr>
 <tr>
-<td>UC12 Hủy đặt trước</td>
+<td>UC12 Hủy đặt trước (gộp → UC08)</td>
 <td></td>
 <td></td>
 <td>x</td>
+<td></td>
 </tr>
 <tr>
 <td>UC13 Hệ thống thông báo</td>
 <td>x</td>
 <td>x</td>
 <td>x</td>
+<td>x</td>
 </tr>
 <tr>
-<td>UC14 Xuất báo cáo Excel / In PDF</td>
+<td>UC14 Xuất báo cáo Excel / In PDF (gộp → UC07)</td>
 <td>x</td>
 <td>x</td>
 <td></td>
+<td></td>
 </tr>
 <tr>
-<td>UC15 Quản lý sách mở rộng</td>
+<td>UC15 Quản lý sách mở rộng (gộp → UC02)</td>
 <td></td>
 <td>x</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
@@ -615,34 +639,38 @@
 <td></td>
 <td></td>
 <td>x</td>
+<td>x</td>
 </tr>
 <tr>
 <td>UC17 Nhắc hạn qua email</td>
 <td></td>
 <td></td>
 <td>x</td>
+<td></td>
 </tr>
 <tr>
 <td>UC18 Quên mật khẩu qua email</td>
 <td>x</td>
 <td>x</td>
 <td>x</td>
+<td></td>
 </tr>
 <tr>
 <td>UC19 Đăng ký &amp; xác thực email</td>
 <td></td>
 <td></td>
 <td>x</td>
+<td>x</td>
 </tr>
 </tbody>
 </table></div>
 <blockquote>
-<p>Ghi chú: UC12 gộp vào UC08, UC14 gộp vào UC07, UC15 gộp vào UC02 ở sơ đồ tổng thể; ma trận giữ lại để truy vết chức năng chi tiết.</p>
+<p>Ghi chú: UC12 gộp vào UC08, UC14 gộp vào UC07, UC15 gộp vào UC02 ở sơ đồ tổng thể; ma trận giữ lại để truy vết chức năng chi tiết. Cột Khách chỉ áp cho các oval công khai: đăng ký (UC19), tìm kiếm AI ở landing (UC16), xem thẻ nổi thông báo ở landing (UC13.4); Khách không dùng các chức năng cần đăng nhập.</p>
 <p>Ghi chú: UC02 có chức năng tìm kiếm; độc giả dùng chung API tìm kiếm sách (GET /api/books) ở chế độ chỉ đọc để phục vụ UC11 — không tính là use case riêng. UC16 dùng ở landing page nên Khách (chưa đăng nhập) cũng dùng được.</p>
 </blockquote>
 <h1>5. Thiết kế cơ sở dữ liệu (MySQL)</h1>
-<h2 id="3-thiet-ke-co-so-du-lieu-mysql">3. Thiết kế cơ sở dữ liệu (MySQL)</h2>
-<h3 id="3-1-bang-users">3.1 Bảng users</h3>
+<h2 id="5-thiet-ke-co-so-du-lieu-mysql">5. Thiết kế cơ sở dữ liệu (MySQL)</h2>
+<h3 id="5-1-bang-users">5.1 Bảng users</h3>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -688,6 +716,21 @@
 <td></td>
 </tr>
 <tr>
+<td>email</td>
+<td>VARCHAR(150)</td>
+<td>email đăng ký/xác thực (UC17–UC19); tài khoản cũ có thể NULL</td>
+</tr>
+<tr>
+<td>email_verified</td>
+<td>TINYINT(1) DEFAULT 0</td>
+<td>1 = email đã xác thực qua link (UC19)</td>
+</tr>
+<tr>
+<td>avatar_url</td>
+<td>VARCHAR(255)</td>
+<td>đường dẫn ảnh đại diện (/uploads/avatars/...)</td>
+</tr>
+<tr>
 <td>active</td>
 <td>TINYINT(1) DEFAULT 1</td>
 <td>1 = hoạt động, 0 = bị khóa</td>
@@ -699,7 +742,7 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="3-2-bang-books">3.2 Bảng books</h3>
+<h3 id="5-2-bang-books">5.2 Bảng books</h3>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -766,7 +809,7 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="3-3-bang-loans">3.3 Bảng loans</h3>
+<h3 id="5-3-bang-loans">5.3 Bảng loans</h3>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -821,9 +864,14 @@
 <td>TINYINT(1) DEFAULT 0</td>
 <td>1 = đã gửi thông báo quá hạn (chống trùng)</td>
 </tr>
+<tr>
+<td>created_at</td>
+<td>DATETIME DEFAULT CURRENT_TIMESTAMP</td>
+<td></td>
+</tr>
 </tbody>
 </table></div>
-<h3 id="3-4-bang-reservations">3.4 Bảng reservations</h3>
+<h3 id="5-4-bang-reservations">5.4 Bảng reservations</h3>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -893,9 +941,14 @@
 <td>VARCHAR(16) UNIQUE</td>
 <td>mã QR đặt trước (8 ký tự A-Z0-9), sinh khi tạo</td>
 </tr>
+<tr>
+<td>created_at</td>
+<td>DATETIME DEFAULT CURRENT_TIMESTAMP</td>
+<td></td>
+</tr>
 </tbody>
 </table></div>
-<h3 id="3-5-bang-categories-moi-16-10-2026">3.5 Bảng categories (mới 16/10/2026)</h3>
+<h3 id="5-5-bang-categories-moi-16-10-2026">5.5 Bảng categories (mới 16/10/2026)</h3>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -922,7 +975,7 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="3-6-bang-notifications-moi-16-10-2026">3.6 Bảng notifications (mới 16/10/2026)</h3>
+<h3 id="5-6-bang-notifications-moi-16-10-2026">5.6 Bảng notifications (mới 16/10/2026)</h3>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -979,7 +1032,7 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="3-7-bang-notification-reads-moi-16-10-2026">3.7 Bảng notification_reads (mới 16/10/2026)</h3>
+<h3 id="5-7-bang-notification-reads-moi-16-10-2026">5.7 Bảng notification_reads (mới 16/10/2026)</h3>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -1006,7 +1059,7 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="3-8-bang-settings">3.8 Bảng settings</h3>
+<h3 id="5-8-bang-settings">5.8 Bảng settings</h3>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -1043,58 +1096,168 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="3-6-quan-he">3.6 Quan hệ</h3>
+<h3 id="5-9-bang-email-tokens-moi-23-10-2026">5.9 Bảng email_tokens (mới 23/10/2026)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Cột</th>
+<th>Kiểu</th>
+<th>Ghi chú</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>INT PK AUTO_INCREMENT</td>
+<td></td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>INT NOT NULL, FK → users(id) ON DELETE CASCADE</td>
+<td></td>
+</tr>
+<tr>
+<td>purpose</td>
+<td>ENUM('verify_email','reset_password') NOT NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>token_hash</td>
+<td>CHAR(64) NOT NULL</td>
+<td>chỉ lưu SHA-256 của token, không lưu token gốc</td>
+</tr>
+<tr>
+<td>expires_at</td>
+<td>DATETIME NOT NULL</td>
+<td>reset_password 30 phút, verify_email 24 giờ</td>
+</tr>
+<tr>
+<td>used_at</td>
+<td>DATETIME NULL</td>
+<td>NULL = chưa dùng (dùng 1 lần)</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>DATETIME DEFAULT CURRENT_TIMESTAMP</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="5-10-bang-email-reminders-moi-23-10-2026">5.10 Bảng email_reminders (mới 23/10/2026)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Cột</th>
+<th>Kiểu</th>
+<th>Ghi chú</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>INT PK AUTO_INCREMENT</td>
+<td></td>
+</tr>
+<tr>
+<td>loan_id</td>
+<td>INT NOT NULL, FK → loans(id) ON DELETE CASCADE</td>
+<td></td>
+</tr>
+<tr>
+<td>type</td>
+<td>ENUM('due_soon','overdue') NOT NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>recipient_email</td>
+<td>VARCHAR(150) NOT NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>provider_id</td>
+<td>VARCHAR(100) NULL</td>
+<td>id email phía Resend</td>
+</tr>
+<tr>
+<td>sent_day</td>
+<td>DATE NOT NULL</td>
+<td>chống gửi trùng theo ngày, UNIQUE (loan_id, type, sent_day)</td>
+</tr>
+<tr>
+<td>sent_at</td>
+<td>DATETIME DEFAULT CURRENT_TIMESTAMP</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="5-11-quan-he">5.11 Quan hệ</h3>
 <ul>
 <li>users (1) — (n) loans (một độc giả có nhiều phiếu mượn)</li>
 <li>books (1) — (n) loans (một cuốn sách có nhiều lượt mượn theo thời gian)</li>
 <li>users (1) — (n) reservations; books (1) — (n) reservations</li>
+<li>users (1) — (n) reservations qua <code>reviewed_by</code> (thủ thư duyệt/từ chối)</li>
+<li>users (1) — (n) notifications qua <code>created_by</code> (người tạo) và qua <code>user_id</code> (thông báo riêng cho 1 user)</li>
+<li>notifications (1) — (n) notification_reads; users (1) — (n) notification_reads (trạng thái đã đọc theo từng user)</li>
+<li>users (1) — (n) email_tokens; loans (1) — (n) email_reminders</li>
+<li><strong>Không có quan hệ categories — books:</strong> <code>books.category</code> là VARCHAR text tự do, không có khóa ngoại tới <code>categories</code>. Bảng <code>categories</code> chỉ dùng để tra mã sinh <code>book_code</code> và kiểm tra trùng tên/ký hiệu; logic chặn xóa thể loại đang có sách dùng đếm theo tên thể loại, không phải ràng buộc FK.</li>
 </ul>
 <hr />
 <h1>6. Thiết kế lớp (hướng đối tượng)</h1>
-<h2 id="4-thiet-ke-lop-huong-doi-tuong">4. Thiết kế lớp (hướng đối tượng)</h2>
-<h3 id="4-1-entity-classes">4.1 Entity classes</h3>
-<p><strong>Book</strong>
-- Thuộc tính: id, qrCode, title, author, category, publisher, publishYear, status
-- Phương thức: isAvailable(): boolean</p>
-<p><strong>User</strong>
-- Thuộc tính: id, username, passwordHash, fullName, role, studentCode, phone
-- Phương thức: isLibrarian(): boolean</p>
-<p><strong>Loan</strong>
-- Thuộc tính: id, book: Book, reader: User, borrowedAt, dueAt, returnedAt, fineAmount
-- Phương thức: isOverdue(): boolean, calcOverdueDays(): number, calcFine(finePerDay): number</p>
-<h3 id="4-2-service-classes">4.2 Service classes</h3>
-<p><strong>BookService</strong>: createBook(), updateBook(), deleteBook(), findByQrCode(qr), search(keyword), generateQrCode()
-<strong>UserService</strong>: registerReader(), authenticate(username, password), listReaders(), updateReader(), deleteReader()
-<strong>LoanService</strong>: borrowBook(qrCode, readerId), previewReturn(qrCode), confirmReturn(loanId), listOverdue(), getReaderLoans(readerId), getHistory(filters)
-<strong>ReservationService</strong>: reserveBook(bookId, readerId), cancelReservation(id, readerId), listMyReservations(readerId), findPendingByBook(bookId)
-<strong>StatsService</strong>: getDashboard()
-<strong>SettingsService</strong>: getSettings(), updateSettings()</p>
-<h3 id="4-3-controller-classes">4.3 Controller classes</h3>
-<p><strong>AuthController</strong>: login(), register()
-<strong>BookController</strong>: list/create/update/delete/search/byQr
-<strong>ReaderController</strong>: list/create/update/delete
-<strong>LoanController</strong>: borrow/return/overdue/history
-<strong>StatsController</strong>: dashboard
-<strong>SettingsController</strong>: get/update</p>
-<h3 id="4-4-repository-classes">4.4 Repository classes</h3>
-<p><strong>BookRepository, UserRepository, LoanRepository, SettingsRepository</strong>: các hàm truy vấn MySQL thuần (findById, save, delete...), Service gọi Repository, không truy vấn DB trực tiếp từ Controller.</p>
-<p>Luồng gọi chuẩn: Controller → Service → Repository → MySQL.</p>
-<hr />
+<h2 id="6-thiet-ke-lop-huong-doi-tuong">6. Thiết kế lớp (hướng đối tượng)</h2>
+<h3 id="6-1-kien-truc-cai-dat-code-that-o-backend">6.1 Kiến trúc cài đặt (code thật ở backend)</h3>
+<p>Backend thật chạy theo luồng Controller → Service → Repository → MySQL.
+Các lớp cài đặt gồm Entity (Book, User, Loan, Reservation, Category,
+Notification, NotificationRead, Settings), Service (BookService,
+UserService, LoanService, ReservationService, StatsService,
+SettingsService, NotificationService, EmailService, ReminderService,
+AiBookSearchService) và Repository tương ứng, cùng Controller
+(AuthController, BookController, ReaderController, LoanController,
+ReservationController, StatsController, SettingsController,
+AccountController, CategoryController, NotificationController,
+ProfileController, PublicController). Đây là cấu trúc code, <strong>không phải</strong>
+chuẩn vẽ sơ đồ Class phân tích.</p>
+<h3 id="6-2-chuan-so-do-class-phan-tich-dung-de-ve">6.2 Chuẩn sơ đồ Class phân tích (dùng để vẽ)</h3>
+<p>Sơ đồ Class phân tích theo chuẩn mới chỉ dùng 3 loại lớp: Frm... (form),
+...Controller và Entity (tên như trong DB/code, không dịch). <strong>Không vẽ
+Service, không vẽ Repository, không ghi stereotype</strong>
+<code>&lt;&lt;boundary&gt;&gt;/&lt;&lt;control&gt;&gt;/&lt;&lt;entity&gt;&gt;</code> (vai trò nằm trong tên lớp).
+Quan hệ: Frm — Controller đường liền "form uses controller" 1-1;
+Controller ..&gt; Entity đường đứt "uses Entity"; Entity — Entity đường
+liền kèm multiplicity; dịch vụ ngoài (GeminiAPI, Resend) là lớp thường,
+đường đứt "uses ... (external)". Sơ đồ Class chi tiết của từng UC nằm ở
+trang Prompt UML (mỗi UC 1 prompt Class, ví dụ FrmDangNhap →
+DangNhapController → User cho UC01, FrmThongBao → ThongBaoController →
+Notification/NotificationRead/User cho UC13); không liệt kê lại toàn bộ
+ở đây để tránh lệch phiên bản với prompt UML.</p>
 <h1>7. Danh sách API</h1>
-<h2 id="5-danh-sach-api">5. Danh sách API</h2>
+<h2 id="7-danh-sach-api">7. Danh sách API</h2>
+<p>Quy ước: mọi route <code>/api/*</code> (trừ nhóm Public) yêu cầu đăng nhập (<code>auth</code>);
+sai vai trò trả 403. Nhóm Public cố tình mở cho Khách, không yêu cầu đăng nhập.</p>
 <h3 id="auth">Auth</h3>
 <ul>
 <li>POST /api/auth/login {username, password}</li>
-<li>POST /api/auth/register {username, password, fullName, studentCode, phone} (tạo reader)</li>
+<li>POST /api/auth/register {username, password, fullName, email, studentCode, phone} (tạo reader; <strong>email bắt buộc</strong>, sai định dạng → 400, email/username đã dùng → 409; mật khẩu theo chính sách UC19)</li>
+<li>POST /api/auth/forgot-password {email} (luôn trả cùng 1 thông điệp chung)</li>
+<li>POST /api/auth/reset-password {token, newPassword}</li>
+<li>POST /api/auth/verify-email {token}</li>
 </ul>
-<h3 id="books-dang-nhap-ghi-can-role-librarian-rieng-get-mo-cho-reader-de-tra-cuu-dat-truoc">Books (đăng nhập; ghi cần role librarian, riêng GET mở cho reader để tra cứu/đặt trước)</h3>
+<h3 id="books-get-mo-cho-moi-vai-tro-da-dang-nhap-ghi-can-librarian-tru-khi-ghi-khac">Books (GET mở cho mọi vai trò đã đăng nhập; ghi cần librarian trừ khi ghi khác)</h3>
 <ul>
 <li>GET /api/books?keyword=&amp;category=</li>
-<li>POST /api/books (librarian)</li>
 <li>GET /api/books/:id</li>
+<li>GET /api/books/qr/:qrCode → trả về sách theo mã QR (librarian)</li>
+<li>GET /api/books/publishers (librarian)</li>
+<li>GET /api/books/lookup — tra cứu sách, Big Book trước, iTunes fallback (librarian, admin)</li>
+<li>GET /api/books/lookup-itunes — alias của lookup (librarian, admin)</li>
+<li>GET /api/books/import/template (librarian)</li>
+<li>POST /api/books (librarian)</li>
 <li>PUT /api/books/:id (librarian)</li>
 <li>DELETE /api/books/:id (librarian)</li>
-<li>GET /api/books/qr/:qrCode → trả về sách theo mã QR</li>
+<li>POST /api/books/import (librarian; file .xlsx tối đa 5MB)</li>
+<li>POST /api/books/sync-codes (librarian; đồng bộ book_code cho sách cũ)</li>
+<li>POST /api/books/:id/cover (librarian, admin; upload ảnh bìa tay)</li>
+<li>POST /api/books/:id/fetch-cover (librarian, admin; lấy bìa tự động 1 cuốn)</li>
+<li>POST /api/books/fetch-covers-missing (librarian, admin; lấy bìa tự động, mặc định 10, tối đa 20/đợt)</li>
 </ul>
 <h3 id="readers-librarian">Readers (librarian)</h3>
 <ul>
@@ -1108,7 +1271,7 @@
 <li>POST /api/loans/borrow {qrCode, readerId} (librarian)</li>
 <li>GET /api/loans/return-preview?qrCode= (librarian: xem trước phiếu + số ngày trễ + phạt dự kiến, chưa chốt)</li>
 <li>POST /api/loans/return {loanId} (librarian: xác nhận trả, chốt phạt)</li>
-<li>GET /api/loans?status=&amp;readerId= (librarian)</li>
+<li>GET /api/loans?status=&amp;readerId= (librarian, admin)</li>
 <li>GET /api/loans/overdue (librarian)</li>
 <li>GET /api/loans/my (reader: phiếu của chính mình)</li>
 </ul>
@@ -1116,41 +1279,98 @@
 <ul>
 <li>POST /api/reservations {bookId} (reader: đặt trước)</li>
 <li>GET /api/reservations/my (reader: đặt trước của mình)</li>
-<li>DELETE /api/reservations/:id (reader: hủy của mình; librarian xem khi cần)</li>
+<li>DELETE /api/reservations/:id (reader: chỉ hủy lượt đặt của chính mình và còn <code>pending</code>; thủ thư <strong>không</strong> hủy qua API này)</li>
+<li>GET /api/reservations/pending (librarian: chờ duyệt)</li>
+<li>GET /api/reservations/code/:code (librarian: tra theo mã đặt trước)</li>
+<li>POST /api/reservations/:id/approve (librarian: duyệt + chốt lịch hẹn)</li>
+<li>POST /api/reservations/:id/reject (librarian: từ chối + lý do)</li>
+</ul>
+<h3 id="categories-get-mo-cho-moi-vai-tro-da-dang-nhap-ghi-can-librarian-admin">Categories (GET mở cho mọi vai trò đã đăng nhập; ghi cần librarian/admin)</h3>
+<ul>
+<li>GET /api/categories</li>
+<li>GET /api/categories/suggest-code (librarian, admin)</li>
+<li>POST /api/categories (librarian, admin)</li>
+<li>PUT /api/categories/:id (librarian, admin)</li>
+<li>DELETE /api/categories/:id (librarian, admin; chặn khi đang có sách dùng tên thể loại)</li>
+</ul>
+<h3 id="notifications">Notifications</h3>
+<ul>
+<li>GET /api/notifications</li>
+<li>GET /api/notifications/unread-count</li>
+<li>POST /api/notifications/read-all</li>
+<li>POST /api/notifications/:id/read</li>
+<li>POST /api/notifications (admin, librarian: tạo thông báo tay)</li>
+</ul>
+<h3 id="profile-da-dang-nhap">Profile (đã đăng nhập)</h3>
+<ul>
+<li>GET /api/profile</li>
+<li>PUT /api/profile</li>
+<li>PUT /api/profile/password (đổi mật khẩu, theo chính sách mật khẩu)</li>
+<li>PUT /api/profile/email (đổi email → quay về chưa xác thực + gửi link mới)</li>
+<li>POST /api/profile/resend-verification (gửi lại email xác thực, chặn 1 lần/phút)</li>
+<li>POST /api/profile/avatar (upload ảnh đại diện)</li>
+<li>DELETE /api/profile/avatar (xóa ảnh đại diện)</li>
+</ul>
+<h3 id="accounts-quan-ly-tai-khoan-thu-thu-admin">Accounts — Quản lý tài khoản thủ thư (admin)</h3>
+<ul>
+<li>GET /api/accounts</li>
+<li>POST /api/accounts (mật khẩu thủ thư tối thiểu 6 ký tự)</li>
+<li>PUT /api/accounts/:id/active (khóa/mở khóa)</li>
+<li>DELETE /api/accounts/:id</li>
 </ul>
 <h3 id="stats-settings">Stats &amp; Settings</h3>
 <ul>
-<li>GET /api/stats/dashboard (librarian)</li>
-<li>GET /api/settings — PUT /api/settings (librarian)</li>
+<li>GET /api/stats/dashboard (librarian, admin)</li>
+<li>GET /api/stats/export/excel (librarian, admin; 2 sheet "Mượn trả" và "Tổng quan")</li>
+<li>GET /api/settings (admin)</li>
+<li>PUT /api/settings (admin; thủ thư gọi sẽ 403)</li>
 </ul>
-<hr />
+<h3 id="public-khong-can-dang-nhap-danh-cho-khach-o-landing">Public (không cần đăng nhập — dành cho Khách ở landing)</h3>
+<ul>
+<li>GET /api/public/books (tra cứu sách công khai)</li>
+<li>POST /api/public/books/ai-search (tìm sách bằng AI theo mô tả, UC16; rate limit 10 lần/60 giây/IP)</li>
+<li>GET /api/public/books/:id</li>
+<li>GET /api/public/categories</li>
+<li>GET /api/public/stats</li>
+<li>GET /api/public/announcements (thông báo chung hiện thẻ nổi ở landing)</li>
+</ul>
 <h1>8. Wireframe các màn hình</h1>
-<h2 id="6-wireframe-cac-man-hinh">6. Wireframe các màn hình</h2>
+<h2 id="8-wireframe-cac-man-hinh">8. Wireframe các màn hình</h2>
 <ol>
 <li><strong>Đăng nhập</strong>: form username/password, logo tên thư viện. Sai báo lỗi tiếng Việt rõ ràng.</li>
-<li><strong>Dashboard thủ thư</strong>: 4 thẻ số (tổng sách / đang mượn / quá hạn / độc giả) + bảng 5 phiếu sắp quá hạn + nút nhanh "Mượn sách", "Trả sách".</li>
-<li><strong>Quản lý sách</strong>: bảng sách (QR, tiêu đề, tác giả, thể loại, trạng thái), ô tìm kiếm, nút thêm/sửa/xóa, nút "Tải QR" từng dòng.</li>
-<li><strong>Mượn sách</strong>: khung camera quét QR → hiện thông tin sách → chọn độc giả (search) → nút xác nhận → báo thành công + hạn trả.</li>
-<li><strong>Trả sách</strong>: khung camera quét QR → hiện phiếu mượn + số ngày trễ + tiền phạt (nếu có) → nút xác nhận trả.</li>
+<li><strong>Dashboard thủ thư</strong>: 4 thẻ số (tổng sách / đang mượn / quá hạn / độc giả) + bảng 5 phiếu quá hạn mới nhất + nút nhanh "Mượn sách", "Trả sách".</li>
+<li><strong>Quản lý sách</strong>: bảng sách (QR, tiêu đề, tác giả, thể loại, trạng thái), ô tìm kiếm, nút thêm/sửa/xóa, nút "Tải QR" từng dòng, nút "Lấy bìa tự động", ô tra cứu sách trong form thêm/sửa.</li>
+<li><strong>Mượn sách</strong>: khung camera quét QR → hiện thông tin sách → chọn độc giả (search) → nút xác nhận → báo thành công + hạn trả. Có ô nhập mã sách thủ công + nút Dán.</li>
+<li><strong>Trả sách</strong>: khung camera quét QR → xem trước phiếu mượn + số ngày trễ + tiền phạt dự kiến → nút xác nhận trả. Có ô nhập mã sách thủ công + nút Dán.</li>
 <li><strong>Quá hạn</strong>: bảng phiếu quá hạn (sách, độc giả, ngày trễ, phạt dự kiến), sắp xếp theo ngày trễ.</li>
-<li><strong>Thống kê</strong>: biểu đồ cột top sách mượn nhiều, danh sách lịch sử mượn/trả có lọc.</li>
-<li><strong>Sách của tôi (độc giả)</strong>: thẻ từng cuốn đang mượn + hạn trả + cảnh báo đỏ nếu sắp/quá hạn, lịch sử đã trả.</li>
+<li><strong>Thống kê</strong>: biểu đồ cột top sách mượn nhiều, danh sách lịch sử mượn/trả có lọc, nút "Xuất Excel" và "In / Lưu PDF".</li>
+<li><strong>Sách của tôi (độc giả)</strong>: thẻ từng cuốn đang mượn + hạn trả + cảnh báo đỏ nếu sắp/quá hạn, lịch sử đã trả, tab "Đặt trước" kèm mã QR đặt trước.</li>
+<li><strong>Landing (trang chủ công khai)</strong>: tìm kiếm sách, mục "Không nhớ tên? Tìm bằng mô tả (AI)", thẻ nổi thông báo chung.</li>
+<li><strong>Đăng ký</strong>: form họ tên/username/mật khẩu/email/mã SV/SĐT, báo rõ điều kiện mật khẩu còn thiếu.</li>
+<li><strong>Quên mật khẩu / Đặt lại mật khẩu / Xác thực email</strong>: form nhập email, form đặt mật khẩu mới, trang xác thực qua link email.</li>
+<li><strong>Thông báo</strong>: chuông + badge số chưa đọc ở topbar, trang "Thông báo" tô màu theo loại, nút "Đánh dấu đã đọc" / "Đánh dấu tất cả đã đọc", form "Tạo thông báo" (thủ thư/admin).</li>
+<li><strong>Quản lý đặt trước (thủ thư)</strong>: danh sách chờ duyệt kèm badge đếm, form duyệt + chốt lịch hẹn, form từ chối + lý do.</li>
+<li><strong>Thể loại</strong>: bảng thể loại (tên + ký hiệu code), thêm/sửa/xóa, nút "+" thêm nhanh từ form sách.</li>
+<li><strong>Quản lý tài khoản (admin)</strong>: bảng tài khoản thủ thư, thêm thủ thư, khóa/mở khóa, xóa.</li>
+<li><strong>Cài đặt (admin)</strong>: sửa loan_days, fine_per_day, max_books_per_reader, reservation_hours.</li>
+<li><strong>Hồ sơ cá nhân</strong>: xem/sửa thông tin, đổi mật khẩu, đổi email, trạng thái xác thực email, upload/xóa ảnh đại diện.</li>
+<li><strong>Chi tiết sách (độc giả + public)</strong>: thông tin sách, trạng thái Còn/Đang mượn/Đã đặt, nút "Đặt trước" khi đủ điều kiện, ô giờ mong muốn đến lấy.</li>
 </ol>
 <hr />
 <h1>9. Screenmap — Sơ đồ màn hình</h1>
-<h2 id="1-so-do-tong">1. Sơ đồ tổng</h2>
+<h2 id="9-1-so-do-tong">9.1 Sơ đồ tổng</h2>
 <pre><code>Đăng nhập ─┬─⇢ (role=admin) ─────→ Admin: Tổng quan
            ├─⇢ (role=librarian) ─→ Thủ thư: Dashboard
            └─⇢ (role=reader) ────→ Độc giả: Trang chủ (tìm sách)
 Đăng ký (độc giả) ──→ Đăng nhập
 </code></pre>
-<h2 id="2-admin">2. Admin</h2>
+<h2 id="9-2-admin">9.2 Admin</h2>
 <pre><code>Admin: Tổng quan (thẻ số + biểu đồ)
 ├── Quản lý tài khoản ──→ Thêm thủ thư (form)
 ├── Cài đặt hệ thống (loan_days, fine_per_day, max_books_per_reader, reservation_hours)
 └── Thống kê (dùng chung trang với thủ thư)
 </code></pre>
-<h2 id="3-thu-thu">3. Thủ thư</h2>
+<h2 id="9-3-thu-thu">9.3 Thủ thư</h2>
 <pre><code>Thủ thư: Dashboard (4 thẻ số + top sắp quá hạn + nút nhanh)
 ├── Quản lý sách ──┬─→ Thêm sách (form) ──→ Chi tiết sách + mã QR (tải/in)
 │                  └── Sửa sách (form)
@@ -1160,18 +1380,23 @@
 ├── Trả sách (camera quét QR) ──→ Xem phiếu + phạt ──→ Xác nhận ──⇢ Thành công
 ├── Quá hạn (bảng)
 ├── Thống kê (thẻ số + biểu đồ + lịch sử lọc)
+├── Thông báo (chuông + trang Thông báo, tạo thông báo)
+├── Quản lý đặt trước (duyệt/từ chối, badge chờ duyệt)
+├── Thể loại (thêm/sửa/xóa thể loại)
 └── Đăng xuất
 </code></pre>
-<h2 id="4-doc-gia">4. Độc giả</h2>
+<h2 id="9-4-doc-gia">9.4 Độc giả</h2>
 <pre><code>Độc giả: Trang chủ (tìm kiếm sách + trạng thái Còn/Đang mượn/Đã đặt)
 ├── Chi tiết sách ──→ Đặt trước (nếu Còn và chưa ai đặt) ──⇢ Thành công / Báo lý do
 ├── Sách của tôi ──┬─→ Tab &quot;Đang mượn&quot; (hạn trả + nhãn cảnh báo)
 │                  ├─→ Tab &quot;Đặt trước&quot; (thời gian giữ còn lại + nút Hủy)
 │                  └─→ Tab &quot;Lịch sử&quot; (đã trả + phạt từng phiếu)
+├── Thông báo (chuông + trang Thông báo)
+├── Hồ sơ cá nhân (đổi mật khẩu/email, ảnh đại diện)
 └── Đăng xuất
 </code></pre>
 <hr />
-<h2 id="5-luong-dieu-huong-chinh">5. Luồng điều hướng chính</h2>
+<h2 id="9-5-luong-dieu-huong-chinh">9.5 Luồng điều hướng chính</h2>
 <h3 id="f-a-muon-sach-tai-quay-uc04">F-A. Mượn sách tại quầy (UC04)</h3>
 <p>Dashboard → Mượn sách → (quét QR) → Chọn độc giả → Xác nhận → Thông báo thành công → về Dashboard.</p>
 <h3 id="f-b-tra-sach-tai-quay-uc05">F-B. Trả sách tại quầy (UC05)</h3>
@@ -1181,35 +1406,35 @@
 <h3 id="f-d-quan-tri-uc09-uc10">F-D. Quản trị (UC09, UC10)</h3>
 <p>Admin: Tổng quan → Cài đặt (sửa tham số) / Quản lý tài khoản (thêm/khóa thủ thư).</p>
 <hr />
-<h2 id="6-ghi-chu-thiet-ke-chung">6. Ghi chú thiết kế chung</h2>
+<h2 id="9-6-ghi-chu-thiet-ke-chung">9.6 Ghi chú thiết kế chung</h2>
 <ul>
 <li>Mỗi vai trò có layout sidebar riêng, chỉ hiện menu của vai trò đó (menu render theo role từ token).</li>
-<li>Mọi trang lỗi 403 khi gọi API sai vai trò → chuyển về trang đăng nhập kèm thông báo.</li>
+<li><strong>Chưa xác minh:</strong> hành vi khi gọi API sai vai trò (403) — chỉ xác minh ProtectedRoute chuyển về <code>/login</code> khi chưa đăng nhập; không khẳng định mọi lỗi 403 đều chuyển về trang đăng nhập.</li>
 <li>Trang quét QR (Mượn/Trả) là một component dùng chung, tham số hóa theo chế độ borrow/return.</li>
 <li>Dialog xác nhận dùng chung cho: xác nhận mượn, xác nhận trả, xác nhận hủy đặt trước, xác nhận xóa.</li>
 </ul>
 <h1>10. Yêu cầu phi chức năng</h1>
-<h2 id="2-yeu-cau-phi-chuc-nang">2. YÊU CẦU PHI CHỨC NĂNG</h2>
-<h3 id="2-1-hieu-nang">2.1 Hiệu năng</h3>
+<h2 id="10-yeu-cau-phi-chuc-nang">10. Yêu cầu phi chức năng</h2>
+<h3 id="10-1-hieu-nang">10.1 Hiệu năng</h3>
 <ul>
-<li>NFR01: Thời gian phản hồi API tra cứu/quét mã QR dưới 1 giây với tối đa 50 người dùng đồng thời.</li>
-<li>NFR02: Trang danh sách (sách, quá hạn, thống kê) tải dưới 2 giây với 10.000 đầu sách trong DB (có phân trang, mỗi trang 20 dòng).</li>
-<li>NFR03: Thuật toán tính quá hạn/phạt chạy theo yêu cầu (on-demand), không dùng cronjob, tránh tải nền cho DB.</li>
+<li>NFR01: Thời gian phản hồi API tra cứu/quét mã QR dưới 1 giây với tối đa 50 người dùng đồng thời. (Chưa xác minh: chưa có kết quả đo tải trong repo.)</li>
+<li>NFR02: Trang danh sách (sách, quá hạn, thống kê) tải dưới 2 giây với 10.000 đầu sách trong DB (có phân trang, mỗi trang 20 dòng). (Chưa xác minh: chưa có kết quả đo tải trong repo; chỉ có căn cứ gián tiếp là phân trang 20 dòng/trang.)</li>
+<li>NFR03: Thuật toán tính quá hạn/phạt chạy theo yêu cầu (on-demand), không dùng cronjob, tránh tải nền cho DB. Ngoại lệ có chủ đích: UC17 nhắc hạn qua email là kênh đẩy nên dùng <code>setInterval</code> trong backend (chạy sau khởi động 45 giây, sau đó mỗi 6 giờ); ngoại lệ này chỉ phục vụ gửi thư, không thay đổi cách tính quá hạn/phạt.</li>
 </ul>
-<h3 id="2-2-bao-mat">2.2 Bảo mật</h3>
+<h3 id="10-2-bao-mat">10.2 Bảo mật</h3>
 <ul>
 <li>NFR04: Mật khẩu lưu bcrypt hash, không lưu plaintext ở bất kỳ đâu.</li>
-<li>NFR05: Mọi API ghi (POST/PUT/DELETE) yêu cầu đăng nhập; API của thủ thư/admin kiểm tra role ở middleware, trả 403 khi sai vai trò.</li>
-<li>NFR06: Token phiên đăng nhập hết hạn sau 8 giờ không hoạt động.</li>
+<li>NFR05: Mọi API ghi (POST/PUT/DELETE) yêu cầu đăng nhập; API của thủ thư/admin kiểm tra role ở middleware, trả 403 khi sai vai trò. Ngoại lệ: các route public cố tình mở cho Khách (<code>GET /api/public/*</code> và <code>POST /api/public/books/ai-search</code>, UC16) không yêu cầu đăng nhập.</li>
+<li>NFR06: Token phiên đăng nhập hết hạn sau 8 giờ kể từ lúc cấp (<code>jwtExpiresIn: '8h'</code>); đây là hạn tuyệt đối, không phải timeout theo không hoạt động, và không có sliding/refresh trong code.</li>
 <li>NFR07: Không cho phép đổi <code>qr_code</code> và <code>status</code> sách qua API sửa thông tin (chỉ đổi qua luồng mượn/trả).</li>
 </ul>
-<h3 id="2-3-tuong-thich-va-su-dung">2.3 Tương thích và sử dụng</h3>
+<h3 id="10-3-tuong-thich-va-su-dung">10.3 Tương thích và sử dụng</h3>
 <ul>
 <li>NFR08: Giao diện responsive, trang quét QR thao tác được bằng camera điện thoại (ưu tiên mobile cho thủ thư tại quầy).</li>
 <li>NFR09: Chạy trên Chrome/Edge/Safari phiên bản hiện hành; camera yêu cầu HTTPS hoặc localhost.</li>
 <li>NFR10: Toàn bộ thông báo lỗi hiển thị tiếng Việt có dấu, nêu rõ nguyên nhân và cách khắc phục.</li>
 </ul>
-<h3 id="2-4-do-tin-cay-va-du-lieu">2.4 Độ tin cậy và dữ liệu</h3>
+<h3 id="10-4-do-tin-cay-va-du-lieu">10.4 Độ tin cậy và dữ liệu</h3>
 <ul>
 <li>NFR11: Mượn/trả là giao dịch nguyên tử (transaction): tạo phiếu + đổi trạng thái sách phải cùng thành công hoặc cùng rollback, không để DB lệch.</li>
 <li>NFR12: Ràng buộc xóa (D9) thực thi ở tầng Service, không phụ thuộc vào UI.</li>
@@ -1217,9 +1442,9 @@
 </ul>
 <hr />
 <h1>11. Kịch bản kiểm thử</h1>
-<h2 id="3-kich-ban-kiem-thu">3. KỊCH BẢN KIỂM THỬ</h2>
+<h2 id="11-kich-ban-kiem-thu">11. Kịch bản kiểm thử</h2>
 <p>Quy ước cột Kết quả: P = đạt (pass), F = lỗi (fail). Thực hiện sau khi code xong từng UC.</p>
-<h3 id="uc01-dang-nhap-dang-ky">UC01 — Đăng nhập &amp; Đăng ký</h3>
+<h3 id="uc01-dang-nhap-dang-ky-xem-uc19">UC01 — Đăng nhập (đăng ký xem UC19)</h3>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -1251,8 +1476,8 @@
 <tr>
 <td>TC01-4</td>
 <td>Độc giả tự đăng ký</td>
-<td>form hợp lệ, password 6 ký tự</td>
-<td>Tạo user role reader, tự đăng nhập</td>
+<td>form hợp lệ, password 8 ký tự đủ hoa/thường/số-ký tự đặc biệt + email hợp lệ</td>
+<td>Tạo user role reader, email_verified = 0, tự đăng nhập (trả token), gửi email xác thực</td>
 </tr>
 <tr>
 <td>TC01-5</td>
@@ -1264,7 +1489,19 @@
 <td>TC01-6</td>
 <td>Đăng ký password ngắn</td>
 <td>password 4 ký tự</td>
-<td>Báo "Mật khẩu phải từ 6 ký tự trở lên"</td>
+<td>Báo các điều kiện mật khẩu còn thiếu (ít nhất 8 ký tự, 1 chữ hoa, 1 chữ thường, 1 chữ số hoặc ký tự đặc biệt); lưu ý thông báo 6 ký tự chỉ còn đúng cho tài khoản thủ thư do admin tạo (UC10)</td>
+</tr>
+<tr>
+<td>TC01-7</td>
+<td>Đăng ký trùng email</td>
+<td>email đã thuộc tài khoản khác</td>
+<td>Báo 409 (email đã dùng), không tạo tài khoản</td>
+</tr>
+<tr>
+<td>TC01-8</td>
+<td>Đăng ký thiếu email/sai định dạng email</td>
+<td>email rỗng hoặc sai định dạng</td>
+<td>Báo 400 "Vui lòng nhập địa chỉ email hợp lệ"</td>
 </tr>
 </tbody>
 </table></div>
@@ -1283,7 +1520,25 @@
 <td>TC02-1</td>
 <td>Thêm sách hợp lệ</td>
 <td>đủ tiêu đề + tác giả</td>
-<td>Sách lưu status available, sinh qr_code 32 ký tự, hiển thị QR để tải</td>
+<td>Sách lưu status available, sinh qr_code = book_code (VD VH-0001), hiển thị QR để tải (32 ký tự hex chỉ còn đúng với sách seed cũ giữ nguyên)</td>
+</tr>
+<tr>
+<td>TC02-6</td>
+<td>Lấy bìa tự động</td>
+<td>cuốn chưa có bìa, bấm "Lấy bìa"</td>
+<td>Tải ảnh về lưu như upload tay; cuốn không tìm được bìa vẫn giữ ảnh SVG mặc định</td>
+</tr>
+<tr>
+<td>TC02-7</td>
+<td>Tra cứu sách</td>
+<td>nhập tựa sách ở ô tra cứu trong form thêm/sửa</td>
+<td>Hiện ứng viên Big Book (fallback iTunes); bấm ứng viên điền tiêu đề/tác giả/năm XB, không tự gán kết quả đầu</td>
+</tr>
+<tr>
+<td>TC02-8</td>
+<td>Nhập sách từ Excel</td>
+<td>file .xlsx hợp lệ</td>
+<td>Tạo các cuốn hợp lệ, báo số cuốn thành công + danh sách dòng lỗi kèm lý do; bỏ qua dòng trống</td>
 </tr>
 <tr>
 <td>TC02-2</td>
@@ -1389,6 +1644,12 @@
 <td>QR + reader khác</td>
 <td>Báo "Sách đã được [tên] đặt trước"</td>
 </tr>
+<tr>
+<td>TC04-7</td>
+<td>Mượn sách cho tài khoản bị khóa</td>
+<td>reader có active = 0</td>
+<td>Trả 403 "Tài khoản độc giả đã bị khóa", không tạo phiếu</td>
+</tr>
 </tbody>
 </table></div>
 <h3 id="uc05-tra-sach-2">UC05 — Trả sách</h3>
@@ -1425,6 +1686,12 @@
 <td>Tính nguyên tử</td>
 <td>giả lập lỗi giữa chừng</td>
 <td>phiếu và trạng thái sách cùng rollback, DB không lệch</td>
+</tr>
+<tr>
+<td>TC05-5</td>
+<td>Trả sách nhập mã tay</td>
+<td>nhập mã sách thủ công + nút Dán</td>
+<td>Hiện bước xem trước (phiếu + ngày trễ + phạt dự kiến) rồi mới chốt khi bấm "Xác nhận trả"</td>
 </tr>
 </tbody>
 </table></div>
@@ -1628,10 +1895,326 @@
 <td>TC11-8</td>
 <td>Quá giờ hẹn không đến</td>
 <td>approved quá pickup_at + 2h</td>
-<td>Tự expired (lazy)# 12. Bộ prompt UML — 67 prompt</td>
+<td>Tự expired (lazy)&gt; Lưu ý: các test TC12+ dưới đây ở mức đặc tả theo code hiện tại, chưa phải kết quả chạy đo.</td>
 </tr>
 </tbody>
 </table></div>
+<h3 id="uc12-huy-dat-truoc-gop-vao-uc08">UC12 — Hủy đặt trước (gộp vào UC08)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mã</th>
+<th>Kịch bản</th>
+<th>Dữ liệu vào</th>
+<th>Kết quả mong đợi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TC12-1</td>
+<td>Hủy lượt đặt đang chờ duyệt</td>
+<td>lượt đặt <code>pending</code> của chính mình</td>
+<td>Lượt đặt thành <code>cancelled</code>, sách được giải phóng cho người khác đặt/mượn</td>
+</tr>
+<tr>
+<td>TC12-2</td>
+<td>Hủy lượt đặt đã duyệt</td>
+<td>lượt đặt <code>approved</code></td>
+<td>Nút "Hủy" không hiện (chỉ hủy được khi còn <code>pending</code>)</td>
+</tr>
+<tr>
+<td>TC12-3</td>
+<td>Hủy lượt đặt của người khác</td>
+<td>lượt đặt của độc giả khác</td>
+<td>Bị từ chối (chỉ hủy được của chính mình)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="uc13-he-thong-thong-bao">UC13 — Hệ thống thông báo</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mã</th>
+<th>Kịch bản</th>
+<th>Dữ liệu vào</th>
+<th>Kết quả mong đợi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TC13-1</td>
+<td>Nhận thông báo tự động</td>
+<td>thủ thư duyệt đặt trước</td>
+<td>Độc giả nhận thông báo kèm lịch hẹn; chuông tăng sau tối đa 5 giây (poll)</td>
+</tr>
+<tr>
+<td>TC13-2</td>
+<td>Tạo thông báo tay</td>
+<td>thủ thư/admin nhập tiêu đề + đối tượng + loại</td>
+<td>Thông báo lưu vào bảng notifications; badge chưa đọc của người nhận tăng</td>
+</tr>
+<tr>
+<td>TC13-3</td>
+<td>Đánh dấu đã đọc</td>
+<td>bấm "Đánh dấu đã đọc" / "Đánh dấu tất cả đã đọc"</td>
+<td>Ghi vào bảng notification_reads; số trên chuông giảm tương ứng</td>
+</tr>
+<tr>
+<td>TC13-4</td>
+<td>Thẻ nổi ở landing</td>
+<td>thông báo loại "chung" + cờ show_on_landing</td>
+<td>Hiện thẻ nổi ở landing cho Khách, tắt được (nhớ trong session)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="uc14-xuat-bao-cao-gop-vao-uc07">UC14 — Xuất báo cáo (gộp vào UC07)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mã</th>
+<th>Kịch bản</th>
+<th>Dữ liệu vào</th>
+<th>Kết quả mong đợi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TC14-1</td>
+<td>Xuất Excel</td>
+<td>bấm "Xuất Excel" ở trang Thống kê</td>
+<td>Tải file .xlsx gồm 2 sheet "Mượn trả" và "Tổng quan", đúng bộ lọc đang xem</td>
+</tr>
+<tr>
+<td>TC14-2</td>
+<td>Xuất Excel không có dữ liệu</td>
+<td>bộ lọc không khớp phiếu nào</td>
+<td>File vẫn xuất với sheet "Mượn trả" trống (chỉ có header)</td>
+</tr>
+<tr>
+<td>TC14-3</td>
+<td>In / Lưu PDF</td>
+<td>bấm "In / Lưu PDF"</td>
+<td>Chỉ in khối báo cáo (ẩn sidebar, topbar, nút bấm, bộ lọc)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="uc15-quan-ly-sach-mo-rong-gop-vao-uc02">UC15 — Quản lý sách mở rộng (gộp vào UC02)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mã</th>
+<th>Kịch bản</th>
+<th>Dữ liệu vào</th>
+<th>Kết quả mong đợi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TC15-1</td>
+<td>Thêm N bản cùng lúc</td>
+<td>số lượng bản 1–50</td>
+<td>Tạo N dòng sách, mỗi dòng 1 book_code + qr_code riêng</td>
+</tr>
+<tr>
+<td>TC15-2</td>
+<td>Quản lý thể loại</td>
+<td>thêm tên + ký hiệu code mới</td>
+<td>Tạo thể loại, cả hai unique; xóa thể loại đang có sách dùng → bị chặn</td>
+</tr>
+<tr>
+<td>TC15-3</td>
+<td>Lọc nâng cao</td>
+<td>kết hợp tìm kiếm + trạng thái + NXB + năm XB</td>
+<td>Kết quả đúng tổ hợp lọc và sắp xếp</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="uc16-tim-sach-bang-ai-theo-mo-ta">UC16 — Tìm sách bằng AI theo mô tả</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mã</th>
+<th>Kịch bản</th>
+<th>Dữ liệu vào</th>
+<th>Kết quả mong đợi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TC16-1</td>
+<td>Tìm bằng AI</td>
+<td>mô tả 3–600 ký tự, có key Gemini</td>
+<td>Trả tối đa 8 kết quả, chỉ gồm id có thật trong danh mục, kèm điểm khớp và lý do</td>
+</tr>
+<tr>
+<td>TC16-2</td>
+<td>Fallback từ khóa</td>
+<td>Gemini lỗi/timeout hoặc chưa cấu hình key</td>
+<td>Trả kết quả chấm điểm từ khóa (tiêu đề +3, tác giả hoặc thể loại +2 theo từng từ) kèm thông báo đang ở chế độ từ khóa</td>
+</tr>
+<tr>
+<td>TC16-3</td>
+<td>Mô tả không hợp lệ</td>
+<td>dưới 3 hoặc trên 600 ký tự</td>
+<td>Trả 400 kèm thông báo</td>
+</tr>
+<tr>
+<td>TC16-4</td>
+<td>Vượt rate limit</td>
+<td>gọi quá 10 lần/60 giây/IP</td>
+<td>Trả 429</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="uc17-nhac-han-qua-email">UC17 — Nhắc hạn qua email</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mã</th>
+<th>Kịch bản</th>
+<th>Dữ liệu vào</th>
+<th>Kết quả mong đợi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TC17-1</td>
+<td>Nhắc sắp đến hạn</td>
+<td>phiếu còn ≤ 48 giờ đến hạn</td>
+<td>Gửi email "sắp đến hạn" 1 lần duy nhất, ghi vào email_reminders</td>
+</tr>
+<tr>
+<td>TC17-2</td>
+<td>Nhắc quá hạn</td>
+<td>phiếu quá hạn</td>
+<td>Gửi lần đầu khi phát hiện, sau đó mỗi 3 ngày 1 lần</td>
+</tr>
+<tr>
+<td>TC17-3</td>
+<td>Độc giả chưa có email</td>
+<td>phiếu của độc giả không có email</td>
+<td>Bỏ qua phiếu đó; banner trong web nhắc bổ sung email</td>
+</tr>
+<tr>
+<td>TC17-4</td>
+<td>Resend lỗi</td>
+<td>gửi email thất bại/timeout</td>
+<td>Ghi log, không đánh dấu đã gửi, vòng sau gửi lại, ứng dụng không sập</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="uc18-quen-mat-khau-qua-email">UC18 — Quên mật khẩu qua email</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mã</th>
+<th>Kịch bản</th>
+<th>Dữ liệu vào</th>
+<th>Kết quả mong đợi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TC18-1</td>
+<td>Yêu cầu đặt lại mật khẩu</td>
+<td>nhập email đã đăng ký</td>
+<td>Luôn trả cùng 1 thông điệp chung; nếu tài khoản đang hoạt động thì gửi link (token 64 hex, chỉ lưu SHA-256, hết hạn 30 phút, dùng 1 lần)</td>
+</tr>
+<tr>
+<td>TC18-2</td>
+<td>Email không tồn tại / tài khoản bị khóa</td>
+<td>nhập email lạ hoặc tài khoản khóa</td>
+<td>Không gửi gì, vẫn trả thông điệp chung như TC18-1</td>
+</tr>
+<tr>
+<td>TC18-3</td>
+<td>Đặt lại mật khẩu thành công</td>
+<td>mở link còn hạn, nhập mật khẩu mới đúng chính sách</td>
+<td>Cập nhật password_hash (bcrypt), đánh dấu token đã dùng</td>
+</tr>
+<tr>
+<td>TC18-4</td>
+<td>Token sai/hết hạn/đã dùng</td>
+<td>mở link cũ hoặc sai token</td>
+<td>Trả 400 "Liên kết không hợp lệ hoặc đã hết hạn"</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="uc19-dang-ky-xac-thuc-email">UC19 — Đăng ký &amp; xác thực email</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mã</th>
+<th>Kịch bản</th>
+<th>Dữ liệu vào</th>
+<th>Kết quả mong đợi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TC19-1</td>
+<td>Đăng ký thành công</td>
+<td>form hợp lệ + email hợp lệ</td>
+<td>Tạo tài khoản, email_verified = 0, gửi email xác thực (token SHA-256, hết hạn 24 giờ, dùng 1 lần)</td>
+</tr>
+<tr>
+<td>TC19-2</td>
+<td>Xác thực email thành công</td>
+<td>bấm link xác thực còn hạn</td>
+<td>Gọi verify-email → email_verified = 1</td>
+</tr>
+<tr>
+<td>TC19-3</td>
+<td>Gửi lại email xác thực</td>
+<td>bấm gửi lại 2 lần trong 1 phút</td>
+<td>Lần 2 trả 429, nhắc chờ 1 phút rồi thử lại</td>
+</tr>
+<tr>
+<td>TC19-4</td>
+<td>Đổi email</td>
+<td>nhập email mới ở trang cá nhân</td>
+<td>Email mới quay về chưa xác thực + tự gửi link xác thực mới</td>
+</tr>
+<tr>
+<td>TC19-5</td>
+<td>Tài khoản chưa xác thực vẫn dùng được</td>
+<td>đăng nhập khi email_verified = 0</td>
+<td>Đăng nhập/dùng hệ thống bình thường, Layout hiện banner nhắc xác thực</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="ho-so-anh-dai-dien-chua-co-uc-rieng">Hồ sơ &amp; ảnh đại diện (chưa có UC riêng)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mã</th>
+<th>Kịch bản</th>
+<th>Dữ liệu vào</th>
+<th>Kết quả mong đợi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TC20-1</td>
+<td>Upload ảnh đại diện</td>
+<td>ảnh JPEG/PNG/WebP hợp lệ</td>
+<td>Lưu vào /uploads/avatars, avatar_url cập nhật; ảnh cũ tự xóa</td>
+</tr>
+<tr>
+<td>TC20-2</td>
+<td>Xóa ảnh đại diện</td>
+<td>bấm xóa</td>
+<td>avatar_url về rỗng, giao diện quay về ảnh mặc định</td>
+</tr>
+<tr>
+<td>TC20-3</td>
+<td>Đổi mật khẩu</td>
+<td>nhập mật khẩu cũ đúng + mật khẩu mới đúng chính sách</td>
+<td>Cập nhật password_hash; mật khẩu mới sai chính sách → báo điều kiện còn thiếu</td>
+</tr>
+</tbody>
+</table></div>
+<h1>12. Bộ prompt UML — 67 prompt</h1>
 <p>Danh sách prompt UML đầy đủ, cập nhật mới nhất (67 prompt; chuẩn Frm/Controller/Entity cho Class; Prompt 1 tổng thể 17 oval, 12 đường Include vào Đăng nhập, tác nhân phụ Dịch vụ gửi email + Gemini API) xem tại trang Prompt UML: https://nanioe.me/cdio4/prompt-uml.html</p>
 <p>Không liệt kê lại danh sách prompt trong Hồ sơ này để tránh lệch phiên bản. Bản liệt kê cũ (51 prompt, dùng stereotype cũ, còn gộp UC01 Đăng nhập &amp; Đăng ký) đã được thay bằng tham chiếu này ngày 24/10/2026; bản cũ được lưu backup ở <code>cdio4-docs-build/ho-so-section12-old-backup.md</code>.</p>
 <div class="prevnext">
