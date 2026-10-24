@@ -6,8 +6,8 @@
   --soft:#f3ecdb; --gold:#b3862c;
   --code-bg:#1f1a14; --code-head:#2a231b; --code-ink:#f4ead9;
   --shadow:0 1px 2px rgba(35,45,54,.05),0 10px 30px rgba(35,45,54,.07);
-  --serif:"Cormorant Garamond",Georgia,serif;
-  --sans:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --serif:"Times New Roman",Times,serif;
+  --sans:"Times New Roman",Times,serif;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
