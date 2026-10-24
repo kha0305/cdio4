@@ -2,26 +2,49 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Luồng hoạt động toàn hệ thống — Tài liệu CDIO 4</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f5d8a'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' font-weight='bold' fill='%23ffffff' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Tài liệu đồ án CDIO 4 — Website Quản lý Thư viện Mini: conceive, phân tích thiết kế, prompt UML, kiểm thử, SQL.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>B</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="topbar"><div class="in">
-<a class="brand" href="index.html">Tài liệu CDIO 4</a>
-<nav><a href="index.html">Mục lục</a><a href="https://nanioe.me">nanioe.me</a><a href="https://thuvien.nanioe.me">Web thư viện</a></nav>
-</div></div>
-<main class="wrap doc">
-<h1>Luồng hoạt động toàn hệ thống</h1><p class="updated">Cập nhật lần cuối: 17/10/2026</p><h1 id="luong-hoat-ong-tong-the-he-thong-quan-ly-thu-vien-mini">LUỒNG HOẠT ĐỘNG TỔNG THỂ — HỆ THỐNG QUẢN LÝ THƯ VIỆN MINI</h1>
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="Mở mục lục">&#9776;</button>
+  <a class="brand" href="index.html">Tài liệu <em>CDIO 4</em></a>
+  <span class="top-links"><a href="index.html">Mục lục</a><a href="https://nanioe.me">nanioe.me</a></span>
+</header>
+<div class="docs-layout">
+<aside class="sidebar" id="sidebar">
+<div class="side-label">Tài liệu</div>
+<nav class="doc-nav">
+<a href="index.html">Mục lục tổng</a>
+<div class="nav-group">Thiết kế &amp; phân tích</div><a href="conceive.html">Conceive</a><a href="ho-so-thiet-ke.html">Hồ sơ phân tích &amp; thiết kế</a><a href="prompt-uml.html">Prompt UML (52 prompt)</a><a href="luong-hoat-dong.html" class="active">Luồng hoạt động</a><div class="nav-group">Kiểm thử</div><a href="kich-ban-kiem-thu.html">Kịch bản kiểm thử</a><div class="nav-group">Dữ liệu</div><a href="du-lieu-sql.html">SQL reset CSDL</a>
+</nav>
+<div class="side-label">Trong trang này</div>
+<nav class="toc">
+<a href="#1-khach-chua-dang-nhap">1. Khách (chưa đăng nhập)</a>
+<a href="#2-dang-nhap-dang-ky">2. Đăng nhập / Đăng ký</a>
+<a href="#3-nhanh-doc-gia">3. Nhánh Độc giả</a>
+<a href="#4-nhanh-thu-thu">4. Nhánh Thủ thư</a>
+<a href="#5-nhanh-admin">5. Nhánh Admin</a>
+<a href="#6-luong-nen-he-thong-tu-chay-khong-can-actor">6. Luồng nền (Hệ thống tự chạy, không cần Actor)</a>
+<a href="#7-ket-thuc">7. Kết thúc</a>
+</nav>
+</aside>
+<div class="backdrop" id="backdrop"></div>
+<main class="content">
+<h1>Luồng hoạt động toàn hệ thống</h1>
+<p class="meta">Đồ án Website Quản lý Thư viện Mini &middot; Cập nhật lần cuối: 17/10/2026</p>
+<h1>LUỒNG HOẠT ĐỘNG TỔNG THỂ — HỆ THỐNG QUẢN LÝ THƯ VIỆN MINI</h1>
 <p>Activity diagram duy nhất bao quát toàn hệ thống.
 4 swimlane: <strong>Actor | Giao diện | Hệ thống | CSDL</strong>.
 Mỗi bước ghi rõ làn trong ngoặc vuông. Hình thoi = điểm rẽ nhánh.</p>
 <hr />
-<h2 id="1-khach-chua-ang-nhap">1. Khách (chưa đăng nhập)</h2>
+<h2 id="1-khach-chua-dang-nhap">1. Khách (chưa đăng nhập)</h2>
 <ul>
 <li>[Actor] Mở trang landing <code>/</code></li>
 <li>[Giao diện] Hiển thị: catalog sách, ô tìm kiếm, lọc thể loại, phân trang, thẻ thông báo nổi (nếu admin/thủ thư có đăng, tắt được, nhớ trong session)</li>
@@ -31,14 +54,14 @@ Mỗi bước ghi rõ làn trong ngoặc vuông. Hình thoi = điểm rẽ nhán
 <li>Không → kết thúc (tiếp tục tra cứu)</li>
 <li>Có → [Actor] bấm Đăng nhập / Đăng ký → sang mục 2</li>
 </ul>
-<h2 id="2-ang-nhap-ang-ky">2. Đăng nhập / Đăng ký</h2>
+<h2 id="2-dang-nhap-dang-ky">2. Đăng nhập / Đăng ký</h2>
 <ul>
 <li>[Giao diện] Form đăng nhập/đăng ký: nút hiện/ẩn mật khẩu, nút "← Trở lại trang chủ"</li>
 <li>Đăng ký: [Hệ thống] kiểm tra policy mật khẩu (8+ ký tự, 1 hoa, 1 thường, 1 số/ký tự đặc biệt) → [CSDL] lưu <code>users</code> → tự đăng nhập</li>
 <li>Đăng nhập: [Hệ thống] kiểm tra tài khoản (không kiểm format mật khẩu, giữ tài khoản demo) → cấp JWT 8h</li>
 <li>[Hệ thống] Rẽ nhánh theo vai trò → mục 3 (Độc giả) / 4 (Thủ thư) / 5 (Admin)</li>
 </ul>
-<h2 id="3-nhanh-oc-gia">3. Nhánh Độc giả</h2>
+<h2 id="3-nhanh-doc-gia">3. Nhánh Độc giả</h2>
 <ul>
 <li>[Actor] Tìm sách đang <strong>Còn</strong> → bấm Đặt trước (+ ghi chú giờ mong muốn, tự do)</li>
 <li>[Hệ thống] Tạo <code>reservations</code> (status = <strong>pending</strong>, sinh mã QR 8 ký tự A-Z0-9) → <strong>khóa đúng bản đó</strong> (người khác không mượn được)</li>
@@ -96,8 +119,14 @@ Mỗi bước ghi rõ làn trong ngoặc vuông. Hình thoi = điểm rẽ nhán
 <li>Mỗi nhánh kết thúc khi Actor đăng xuất hoặc đóng trang.</li>
 <li>Điểm kết thúc riêng cho: Khách chỉ tra cứu / Độc giả / Thủ thư / Admin.</li>
 </ul>
+<div class="prevnext">
+<a class="pn prev" href="prompt-uml.html"><span>Trang trước</span><strong>Prompt UML (52 prompt)</strong></a>
+<a class="pn next" href="kich-ban-kiem-thu.html"><span>Trang sau</span><strong>Kịch bản kiểm thử</strong></a>
+</div>
+<footer>Web tài liệu của đồ án CDIO 4 — nội dung luôn là bản mới nhất. Tài liệu của khoa (bài giảng CS353, SAD UML 2015, Systems Analysis &amp; Design UML 5th) là tài liệu nội bộ/bản quyền nên không đăng tại đây.</footer>
 </main>
-<footer>© 2026 Bảo Kha · Tài liệu đồ án CDIO 4 — Website Quản lý Thư viện Mini · <a href="index.html">Mục lục</a></footer>
-
+</div>
+<button class="to-top" id="toTop" aria-label="Về đầu trang">&#8593;</button>
+<script src="docs.js"></script>
 </body>
 </html>

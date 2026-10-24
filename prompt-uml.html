@@ -2,21 +2,105 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Prompt UML — 52 prompt cho Visual Paradigm — Tài liệu CDIO 4</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f5d8a'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' font-weight='bold' fill='%23ffffff' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Tài liệu đồ án CDIO 4 — Website Quản lý Thư viện Mini: conceive, phân tích thiết kế, prompt UML, kiểm thử, SQL.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>B</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="topbar"><div class="in">
-<a class="brand" href="index.html">Tài liệu CDIO 4</a>
-<nav><a href="index.html">Mục lục</a><a href="https://nanioe.me">nanioe.me</a><a href="https://thuvien.nanioe.me">Web thư viện</a></nav>
-</div></div>
-<main class="wrap doc">
-<h1>Prompt UML — 52 prompt cho Visual Paradigm</h1><p class="updated">Cập nhật lần cuối: 23/10/2026</p><h1 id="uml-prompt-set-mini-library-management-web-app">UML PROMPT SET — Mini Library Management Web App</h1>
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="Mở mục lục">&#9776;</button>
+  <a class="brand" href="index.html">Tài liệu <em>CDIO 4</em></a>
+  <span class="top-links"><a href="index.html">Mục lục</a><a href="https://nanioe.me">nanioe.me</a></span>
+</header>
+<div class="docs-layout">
+<aside class="sidebar" id="sidebar">
+<div class="side-label">Tài liệu</div>
+<nav class="doc-nav">
+<a href="index.html">Mục lục tổng</a>
+<div class="nav-group">Thiết kế &amp; phân tích</div><a href="conceive.html">Conceive</a><a href="ho-so-thiet-ke.html">Hồ sơ phân tích &amp; thiết kế</a><a href="prompt-uml.html" class="active">Prompt UML (52 prompt)</a><a href="luong-hoat-dong.html">Luồng hoạt động</a><div class="nav-group">Kiểm thử</div><a href="kich-ban-kiem-thu.html">Kịch bản kiểm thử</a><div class="nav-group">Dữ liệu</div><a href="du-lieu-sql.html">SQL reset CSDL</a>
+</nav>
+<div class="side-label">Trong trang này</div>
+<nav class="toc">
+<a href="#mandatory-drawing-conventions-apply-to-every-prompt">MANDATORY DRAWING CONVENTIONS (apply to every prompt)</a>
+<a href="#sequence-diagram-exactly-5-lifelines" class="lv3">Sequence diagram — exactly 5 lifelines</a>
+<a href="#activity-diagram-exactly-4-swimlanes" class="lv3">Activity diagram — exactly 4 swimlanes</a>
+<a href="#class-diagram" class="lv3">Class diagram</a>
+<a href="#prompt-0-overall-system-activity-diagram">Prompt 0 — Overall System Activity Diagram</a>
+<a href="#prompt-1-overall-system-use-case-diagram">Prompt 1 — Overall System Use Case Diagram</a>
+<a href="#display-requirement-group-the-use-cases-by-actor-using-boundary-package-quan-tri-nghiep-vu-quay-doc-gia-if-the-tool-supports-it-keep-the-use-case-names-in-vietnamese-with-diacritics">Display requirement: group the use cases by actor using boundary/package (Quản trị, Nghiệp vụ quầy, Độc giả) if the tool supports it; keep the use case names in Vietnamese with diacritics.</a>
+<a href="#prompt-2-uc01-use-case-diagram-login-registration">Prompt 2 — UC01 Use Case Diagram: Login &amp; Registration</a>
+<a href="#prompt-3-uc02-use-case-diagram-book-management">Prompt 3 — UC02 Use Case Diagram: Book Management</a>
+<a href="#prompt-4-uc03-use-case-diagram-reader-management">Prompt 4 — UC03 Use Case Diagram: Reader Management</a>
+<a href="#prompt-5-uc04-use-case-diagram-borrow-book">Prompt 5 — UC04 Use Case Diagram: Borrow Book</a>
+<a href="#prompt-6-uc05-use-case-diagram-return-book">Prompt 6 — UC05 Use Case Diagram: Return Book</a>
+<a href="#prompt-7-uc06-use-case-diagram-overdue-list">Prompt 7 — UC06 Use Case Diagram: Overdue List</a>
+<a href="#prompt-8-uc07-use-case-diagram-statistics">Prompt 8 — UC07 Use Case Diagram: Statistics</a>
+<a href="#prompt-9-uc08-use-case-diagram-my-books">Prompt 9 — UC08 Use Case Diagram: My Books</a>
+<a href="#prompt-10-uc09-use-case-diagram-system-configuration">Prompt 10 — UC09 Use Case Diagram: System Configuration</a>
+<a href="#prompt-11-uc10-use-case-diagram-librarian-account-management">Prompt 11 — UC10 Use Case Diagram: Librarian Account Management</a>
+<a href="#prompt-12-uc11-use-case-diagram-reserve-book">Prompt 12 — UC11 Use Case Diagram: Reserve Book</a>
+<a href="#prompt-13-uc12-use-case-diagram-cancel-reservation">Prompt 13 — UC12 Use Case Diagram: Cancel Reservation</a>
+<a href="#create-exactly-1-use-case-diagram-actor-doc-gia-main-use-case-uc12-huy-dat-truoc-draw-the-association-doc-gia-uc12-add-the-use-case-uc11-dat-truoc-sach-no-actor-link-and-a-dashed-dependency-line-from-uc12-to-uc11-with-a-note-attached-uc12-turns-uc11-s-pending-reservations-into-cancelled-do-not-add-any-other-use-case">Create exactly 1 Use Case Diagram. Actor: Độc giả. Main use case: &quot;UC12 Hủy đặt trước&quot;. Draw the association Độc giả — UC12. Add the use case &quot;UC11 Đặt trước sách&quot; (no actor link) and a dashed dependency line from UC12 to UC11, with a note attached: &quot;UC12 turns UC11&#x27;s pending reservations into cancelled&quot;. Do not add any other use case.</a>
+<a href="#prompt-14-uc01-activity-login-registration">Prompt 14 — UC01 Activity: Login &amp; Registration</a>
+<a href="#prompt-15-uc01-sequence-login">Prompt 15 — UC01 Sequence: Login</a>
+<a href="#prompt-16-uc01-analysis-class">Prompt 16 — UC01 Analysis Class</a>
+<a href="#prompt-17-uc02-activity-book-management-incl-uc15-extension">Prompt 17 — UC02 Activity: Book Management (incl. UC15 extension)</a>
+<a href="#prompt-18-uc02-sequence-add-book-incl-uc15">Prompt 18 — UC02 Sequence: Add Book (incl. UC15)</a>
+<a href="#prompt-19-uc02-analysis-class">Prompt 19 — UC02 Analysis Class</a>
+<a href="#prompt-20-uc03-activity-reader-management">Prompt 20 — UC03 Activity: Reader Management</a>
+<a href="#prompt-21-uc03-sequence-add-reader">Prompt 21 — UC03 Sequence: Add Reader</a>
+<a href="#prompt-22-uc03-analysis-class">Prompt 22 — UC03 Analysis Class</a>
+<a href="#muc">---</a>
+<a href="#prompt-23-uc04-activity-borrow-book">Prompt 23 — UC04 Activity: Borrow Book</a>
+<a href="#prompt-24-uc04-sequence-borrow-book">Prompt 24 — UC04 Sequence: Borrow Book</a>
+<a href="#prompt-25-uc04-analysis-class">Prompt 25 — UC04 Analysis Class</a>
+<a href="#prompt-26-uc05-activity-return-book">Prompt 26 — UC05 Activity: Return Book</a>
+<a href="#prompt-27-uc05-sequence-return-book">Prompt 27 — UC05 Sequence: Return Book</a>
+<a href="#prompt-28-uc05-analysis-class">Prompt 28 — UC05 Analysis Class</a>
+<a href="#prompt-29-uc06-activity-overdue-list">Prompt 29 — UC06 Activity: Overdue List</a>
+<a href="#prompt-30-uc06-sequence-overdue-list">Prompt 30 — UC06 Sequence: Overdue List</a>
+<a href="#prompt-31-uc06-analysis-class">Prompt 31 — UC06 Analysis Class</a>
+<a href="#muc-2">---</a>
+<a href="#prompt-32-uc07-activity-statistics-incl-uc14-report-export">Prompt 32 — UC07 Activity: Statistics (incl. UC14 report export)</a>
+<a href="#prompt-33-uc07-sequence-statistics-incl-uc14">Prompt 33 — UC07 Sequence: Statistics (incl. UC14)</a>
+<a href="#prompt-34-uc07-analysis-class">Prompt 34 — UC07 Analysis Class</a>
+<a href="#prompt-35-uc08-activity-my-books">Prompt 35 — UC08 Activity: My Books</a>
+<a href="#prompt-36-uc08-sequence-my-books">Prompt 36 — UC08 Sequence: My Books</a>
+<a href="#prompt-37-uc08-analysis-class">Prompt 37 — UC08 Analysis Class</a>
+<a href="#prompt-38-uc09-activity-system-configuration">Prompt 38 — UC09 Activity: System Configuration</a>
+<a href="#prompt-39-uc09-sequence-system-configuration">Prompt 39 — UC09 Sequence: System Configuration</a>
+<a href="#prompt-40-uc09-analysis-class">Prompt 40 — UC09 Analysis Class</a>
+<a href="#muc-3">---</a>
+<a href="#prompt-41-uc10-activity-librarian-account-management">Prompt 41 — UC10 Activity: Librarian Account Management</a>
+<a href="#prompt-42-uc10-sequence-add-librarian-account">Prompt 42 — UC10 Sequence: Add Librarian Account</a>
+<a href="#prompt-43-uc10-analysis-class">Prompt 43 — UC10 Analysis Class</a>
+<a href="#prompt-44-uc11-activity-reserve-book-new-flow-with-approval">Prompt 44 — UC11 Activity: Reserve Book (NEW FLOW WITH APPROVAL)</a>
+<a href="#prompt-45-uc11-sequence-reserve-and-approve-new-flow">Prompt 45 — UC11 Sequence: Reserve and Approve (NEW FLOW)</a>
+<a href="#prompt-46-uc11-analysis-class-new-flow">Prompt 46 — UC11 Analysis Class (NEW FLOW)</a>
+<a href="#prompt-47-uc12-activity-cancel-reservation-updated">Prompt 47 — UC12 Activity: Cancel Reservation (UPDATED)</a>
+<a href="#prompt-48-uc13-use-case-diagram-notification-system">Prompt 48 — UC13 Use Case Diagram: Notification System</a>
+<a href="#prompt-49-uc13-activity-notification-system">Prompt 49 — UC13 Activity: Notification System</a>
+<a href="#prompt-50-uc13-sequence-automatic-notification-on-reservation-approval">Prompt 50 — UC13 Sequence: Automatic Notification on Reservation Approval</a>
+<a href="#prompt-51-updated-system-wide-erd-after-the-new-features">Prompt 51 — Updated System-Wide ERD (after the new features)</a>
+<a href="#prompt-uc16-a-use-case-diagram-bo-sung">Prompt UC16-A — Use Case Diagram (bổ sung)</a>
+<a href="#prompt-uc16-b-activity-diagram-uc16">Prompt UC16-B — Activity Diagram: UC16</a>
+<a href="#prompt-uc16-c-sequence-diagram-uc16">Prompt UC16-C — Sequence Diagram: UC16</a>
+<a href="#prompt-uc17-a-use-case-diagram-bo-sung">Prompt UC17-A — Use Case Diagram (bổ sung)</a>
+<a href="#prompt-uc17-b-activity-diagram-uc17-nhac-han-qua-email">Prompt UC17-B — Activity Diagram: UC17 nhắc hạn qua email</a>
+<a href="#prompt-uc18-sequence-diagram-uc18-quen-mat-khau">Prompt UC18 — Sequence Diagram: UC18 quên mật khẩu</a>
+<a href="#prompt-uc19-sequence-diagram-uc19-xac-thuc-email">Prompt UC19 — Sequence Diagram: UC19 xác thực email</a>
+</nav>
+</aside>
+<div class="backdrop" id="backdrop"></div>
+<main class="content">
+<h1>Prompt UML — 52 prompt cho Visual Paradigm</h1>
+<p class="meta">Đồ án Website Quản lý Thư viện Mini &middot; Cập nhật lần cuối: 23/10/2026</p>
+<h1>UML PROMPT SET — Mini Library Management Web App</h1>
 <p>52 prompts; each prompt generates exactly 1 diagram in Visual Paradigm AI.
 Select the diagram type stated in the prompt title before pasting.</p>
 <h2 id="mandatory-drawing-conventions-apply-to-every-prompt">MANDATORY DRAWING CONVENTIONS (apply to every prompt)</h2>
@@ -111,7 +195,7 @@ Background flows of the Hệ thống (no actor needed, run in parallel):
 - "UC05 computes the fine automatically per D7; it is not a separate use case"
 - "Registration is an alternative flow inside UC01; do not split it into a separate use case"
 - "UC14 extends UC07; UC15 extends UC02"</p>
-<h2 id="display-requirement-group-the-use-cases-by-actor-using-boundarypackage-quan-tri-nghiep-vu-quay-oc-gia-if-the-tool-supports-it-keep-the-use-case-names-in-vietnamese-with-diacritics"><strong>Display requirement:</strong> group the use cases by actor using boundary/package (Quản trị, Nghiệp vụ quầy, Độc giả) if the tool supports it; keep the use case names in Vietnamese with diacritics.</h2>
+<h2 id="display-requirement-group-the-use-cases-by-actor-using-boundary-package-quan-tri-nghiep-vu-quay-doc-gia-if-the-tool-supports-it-keep-the-use-case-names-in-vietnamese-with-diacritics"><strong>Display requirement:</strong> group the use cases by actor using boundary/package (Quản trị, Nghiệp vụ quầy, Độc giả) if the tool supports it; keep the use case names in Vietnamese with diacritics.</h2>
 <hr />
 <h2 id="prompt-2-uc01-use-case-diagram-login-registration">Prompt 2 — UC01 Use Case Diagram: Login &amp; Registration</h2>
 <p>Create exactly 1 Use Case Diagram. Actors: Admin, Thủ thư, Độc giả. A single use case: "UC01 Đăng nhập &amp; Đăng ký". Draw associations from all 3 actors to the use case. Add a note: "The registration flow is for Độc giả only (self sign-up); Admin and Thủ thư accounts are issued by the Admin (UC10)". Do not add any other use case.</p>
@@ -147,7 +231,7 @@ Background flows of the Hệ thống (no actor needed, run in parallel):
 <p>Create exactly 1 Use Case Diagram. Actor: Độc giả. Main use case: "UC11 Đặt trước sách". Draw the association Độc giả — UC11. Add the use case "UC04 Mượn sách" (no actor link) and a dashed dependency line from UC11 to UC04, with a note attached: "Pending reservations from UC11 are consumed by UC04 when the reader comes to the counter to pick up the book (D13)". Do not add any other use case.</p>
 <hr />
 <h2 id="prompt-13-uc12-use-case-diagram-cancel-reservation">Prompt 13 — UC12 Use Case Diagram: Cancel Reservation</h2>
-<h2 id="create-exactly-1-use-case-diagram-actor-oc-gia-main-use-case-uc12-huy-at-truoc-draw-the-association-oc-gia-uc12-add-the-use-case-uc11-at-truoc-sach-no-actor-link-and-a-dashed-dependency-line-from-uc12-to-uc11-with-a-note-attached-uc12-turns-uc11s-pending-reservations-into-cancelled-do-not-add-any-other-use-case">Create exactly 1 Use Case Diagram. Actor: Độc giả. Main use case: "UC12 Hủy đặt trước". Draw the association Độc giả — UC12. Add the use case "UC11 Đặt trước sách" (no actor link) and a dashed dependency line from UC12 to UC11, with a note attached: "UC12 turns UC11's pending reservations into cancelled". Do not add any other use case.</h2>
+<h2 id="create-exactly-1-use-case-diagram-actor-doc-gia-main-use-case-uc12-huy-dat-truoc-draw-the-association-doc-gia-uc12-add-the-use-case-uc11-dat-truoc-sach-no-actor-link-and-a-dashed-dependency-line-from-uc12-to-uc11-with-a-note-attached-uc12-turns-uc11-s-pending-reservations-into-cancelled-do-not-add-any-other-use-case">Create exactly 1 Use Case Diagram. Actor: Độc giả. Main use case: "UC12 Hủy đặt trước". Draw the association Độc giả — UC12. Add the use case "UC11 Đặt trước sách" (no actor link) and a dashed dependency line from UC12 to UC11, with a note attached: "UC12 turns UC11's pending reservations into cancelled". Do not add any other use case.</h2>
 <hr />
 <h2 id="prompt-14-uc01-activity-login-registration">Prompt 14 — UC01 Activity: Login &amp; Registration</h2>
 <pre><code>Draw an activity diagram for use case &quot;UC01 — Đăng nhập &amp; Đăng ký&quot; of the mini library management system.
@@ -363,7 +447,7 @@ Relationships:
 - ReaderController → UserService
 - UserService → User, UserService → UserRepository
 </code></pre>
-<h2 id="-">---</h2>
+<h2 id="muc">---</h2>
 <h2 id="prompt-23-uc04-activity-borrow-book">Prompt 23 — UC04 Activity: Borrow Book</h2>
 <pre><code>Draw an activity diagram for use case &quot;UC04 — Mượn sách&quot; of the mini library management system.
 
@@ -597,7 +681,7 @@ Relationships:
 - LoanService → Loan, LoanService → LoanRepository
 - Each Loan is linked to one Book and one User
 </code></pre>
-<h2 id="-_1">---</h2>
+<h2 id="muc-2">---</h2>
 <h2 id="prompt-32-uc07-activity-statistics-incl-uc14-report-export">Prompt 32 — UC07 Activity: Statistics (incl. UC14 report export)</h2>
 <pre><code>Draw an activity diagram for use case &quot;UC07 — Thống kê&quot; and &quot;UC14 — Xuất báo cáo Excel / In PDF&quot; of the mini library management system.
 
@@ -792,7 +876,7 @@ Relationships:
 - SettingsController → SettingsService
 - SettingsService → Settings, SettingsService → SettingsRepository
 </code></pre>
-<h2 id="-_2">---</h2>
+<h2 id="muc-3">---</h2>
 <h2 id="prompt-41-uc10-activity-librarian-account-management">Prompt 41 — UC10 Activity: Librarian Account Management</h2>
 <pre><code>Draw an activity diagram for use case &quot;UC10 — Quản lý tài khoản thủ thư&quot; of the mini library management system.
 
@@ -1077,7 +1161,7 @@ Relationships:
 - users 1 — n notifications (via created_by), notifications 1 — n notification_reads, users 1 — n notification_reads
 </code></pre>
 <hr />
-<h1 id="prompt-bo-sung-uc16-tim-sach-bang-ai-theo-mo-ta-23102026">Prompt bổ sung — UC16 Tìm sách bằng AI theo mô tả (23/10/2026)</h1>
+<h1>Prompt bổ sung — UC16 Tìm sách bằng AI theo mô tả (23/10/2026)</h1>
 <h2 id="prompt-uc16-a-use-case-diagram-bo-sung">Prompt UC16-A — Use Case Diagram (bổ sung)</h2>
 <pre><code>Add one use case to the existing use case diagram of the &quot;Library Mini&quot; system:
 - Use case &quot;UC16 AI book search by description&quot; inside the system boundary.
@@ -1107,7 +1191,7 @@ Flow:
 11. LandingPage --&gt; Guest: book grid with match % and reason
 </code></pre>
 <hr />
-<h1 id="prompt-bo-sung-uc17uc18uc19-email-nhac-han-quen-mat-khau-xac-thuc-email-23102026">Prompt bổ sung — UC17/UC18/UC19 Email: nhắc hạn, quên mật khẩu, xác thực email (23/10/2026)</h1>
+<h1>Prompt bổ sung — UC17/UC18/UC19 Email: nhắc hạn, quên mật khẩu, xác thực email (23/10/2026)</h1>
 <h2 id="prompt-uc17-a-use-case-diagram-bo-sung">Prompt UC17-A — Use Case Diagram (bổ sung)</h2>
 <pre><code>Add three use cases to the existing use case diagram of the &quot;Library Mini&quot; system:
 - &quot;UC17 Due-date reminder email&quot; connected to a Time/Scheduler actor and to Reader; it extends &quot;UC13 Notification system&quot;.
@@ -1140,17 +1224,14 @@ Keep all existing actors and use cases unchanged.
 4. Reader clicks the link; the Verify Email page posts the token; EmailAccountService consumes the token and sets email_verified = 1.
 5. alt [not verified yet]: the app layout shows a reminder banner; from the Profile page the reader can change email (resets to unverified + sends a new link) or resend the verification email (1 per minute).
 </code></pre>
+<div class="prevnext">
+<a class="pn prev" href="ho-so-thiet-ke.html"><span>Trang trước</span><strong>Hồ sơ phân tích &amp; thiết kế</strong></a>
+<a class="pn next" href="luong-hoat-dong.html"><span>Trang sau</span><strong>Luồng hoạt động</strong></a>
+</div>
+<footer>Web tài liệu của đồ án CDIO 4 — nội dung luôn là bản mới nhất. Tài liệu của khoa (bài giảng CS353, SAD UML 2015, Systems Analysis &amp; Design UML 5th) là tài liệu nội bộ/bản quyền nên không đăng tại đây.</footer>
 </main>
-<footer>© 2026 Bảo Kha · Tài liệu đồ án CDIO 4 — Website Quản lý Thư viện Mini · <a href="index.html">Mục lục</a></footer>
-<script>
-document.querySelectorAll('pre').forEach(function(pre){
-  var btn=document.createElement('button');btn.className='copybtn';btn.textContent='Sao chép';
-  btn.addEventListener('click',function(){
-    var text=pre.innerText.replace(/^Sao chép\n/,'');
-    navigator.clipboard.writeText(text).then(function(){btn.textContent='Đã chép';setTimeout(function(){btn.textContent='Sao chép'},1500);});
-  });
-  pre.appendChild(btn);
-});
-</script>
+</div>
+<button class="to-top" id="toTop" aria-label="Về đầu trang">&#8593;</button>
+<script src="docs.js"></script>
 </body>
 </html>

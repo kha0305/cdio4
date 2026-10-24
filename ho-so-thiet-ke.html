@@ -2,22 +2,178 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hồ sơ phân tích &amp; thiết kế — Tài liệu CDIO 4</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f5d8a'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' font-weight='bold' fill='%23ffffff' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hồ sơ phân tích &amp; thiết kế hệ thống — Tài liệu CDIO 4</title>
+<meta name="description" content="Tài liệu đồ án CDIO 4 — Website Quản lý Thư viện Mini: conceive, phân tích thiết kế, prompt UML, kiểm thử, SQL.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>B</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="topbar"><div class="in">
-<a class="brand" href="index.html">Tài liệu CDIO 4</a>
-<nav><a href="index.html">Mục lục</a><a href="https://nanioe.me">nanioe.me</a><a href="https://thuvien.nanioe.me">Web thư viện</a></nav>
-</div></div>
-<main class="wrap doc">
-<h1>Hồ sơ phân tích &amp; thiết kế</h1><p class="updated">Cập nhật lần cuối: 23/10/2026</p><h1 id="ho-so-phan-tich-thiet-ke-web-quan-ly-thu-vien-mini">HỒ SƠ PHÂN TÍCH &amp; THIẾT KẾ — Web Quản Lý Thư Viện Mini</h1>
-<h2 id="o-an-cdio-4-nganh-cong-nghe-phan-mem">Đồ án CDIO 4 — Ngành Công nghệ Phần mềm</h2>
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="Mở mục lục">&#9776;</button>
+  <a class="brand" href="index.html">Tài liệu <em>CDIO 4</em></a>
+  <span class="top-links"><a href="index.html">Mục lục</a><a href="https://nanioe.me">nanioe.me</a></span>
+</header>
+<div class="docs-layout">
+<aside class="sidebar" id="sidebar">
+<div class="side-label">Tài liệu</div>
+<nav class="doc-nav">
+<a href="index.html">Mục lục tổng</a>
+<div class="nav-group">Thiết kế &amp; phân tích</div><a href="conceive.html">Conceive</a><a href="ho-so-thiet-ke.html" class="active">Hồ sơ phân tích &amp; thiết kế</a><a href="prompt-uml.html">Prompt UML (52 prompt)</a><a href="luong-hoat-dong.html">Luồng hoạt động</a><div class="nav-group">Kiểm thử</div><a href="kich-ban-kiem-thu.html">Kịch bản kiểm thử</a><div class="nav-group">Dữ liệu</div><a href="du-lieu-sql.html">SQL reset CSDL</a>
+</nav>
+<div class="side-label">Trong trang này</div>
+<nav class="toc">
+<a href="#do-an-cdio-4-nganh-cong-nghe-phan-mem">Đồ án CDIO 4 — Ngành Công nghệ Phần mềm</a>
+<a href="#muc-luc">Mục lục</a>
+<a href="#1-tong-quan-dung-cho-bao-cao">1. TỔNG QUAN (dùng cho báo cáo)</a>
+<a href="#0-quyet-dinh-chot-khong-thay-doi-khi-code">0. QUYẾT ĐỊNH CHỐT (không thay đổi khi code)</a>
+<a href="#uc01-dang-nhap-dang-ky">UC01 — Đăng nhập &amp; Đăng ký</a>
+<a href="#uc02-quan-ly-sach">UC02 — Quản lý sách</a>
+<a href="#uc03-quan-ly-doc-gia">UC03 — Quản lý độc giả</a>
+<a href="#uc04-muon-sach">UC04 — Mượn sách</a>
+<a href="#uc05-tra-sach">UC05 — Trả sách</a>
+<a href="#uc06-danh-sach-qua-han">UC06 — Danh sách quá hạn</a>
+<a href="#uc07-thong-ke">UC07 — Thống kê</a>
+<a href="#uc08-sach-cua-toi">UC08 — Sách của tôi</a>
+<a href="#uc09-cau-hinh-he-thong">UC09 — Cấu hình hệ thống</a>
+<a href="#uc10-quan-ly-tai-khoan-thu-thu">UC10 — Quản lý tài khoản thủ thư</a>
+<a href="#uc11-dat-truoc-sach-sua-16-10-2026-them-luong-duyet-cua-thu-thu">UC11 — Đặt trước sách (sửa 16/10/2026: thêm luồng duyệt của thủ thư)</a>
+<a href="#uc12-huy-dat-truoc">UC12 — Hủy đặt trước</a>
+<a href="#uc13-he-thong-thong-bao-moi-16-10-2026">UC13 — Hệ thống thông báo (mới 16/10/2026)</a>
+<a href="#uc14-xuat-bao-cao-excel-in-pdf-moi-16-10-2026">UC14 — Xuất báo cáo Excel / In PDF (mới 16/10/2026)</a>
+<a href="#uc15-quan-ly-sach-mo-rong-moi-16-10-2026">UC15 — Quản lý sách mở rộng (mới 16/10/2026)</a>
+<a href="#uc16-tim-sach-bang-ai-theo-mo-ta-noi-dung-moi-23-10-2026">UC16 — Tìm sách bằng AI theo mô tả nội dung (mới 23/10/2026)</a>
+<a href="#uc17-nhac-han-tra-sach-qua-email-moi-23-10-2026">UC17 — Nhắc hạn trả sách qua email (mới 23/10/2026)</a>
+<a href="#uc18-quen-mat-khau-dat-lai-mat-khau-qua-email-moi-23-10-2026">UC18 — Quên mật khẩu / đặt lại mật khẩu qua email (mới 23/10/2026)</a>
+<a href="#uc19-dang-ky-bang-email-that-xac-thuc-email-moi-23-10-2026">UC19 — Đăng ký bằng email thật &amp; xác thực email (mới 23/10/2026)</a>
+<a href="#ma-tran-truy-vet-actor-use-case">Ma trận truy vết (Actor × Use case)</a>
+<a href="#3-thiet-ke-co-so-du-lieu-mysql">3. Thiết kế cơ sở dữ liệu (MySQL)</a>
+<a href="#3-1-bang-users" class="lv3">3.1 Bảng users</a>
+<a href="#3-2-bang-books" class="lv3">3.2 Bảng books</a>
+<a href="#3-3-bang-loans" class="lv3">3.3 Bảng loans</a>
+<a href="#3-4-bang-reservations" class="lv3">3.4 Bảng reservations</a>
+<a href="#3-5-bang-categories-moi-16-10-2026" class="lv3">3.5 Bảng categories (mới 16/10/2026)</a>
+<a href="#3-6-bang-notifications-moi-16-10-2026" class="lv3">3.6 Bảng notifications (mới 16/10/2026)</a>
+<a href="#3-7-bang-notification-reads-moi-16-10-2026" class="lv3">3.7 Bảng notification_reads (mới 16/10/2026)</a>
+<a href="#3-8-bang-settings" class="lv3">3.8 Bảng settings</a>
+<a href="#3-6-quan-he" class="lv3">3.6 Quan hệ</a>
+<a href="#4-thiet-ke-lop-huong-doi-tuong">4. Thiết kế lớp (hướng đối tượng)</a>
+<a href="#4-1-entity-classes" class="lv3">4.1 Entity classes</a>
+<a href="#4-2-service-classes" class="lv3">4.2 Service classes</a>
+<a href="#4-3-controller-classes" class="lv3">4.3 Controller classes</a>
+<a href="#4-4-repository-classes" class="lv3">4.4 Repository classes</a>
+<a href="#5-danh-sach-api">5. Danh sách API</a>
+<a href="#auth" class="lv3">Auth</a>
+<a href="#books-dang-nhap-ghi-can-role-librarian-rieng-get-mo-cho-reader-de-tra-cuu-dat-truoc" class="lv3">Books (đăng nhập; ghi cần role librarian, riêng GET mở cho reader để tra cứu/đặt trước)</a>
+<a href="#readers-librarian" class="lv3">Readers (librarian)</a>
+<a href="#loans" class="lv3">Loans</a>
+<a href="#reservations" class="lv3">Reservations</a>
+<a href="#stats-settings" class="lv3">Stats &amp; Settings</a>
+<a href="#6-wireframe-cac-man-hinh">6. Wireframe các màn hình</a>
+<a href="#1-so-do-tong">1. Sơ đồ tổng</a>
+<a href="#2-admin">2. Admin</a>
+<a href="#3-thu-thu">3. Thủ thư</a>
+<a href="#4-doc-gia">4. Độc giả</a>
+<a href="#5-luong-dieu-huong-chinh">5. Luồng điều hướng chính</a>
+<a href="#f-a-muon-sach-tai-quay-uc04" class="lv3">F-A. Mượn sách tại quầy (UC04)</a>
+<a href="#f-b-tra-sach-tai-quay-uc05" class="lv3">F-B. Trả sách tại quầy (UC05)</a>
+<a href="#f-c-doc-gia-dat-truoc-roi-den-lay-uc11-uc04-sua-16-10-2026" class="lv3">F-C. Độc giả đặt trước rồi đến lấy (UC11 → UC04) — sửa 16/10/2026</a>
+<a href="#f-d-quan-tri-uc09-uc10" class="lv3">F-D. Quản trị (UC09, UC10)</a>
+<a href="#6-ghi-chu-thiet-ke-chung">6. Ghi chú thiết kế chung</a>
+<a href="#2-yeu-cau-phi-chuc-nang">2. YÊU CẦU PHI CHỨC NĂNG</a>
+<a href="#2-1-hieu-nang" class="lv3">2.1 Hiệu năng</a>
+<a href="#2-2-bao-mat" class="lv3">2.2 Bảo mật</a>
+<a href="#2-3-tuong-thich-va-su-dung" class="lv3">2.3 Tương thích và sử dụng</a>
+<a href="#2-4-do-tin-cay-va-du-lieu" class="lv3">2.4 Độ tin cậy và dữ liệu</a>
+<a href="#3-kich-ban-kiem-thu">3. KỊCH BẢN KIỂM THỬ</a>
+<a href="#uc01-dang-nhap-dang-ky-2" class="lv3">UC01 — Đăng nhập &amp; Đăng ký</a>
+<a href="#uc02-quan-ly-sach-2" class="lv3">UC02 — Quản lý sách</a>
+<a href="#uc03-quan-ly-doc-gia-2" class="lv3">UC03 — Quản lý độc giả</a>
+<a href="#uc04-muon-sach-2" class="lv3">UC04 — Mượn sách</a>
+<a href="#uc05-tra-sach-2" class="lv3">UC05 — Trả sách</a>
+<a href="#uc06-danh-sach-qua-han-2" class="lv3">UC06 — Danh sách quá hạn</a>
+<a href="#uc07-thong-ke-2" class="lv3">UC07 — Thống kê</a>
+<a href="#uc08-sach-cua-toi-2" class="lv3">UC08 — Sách của tôi</a>
+<a href="#uc09-cau-hinh" class="lv3">UC09 — Cấu hình</a>
+<a href="#uc10-quan-ly-tai-khoan-thu-thu-2" class="lv3">UC10 — Quản lý tài khoản thủ thư</a>
+<a href="#uc11-dat-truoc-sach-sua-16-10-2026-them-luong-duyet" class="lv3">UC11 — Đặt trước sách (sửa 16/10/2026: thêm luồng duyệt)</a>
+<a href="#uc12-huy-dat-truoc-2" class="lv3">UC12 — Hủy đặt trước</a>
+<a href="#prompt-1-use-case-diagram-tong-the-he-thong">Prompt 1 — Use Case Diagram TỔNG THỂ hệ thống</a>
+<a href="#muc">---</a>
+<a href="#prompt-2-uc01-use-case-diagram-dang-nhap-dang-ky">Prompt 2 — UC01 Use Case Diagram: Đăng nhập &amp; Đăng ký</a>
+<a href="#muc-2">---</a>
+<a href="#prompt-3-uc02-use-case-diagram-quan-ly-sach">Prompt 3 — UC02 Use Case Diagram: Quản lý sách</a>
+<a href="#muc-3">---</a>
+<a href="#prompt-4-uc03-use-case-diagram-quan-ly-doc-gia">Prompt 4 — UC03 Use Case Diagram: Quản lý độc giả</a>
+<a href="#muc-4">---</a>
+<a href="#prompt-5-uc04-use-case-diagram-muon-sach">Prompt 5 — UC04 Use Case Diagram: Mượn sách</a>
+<a href="#muc-5">---</a>
+<a href="#prompt-6-uc05-use-case-diagram-tra-sach">Prompt 6 — UC05 Use Case Diagram: Trả sách</a>
+<a href="#muc-6">---</a>
+<a href="#prompt-7-uc06-use-case-diagram-danh-sach-qua-han">Prompt 7 — UC06 Use Case Diagram: Danh sách quá hạn</a>
+<a href="#muc-7">---</a>
+<a href="#prompt-8-uc07-use-case-diagram-thong-ke">Prompt 8 — UC07 Use Case Diagram: Thống kê</a>
+<a href="#muc-8">---</a>
+<a href="#prompt-9-uc08-use-case-diagram-sach-cua-toi">Prompt 9 — UC08 Use Case Diagram: Sách của tôi</a>
+<a href="#muc-9">---</a>
+<a href="#prompt-10-uc09-use-case-diagram-cau-hinh-he-thong">Prompt 10 — UC09 Use Case Diagram: Cấu hình hệ thống</a>
+<a href="#muc-10">---</a>
+<a href="#prompt-11-uc10-use-case-diagram-quan-ly-tai-khoan-thu-thu">Prompt 11 — UC10 Use Case Diagram: Quản lý tài khoản thủ thư</a>
+<a href="#muc-11">---</a>
+<a href="#prompt-12-uc11-use-case-diagram-dat-truoc-sach">Prompt 12 — UC11 Use Case Diagram: Đặt trước sách</a>
+<a href="#muc-12">---</a>
+<a href="#prompt-13-uc12-use-case-diagram-huy-dat-truoc">Prompt 13 — UC12 Use Case Diagram: Hủy đặt trước</a>
+<a href="#tao-dung-1-diagram-loai-use-case-diagram-actor-doc-gia-use-case-chinh-uc12-huy-dat-truoc-ve-association-doc-gia-uc12-ve-them-use-case-uc11-dat-truoc-sach-khong-noi-actor-va-duong-dependency-net-dut-tu-uc12-toi-uc11-gan-note-uc12-chuyen-luot-pending-cua-uc11-thanh-cancelled-khong-them-use-case-nao-khac">Tạo đúng 1 diagram loại Use Case Diagram. Actor: Độc giả. Use case chính: &quot;UC12 Hủy đặt trước&quot;. Vẽ association Độc giả — UC12. Vẽ thêm use case &quot;UC11 Đặt trước sách&quot; (không nối actor) và đường dependency nét đứt từ UC12 tới UC11, gắn note: &quot;UC12 chuyển lượt pending của UC11 thành cancelled&quot;. Không thêm use case nào khác.</a>
+<a href="#prompt-14-uc01-activity-dang-nhap-dang-ky">Prompt 14 — UC01 Activity: Đăng nhập &amp; Đăng ký</a>
+<a href="#prompt-15-uc01-sequence-dang-nhap">Prompt 15 — UC01 Sequence: Đăng nhập</a>
+<a href="#prompt-16-uc01-class-phan-tich">Prompt 16 — UC01 Class phân tích</a>
+<a href="#prompt-17-uc02-activity-quan-ly-sach">Prompt 17 — UC02 Activity: Quản lý sách</a>
+<a href="#prompt-18-uc02-sequence-them-sach">Prompt 18 — UC02 Sequence: Thêm sách</a>
+<a href="#prompt-19-uc02-class-phan-tich">Prompt 19 — UC02 Class phân tích</a>
+<a href="#prompt-20-uc03-activity-quan-ly-doc-gia">Prompt 20 — UC03 Activity: Quản lý độc giả</a>
+<a href="#prompt-21-uc03-sequence-them-doc-gia">Prompt 21 — UC03 Sequence: Thêm độc giả</a>
+<a href="#prompt-22-uc03-class-phan-tich">Prompt 22 — UC03 Class phân tích</a>
+<a href="#prompt-23-uc04-activity-muon-sach">Prompt 23 — UC04 Activity: Mượn sách</a>
+<a href="#prompt-24-uc04-sequence-muon-sach">Prompt 24 — UC04 Sequence: Mượn sách</a>
+<a href="#prompt-25-uc04-class-phan-tich">Prompt 25 — UC04 Class phân tích</a>
+<a href="#prompt-26-uc05-activity-tra-sach">Prompt 26 — UC05 Activity: Trả sách</a>
+<a href="#prompt-27-uc05-sequence-tra-sach">Prompt 27 — UC05 Sequence: Trả sách</a>
+<a href="#prompt-28-uc05-class-phan-tich">Prompt 28 — UC05 Class phân tích</a>
+<a href="#prompt-29-uc06-activity-danh-sach-qua-han">Prompt 29 — UC06 Activity: Danh sách quá hạn</a>
+<a href="#prompt-30-uc06-sequence-danh-sach-qua-han">Prompt 30 — UC06 Sequence: Danh sách quá hạn</a>
+<a href="#prompt-31-uc06-class-phan-tich">Prompt 31 — UC06 Class phân tích</a>
+<a href="#prompt-32-uc07-activity-thong-ke">Prompt 32 — UC07 Activity: Thống kê</a>
+<a href="#prompt-33-uc07-sequence-thong-ke">Prompt 33 — UC07 Sequence: Thống kê</a>
+<a href="#prompt-34-uc07-class-phan-tich">Prompt 34 — UC07 Class phân tích</a>
+<a href="#prompt-35-uc08-activity-sach-cua-toi">Prompt 35 — UC08 Activity: Sách của tôi</a>
+<a href="#prompt-36-uc08-sequence-sach-cua-toi">Prompt 36 — UC08 Sequence: Sách của tôi</a>
+<a href="#prompt-37-uc08-class-phan-tich">Prompt 37 — UC08 Class phân tích</a>
+<a href="#prompt-38-uc09-activity-cau-hinh-he-thong">Prompt 38 — UC09 Activity: Cấu hình hệ thống</a>
+<a href="#prompt-39-uc09-sequence-cau-hinh-he-thong">Prompt 39 — UC09 Sequence: Cấu hình hệ thống</a>
+<a href="#prompt-40-uc09-class-phan-tich">Prompt 40 — UC09 Class phân tích</a>
+<a href="#prompt-41-uc10-activity-quan-ly-tai-khoan-thu-thu">Prompt 41 — UC10 Activity: Quản lý tài khoản thủ thư</a>
+<a href="#prompt-42-uc10-sequence-them-thu-thu">Prompt 42 — UC10 Sequence: Thêm thủ thư</a>
+<a href="#prompt-43-uc10-class-phan-tich">Prompt 43 — UC10 Class phân tích</a>
+<a href="#prompt-44-uc11-activity-dat-truoc-sach">Prompt 44 — UC11 Activity: Đặt trước sách</a>
+<a href="#prompt-45-uc11-sequence-dat-truoc-sach">Prompt 45 — UC11 Sequence: Đặt trước sách</a>
+<a href="#prompt-46-uc11-class-phan-tich">Prompt 46 — UC11 Class phân tích</a>
+<a href="#prompt-47-uc12-activity-huy-dat-truoc">Prompt 47 — UC12 Activity: Hủy đặt trước</a>
+<a href="#prompt-48-uc12-sequence-huy-dat-truoc">Prompt 48 — UC12 Sequence: Hủy đặt trước</a>
+<a href="#prompt-49-uc12-class-phan-tich">Prompt 49 — UC12 Class phân tích</a>
+<a href="#prompt-50-class-diagram-chung-toan-he-thong">Prompt 50 — Class diagram chung toàn hệ thống</a>
+<a href="#prompt-51-so-do-quan-he-thuc-the-erd">Prompt 51 — Sơ đồ quan hệ thực thể (ERD)</a>
+<a href="#bo-sung-23-10-2026-anh-dai-dien-nguoi-dung-ban-gon-ngoai-uc01-uc19">Bổ sung 23/10/2026 — Ảnh đại diện người dùng (bản gọn, ngoài UC01–UC19)</a>
+</nav>
+</aside>
+<div class="backdrop" id="backdrop"></div>
+<main class="content">
+<h1>Hồ sơ phân tích &amp; thiết kế hệ thống</h1>
+<p class="meta">Đồ án Website Quản lý Thư viện Mini &middot; Cập nhật lần cuối: 23/10/2026</p>
+<h1>HỒ SƠ PHÂN TÍCH &amp; THIẾT KẾ — Web Quản Lý Thư Viện Mini</h1>
+<h2 id="do-an-cdio-4-nganh-cong-nghe-phan-mem">Đồ án CDIO 4 — Ngành Công nghệ Phần mềm</h2>
 <p>Tài liệu hợp nhất duy nhất của đồ án (thay thế mọi file .md rời rạc trước đây).</p>
 <h2 id="muc-luc">Mục lục</h2>
 <ol>
@@ -35,7 +191,7 @@
 <li>Bộ prompt UML (51 diagram)</li>
 </ol>
 <hr />
-<h1 id="1-tong-quan">1. Tổng quan</h1>
+<h1>1. Tổng quan</h1>
 <h2 id="1-tong-quan-dung-cho-bao-cao">1. TỔNG QUAN (dùng cho báo cáo)</h2>
 <p><strong>1. Tên đề tài:</strong> Xây dựng website quản lý thư viện mini.</p>
 <p><strong>2. Bối cảnh và vấn đề:</strong> Các thư viện nhỏ (thư viện khoa, tủ sách lớp, câu lạc bộ) hiện quản lý mượn/trả bằng sổ giấy hoặc file Excel. Cách làm này dễ thất lạc, khó tra cứu lịch sử, việc tính hạn trả và phạt trễ phụ thuộc vào trí nhớ của thủ thư nên hay sai sót và mất thời gian đối chiếu cuối tháng.</p>
@@ -47,8 +203,8 @@
 <p><strong>5. Phạm vi:</strong> Hệ thống tập trung vào nghiệp vụ lõi: quản lý sách và độc giả, mượn/trả bằng quét mã QR, đặt trước sách online, tính phạt trễ tự động, danh sách quá hạn và thống kê cơ bản. Không bao gồm nhắc hạn qua email và xuất Excel trong phạm vi đồ án này.</p>
 <p><strong>6. Công nghệ sử dụng:</strong> Frontend React, backend Express viết bằng TypeScript theo kiến trúc hướng đối tượng (Entity – Service – Controller – Repository), cơ sở dữ liệu MySQL, phân tích thiết kế bằng UML (activity, sequence, class diagram) trên Visual Paradigm theo tài liệu môn CS353.</p>
 <hr />
-<h1 id="2-quyet-inh-chot-d1d15">2. Quyết định chốt D1–D15</h1>
-<h2 id="0-quyet-inh-chot-khong-thay-oi-khi-code">0. QUYẾT ĐỊNH CHỐT (không thay đổi khi code)</h2>
+<h1>2. Quyết định chốt D1–D15</h1>
+<h2 id="0-quyet-dinh-chot-khong-thay-doi-khi-code">0. QUYẾT ĐỊNH CHỐT (không thay đổi khi code)</h2>
 <ul>
 <li><strong>D1. Vai trò:</strong> 3 role trong bảng users: <code>admin</code>, <code>librarian</code>, <code>reader</code>.</li>
 <li><strong>D2. Mã QR:</strong> mỗi cuốn sách vật lý có một <code>qr_code</code> duy nhất. Sách thêm mới: <code>qr_code = book_code</code> (mã hiển thị đọc được, VD <code>VH-0001</code>) để thủ thư dễ đọc và quét. Sách cũ (seed trước 16/10/2026): giữ <code>qr_code</code> UUID hex 32 ký tự, không đổi. Tra cứu sách chấp nhận cả 2 định dạng (<code>qr_code</code> hoặc <code>book_code</code>).</li>
@@ -67,8 +223,8 @@
 <li><strong>D15. Thể loại riêng (bảng <code>categories</code>):</strong> mỗi thể loại có <code>name</code> + <code>code</code> (ký hiệu, VD: Văn học → <code>VH</code>), cả hai unique. Xóa thể loại đang có sách dùng → bị chặn.</li>
 </ul>
 <hr />
-<h1 id="3-ac-ta-chuc-nang-uc01uc19">3. Đặc tả chức năng UC01–UC19</h1>
-<h2 id="uc01-ang-nhap-ang-ky">UC01 — Đăng nhập &amp; Đăng ký</h2>
+<h1>3. Đặc tả chức năng UC01–UC19</h1>
+<h2 id="uc01-dang-nhap-dang-ky">UC01 — Đăng nhập &amp; Đăng ký</h2>
 <ul>
 <li><strong>Tác nhân:</strong> Admin, Thủ thư, Độc giả</li>
 <li><strong>Mô tả:</strong> Xác thực để phân quyền; độc giả được tự đăng ký tài khoản.</li>
@@ -111,7 +267,7 @@
 <li><strong>Hậu điều kiện:</strong> Danh sách sách cập nhật; mỗi bản có <code>book_code</code> + <code>qr_code</code> riêng.</li>
 </ul>
 <hr />
-<h2 id="uc03-quan-ly-oc-gia">UC03 — Quản lý độc giả</h2>
+<h2 id="uc03-quan-ly-doc-gia">UC03 — Quản lý độc giả</h2>
 <ul>
 <li><strong>Tác nhân:</strong> Thủ thư</li>
 <li><strong>Mô tả:</strong> CRUD độc giả (kênh thứ hai bên cạnh tự đăng ký ở UC01).</li>
@@ -242,7 +398,7 @@
 <p>Ghi chú: bảng users cần thêm cột <code>active TINYINT DEFAULT 1</code> để khóa/mở khóa (không có trong schema bản trước — đã bổ sung).</p>
 </blockquote>
 <hr />
-<h2 id="uc11-at-truoc-sach-sua-16102026-them-luong-duyet-cua-thu-thu">UC11 — Đặt trước sách (sửa 16/10/2026: thêm luồng duyệt của thủ thư)</h2>
+<h2 id="uc11-dat-truoc-sach-sua-16-10-2026-them-luong-duyet-cua-thu-thu">UC11 — Đặt trước sách (sửa 16/10/2026: thêm luồng duyệt của thủ thư)</h2>
 <ul>
 <li><strong>Tác nhân:</strong> Độc giả, Thủ thư</li>
 <li><strong>Mô tả:</strong> Độc giả đặt trước online (+ ghi chú giờ mong muốn, không bắt buộc); thủ thư duyệt và chốt lịch hẹn cụ thể để độc giả đến lấy.</li>
@@ -263,7 +419,7 @@
 <li><strong>Hậu điều kiện:</strong> Lượt đặt ở trạng thái đúng (<code>approved</code>/<code>rejected</code>/<code>expired</code>); sách được giữ/mở theo trạng thái.</li>
 </ul>
 <hr />
-<h2 id="uc12-huy-at-truoc">UC12 — Hủy đặt trước</h2>
+<h2 id="uc12-huy-dat-truoc">UC12 — Hủy đặt trước</h2>
 <ul>
 <li><strong>Tác nhân:</strong> Độc giả</li>
 <li><strong>Mô tả:</strong> Độc giả hủy lượt đặt trước của mình để nhả sách cho người khác.</li>
@@ -275,7 +431,7 @@
 <li><strong>Hậu điều kiện:</strong> Lượt đặt thành <code>cancelled</code>; sách được giải phóng.</li>
 </ul>
 <hr />
-<h2 id="uc13-he-thong-thong-bao-moi-16102026">UC13 — Hệ thống thông báo (mới 16/10/2026)</h2>
+<h2 id="uc13-he-thong-thong-bao-moi-16-10-2026">UC13 — Hệ thống thông báo (mới 16/10/2026)</h2>
 <ul>
 <li><strong>Tác nhân:</strong> Độc giả, Thủ thư, Admin (xem); Thủ thư, Admin (tạo); Hệ thống (tự động sinh)</li>
 <li><strong>Mô tả:</strong> Chuông thông báo ở topbar + badge số chưa đọc (poll 5 giây); trang "Thông báo" cho cả 3 vai trò; thông báo chung có thể hiện thẻ nổi ở landing page.</li>
@@ -296,7 +452,7 @@
 <li><strong>Rẽ nhánh:</strong> thông báo loại "chung" + cờ <code>show_on_landing</code> → hiện thẻ nổi ở landing (tắt được, nhớ trong session).</li>
 <li><strong>Hậu điều kiện:</strong> <code>notification_reads</code> ghi nhận trạng thái đọc theo từng user.</li>
 </ul>
-<h2 id="uc14-xuat-bao-cao-excel-in-pdf-moi-16102026">UC14 — Xuất báo cáo Excel / In PDF (mới 16/10/2026)</h2>
+<h2 id="uc14-xuat-bao-cao-excel-in-pdf-moi-16-10-2026">UC14 — Xuất báo cáo Excel / In PDF (mới 16/10/2026)</h2>
 <ul>
 <li><strong>Tác nhân:</strong> Thủ thư, Admin</li>
 <li><strong>Mô tả:</strong> Từ trang Thống kê, xuất báo cáo mượn/trả ra file Excel hoặc in/lưu PDF.</li>
@@ -314,7 +470,7 @@
 <li>Không có dữ liệu theo bộ lọc → file Excel vẫn xuất với sheet "Muon tra" trống (chỉ có header).</li>
 <li><strong>Hậu điều kiện:</strong> File Excel/PDF phản ánh đúng bộ lọc đang xem.</li>
 </ul>
-<h2 id="uc15-quan-ly-sach-mo-rong-moi-16102026">UC15 — Quản lý sách mở rộng (mới 16/10/2026)</h2>
+<h2 id="uc15-quan-ly-sach-mo-rong-moi-16-10-2026">UC15 — Quản lý sách mở rộng (mới 16/10/2026)</h2>
 <ul>
 <li><strong>Tác nhân:</strong> Thủ thư</li>
 <li><strong>Mô tả:</strong> (a) Thêm N bản copy cùng lúc; (b) Nhập sách từ Excel; (c) Quản lý thể loại riêng; (d) Lọc nâng cao kết hợp tìm kiếm + sắp xếp.</li>
@@ -336,7 +492,7 @@
 <li><strong>Hậu điều kiện:</strong> Sách/thể loại được cập nhật đúng; <code>book_code</code> unique toàn hệ thống.</li>
 </ul>
 <hr />
-<h2 id="uc16-tim-sach-bang-ai-theo-mo-ta-noi-dung-moi-23102026">UC16 — Tìm sách bằng AI theo mô tả nội dung (mới 23/10/2026)</h2>
+<h2 id="uc16-tim-sach-bang-ai-theo-mo-ta-noi-dung-moi-23-10-2026">UC16 — Tìm sách bằng AI theo mô tả nội dung (mới 23/10/2026)</h2>
 <ul>
 <li><strong>Tác nhân:</strong> Độc giả, Khách (không cần đăng nhập — dùng ở landing page).</li>
 <li><strong>Mô tả:</strong> Độc giả không nhớ tên sách, chỉ nhớ nội dung/nhân vật/tình tiết; hệ thống dùng AI (Google Gemini) đối chiếu mô tả với danh mục sách của thư viện và gợi ý các đầu sách phù hợp kèm điểm khớp và lý do.</li>
@@ -356,7 +512,7 @@
 <li><strong>Hậu điều kiện:</strong> Không thay đổi dữ liệu; chỉ đọc danh mục.</li>
 </ul>
 <hr />
-<h2 id="uc17-nhac-han-tra-sach-qua-email-moi-23102026">UC17 — Nhắc hạn trả sách qua email (mới 23/10/2026)</h2>
+<h2 id="uc17-nhac-han-tra-sach-qua-email-moi-23-10-2026">UC17 — Nhắc hạn trả sách qua email (mới 23/10/2026)</h2>
 <ul>
 <li><strong>Tác nhân:</strong> Hệ thống (tác nhân thời gian) → Độc giả.</li>
 <li><strong>Mô tả:</strong> Ngoài thông báo trong web (UC13), hệ thống tự gửi email nhắc độc giả sắp đến hạn và khi đã quá hạn, qua dịch vụ Resend từ địa chỉ @nanioe.me; độc giả không cần mở web vẫn biết hạn trả và tiền phạt tạm tính.</li>
@@ -374,7 +530,7 @@
 <li><strong>Hậu điều kiện:</strong> Có thêm bản ghi trong <code>email_reminders</code> cho mỗi email đã gửi thành công.</li>
 </ul>
 <hr />
-<h2 id="uc18-quen-mat-khau-at-lai-mat-khau-qua-email-moi-23102026">UC18 — Quên mật khẩu / đặt lại mật khẩu qua email (mới 23/10/2026)</h2>
+<h2 id="uc18-quen-mat-khau-dat-lai-mat-khau-qua-email-moi-23-10-2026">UC18 — Quên mật khẩu / đặt lại mật khẩu qua email (mới 23/10/2026)</h2>
 <ul>
 <li><strong>Tác nhân:</strong> Độc giả (mọi vai trò có email đều dùng được).</li>
 <li><strong>Mô tả:</strong> Người dùng quên mật khẩu tự đặt lại qua liên kết gửi về email đã đăng ký, không cần nhờ thủ thư/admin.</li>
@@ -393,7 +549,7 @@
 <li><strong>Hậu điều kiện:</strong> Mật khẩu của tài khoản được thay mới; token bị vô hiệu.</li>
 </ul>
 <hr />
-<h2 id="uc19-ang-ky-bang-email-that-xac-thuc-email-moi-23102026">UC19 — Đăng ký bằng email thật &amp; xác thực email (mới 23/10/2026)</h2>
+<h2 id="uc19-dang-ky-bang-email-that-xac-thuc-email-moi-23-10-2026">UC19 — Đăng ký bằng email thật &amp; xác thực email (mới 23/10/2026)</h2>
 <ul>
 <li><strong>Tác nhân:</strong> Độc giả.</li>
 <li><strong>Mô tả:</strong> Đăng ký tài khoản bắt buộc có email hợp lệ (nền tảng cho UC17/UC18). Hệ thống gửi email xác thực để chứng minh địa chỉ là thật; tài khoản cũ chưa có email/chưa xác thực được nhắc liên tục trong web cho tới khi hoàn tất.</li>
@@ -412,9 +568,9 @@
 <li><strong>Hậu điều kiện:</strong> <code>users.email</code> được lưu; <code>email_verified</code> chuyển 1 khi xác thực thành công.</li>
 </ul>
 <hr />
-<h1 id="4-ma-tran-truy-vet-actor-use-case">4. Ma trận truy vết (Actor × Use case)</h1>
+<h1>4. Ma trận truy vết (Actor × Use case)</h1>
 <h2 id="ma-tran-truy-vet-actor-use-case">Ma trận truy vết (Actor × Use case)</h2>
-<div class="tablewrap"><table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Use case</th>
@@ -543,10 +699,10 @@
 <blockquote>
 <p>Ghi chú: UC02 có chức năng tìm kiếm; độc giả dùng chung API tìm kiếm sách (GET /api/books) ở chế độ chỉ đọc để phục vụ UC11 — không tính là use case riêng. UC16 dùng ở landing page nên Khách (chưa đăng nhập) cũng dùng được.</p>
 </blockquote>
-<h1 id="5-thiet-ke-co-so-du-lieu-mysql">5. Thiết kế cơ sở dữ liệu (MySQL)</h1>
+<h1>5. Thiết kế cơ sở dữ liệu (MySQL)</h1>
 <h2 id="3-thiet-ke-co-so-du-lieu-mysql">3. Thiết kế cơ sở dữ liệu (MySQL)</h2>
-<h3 id="31-bang-users">3.1 Bảng users</h3>
-<div class="tablewrap"><table>
+<h3 id="3-1-bang-users">3.1 Bảng users</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Cột</th>
@@ -602,8 +758,8 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="32-bang-books">3.2 Bảng books</h3>
-<div class="tablewrap"><table>
+<h3 id="3-2-bang-books">3.2 Bảng books</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Cột</th>
@@ -669,8 +825,8 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="33-bang-loans">3.3 Bảng loans</h3>
-<div class="tablewrap"><table>
+<h3 id="3-3-bang-loans">3.3 Bảng loans</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Cột</th>
@@ -726,8 +882,8 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="34-bang-reservations">3.4 Bảng reservations</h3>
-<div class="tablewrap"><table>
+<h3 id="3-4-bang-reservations">3.4 Bảng reservations</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Cột</th>
@@ -798,8 +954,8 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="35-bang-categories-moi-16102026">3.5 Bảng categories (mới 16/10/2026)</h3>
-<div class="tablewrap"><table>
+<h3 id="3-5-bang-categories-moi-16-10-2026">3.5 Bảng categories (mới 16/10/2026)</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Cột</th>
@@ -825,8 +981,8 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="36-bang-notifications-moi-16102026">3.6 Bảng notifications (mới 16/10/2026)</h3>
-<div class="tablewrap"><table>
+<h3 id="3-6-bang-notifications-moi-16-10-2026">3.6 Bảng notifications (mới 16/10/2026)</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Cột</th>
@@ -882,8 +1038,8 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="37-bang-notification_reads-moi-16102026">3.7 Bảng notification_reads (mới 16/10/2026)</h3>
-<div class="tablewrap"><table>
+<h3 id="3-7-bang-notification-reads-moi-16-10-2026">3.7 Bảng notification_reads (mới 16/10/2026)</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Cột</th>
@@ -909,8 +1065,8 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="38-bang-settings">3.8 Bảng settings</h3>
-<div class="tablewrap"><table>
+<h3 id="3-8-bang-settings">3.8 Bảng settings</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Cột</th>
@@ -946,16 +1102,16 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="36-quan-he">3.6 Quan hệ</h3>
+<h3 id="3-6-quan-he">3.6 Quan hệ</h3>
 <ul>
 <li>users (1) — (n) loans (một độc giả có nhiều phiếu mượn)</li>
 <li>books (1) — (n) loans (một cuốn sách có nhiều lượt mượn theo thời gian)</li>
 <li>users (1) — (n) reservations; books (1) — (n) reservations</li>
 </ul>
 <hr />
-<h1 id="6-thiet-ke-lop-huong-oi-tuong">6. Thiết kế lớp (hướng đối tượng)</h1>
-<h2 id="4-thiet-ke-lop-huong-oi-tuong">4. Thiết kế lớp (hướng đối tượng)</h2>
-<h3 id="41-entity-classes">4.1 Entity classes</h3>
+<h1>6. Thiết kế lớp (hướng đối tượng)</h1>
+<h2 id="4-thiet-ke-lop-huong-doi-tuong">4. Thiết kế lớp (hướng đối tượng)</h2>
+<h3 id="4-1-entity-classes">4.1 Entity classes</h3>
 <p><strong>Book</strong>
 - Thuộc tính: id, qrCode, title, author, category, publisher, publishYear, status
 - Phương thức: isAvailable(): boolean</p>
@@ -965,32 +1121,32 @@
 <p><strong>Loan</strong>
 - Thuộc tính: id, book: Book, reader: User, borrowedAt, dueAt, returnedAt, fineAmount
 - Phương thức: isOverdue(): boolean, calcOverdueDays(): number, calcFine(finePerDay): number</p>
-<h3 id="42-service-classes">4.2 Service classes</h3>
+<h3 id="4-2-service-classes">4.2 Service classes</h3>
 <p><strong>BookService</strong>: createBook(), updateBook(), deleteBook(), findByQrCode(qr), search(keyword), generateQrCode()
 <strong>UserService</strong>: registerReader(), authenticate(username, password), listReaders(), updateReader(), deleteReader()
 <strong>LoanService</strong>: borrowBook(qrCode, readerId), previewReturn(qrCode), confirmReturn(loanId), listOverdue(), getReaderLoans(readerId), getHistory(filters)
 <strong>ReservationService</strong>: reserveBook(bookId, readerId), cancelReservation(id, readerId), listMyReservations(readerId), findPendingByBook(bookId)
 <strong>StatsService</strong>: getDashboard()
 <strong>SettingsService</strong>: getSettings(), updateSettings()</p>
-<h3 id="43-controller-classes">4.3 Controller classes</h3>
+<h3 id="4-3-controller-classes">4.3 Controller classes</h3>
 <p><strong>AuthController</strong>: login(), register()
 <strong>BookController</strong>: list/create/update/delete/search/byQr
 <strong>ReaderController</strong>: list/create/update/delete
 <strong>LoanController</strong>: borrow/return/overdue/history
 <strong>StatsController</strong>: dashboard
 <strong>SettingsController</strong>: get/update</p>
-<h3 id="44-repository-classes">4.4 Repository classes</h3>
+<h3 id="4-4-repository-classes">4.4 Repository classes</h3>
 <p><strong>BookRepository, UserRepository, LoanRepository, SettingsRepository</strong>: các hàm truy vấn MySQL thuần (findById, save, delete...), Service gọi Repository, không truy vấn DB trực tiếp từ Controller.</p>
 <p>Luồng gọi chuẩn: Controller → Service → Repository → MySQL.</p>
 <hr />
-<h1 id="7-danh-sach-api">7. Danh sách API</h1>
+<h1>7. Danh sách API</h1>
 <h2 id="5-danh-sach-api">5. Danh sách API</h2>
 <h3 id="auth">Auth</h3>
 <ul>
 <li>POST /api/auth/login {username, password}</li>
 <li>POST /api/auth/register {username, password, fullName, studentCode, phone} (tạo reader)</li>
 </ul>
-<h3 id="books-ang-nhap-ghi-can-role-librarian-rieng-get-mo-cho-reader-e-tra-cuuat-truoc">Books (đăng nhập; ghi cần role librarian, riêng GET mở cho reader để tra cứu/đặt trước)</h3>
+<h3 id="books-dang-nhap-ghi-can-role-librarian-rieng-get-mo-cho-reader-de-tra-cuu-dat-truoc">Books (đăng nhập; ghi cần role librarian, riêng GET mở cho reader để tra cứu/đặt trước)</h3>
 <ul>
 <li>GET /api/books?keyword=&amp;category=</li>
 <li>POST /api/books (librarian)</li>
@@ -1027,7 +1183,7 @@
 <li>GET /api/settings — PUT /api/settings (librarian)</li>
 </ul>
 <hr />
-<h1 id="8-wireframe-cac-man-hinh">8. Wireframe các màn hình</h1>
+<h1>8. Wireframe các màn hình</h1>
 <h2 id="6-wireframe-cac-man-hinh">6. Wireframe các màn hình</h2>
 <ol>
 <li><strong>Đăng nhập</strong>: form username/password, logo tên thư viện. Sai báo lỗi tiếng Việt rõ ràng.</li>
@@ -1040,8 +1196,8 @@
 <li><strong>Sách của tôi (độc giả)</strong>: thẻ từng cuốn đang mượn + hạn trả + cảnh báo đỏ nếu sắp/quá hạn, lịch sử đã trả.</li>
 </ol>
 <hr />
-<h1 id="9-screenmap-so-o-man-hinh">9. Screenmap — Sơ đồ màn hình</h1>
-<h2 id="1-so-o-tong">1. Sơ đồ tổng</h2>
+<h1>9. Screenmap — Sơ đồ màn hình</h1>
+<h2 id="1-so-do-tong">1. Sơ đồ tổng</h2>
 <pre><code>Đăng nhập ─┬─⇢ (role=admin) ─────→ Admin: Tổng quan
            ├─⇢ (role=librarian) ─→ Thủ thư: Dashboard
            └─⇢ (role=reader) ────→ Độc giả: Trang chủ (tìm sách)
@@ -1065,7 +1221,7 @@
 ├── Thống kê (thẻ số + biểu đồ + lịch sử lọc)
 └── Đăng xuất
 </code></pre>
-<h2 id="4-oc-gia">4. Độc giả</h2>
+<h2 id="4-doc-gia">4. Độc giả</h2>
 <pre><code>Độc giả: Trang chủ (tìm kiếm sách + trạng thái Còn/Đang mượn/Đã đặt)
 ├── Chi tiết sách ──→ Đặt trước (nếu Còn và chưa ai đặt) ──⇢ Thành công / Báo lý do
 ├── Sách của tôi ──┬─→ Tab &quot;Đang mượn&quot; (hạn trả + nhãn cảnh báo)
@@ -1074,12 +1230,12 @@
 └── Đăng xuất
 </code></pre>
 <hr />
-<h2 id="5-luong-ieu-huong-chinh">5. Luồng điều hướng chính</h2>
+<h2 id="5-luong-dieu-huong-chinh">5. Luồng điều hướng chính</h2>
 <h3 id="f-a-muon-sach-tai-quay-uc04">F-A. Mượn sách tại quầy (UC04)</h3>
 <p>Dashboard → Mượn sách → (quét QR) → Chọn độc giả → Xác nhận → Thông báo thành công → về Dashboard.</p>
 <h3 id="f-b-tra-sach-tai-quay-uc05">F-B. Trả sách tại quầy (UC05)</h3>
 <p>Dashboard → Trả sách → (quét QR) → Xem phiếu + phạt → Xác nhận → Thông báo thành công → về Dashboard.</p>
-<h3 id="f-c-oc-gia-at-truoc-roi-en-lay-uc11-uc04-sua-16102026">F-C. Độc giả đặt trước rồi đến lấy (UC11 → UC04) — sửa 16/10/2026</h3>
+<h3 id="f-c-doc-gia-dat-truoc-roi-den-lay-uc11-uc04-sua-16-10-2026">F-C. Độc giả đặt trước rồi đến lấy (UC11 → UC04) — sửa 16/10/2026</h3>
 <p>Trang chủ → Chi tiết sách → Đặt trước (+ giờ mong muốn) → Tab "Đặt trước" (xem badge trạng thái) → Thủ thư: Đặt trước → Duyệt + chốt lịch hẹn (badge xanh) → [độc giả đến đúng hẹn] → Thủ thư: Mượn sách → quét QR → chọn đúng độc giả → hệ thống khớp đặt trước → Xác nhận.</p>
 <h3 id="f-d-quan-tri-uc09-uc10">F-D. Quản trị (UC09, UC10)</h3>
 <p>Admin: Tổng quan → Cài đặt (sửa tham số) / Quản lý tài khoản (thêm/khóa thủ thư).</p>
@@ -1091,39 +1247,39 @@
 <li>Trang quét QR (Mượn/Trả) là một component dùng chung, tham số hóa theo chế độ borrow/return.</li>
 <li>Dialog xác nhận dùng chung cho: xác nhận mượn, xác nhận trả, xác nhận hủy đặt trước, xác nhận xóa.</li>
 </ul>
-<h1 id="10-yeu-cau-phi-chuc-nang">10. Yêu cầu phi chức năng</h1>
+<h1>10. Yêu cầu phi chức năng</h1>
 <h2 id="2-yeu-cau-phi-chuc-nang">2. YÊU CẦU PHI CHỨC NĂNG</h2>
-<h3 id="21-hieu-nang">2.1 Hiệu năng</h3>
+<h3 id="2-1-hieu-nang">2.1 Hiệu năng</h3>
 <ul>
 <li>NFR01: Thời gian phản hồi API tra cứu/quét mã QR dưới 1 giây với tối đa 50 người dùng đồng thời.</li>
 <li>NFR02: Trang danh sách (sách, quá hạn, thống kê) tải dưới 2 giây với 10.000 đầu sách trong DB (có phân trang, mỗi trang 20 dòng).</li>
 <li>NFR03: Thuật toán tính quá hạn/phạt chạy theo yêu cầu (on-demand), không dùng cronjob, tránh tải nền cho DB.</li>
 </ul>
-<h3 id="22-bao-mat">2.2 Bảo mật</h3>
+<h3 id="2-2-bao-mat">2.2 Bảo mật</h3>
 <ul>
 <li>NFR04: Mật khẩu lưu bcrypt hash, không lưu plaintext ở bất kỳ đâu.</li>
 <li>NFR05: Mọi API ghi (POST/PUT/DELETE) yêu cầu đăng nhập; API của thủ thư/admin kiểm tra role ở middleware, trả 403 khi sai vai trò.</li>
 <li>NFR06: Token phiên đăng nhập hết hạn sau 8 giờ không hoạt động.</li>
 <li>NFR07: Không cho phép đổi <code>qr_code</code> và <code>status</code> sách qua API sửa thông tin (chỉ đổi qua luồng mượn/trả).</li>
 </ul>
-<h3 id="23-tuong-thich-va-su-dung">2.3 Tương thích và sử dụng</h3>
+<h3 id="2-3-tuong-thich-va-su-dung">2.3 Tương thích và sử dụng</h3>
 <ul>
 <li>NFR08: Giao diện responsive, trang quét QR thao tác được bằng camera điện thoại (ưu tiên mobile cho thủ thư tại quầy).</li>
 <li>NFR09: Chạy trên Chrome/Edge/Safari phiên bản hiện hành; camera yêu cầu HTTPS hoặc localhost.</li>
 <li>NFR10: Toàn bộ thông báo lỗi hiển thị tiếng Việt có dấu, nêu rõ nguyên nhân và cách khắc phục.</li>
 </ul>
-<h3 id="24-o-tin-cay-va-du-lieu">2.4 Độ tin cậy và dữ liệu</h3>
+<h3 id="2-4-do-tin-cay-va-du-lieu">2.4 Độ tin cậy và dữ liệu</h3>
 <ul>
 <li>NFR11: Mượn/trả là giao dịch nguyên tử (transaction): tạo phiếu + đổi trạng thái sách phải cùng thành công hoặc cùng rollback, không để DB lệch.</li>
 <li>NFR12: Ràng buộc xóa (D9) thực thi ở tầng Service, không phụ thuộc vào UI.</li>
 <li>NFR13: Sao lưu cơ sở dữ liệu MySQL định kỳ (khuyến nghị mỗi ngày) — thao tác vận hành, ngoài phạm vi code.</li>
 </ul>
 <hr />
-<h1 id="11-kich-ban-kiem-thu">11. Kịch bản kiểm thử</h1>
+<h1>11. Kịch bản kiểm thử</h1>
 <h2 id="3-kich-ban-kiem-thu">3. KỊCH BẢN KIỂM THỬ</h2>
 <p>Quy ước cột Kết quả: P = đạt (pass), F = lỗi (fail). Thực hiện sau khi code xong từng UC.</p>
-<h3 id="uc01-ang-nhap-ang-ky_1">UC01 — Đăng nhập &amp; Đăng ký</h3>
-<div class="tablewrap"><table>
+<h3 id="uc01-dang-nhap-dang-ky-2">UC01 — Đăng nhập &amp; Đăng ký</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Mã</th>
@@ -1171,8 +1327,8 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="uc02-quan-ly-sach_1">UC02 — Quản lý sách</h3>
-<div class="tablewrap"><table>
+<h3 id="uc02-quan-ly-sach-2">UC02 — Quản lý sách</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Mã</th>
@@ -1214,8 +1370,8 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="uc03-quan-ly-oc-gia_1">UC03 — Quản lý độc giả</h3>
-<div class="tablewrap"><table>
+<h3 id="uc03-quan-ly-doc-gia-2">UC03 — Quản lý độc giả</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Mã</th>
@@ -1245,8 +1401,8 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="uc04-muon-sach_1">UC04 — Mượn sách</h3>
-<div class="tablewrap"><table>
+<h3 id="uc04-muon-sach-2">UC04 — Mượn sách</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Mã</th>
@@ -1294,8 +1450,8 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="uc05-tra-sach_1">UC05 — Trả sách</h3>
-<div class="tablewrap"><table>
+<h3 id="uc05-tra-sach-2">UC05 — Trả sách</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Mã</th>
@@ -1331,8 +1487,8 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="uc06-danh-sach-qua-han_1">UC06 — Danh sách quá hạn</h3>
-<div class="tablewrap"><table>
+<h3 id="uc06-danh-sach-qua-han-2">UC06 — Danh sách quá hạn</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Mã</th>
@@ -1356,8 +1512,8 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="uc07-thong-ke_1">UC07 — Thống kê</h3>
-<div class="tablewrap"><table>
+<h3 id="uc07-thong-ke-2">UC07 — Thống kê</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Mã</th>
@@ -1387,8 +1543,8 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="uc08-sach-cua-toi_1">UC08 — Sách của tôi</h3>
-<div class="tablewrap"><table>
+<h3 id="uc08-sach-cua-toi-2">UC08 — Sách của tôi</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Mã</th>
@@ -1413,7 +1569,7 @@
 </tbody>
 </table></div>
 <h3 id="uc09-cau-hinh">UC09 — Cấu hình</h3>
-<div class="tablewrap"><table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Mã</th>
@@ -1443,8 +1599,8 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="uc10-quan-ly-tai-khoan-thu-thu_1">UC10 — Quản lý tài khoản thủ thư</h3>
-<div class="tablewrap"><table>
+<h3 id="uc10-quan-ly-tai-khoan-thu-thu-2">UC10 — Quản lý tài khoản thủ thư</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Mã</th>
@@ -1474,8 +1630,8 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="uc11-at-truoc-sach-sua-16102026-them-luong-duyet">UC11 — Đặt trước sách (sửa 16/10/2026: thêm luồng duyệt)</h3>
-<div class="tablewrap"><table>
+<h3 id="uc11-dat-truoc-sach-sua-16-10-2026-them-luong-duyet">UC11 — Đặt trước sách (sửa 16/10/2026: thêm luồng duyệt)</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Mã</th>
@@ -1535,8 +1691,8 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="uc12-huy-at-truoc_1">UC12 — Hủy đặt trước</h3>
-<div class="tablewrap"><table>
+<h3 id="uc12-huy-dat-truoc-2">UC12 — Hủy đặt trước</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Mã</th>
@@ -1560,7 +1716,7 @@
 </tr>
 </tbody>
 </table></div>
-<h1 id="12-bo-prompt-uml-51-diagram">12. Bộ prompt UML — 51 diagram</h1>
+<h1>12. Bộ prompt UML — 51 diagram</h1>
 <p>Mỗi prompt tạo đúng 1 diagram trên AI của Visual Paradigm. Chọn đúng loại diagram trước khi paste.</p>
 <hr />
 <h2 id="prompt-1-use-case-diagram-tong-the-he-thong">Prompt 1 — Use Case Diagram TỔNG THỂ hệ thống</h2>
@@ -1588,43 +1744,43 @@
 - "UC05 tự tính tiền phạt theo D7, không phải use case riêng"
 - "Đăng ký tài khoản là luồng thay thế trong UC01, không tách use case riêng"</p>
 <p><strong>Yêu cầu hiển thị:</strong> nhóm các use case theo actor bằng boundary/package (Quản trị, Nghiệp vụ quầy, Độc giả) nếu công cụ hỗ trợ; tên use case giữ nguyên tiếng Việt có dấu.</p>
-<h2 id="-">---</h2>
-<h2 id="prompt-2-uc01-use-case-diagram-ang-nhap-ang-ky">Prompt 2 — UC01 Use Case Diagram: Đăng nhập &amp; Đăng ký</h2>
+<h2 id="muc">---</h2>
+<h2 id="prompt-2-uc01-use-case-diagram-dang-nhap-dang-ky">Prompt 2 — UC01 Use Case Diagram: Đăng nhập &amp; Đăng ký</h2>
 <p>Tạo đúng 1 diagram loại Use Case Diagram. Actors: Admin, Thủ thư, Độc giả. Một use case duy nhất: "UC01 Đăng nhập &amp; Đăng ký". Vẽ association từ cả 3 actors tới use case. Thêm note: "Luồng đăng ký chỉ dành cho Độc giả (tự tạo tài khoản); Admin và Thủ thư do Admin cấp (UC10)". Không thêm use case nào khác.</p>
-<h2 id="-_1">---</h2>
+<h2 id="muc-2">---</h2>
 <h2 id="prompt-3-uc02-use-case-diagram-quan-ly-sach">Prompt 3 — UC02 Use Case Diagram: Quản lý sách</h2>
 <p>Tạo đúng 1 diagram loại Use Case Diagram. Actor: Thủ thư. Một use case duy nhất: "UC02 Quản lý sách". Vẽ association Thủ thư — UC02. Thêm note: "Gồm các thao tác: thêm (sinh QR), sửa, xóa, tìm kiếm". Không thêm use case nào khác.</p>
-<h2 id="-_2">---</h2>
-<h2 id="prompt-4-uc03-use-case-diagram-quan-ly-oc-gia">Prompt 4 — UC03 Use Case Diagram: Quản lý độc giả</h2>
+<h2 id="muc-3">---</h2>
+<h2 id="prompt-4-uc03-use-case-diagram-quan-ly-doc-gia">Prompt 4 — UC03 Use Case Diagram: Quản lý độc giả</h2>
 <p>Tạo đúng 1 diagram loại Use Case Diagram. Actor: Thủ thư. Một use case duy nhất: "UC03 Quản lý độc giả". Vẽ association Thủ thư — UC03. Thêm note: "Gồm: thêm (mật khẩu mặc định 123456), sửa, xóa, tìm kiếm". Không thêm use case nào khác.</p>
-<h2 id="-_3">---</h2>
+<h2 id="muc-4">---</h2>
 <h2 id="prompt-5-uc04-use-case-diagram-muon-sach">Prompt 5 — UC04 Use Case Diagram: Mượn sách</h2>
 <p>Tạo đúng 1 diagram loại Use Case Diagram. Actor: Thủ thư. Use case chính: "UC04 Mượn sách". Vẽ association Thủ thư — UC04. Vẽ thêm use case "UC11 Đặt trước sách" (không nối actor) và đường dependency nét đứt từ UC04 tới UC11, gắn note: "UC04 kiểm tra và đánh dấu fulfilled lượt đặt trước do UC11 tạo ra (D13)". Không thêm use case nào khác.</p>
-<h2 id="-_4">---</h2>
+<h2 id="muc-5">---</h2>
 <h2 id="prompt-6-uc05-use-case-diagram-tra-sach">Prompt 6 — UC05 Use Case Diagram: Trả sách</h2>
 <p>Tạo đúng 1 diagram loại Use Case Diagram. Actor: Thủ thư. Một use case duy nhất: "UC05 Trả sách". Vẽ association Thủ thư — UC05. Thêm note: "Bước tính phạt (D7) là bước nội bộ của UC05, không tách use case riêng". Không thêm use case nào khác.</p>
-<h2 id="-_5">---</h2>
+<h2 id="muc-6">---</h2>
 <h2 id="prompt-7-uc06-use-case-diagram-danh-sach-qua-han">Prompt 7 — UC06 Use Case Diagram: Danh sách quá hạn</h2>
 <p>Tạo đúng 1 diagram loại Use Case Diagram. Actor: Thủ thư. Một use case duy nhất: "UC06 Danh sách quá hạn". Vẽ association Thủ thư — UC06. Thêm note: "Chỉ đọc: liệt kê phiếu borrowing có due_at &lt; hôm nay". Không thêm use case nào khác.</p>
-<h2 id="-_6">---</h2>
+<h2 id="muc-7">---</h2>
 <h2 id="prompt-8-uc07-use-case-diagram-thong-ke">Prompt 8 — UC07 Use Case Diagram: Thống kê</h2>
 <p>Tạo đúng 1 diagram loại Use Case Diagram. Actors: Thủ thư, Admin. Một use case duy nhất: "UC07 Thống kê". Vẽ association từ cả 2 actors tới use case. Thêm note: "4 thẻ số + biểu đồ top 5 + lịch sử mượn/trả". Không thêm use case nào khác.</p>
-<h2 id="-_7">---</h2>
+<h2 id="muc-8">---</h2>
 <h2 id="prompt-9-uc08-use-case-diagram-sach-cua-toi">Prompt 9 — UC08 Use Case Diagram: Sách của tôi</h2>
 <p>Tạo đúng 1 diagram loại Use Case Diagram. Actor: Độc giả. Một use case duy nhất: "UC08 Sách của tôi". Vẽ association Độc giả — UC08. Thêm note: "3 tab: Đang mượn / Đặt trước / Lịch sử; chỉ thấy dữ liệu của chính mình". Không thêm use case nào khác.</p>
-<h2 id="-_8">---</h2>
+<h2 id="muc-9">---</h2>
 <h2 id="prompt-10-uc09-use-case-diagram-cau-hinh-he-thong">Prompt 10 — UC09 Use Case Diagram: Cấu hình hệ thống</h2>
 <p>Tạo đúng 1 diagram loại Use Case Diagram. Actor: Admin. Một use case duy nhất: "UC09 Cấu hình hệ thống". Vẽ association Admin — UC09. Thêm note: "4 tham số: loan_days, fine_per_day, max_books_per_reader, reservation_hours; chỉ áp dụng cho phiếu mới". Không thêm use case nào khác.</p>
-<h2 id="-_9">---</h2>
+<h2 id="muc-10">---</h2>
 <h2 id="prompt-11-uc10-use-case-diagram-quan-ly-tai-khoan-thu-thu">Prompt 11 — UC10 Use Case Diagram: Quản lý tài khoản thủ thư</h2>
 <p>Tạo đúng 1 diagram loại Use Case Diagram. Actor: Admin. Một use case duy nhất: "UC10 Quản lý tài khoản thủ thư". Vẽ association Admin — UC10. Thêm note: "Gồm: tạo, khóa/mở khóa, xóa; không được tự xóa chính mình". Không thêm use case nào khác.</p>
-<h2 id="-_10">---</h2>
-<h2 id="prompt-12-uc11-use-case-diagram-at-truoc-sach">Prompt 12 — UC11 Use Case Diagram: Đặt trước sách</h2>
+<h2 id="muc-11">---</h2>
+<h2 id="prompt-12-uc11-use-case-diagram-dat-truoc-sach">Prompt 12 — UC11 Use Case Diagram: Đặt trước sách</h2>
 <p>Tạo đúng 1 diagram loại Use Case Diagram. Actor: Độc giả. Use case chính: "UC11 Đặt trước sách". Vẽ association Độc giả — UC11. Vẽ thêm use case "UC04 Mượn sách" (không nối actor) và đường dependency nét đứt từ UC11 tới UC04, gắn note: "Lượt pending được UC04 tiêu thụ khi độc giả đến quầy lấy sách (D13)". Không thêm use case nào khác.</p>
-<h2 id="-_11">---</h2>
-<h2 id="prompt-13-uc12-use-case-diagram-huy-at-truoc">Prompt 13 — UC12 Use Case Diagram: Hủy đặt trước</h2>
-<h2 id="tao-ung-1-diagram-loai-use-case-diagram-actor-oc-gia-use-case-chinh-uc12-huy-at-truoc-ve-association-oc-gia-uc12-ve-them-use-case-uc11-at-truoc-sach-khong-noi-actor-va-uong-dependency-net-ut-tu-uc12-toi-uc11-gan-note-uc12-chuyen-luot-pending-cua-uc11-thanh-cancelled-khong-them-use-case-nao-khac">Tạo đúng 1 diagram loại Use Case Diagram. Actor: Độc giả. Use case chính: "UC12 Hủy đặt trước". Vẽ association Độc giả — UC12. Vẽ thêm use case "UC11 Đặt trước sách" (không nối actor) và đường dependency nét đứt từ UC12 tới UC11, gắn note: "UC12 chuyển lượt pending của UC11 thành cancelled". Không thêm use case nào khác.</h2>
-<h2 id="prompt-14-uc01-activity-ang-nhap-ang-ky">Prompt 14 — UC01 Activity: Đăng nhập &amp; Đăng ký</h2>
+<h2 id="muc-12">---</h2>
+<h2 id="prompt-13-uc12-use-case-diagram-huy-dat-truoc">Prompt 13 — UC12 Use Case Diagram: Hủy đặt trước</h2>
+<h2 id="tao-dung-1-diagram-loai-use-case-diagram-actor-doc-gia-use-case-chinh-uc12-huy-dat-truoc-ve-association-doc-gia-uc12-ve-them-use-case-uc11-dat-truoc-sach-khong-noi-actor-va-duong-dependency-net-dut-tu-uc12-toi-uc11-gan-note-uc12-chuyen-luot-pending-cua-uc11-thanh-cancelled-khong-them-use-case-nao-khac">Tạo đúng 1 diagram loại Use Case Diagram. Actor: Độc giả. Use case chính: "UC12 Hủy đặt trước". Vẽ association Độc giả — UC12. Vẽ thêm use case "UC11 Đặt trước sách" (không nối actor) và đường dependency nét đứt từ UC12 tới UC11, gắn note: "UC12 chuyển lượt pending của UC11 thành cancelled". Không thêm use case nào khác.</h2>
+<h2 id="prompt-14-uc01-activity-dang-nhap-dang-ky">Prompt 14 — UC01 Activity: Đăng nhập &amp; Đăng ký</h2>
 <pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC01 — Đăng nhập &amp; Đăng ký&quot; của hệ thống quản lý thư viện mini.
 
 Tác nhân: Người dùng (Admin, Thủ thư, Độc giả).
@@ -1652,7 +1808,7 @@ Luồng hoạt động:
 - Điểm kết thúc.
 </code></pre>
 <hr />
-<h2 id="prompt-15-uc01-sequence-ang-nhap">Prompt 15 — UC01 Sequence: Đăng nhập</h2>
+<h2 id="prompt-15-uc01-sequence-dang-nhap">Prompt 15 — UC01 Sequence: Đăng nhập</h2>
 <pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho use case &quot;UC01 — Đăng nhập&quot; của hệ thống quản lý thư viện mini.
 
 Yêu cầu bắt buộc: trên mỗi mũi tên thông điệp phải ghi đầy đủ tên hàm kèm tham số, không ghi mô tả chung chung.
@@ -1741,7 +1897,7 @@ Quan hệ:
 - BookService → Book, BookService → BookRepository
 </code></pre>
 <hr />
-<h2 id="prompt-20-uc03-activity-quan-ly-oc-gia">Prompt 20 — UC03 Activity: Quản lý độc giả</h2>
+<h2 id="prompt-20-uc03-activity-quan-ly-doc-gia">Prompt 20 — UC03 Activity: Quản lý độc giả</h2>
 <pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC03 — Quản lý độc giả&quot; của hệ thống quản lý thư viện mini.
 
 Tác nhân: Thủ thư.
@@ -1760,7 +1916,7 @@ Luồng hoạt động:
       - Nhánh Không: xóa độc giả, đi đến điểm kết thúc.
 </code></pre>
 <hr />
-<h2 id="prompt-21-uc03-sequence-them-oc-gia">Prompt 21 — UC03 Sequence: Thêm độc giả</h2>
+<h2 id="prompt-21-uc03-sequence-them-doc-gia">Prompt 21 — UC03 Sequence: Thêm độc giả</h2>
 <pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho chức năng &quot;Thêm độc giả&quot; (UC03) của hệ thống quản lý thư viện mini.
 
 Yêu cầu bắt buộc: trên mỗi mũi tên thông điệp phải ghi đầy đủ tên hàm kèm tham số, không ghi mô tả chung chung.
@@ -2193,7 +2349,7 @@ Quan hệ:
 - UserService → User, UserService → UserRepository
 </code></pre>
 <hr />
-<h2 id="prompt-44-uc11-activity-at-truoc-sach">Prompt 44 — UC11 Activity: Đặt trước sách</h2>
+<h2 id="prompt-44-uc11-activity-dat-truoc-sach">Prompt 44 — UC11 Activity: Đặt trước sách</h2>
 <pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC11 — Đặt trước sách&quot; của hệ thống quản lý thư viện mini.
 
 Tác nhân: Độc giả.
@@ -2213,7 +2369,7 @@ Luồng hoạt động:
 - Điểm kết thúc.
 </code></pre>
 <hr />
-<h2 id="prompt-45-uc11-sequence-at-truoc-sach">Prompt 45 — UC11 Sequence: Đặt trước sách</h2>
+<h2 id="prompt-45-uc11-sequence-dat-truoc-sach">Prompt 45 — UC11 Sequence: Đặt trước sách</h2>
 <pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho use case &quot;UC11 — Đặt trước sách&quot; của hệ thống quản lý thư viện mini.
 
 Yêu cầu bắt buộc: trên mỗi mũi tên thông điệp phải ghi đầy đủ tên hàm kèm tham số, không ghi mô tả chung chung.
@@ -2253,7 +2409,7 @@ Quan hệ:
 - User 1 — * Reservation, Book 1 — * Reservation
 </code></pre>
 <hr />
-<h2 id="prompt-47-uc12-activity-huy-at-truoc">Prompt 47 — UC12 Activity: Hủy đặt trước</h2>
+<h2 id="prompt-47-uc12-activity-huy-dat-truoc">Prompt 47 — UC12 Activity: Hủy đặt trước</h2>
 <pre><code>Vẽ biểu đồ hoạt động (activity diagram) cho use case &quot;UC12 — Hủy đặt trước&quot; của hệ thống quản lý thư viện mini.
 
 Tác nhân: Độc giả.
@@ -2270,7 +2426,7 @@ Luồng hoạt động:
 - Điểm kết thúc.
 </code></pre>
 <hr />
-<h2 id="prompt-48-uc12-sequence-huy-at-truoc">Prompt 48 — UC12 Sequence: Hủy đặt trước</h2>
+<h2 id="prompt-48-uc12-sequence-huy-dat-truoc">Prompt 48 — UC12 Sequence: Hủy đặt trước</h2>
 <pre><code>Vẽ biểu đồ tuần tự (sequence diagram) cho use case &quot;UC12 — Hủy đặt trước&quot; của hệ thống quản lý thư viện mini.
 
 Yêu cầu bắt buộc: trên mỗi mũi tên thông điệp phải ghi đầy đủ tên hàm kèm tham số, không ghi mô tả chung chung.
@@ -2353,7 +2509,7 @@ Quan hệ giữa các lớp:
 - BookService phụ thuộc vào Book. UserService phụ thuộc vào User. SettingsService phụ thuộc vào Settings.
 </code></pre>
 <hr />
-<h2 id="prompt-51-so-o-quan-he-thuc-the-erd">Prompt 51 — Sơ đồ quan hệ thực thể (ERD)</h2>
+<h2 id="prompt-51-so-do-quan-he-thuc-the-erd">Prompt 51 — Sơ đồ quan hệ thực thể (ERD)</h2>
 <pre><code>Vẽ sơ đồ quan hệ thực thể (ERD) cho cơ sở dữ liệu MySQL của hệ thống quản lý thư viện mini gồm các bảng sau:
 
 Bảng users:
@@ -2412,15 +2568,21 @@ Quan hệ:
 </code></pre>
 <hr />
 <hr />
-<h2 id="bo-sung-23102026-anh-ai-dien-nguoi-dung-ban-gon-ngoai-uc01uc19">Bổ sung 23/10/2026 — Ảnh đại diện người dùng (bản gọn, ngoài UC01–UC19)</h2>
+<h2 id="bo-sung-23-10-2026-anh-dai-dien-nguoi-dung-ban-gon-ngoai-uc01-uc19">Bổ sung 23/10/2026 — Ảnh đại diện người dùng (bản gọn, ngoài UC01–UC19)</h2>
 <ul>
 <li>Mọi vai trò đã đăng nhập tự đổi ảnh đại diện tại trang cá nhân: <code>POST /api/profile/avatar</code> (multipart, field <code>avatar</code>, JPEG/PNG/WebP ≤ 2MB, lưu <code>uploads/avatars/u&lt;id&gt;-&lt;timestamp&gt;.&lt;ext&gt;</code>, đổi ảnh thì xóa file cũ) và <code>DELETE /api/profile/avatar</code> (gỡ ảnh, xóa file).</li>
 <li>Dữ liệu: cột <code>users.avatar_url VARCHAR(255) NULL</code> — DB cũ tự thêm lúc khởi động (<code>ensureAvatarSchema</code>, kiểm tra INFORMATION_SCHEMA), cài mới đã có trong schema.sql/full-reset.sql.</li>
 <li>Hiển thị: component <code>Avatar</code> dùng ở topbar (34px) và trang cá nhân (88px); có ảnh thì hiện ảnh tròn cắt giữa (object-fit: cover), chưa có thì vòng tròn gradient xanh chứa chữ cái đầu của tên gọi (từ cuối họ tên).</li>
 <li>Phạm vi bản gọn (kha duyệt): chỉ profile + topbar; chưa có cắt ảnh thủ công và chưa hiện ở danh sách độc giả.</li>
 </ul>
+<div class="prevnext">
+<a class="pn prev" href="conceive.html"><span>Trang trước</span><strong>Conceive</strong></a>
+<a class="pn next" href="prompt-uml.html"><span>Trang sau</span><strong>Prompt UML (52 prompt)</strong></a>
+</div>
+<footer>Web tài liệu của đồ án CDIO 4 — nội dung luôn là bản mới nhất. Tài liệu của khoa (bài giảng CS353, SAD UML 2015, Systems Analysis &amp; Design UML 5th) là tài liệu nội bộ/bản quyền nên không đăng tại đây.</footer>
 </main>
-<footer>© 2026 Bảo Kha · Tài liệu đồ án CDIO 4 — Website Quản lý Thư viện Mini · <a href="index.html">Mục lục</a></footer>
-
+</div>
+<button class="to-top" id="toTop" aria-label="Về đầu trang">&#8593;</button>
+<script src="docs.js"></script>
 </body>
 </html>

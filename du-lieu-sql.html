@@ -2,154 +2,67 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dữ liệu — SQL reset cơ sở dữ liệu — Tài liệu CDIO 4</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f5d8a'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' font-weight='bold' fill='%23ffffff' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dữ liệu mẫu &amp; SQL reset CSDL — Tài liệu CDIO 4</title>
+<meta name="description" content="Tài liệu đồ án CDIO 4 — Website Quản lý Thư viện Mini: conceive, phân tích thiết kế, prompt UML, kiểm thử, SQL.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>B</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="topbar"><div class="in">
-<a class="brand" href="index.html">Tài liệu CDIO 4</a>
-<nav><a href="index.html">Mục lục</a><a href="https://nanioe.me">nanioe.me</a><a href="https://thuvien.nanioe.me">Web thư viện</a></nav>
-</div></div>
-<main class="wrap doc">
-<h1>Dữ liệu — SQL reset cơ sở dữ liệu</h1><p class="updated">Cập nhật lần cuối: 18/10/2026</p><p>File SQL khởi tạo lại toàn bộ cơ sở dữ liệu của web thư viện: 8 bảng, 100 đầu sách (mỗi cuốn 1 mã QR riêng), tham số mặc định 14 ngày mượn / phạt 5.000đ mỗi ngày / tối đa 5 cuốn / giữ đặt trước 48 giờ.</p><p><a class="dlbtn" href="cdio4-full-reset.sql" download>Tải file cdio4-full-reset.sql</a></p><pre><code>-- ============================================================================
--- CDIO 4 - Web Quan Ly Thu Vien Mini: FILE RESET FULL (1 file duy nhat)
--- Chay 1 lan trong phpMyAdmin (tab SQL) hoac: mysql -u root -p &lt; cdio4-full-reset.sql
--- File nay: XOA SACH 8 bang cu -&gt; tao moi -&gt; nap san data mau.
--- CANH BAO: moi du lieu cu trong DB library_mini se MAT HOAN TOAN.
--- MySQL: chay port 3307 (XAMPP cua kha).
--- ============================================================================
-
-CREATE DATABASE IF NOT EXISTS library_mini
-  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE library_mini;
-
--- Xoa sach bang cu (tat kiem tra khoa ngoai de drop khong bi vuong FK)
-SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE IF EXISTS settings;
-DROP TABLE IF EXISTS notification_reads;
-DROP TABLE IF EXISTS notifications;
-DROP TABLE IF EXISTS categories;
-DROP TABLE IF EXISTS reservations;
-DROP TABLE IF EXISTS loans;
-DROP TABLE IF EXISTS books;
-DROP TABLE IF EXISTS users;
-SET FOREIGN_KEY_CHECKS = 1;
-
--- Tao moi 8 bang
-CREATE TABLE IF NOT EXISTS users (
-  id            INT AUTO_INCREMENT PRIMARY KEY,
-  username      VARCHAR(50) NOT NULL UNIQUE,
-  password_hash VARCHAR(255) NOT NULL COMMENT &#x27;bcrypt hash (D8)&#x27;,
-  full_name     VARCHAR(100) NOT NULL,
-  role          ENUM(&#x27;admin&#x27;,&#x27;librarian&#x27;,&#x27;reader&#x27;) NOT NULL,
-  student_code  VARCHAR(20) NULL COMMENT &#x27;chi dung cho reader&#x27;,
-  phone         VARCHAR(20) NULL,
-  active        TINYINT(1) NOT NULL DEFAULT 1 COMMENT &#x27;1=hoat dong, 0=bi khoa&#x27;,
-  created_at    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB;
-
-CREATE TABLE IF NOT EXISTS books (
-  id           INT AUTO_INCREMENT PRIMARY KEY,
-  qr_code      VARCHAR(50) NOT NULL UNIQUE COMMENT &#x27;UUID hex 32 ky tu, sinh 1 lan khong doi (D2)&#x27;,
-  title        VARCHAR(255) NOT NULL,
-  author       VARCHAR(100) NULL,
-  category     VARCHAR(100) NULL,
-  publisher    VARCHAR(100) NULL,
-  publish_year INT NULL,
-  cover_url    VARCHAR(500) NULL COMMENT &#x27;Duong dan anh bia, vd /uploads/covers/12-1699999999999.jpg&#x27;,
-  book_code    VARCHAR(20) NULL UNIQUE COMMENT &#x27;ma hien thi, vd VH-0001, sinh 1 lan khong doi&#x27;,
-  status       ENUM(&#x27;available&#x27;,&#x27;borrowed&#x27;) NOT NULL DEFAULT &#x27;available&#x27;,
-  created_at   DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  INDEX idx_books_title (title),
-  INDEX idx_books_qr (qr_code)
-) ENGINE=InnoDB;
-
-CREATE TABLE IF NOT EXISTS loans (
-  id          INT AUTO_INCREMENT PRIMARY KEY,
-  book_id     INT NOT NULL,
-  reader_id   INT NOT NULL,
-  borrowed_at DATETIME NOT NULL,
-  due_at      DATETIME NOT NULL COMMENT &#x27;borrowed_at + loan_days (D4)&#x27;,
-  returned_at DATETIME NULL COMMENT &#x27;NULL = chua tra&#x27;,
-  fine_amount INT NOT NULL DEFAULT 0 COMMENT &#x27;tien phat (dong), chot luc tra (D7)&#x27;,
-  status      ENUM(&#x27;borrowing&#x27;,&#x27;returned&#x27;) NOT NULL DEFAULT &#x27;borrowing&#x27;,
-  overdue_notified TINYINT(1) NOT NULL DEFAULT 0 COMMENT &#x27;1 = da gui thong bao qua han&#x27;,
-  created_at  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  CONSTRAINT fk_loans_book   FOREIGN KEY (book_id)   REFERENCES books(id),
-  CONSTRAINT fk_loans_reader FOREIGN KEY (reader_id) REFERENCES users(id),
-  INDEX idx_loans_status (status),
-  INDEX idx_loans_reader (reader_id),
-  INDEX idx_loans_due (due_at)
-) ENGINE=InnoDB;
-
-CREATE TABLE IF NOT EXISTS reservations (
-  id          INT AUTO_INCREMENT PRIMARY KEY,
-  book_id     INT NOT NULL,
-  reader_id   INT NOT NULL,
-  reader_note VARCHAR(255) NULL COMMENT &#x27;ghi chu gio mong muon den lay cua doc gia&#x27;,
-  reserved_at DATETIME NOT NULL,
-  expires_at  DATETIME NOT NULL COMMENT &#x27;han duyet: reserved_at + reservation_hours (D11)&#x27;,
-  pickup_at   DATETIME NULL COMMENT &#x27;lich hen den lay do thu thu chot khi duyet&#x27;,
-  reviewed_by INT NULL COMMENT &#x27;id thu thu duyet/tu choi&#x27;,
-  reviewed_at DATETIME NULL,
-  reject_reason VARCHAR(255) NULL COMMENT &#x27;ly do tu choi (optional)&#x27;,
-  code        VARCHAR(16) NULL UNIQUE COMMENT &#x27;ma QR dat truoc, 8 ky tu A-Z0-9, sinh khi tao&#x27;,
-  status      ENUM(&#x27;pending&#x27;,&#x27;approved&#x27;,&#x27;rejected&#x27;,&#x27;fulfilled&#x27;,&#x27;cancelled&#x27;,&#x27;expired&#x27;) NOT NULL DEFAULT &#x27;pending&#x27;,
-  created_at  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  CONSTRAINT fk_res_book     FOREIGN KEY (book_id)     REFERENCES books(id),
-  CONSTRAINT fk_res_reader   FOREIGN KEY (reader_id)   REFERENCES users(id),
-  CONSTRAINT fk_res_reviewer FOREIGN KEY (reviewed_by) REFERENCES users(id),
-  INDEX idx_res_status (status),
-  INDEX idx_res_book (book_id)
-) ENGINE=InnoDB;
-
-CREATE TABLE IF NOT EXISTS categories (
-  id   INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(100) NOT NULL UNIQUE,
-  code VARCHAR(10) NOT NULL UNIQUE COMMENT &#x27;ky hieu the loai, vd VH, dung de sinh ma sach&#x27;
-) ENGINE=InnoDB;
-
-CREATE TABLE IF NOT EXISTS notifications (
-  id             INT AUTO_INCREMENT PRIMARY KEY,
-  audience       ENUM(&#x27;all&#x27;,&#x27;readers&#x27;,&#x27;librarians&#x27;) NOT NULL DEFAULT &#x27;all&#x27; COMMENT &#x27;doi tuong nhan&#x27;,
-  type           ENUM(&#x27;reservation&#x27;,&#x27;loan&#x27;,&#x27;overdue&#x27;,&#x27;general&#x27;,&#x27;system&#x27;) NOT NULL COMMENT &#x27;loai thong bao (quyet dinh mau sac)&#x27;,
-  title          VARCHAR(255) NOT NULL,
-  body           TEXT NULL,
-  show_on_landing TINYINT(1) NOT NULL DEFAULT 0 COMMENT &#x27;1 = hien dang the noi o landing page&#x27;,
-  user_id         INT NULL COMMENT &#x27;thong bao rieng cho 1 user (NULL = gui theo audience)&#x27;,
-  created_by     INT NULL COMMENT &#x27;id admin/thu thu tao (NULL = he thong tu dong)&#x27;,
-  created_at     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  CONSTRAINT fk_notif_creator FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL,
-  CONSTRAINT fk_notif_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-  INDEX idx_notif_audience (audience),
-  INDEX idx_notif_type (type),
-  INDEX idx_notif_created (created_at)
-) ENGINE=InnoDB;
-
-CREATE TABLE IF NOT EXISTS notification_reads (
-  notification_id INT NOT NULL,
-  user_id         INT NOT NULL,
-  read_at         DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (notification_id, user_id),
-  CONSTRAINT fk_read_notif FOREIGN KEY (notification_id) REFERENCES notifications(id) ON DELETE CASCADE,
-  CONSTRAINT fk_read_user  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-) ENGINE=InnoDB;
-
-CREATE TABLE IF NOT EXISTS settings (
-  id                 INT PRIMARY KEY COMMENT &#x27;luon = 1, chi 1 dong cau hinh&#x27;,
-  loan_days          INT NOT NULL DEFAULT 14 COMMENT &#x27;so ngay duoc muon (D3)&#x27;,
-  fine_per_day       INT NOT NULL DEFAULT 5000 COMMENT &#x27;phat moi ngay tre, dong (D3)&#x27;,
-  max_books_per_reader INT NOT NULL DEFAULT 5 COMMENT &#x27;so cuon toi da cung luc (D3)&#x27;,
-  reservation_hours  INT NOT NULL DEFAULT 48 COMMENT &#x27;so gio giu sach khi dat truoc (D11)&#x27;
-) ENGINE=InnoDB;
-
--- ----------------------------------------------------------------------------
--- DATA MAU
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="Mở mục lục">&#9776;</button>
+  <a class="brand" href="index.html">Tài liệu <em>CDIO 4</em></a>
+  <span class="top-links"><a href="index.html">Mục lục</a><a href="https://nanioe.me">nanioe.me</a></span>
+</header>
+<div class="docs-layout">
+<aside class="sidebar" id="sidebar">
+<div class="side-label">Tài liệu</div>
+<nav class="doc-nav">
+<a href="index.html">Mục lục tổng</a>
+<div class="nav-group">Thiết kế &amp; phân tích</div><a href="conceive.html">Conceive</a><a href="ho-so-thiet-ke.html">Hồ sơ phân tích &amp; thiết kế</a><a href="prompt-uml.html">Prompt UML (52 prompt)</a><a href="luong-hoat-dong.html">Luồng hoạt động</a><div class="nav-group">Kiểm thử</div><a href="kich-ban-kiem-thu.html">Kịch bản kiểm thử</a><div class="nav-group">Dữ liệu</div><a href="du-lieu-sql.html" class="active">SQL reset CSDL</a>
+</nav>
+<div class="side-label">Trong trang này</div>
+<nav class="toc">
+<a href="#cau-truc-8-bang">Cấu trúc 8 bảng</a>
+<a href="#users-tai-khoan-nguoi-dung-admin-thu-thu-doc-gia" class="lv3">users — Tài khoản người dùng: admin, thủ thư, độc giả</a>
+<a href="#books-dau-sach-va-ban-sao-moi-ban-co-ma-qr-rieng" class="lv3">books — Đầu sách và bản sao, mỗi bản có mã QR riêng</a>
+<a href="#loans-phieu-muon-tra-sach-va-tien-phat" class="lv3">loans — Phiếu mượn / trả sách và tiền phạt</a>
+<a href="#reservations-dat-truoc-sach-va-trang-thai-duyet" class="lv3">reservations — Đặt trước sách và trạng thái duyệt</a>
+<a href="#categories-the-loai-sach" class="lv3">categories — Thể loại sách</a>
+<a href="#notifications-thong-bao-he-thong-gui-toi-nguoi-dung" class="lv3">notifications — Thông báo hệ thống gửi tới người dùng</a>
+<a href="#notification-reads-trang-thai-da-doc-cua-tung-thong-bao" class="lv3">notification_reads — Trạng thái đã đọc của từng thông báo</a>
+<a href="#settings-cau-hinh-he-thong-so-ngay-muon-muc-phat-so-cuon-toi-da-gio-giu-cho" class="lv3">settings — Cấu hình hệ thống: số ngày mượn, mức phạt, số cuốn tối đa, giờ giữ chỗ</a>
+<a href="#du-lieu-mau-tai-khoan-demo">Dữ liệu mẫu &amp; tài khoản demo</a>
+</nav>
+</aside>
+<div class="backdrop" id="backdrop"></div>
+<main class="content">
+<h1>Dữ liệu mẫu &amp; SQL reset CSDL</h1>
+<p class="meta">Đồ án Website Quản lý Thư viện Mini &middot; Cập nhật lần cuối: 18/10/2026</p>
+<p>File SQL dựng lại toàn bộ cơ sở dữ liệu của hệ thống (xóa cấu trúc cũ, tạo lại 8 bảng, nạp dữ liệu mẫu và tài khoản demo). File này cũng đang chạy trên bản live của thư viện.</p>
+<p><a class="btn" href="cdio4-full-reset.sql" download>Tải file cdio4-full-reset.sql</a></p>
+<h2 id="cau-truc-8-bang">Cấu trúc 8 bảng</h2>
+<h3 id="users-tai-khoan-nguoi-dung-admin-thu-thu-doc-gia">users — Tài khoản người dùng: admin, thủ thư, độc giả</h3>
+<div class="table-wrap"><table><thead><tr><th>Cột</th><th>Kiểu / ràng buộc</th></tr></thead><tbody><tr><td><code>id</code></td><td>INT AUTO_INCREMENT PRIMARY KEY</td></tr><tr><td><code>username</code></td><td>VARCHAR(50) NOT NULL UNIQUE</td></tr><tr><td><code>password_hash</code></td><td>VARCHAR(255) NOT NULL COMMENT &#x27;bcrypt hash (D8)&#x27;</td></tr><tr><td><code>full_name</code></td><td>VARCHAR(100) NOT NULL</td></tr><tr><td><code>role</code></td><td>ENUM(&#x27;admin&#x27;,&#x27;librarian&#x27;,&#x27;reader&#x27;) NOT NULL</td></tr><tr><td><code>student_code</code></td><td>VARCHAR(20) NULL COMMENT &#x27;chi dung cho reader&#x27;</td></tr><tr><td><code>phone</code></td><td>VARCHAR(20) NULL</td></tr><tr><td><code>active</code></td><td>TINYINT(1) NOT NULL DEFAULT 1 COMMENT &#x27;1=hoat dong, 0=bi khoa&#x27;</td></tr><tr><td><code>created_at</code></td><td>DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP</td></tr></tbody></table></div>
+<h3 id="books-dau-sach-va-ban-sao-moi-ban-co-ma-qr-rieng">books — Đầu sách và bản sao, mỗi bản có mã QR riêng</h3>
+<div class="table-wrap"><table><thead><tr><th>Cột</th><th>Kiểu / ràng buộc</th></tr></thead><tbody><tr><td><code>id</code></td><td>INT AUTO_INCREMENT PRIMARY KEY</td></tr><tr><td><code>qr_code</code></td><td>VARCHAR(50) NOT NULL UNIQUE COMMENT &#x27;UUID hex 32 ky tu, sinh 1 lan khong doi (D2)&#x27;</td></tr><tr><td><code>title</code></td><td>VARCHAR(255) NOT NULL</td></tr><tr><td><code>author</code></td><td>VARCHAR(100) NULL</td></tr><tr><td><code>category</code></td><td>VARCHAR(100) NULL</td></tr><tr><td><code>publisher</code></td><td>VARCHAR(100) NULL</td></tr><tr><td><code>publish_year</code></td><td>INT NULL</td></tr><tr><td><code>cover_url</code></td><td>VARCHAR(500) NULL COMMENT &#x27;Duong dan anh bia, vd /uploads/covers/12-1699999999999.jpg&#x27;</td></tr><tr><td><code>book_code</code></td><td>VARCHAR(20) NULL UNIQUE COMMENT &#x27;ma hien thi, vd VH-0001, sinh 1 lan khong doi&#x27;</td></tr><tr><td><code>status</code></td><td>ENUM(&#x27;available&#x27;,&#x27;borrowed&#x27;) NOT NULL DEFAULT &#x27;available&#x27;</td></tr><tr><td><code>created_at</code></td><td>DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP</td></tr><tr><td><code>INDEX</code></td><td>idx_books_title (title)</td></tr><tr><td><code>INDEX</code></td><td>idx_books_qr (qr_code)</td></tr></tbody></table></div>
+<h3 id="loans-phieu-muon-tra-sach-va-tien-phat">loans — Phiếu mượn / trả sách và tiền phạt</h3>
+<div class="table-wrap"><table><thead><tr><th>Cột</th><th>Kiểu / ràng buộc</th></tr></thead><tbody><tr><td><code>id</code></td><td>INT AUTO_INCREMENT PRIMARY KEY</td></tr><tr><td><code>book_id</code></td><td>INT NOT NULL</td></tr><tr><td><code>reader_id</code></td><td>INT NOT NULL</td></tr><tr><td><code>borrowed_at</code></td><td>DATETIME NOT NULL</td></tr><tr><td><code>due_at</code></td><td>DATETIME NOT NULL COMMENT &#x27;borrowed_at + loan_days (D4)&#x27;</td></tr><tr><td><code>returned_at</code></td><td>DATETIME NULL COMMENT &#x27;NULL = chua tra&#x27;</td></tr><tr><td><code>fine_amount</code></td><td>INT NOT NULL DEFAULT 0 COMMENT &#x27;tien phat (dong), chot luc tra (D7)&#x27;</td></tr><tr><td><code>status</code></td><td>ENUM(&#x27;borrowing&#x27;,&#x27;returned&#x27;) NOT NULL DEFAULT &#x27;borrowing&#x27;</td></tr><tr><td><code>overdue_notified</code></td><td>TINYINT(1) NOT NULL DEFAULT 0 COMMENT &#x27;1 = da gui thong bao qua han&#x27;</td></tr><tr><td><code>created_at</code></td><td>DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP</td></tr><tr><td><code>INDEX</code></td><td>idx_loans_status (status)</td></tr><tr><td><code>INDEX</code></td><td>idx_loans_reader (reader_id)</td></tr><tr><td><code>INDEX</code></td><td>idx_loans_due (due_at)</td></tr></tbody></table></div>
+<h3 id="reservations-dat-truoc-sach-va-trang-thai-duyet">reservations — Đặt trước sách và trạng thái duyệt</h3>
+<div class="table-wrap"><table><thead><tr><th>Cột</th><th>Kiểu / ràng buộc</th></tr></thead><tbody><tr><td><code>id</code></td><td>INT AUTO_INCREMENT PRIMARY KEY</td></tr><tr><td><code>book_id</code></td><td>INT NOT NULL</td></tr><tr><td><code>reader_id</code></td><td>INT NOT NULL</td></tr><tr><td><code>reader_note</code></td><td>VARCHAR(255) NULL COMMENT &#x27;ghi chu gio mong muon den lay cua doc gia&#x27;</td></tr><tr><td><code>reserved_at</code></td><td>DATETIME NOT NULL</td></tr><tr><td><code>expires_at</code></td><td>DATETIME NOT NULL COMMENT &#x27;han duyet: reserved_at + reservation_hours (D11)&#x27;</td></tr><tr><td><code>pickup_at</code></td><td>DATETIME NULL COMMENT &#x27;lich hen den lay do thu thu chot khi duyet&#x27;</td></tr><tr><td><code>reviewed_by</code></td><td>INT NULL COMMENT &#x27;id thu thu duyet/tu choi&#x27;</td></tr><tr><td><code>reviewed_at</code></td><td>DATETIME NULL</td></tr><tr><td><code>reject_reason</code></td><td>VARCHAR(255) NULL COMMENT &#x27;ly do tu choi (optional)&#x27;</td></tr><tr><td><code>code</code></td><td>VARCHAR(16) NULL UNIQUE COMMENT &#x27;ma QR dat truoc, 8 ky tu A-Z0-9, sinh khi tao&#x27;</td></tr><tr><td><code>status</code></td><td>ENUM(&#x27;pending&#x27;,&#x27;approved&#x27;,&#x27;rejected&#x27;,&#x27;fulfilled&#x27;,&#x27;cancelled&#x27;,&#x27;expired&#x27;) NOT NULL DEFAULT &#x27;pending&#x27;</td></tr><tr><td><code>created_at</code></td><td>DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP</td></tr><tr><td><code>INDEX</code></td><td>idx_res_status (status)</td></tr><tr><td><code>INDEX</code></td><td>idx_res_book (book_id)</td></tr></tbody></table></div>
+<h3 id="categories-the-loai-sach">categories — Thể loại sách</h3>
+<div class="table-wrap"><table><thead><tr><th>Cột</th><th>Kiểu / ràng buộc</th></tr></thead><tbody><tr><td><code>id</code></td><td>INT AUTO_INCREMENT PRIMARY KEY</td></tr><tr><td><code>name</code></td><td>VARCHAR(100) NOT NULL UNIQUE</td></tr><tr><td><code>code</code></td><td>VARCHAR(10) NOT NULL UNIQUE COMMENT &#x27;ky hieu the loai, vd VH, dung de sinh ma sach&#x27;</td></tr></tbody></table></div>
+<h3 id="notifications-thong-bao-he-thong-gui-toi-nguoi-dung">notifications — Thông báo hệ thống gửi tới người dùng</h3>
+<div class="table-wrap"><table><thead><tr><th>Cột</th><th>Kiểu / ràng buộc</th></tr></thead><tbody><tr><td><code>id</code></td><td>INT AUTO_INCREMENT PRIMARY KEY</td></tr><tr><td><code>audience</code></td><td>ENUM(&#x27;all&#x27;,&#x27;readers&#x27;,&#x27;librarians&#x27;) NOT NULL DEFAULT &#x27;all&#x27; COMMENT &#x27;doi tuong nhan&#x27;</td></tr><tr><td><code>type</code></td><td>ENUM(&#x27;reservation&#x27;,&#x27;loan&#x27;,&#x27;overdue&#x27;,&#x27;general&#x27;,&#x27;system&#x27;) NOT NULL COMMENT &#x27;loai thong bao (quyet dinh mau sac)&#x27;</td></tr><tr><td><code>title</code></td><td>VARCHAR(255) NOT NULL</td></tr><tr><td><code>body</code></td><td>TEXT NULL</td></tr><tr><td><code>show_on_landing</code></td><td>TINYINT(1) NOT NULL DEFAULT 0 COMMENT &#x27;1 = hien dang the noi o landing page&#x27;</td></tr><tr><td><code>user_id</code></td><td>INT NULL COMMENT &#x27;thong bao rieng cho 1 user (NULL = gui theo audience)&#x27;</td></tr><tr><td><code>created_by</code></td><td>INT NULL COMMENT &#x27;id admin/thu thu tao (NULL = he thong tu dong)&#x27;</td></tr><tr><td><code>created_at</code></td><td>DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP</td></tr><tr><td><code>INDEX</code></td><td>idx_notif_audience (audience)</td></tr><tr><td><code>INDEX</code></td><td>idx_notif_type (type)</td></tr><tr><td><code>INDEX</code></td><td>idx_notif_created (created_at)</td></tr></tbody></table></div>
+<h3 id="notification-reads-trang-thai-da-doc-cua-tung-thong-bao">notification_reads — Trạng thái đã đọc của từng thông báo</h3>
+<div class="table-wrap"><table><thead><tr><th>Cột</th><th>Kiểu / ràng buộc</th></tr></thead><tbody><tr><td><code>notification_id</code></td><td>INT NOT NULL</td></tr><tr><td><code>user_id</code></td><td>INT NOT NULL</td></tr><tr><td><code>read_at</code></td><td>DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP</td></tr></tbody></table></div>
+<h3 id="settings-cau-hinh-he-thong-so-ngay-muon-muc-phat-so-cuon-toi-da-gio-giu-cho">settings — Cấu hình hệ thống: số ngày mượn, mức phạt, số cuốn tối đa, giờ giữ chỗ</h3>
+<div class="table-wrap"><table><thead><tr><th>Cột</th><th>Kiểu / ràng buộc</th></tr></thead><tbody><tr><td><code>id</code></td><td>INT PRIMARY KEY COMMENT &#x27;luon = 1, chi 1 dong cau hinh&#x27;</td></tr><tr><td><code>loan_days</code></td><td>INT NOT NULL DEFAULT 14 COMMENT &#x27;so ngay duoc muon (D3)&#x27;</td></tr><tr><td><code>fine_per_day</code></td><td>INT NOT NULL DEFAULT 5000 COMMENT &#x27;phat moi ngay tre, dong (D3)&#x27;</td></tr><tr><td><code>max_books_per_reader</code></td><td>INT NOT NULL DEFAULT 5 COMMENT &#x27;so cuon toi da cung luc (D3)&#x27;</td></tr><tr><td><code>reservation_hours</code></td><td>INT NOT NULL DEFAULT 48 COMMENT &#x27;so gio giu sach khi dat truoc (D11)&#x27;</td></tr></tbody></table></div>
+<h2 id="du-lieu-mau-tai-khoan-demo">Dữ liệu mẫu &amp; tài khoản demo</h2>
+<pre><code>-- DATA MAU
 -- ----------------------------------------------------------------------------
 INSERT INTO settings (id, loan_days, fine_per_day, max_books_per_reader, reservation_hours)
 VALUES (1, 14, 5000, 5, 48);
@@ -214,170 +127,15 @@ INSERT INTO books (qr_code, title, author, category, publisher, publish_year, st
 VALUES (&#x27;f2fd28a09ba693fe31974c823c610942&#x27;, &#x27;Ông già và biển cả&#x27;, &#x27;Ernest Hemingway&#x27;, &#x27;Văn học&#x27;, &#x27;Văn học&#x27;, 2019, &#x27;available&#x27;);
 INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
 VALUES (&#x27;0c1cbf899e5af512902f83c6251656a2&#x27;, &#x27;Giết con chim nhại&#x27;, &#x27;Harper Lee&#x27;, &#x27;Văn học&#x27;, &#x27;Nhã Nam&#x27;, 2020, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;34b72dba9d92c65e2452cc4dd2205294&#x27;, &#x27;1984&#x27;, &#x27;George Orwell&#x27;, &#x27;Văn học&#x27;, &#x27;Nhã Nam&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;cfc73ab1d036b33330f7a64f380aa3bb&#x27;, &#x27;Trại súc vật&#x27;, &#x27;George Orwell&#x27;, &#x27;Văn học&#x27;, &#x27;Nhã Nam&#x27;, 2020, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;cc01b2c5f1552ffc2230359856cbdd89&#x27;, &#x27;Trăm năm cô đơn&#x27;, &#x27;Gabriel García Márquez&#x27;, &#x27;Văn học&#x27;, &#x27;Văn học&#x27;, 2018, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;5e9af41bea2f7244c7af0a1f3ee24ec2&#x27;, &#x27;Kiêu hãnh và định kiến&#x27;, &#x27;Jane Austen&#x27;, &#x27;Văn học&#x27;, &#x27;Nhã Nam&#x27;, 2019, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;fc40f0a6c984de7b61802ac37737f72f&#x27;, &#x27;Đồi gió hú&#x27;, &#x27;Emily Brontë&#x27;, &#x27;Văn học&#x27;, &#x27;Nhã Nam&#x27;, 2020, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;5d7d2de5c2c4cc40e7aaea50575e7d59&#x27;, &#x27;Những người khốn khổ&#x27;, &#x27;Victor Hugo&#x27;, &#x27;Văn học&#x27;, &#x27;Văn học&#x27;, 2017, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;88517314fa164bc3ad3927cd9d48d213&#x27;, &#x27;Nhà thờ Đức Bà Paris&#x27;, &#x27;Victor Hugo&#x27;, &#x27;Văn học&#x27;, &#x27;Văn học&#x27;, 2018, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;0708a775314cdc870d21f3df61dd9a62&#x27;, &#x27;Bá tước Monte Cristo&#x27;, &#x27;Alexandre Dumas&#x27;, &#x27;Văn học&#x27;, &#x27;Văn học&#x27;, 2019, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;0972d47e17012b2ee285f59ab96c0ef3&#x27;, &#x27;Tội ác và trừng phạt&#x27;, &#x27;Fyodor Dostoevsky&#x27;, &#x27;Văn học&#x27;, &#x27;Văn học&#x27;, 2020, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;f7374597842db0ee313a98fc8a032ba5&#x27;, &#x27;Chiến tranh và hòa bình&#x27;, &#x27;Leo Tolstoy&#x27;, &#x27;Văn học&#x27;, &#x27;Văn học&#x27;, 2018, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;0986d0d78bb0ad64473a4e0e6ee1bc55&#x27;, &#x27;Harry Potter và Hòn đá Phù thủy&#x27;, &#x27;J.K. Rowling&#x27;, &#x27;Văn học&#x27;, &#x27;Trẻ&#x27;, 2022, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;bc6edb5304d365166e544c165eaa4679&#x27;, &#x27;Harry Potter và Phòng chứa Bí mật&#x27;, &#x27;J.K. Rowling&#x27;, &#x27;Văn học&#x27;, &#x27;Trẻ&#x27;, 2022, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;78c92d4a2ab571a0e656a3cf70b43b73&#x27;, &#x27;Người Hobbit&#x27;, &#x27;J.R.R. Tolkien&#x27;, &#x27;Văn học&#x27;, &#x27;Nhã Nam&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;d9ad82172ffd5fc92a480f737aea6d60&#x27;, &#x27;Chúa tể những chiếc nhẫn&#x27;, &#x27;J.R.R. Tolkien&#x27;, &#x27;Văn học&#x27;, &#x27;Nhã Nam&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;b427efc83b9e12a3873842fc4d04cb8e&#x27;, &#x27;Người đua diều&#x27;, &#x27;Khaled Hosseini&#x27;, &#x27;Văn học&#x27;, &#x27;Nhã Nam&#x27;, 2020, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;4d71090898625e6fb3359c8cf698faee&#x27;, &#x27;Totto-chan bên cửa sổ&#x27;, &#x27;Tetsuko Kuroyanagi&#x27;, &#x27;Văn học&#x27;, &#x27;Nhã Nam&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;c290c30e7e20539a6c147979a3a895ba&#x27;, &#x27;Đắc nhân tâm&#x27;, &#x27;Dale Carnegie&#x27;, &#x27;Kỹ năng sống&#x27;, &#x27;Trẻ&#x27;, 2022, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;a4fbbd989a5b287a51941e460020f4f6&#x27;, &#x27;Tuổi trẻ đáng giá bao nhiêu&#x27;, &#x27;Rosie Nguyễn&#x27;, &#x27;Kỹ năng sống&#x27;, &#x27;Nhã Nam&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;bed3d3f59eab424cc6a3e61d2db3e3a0&#x27;, &#x27;Trên đường băng&#x27;, &#x27;Tony Buổi Sáng&#x27;, &#x27;Kỹ năng sống&#x27;, &#x27;Trẻ&#x27;, 2020, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;f79c3c6ee0bf425851506d45d8fd881e&#x27;, &#x27;Cà phê cùng Tony&#x27;, &#x27;Tony Buổi Sáng&#x27;, &#x27;Kỹ năng sống&#x27;, &#x27;Trẻ&#x27;, 2019, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;cb6b09fbce13c2d098e2d53e62922a35&#x27;, &#x27;Nhà lãnh đạo không chức danh&#x27;, &#x27;Robin Sharma&#x27;, &#x27;Kỹ năng sống&#x27;, &#x27;Trẻ&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;84d6240f3a4beec6e9db2c49e6c9bce2&#x27;, &#x27;7 thói quen hiệu quả&#x27;, &#x27;Stephen R. Covey&#x27;, &#x27;Kỹ năng sống&#x27;, &#x27;Trẻ&#x27;, 2020, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;c368957ad3d43853f753734bfb091c11&#x27;, &#x27;Tư duy nhanh và chậm&#x27;, &#x27;Daniel Kahneman&#x27;, &#x27;Kỹ năng sống&#x27;, &#x27;Nhã Nam&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;01ec0899d2268b9a1614b74b4a61936b&#x27;, &#x27;Đánh thức con người phi thường trong bạn&#x27;, &#x27;Anthony Robbins&#x27;, &#x27;Kỹ năng sống&#x27;, &#x27;Lao động&#x27;, 2019, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;d2a4a50aa7fbd47b662e2b2a990695e1&#x27;, &#x27;Sức mạnh của thói quen&#x27;, &#x27;Charles Duhigg&#x27;, &#x27;Kỹ năng sống&#x27;, &#x27;Nhã Nam&#x27;, 2020, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;1edabdb757e72f0328092c3e0ee32d64&#x27;, &#x27;Dám nghĩ lớn&#x27;, &#x27;David J. Schwartz&#x27;, &#x27;Kỹ năng sống&#x27;, &#x27;Trẻ&#x27;, 2018, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;1673d2a3847bbc206f933f9ebd0af25b&#x27;, &#x27;Đại số tuyến tính&#x27;, &#x27;Nguyễn Đình Trí&#x27;, &#x27;Toán học&#x27;, &#x27;Giáo dục&#x27;, 2022, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;fc344ce9e7afcc9daaa1318866c455ca&#x27;, &#x27;Giải tích 1&#x27;, &#x27;Trần Bình&#x27;, &#x27;Toán học&#x27;, &#x27;Giáo dục&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;494e167f0b9b4af1d9e4b39908ac043d&#x27;, &#x27;Giải tích 2&#x27;, &#x27;Trần Bình&#x27;, &#x27;Toán học&#x27;, &#x27;Giáo dục&#x27;, 2022, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;5ad74990d1876132641a05ec03f1afd1&#x27;, &#x27;Toán rời rạc&#x27;, &#x27;Nguyễn Đức Nghĩa&#x27;, &#x27;Toán học&#x27;, &#x27;Đại học Quốc gia&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;e70582789d8ccde348facb135b0f7989&#x27;, &#x27;Xác suất thống kê&#x27;, &#x27;Đặng Hùng Thắng&#x27;, &#x27;Toán học&#x27;, &#x27;Giáo dục&#x27;, 2020, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;b38b6a68a909f3673bcba5c20b42a8a0&#x27;, &#x27;Hình học giải tích&#x27;, &#x27;Đoàn Quỳnh&#x27;, &#x27;Toán học&#x27;, &#x27;Giáo dục&#x27;, 2019, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;fc8a8f6e7c2a6a3b0abafb3d5f743b42&#x27;, &#x27;Số học và ứng dụng&#x27;, &#x27;Hà Huy Khoái&#x27;, &#x27;Toán học&#x27;, &#x27;Giáo dục&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;2e6ba47d2fb0dbe5ad4fe0c6b380a47f&#x27;, &#x27;Phương trình vi phân&#x27;, &#x27;Nguyễn Thế Hoàn&#x27;, &#x27;Toán học&#x27;, &#x27;Đại học Quốc gia&#x27;, 2020, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;16c4814003c5a62971efcc642d019a04&#x27;, &#x27;Toán cao cấp - Tập 1&#x27;, &#x27;Nguyễn Đình Trí&#x27;, &#x27;Toán học&#x27;, &#x27;Giáo dục&#x27;, 2022, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;b2aa0982a9a09593a732bef0987d4e4b&#x27;, &#x27;Logic toán&#x27;, &#x27;Phạm Huy Điển&#x27;, &#x27;Toán học&#x27;, &#x27;Đại học Quốc gia&#x27;, 2019, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;f6df21da2f2792bc91655abd1976bcc5&#x27;, &#x27;Nhập môn lập trình Python&#x27;, &#x27;Trần Đan Thư&#x27;, &#x27;Lập trình&#x27;, &#x27;Khoa học Kỹ thuật&#x27;, 2023, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;da88d6ea99df0a9b95b85078243b8300&#x27;, &#x27;Cấu trúc dữ liệu và giải thuật&#x27;, &#x27;Lê Minh Hoàng&#x27;, &#x27;Lập trình&#x27;, &#x27;Đại học Quốc gia&#x27;, 2022, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;ad8078f3354e0eb2a849b07623b5af06&#x27;, &#x27;Lập trình C++ từ cơ bản đến nâng cao&#x27;, &#x27;Phạm Văn Ất&#x27;, &#x27;Lập trình&#x27;, &#x27;Khoa học Kỹ thuật&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;387b245fee5b4f26f27ab0138b53736d&#x27;, &#x27;Lập trình Java căn bản&#x27;, &#x27;Nguyễn Văn Linh&#x27;, &#x27;Lập trình&#x27;, &#x27;Giáo dục&#x27;, 2022, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;bc9f8f462f0a632fb01f33babb643dbb&#x27;, &#x27;Lập trình Web với JavaScript&#x27;, &#x27;Trần Minh Tuấn&#x27;, &#x27;Lập trình&#x27;, &#x27;Khoa học Kỹ thuật&#x27;, 2023, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;4b027caee47d6e0ca7963e27a890a6f4&#x27;, &#x27;Clean Code&#x27;, &#x27;Robert C. Martin&#x27;, &#x27;Lập trình&#x27;, &#x27;Dân trí&#x27;, 2020, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;15874aa235e85b71c06d4f9ce26353a0&#x27;, &#x27;Design Patterns&#x27;, &#x27;Erich Gamma&#x27;, &#x27;Lập trình&#x27;, &#x27;Khoa học Kỹ thuật&#x27;, 2019, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;19f1339caa87c2d7a789b413929da6ce&#x27;, &#x27;Trí tuệ nhân tạo nhập môn&#x27;, &#x27;Võ Văn Tới&#x27;, &#x27;Lập trình&#x27;, &#x27;Đại học Quốc gia&#x27;, 2023, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;3dad2f815cc642bf70b3f5ef31aa83dd&#x27;, &#x27;Học sâu với Python&#x27;, &#x27;François Chollet&#x27;, &#x27;Lập trình&#x27;, &#x27;Khoa học Kỹ thuật&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;779bf423fd46f44323837faa6202cea3&#x27;, &#x27;Hệ điều hành hiện đại&#x27;, &#x27;Andrew Tanenbaum&#x27;, &#x27;Lập trình&#x27;, &#x27;Giáo dục&#x27;, 2020, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;8d01ec1e311071e1cacb1ef6dc8a2d4b&#x27;, &#x27;Cơ sở dữ liệu quan hệ&#x27;, &#x27;Nguyễn Bá Tường&#x27;, &#x27;Công nghệ thông tin&#x27;, &#x27;Giáo dục&#x27;, 2020, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;ff2474490bfc2f45a077087ecdc65ed5&#x27;, &#x27;Mạng máy tính&#x27;, &#x27;Nguyễn Thúc Hải&#x27;, &#x27;Công nghệ thông tin&#x27;, &#x27;Giáo dục&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;9044e350916af8124a0bbf9cabba39ee&#x27;, &#x27;An toàn thông tin&#x27;, &#x27;Trần Đức Sự&#x27;, &#x27;Công nghệ thông tin&#x27;, &#x27;Khoa học Kỹ thuật&#x27;, 2022, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;cdf65677423c2ed0b8a292e894a0e4f2&#x27;, &#x27;Phân tích thiết kế hệ thống&#x27;, &#x27;Nguyễn Văn Ba&#x27;, &#x27;Công nghệ thông tin&#x27;, &#x27;Đại học Quốc gia&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;bf2170c95a73072069427de58a2cf368&#x27;, &#x27;Công nghệ phần mềm&#x27;, &#x27;Phạm Huy Điển&#x27;, &#x27;Công nghệ thông tin&#x27;, &#x27;Giáo dục&#x27;, 2020, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;e54382ad2b74b5e73451d5651a55265c&#x27;, &#x27;Khai phá dữ liệu&#x27;, &#x27;Jiawei Han&#x27;, &#x27;Công nghệ thông tin&#x27;, &#x27;Khoa học Kỹ thuật&#x27;, 2019, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;11155684208529a38db1bf3520e72297&#x27;, &#x27;Điện toán đám mây&#x27;, &#x27;Nguyễn Thanh Tùng&#x27;, &#x27;Công nghệ thông tin&#x27;, &#x27;Đại học Quốc gia&#x27;, 2023, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;82d57e616c197def5a6971adb394d058&#x27;, &#x27;Quản trị mạng Linux&#x27;, &#x27;Evi Nemeth&#x27;, &#x27;Công nghệ thông tin&#x27;, &#x27;Khoa học Kỹ thuật&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;8ec60d6b6587e3a9cd887f79f9633dc9&#x27;, &#x27;Lập trình di động Android&#x27;, &#x27;Phạm Đức Thắng&#x27;, &#x27;Công nghệ thông tin&#x27;, &#x27;Giáo dục&#x27;, 2022, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;9e8245a6412654499f1e4ced663c1d33&#x27;, &#x27;Kiểm thử phần mềm&#x27;, &#x27;Nguyễn Thị Hương&#x27;, &#x27;Công nghệ thông tin&#x27;, &#x27;Đại học Quốc gia&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;43ead70eca00bf9ce3c60980fef805fc&#x27;, &#x27;Vật lý đại cương - Tập 1&#x27;, &#x27;Lương Duyên Bình&#x27;, &#x27;Vật lý&#x27;, &#x27;Giáo dục&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;b56f2dcb90b5ce0c5ac4863154b8a4ec&#x27;, &#x27;Vật lý đại cương - Tập 2&#x27;, &#x27;Lương Duyên Bình&#x27;, &#x27;Vật lý&#x27;, &#x27;Giáo dục&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;4fb913ab87038e09d0a59d6ea9e66eab&#x27;, &#x27;Cơ học lượng tử nhập môn&#x27;, &#x27;Phạm Quý Tư&#x27;, &#x27;Vật lý&#x27;, &#x27;Đại học Quốc gia&#x27;, 2020, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;adaeddaa365a03985cf269931bb29d5e&#x27;, &#x27;Nhiệt động lực học&#x27;, &#x27;Nguyễn Văn Hiệu&#x27;, &#x27;Vật lý&#x27;, &#x27;Giáo dục&#x27;, 2019, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;76b51029538682c9d91541fc96c2281b&#x27;, &#x27;Hóa học đại cương&#x27;, &#x27;Nguyễn Đức Chuy&#x27;, &#x27;Hóa học&#x27;, &#x27;Giáo dục&#x27;, 2022, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;585777721a3ec4800217f63c963ddd45&#x27;, &#x27;Hóa hữu cơ&#x27;, &#x27;Trần Quốc Sơn&#x27;, &#x27;Hóa học&#x27;, &#x27;Đại học Quốc gia&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;d3d5a3180578d8563d317ee0877b700e&#x27;, &#x27;English Grammar in Use&#x27;, &#x27;Raymond Murphy&#x27;, &#x27;Tiếng Anh&#x27;, &#x27;Giáo dục&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;547b72e84e57110dcb3f8798be2be224&#x27;, &#x27;TOEIC 900 từ vựng thiết yếu&#x27;, &#x27;Kim Hiền&#x27;, &#x27;Tiếng Anh&#x27;, &#x27;Nhân trí Việt&#x27;, 2022, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;631846b2d0d2fec4587fbdab113167ef&#x27;, &#x27;Luyện thi IELTS Writing&#x27;, &#x27;Sam McCarter&#x27;, &#x27;Tiếng Anh&#x27;, &#x27;Tổng hợp TP.HCM&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;7bedc34614b5baf50a1ed3da03110b70&#x27;, &#x27;3000 từ vựng tiếng Anh thông dụng&#x27;, &#x27;Mai Lan Hương&#x27;, &#x27;Tiếng Anh&#x27;, &#x27;Đà Nẵng&#x27;, 2020, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;2bf3e6f608d47c0785ae9d3d6ea45c77&#x27;, &#x27;Phát âm tiếng Anh chuẩn&#x27;, &#x27;Paul Gruber&#x27;, &#x27;Tiếng Anh&#x27;, &#x27;Nhân trí Việt&#x27;, 2019, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;0d5e73e1e19d5c1b730ef0db2a7fe64a&#x27;, &#x27;Giao tiếp tiếng Anh thương mại&#x27;, &#x27;Nguyễn Quốc Hùng&#x27;, &#x27;Tiếng Anh&#x27;, &#x27;Lao động&#x27;, 2022, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;ad3cbef6c86c0b7af8ce2b557a52e1d5&#x27;, &#x27;Đại Việt sử ký toàn thư&#x27;, &#x27;Ngô Sĩ Liên&#x27;, &#x27;Lịch sử&#x27;, &#x27;Khoa học Xã hội&#x27;, 2020, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;dde7dba511dc0dc98ef3443abaf5d230&#x27;, &#x27;Lịch sử Việt Nam - Tập 1&#x27;, &#x27;Viện Sử học&#x27;, &#x27;Lịch sử&#x27;, &#x27;Khoa học Xã hội&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;032ccc170f0cd46aebdfe9bc155dcb70&#x27;, &#x27;Triết học Mác-Lênin&#x27;, &#x27;Bộ Giáo dục và Đào tạo&#x27;, &#x27;Triết học&#x27;, &#x27;Chính trị Quốc gia&#x27;, 2022, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;ca53f00c5c9b9605d6bcb6269dd1af55&#x27;, &#x27;Tư tưởng Hồ Chí Minh&#x27;, &#x27;Bộ Giáo dục và Đào tạo&#x27;, &#x27;Triết học&#x27;, &#x27;Chính trị Quốc gia&#x27;, 2022, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;f94458e856edfc99c9e50c39f6b5bd94&#x27;, &#x27;Kinh tế vi mô&#x27;, &#x27;N. Gregory Mankiw&#x27;, &#x27;Kinh tế&#x27;, &#x27;Thống kê&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;f422676e527744adfa891479ebb982af&#x27;, &#x27;Kinh tế vĩ mô&#x27;, &#x27;N. Gregory Mankiw&#x27;, &#x27;Kinh tế&#x27;, &#x27;Thống kê&#x27;, 2021, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;45986da9e7ea9e0bea20a8d1e5459498&#x27;, &#x27;Marketing căn bản&#x27;, &#x27;Philip Kotler&#x27;, &#x27;Kinh tế&#x27;, &#x27;Lao động&#x27;, 2020, &#x27;available&#x27;);
-INSERT INTO books (qr_code, title, author, category, publisher, publish_year, status)
-VALUES (&#x27;23f1c95579a8c403b30e5ae2cc750e30&#x27;, &#x27;Kế toán tài chính&#x27;, &#x27;Võ Văn Nhị&#x27;, &#x27;Kinh tế&#x27;, &#x27;Tài chính&#x27;, 2022, &#x27;available&#x27;);
-</code></pre>
+INSERT INTO books (qr_code, title, author, category, publisher, pub</code></pre>
+<div class="prevnext">
+<a class="pn prev" href="kich-ban-kiem-thu.html"><span>Trang trước</span><strong>Kịch bản kiểm thử</strong></a>
+<a class="pn next" href="index.html"><span>Trang sau</span><strong>Mục lục tổng</strong></a>
+</div>
+<footer>Web tài liệu của đồ án CDIO 4 — nội dung luôn là bản mới nhất. Tài liệu của khoa (bài giảng CS353, SAD UML 2015, Systems Analysis &amp; Design UML 5th) là tài liệu nội bộ/bản quyền nên không đăng tại đây.</footer>
 </main>
-<footer>© 2026 Bảo Kha · Tài liệu đồ án CDIO 4 — Website Quản lý Thư viện Mini · <a href="index.html">Mục lục</a></footer>
-<script>
-document.querySelectorAll('pre').forEach(function(pre){
-  var btn=document.createElement('button');btn.className='copybtn';btn.textContent='Sao chép';
-  btn.addEventListener('click',function(){
-    var text=pre.innerText.replace(/^Sao chép\n/,'');
-    navigator.clipboard.writeText(text).then(function(){btn.textContent='Đã chép';setTimeout(function(){btn.textContent='Sao chép'},1500);});
-  });
-  pre.appendChild(btn);
-});
-</script>
+</div>
+<button class="to-top" id="toTop" aria-label="Về đầu trang">&#8593;</button>
+<script src="docs.js"></script>
 </body>
 </html>
