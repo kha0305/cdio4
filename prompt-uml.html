@@ -26,7 +26,7 @@
 <a href="#mandatory-drawing-conventions-apply-to-every-prompt">MANDATORY DRAWING CONVENTIONS (apply to every prompt)</a>
 <a href="#sequence-diagram-exactly-5-lifelines" class="lv3">Sequence diagram — exactly 5 lifelines</a>
 <a href="#activity-diagram-exactly-4-swimlanes" class="lv3">Activity diagram — exactly 4 swimlanes</a>
-<a href="#class-diagram" class="lv3">Class diagram</a>
+<a href="#class-diagram-standard" class="lv3">Class diagram (standard)</a>
 <a href="#use-case-diagram-18-prompt" class="toc-group">Use Case Diagram (18 prompt)</a>
 <a href="#prompt-1-overall-system-use-case-diagram" class="toc-prompt">Prompt 1 — Overall System Use Case Diagram</a>
 <a href="#prompt-2-uc01-use-case-diagram-login" class="toc-prompt">Prompt 2 — UC01 Use Case Diagram: Login</a>
@@ -126,8 +126,8 @@ Select the diagram type stated in the prompt title before pasting.</p>
 - <strong>Giao diện</strong>: rendering pages/forms/notifications, navigation.
 - <strong>Hệ thống</strong>: data validation, business logic, code generation, calculations.
 - <strong>CSDL</strong>: all data read/write operations.</p>
-<h3 id="class-diagram">Class diagram</h3>
-<p>Keep the stereotypes <code>&lt;&lt;boundary&gt;&gt;</code> (page), <code>&lt;&lt;control&gt;&gt;</code> (controller), <code>&lt;&lt;entity&gt;&gt;</code> (entity).</p>
+<h3 id="class-diagram-standard">Class diagram (standard)</h3>
+<p>Only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes <code>&lt;&lt;boundary&gt;&gt;</code>, <code>&lt;&lt;control&gt;&gt;</code> or <code>&lt;&lt;entity&gt;&gt;</code> — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database. Relationships: Frm -- Controller is a solid line labeled "form uses controller", 1 - 1; Controller ..&gt; Entity is a dashed dependency labeled "uses Entity"; Entity -- Entity is a solid association with multiplicities where listed. External services (GeminiAPI, Resend) are plain classes used by the Controller with a dashed "uses ... (external)" dependency.</p>
 <hr />
 <h2 id="use-case-diagram-18-prompt">Use Case Diagram (18 prompt)</h2><p>Các prompt vẽ sơ đồ Use Case Diagram, giữ nguyên thứ tự Prompt gốc.</p><h2 id="prompt-1-overall-system-use-case-diagram">Prompt 1 — Overall System Use Case Diagram</h2>
 <pre><code>Create exactly 1 Use Case Diagram. Use only the elements below; do not add any other actor or use case.
@@ -2588,28 +2588,33 @@ end
 </code></pre>
 <hr />
 <h2 id="class-diagram-17-prompt">Class Diagram (17 prompt)</h2><p>Các prompt vẽ sơ đồ Class Diagram, giữ nguyên thứ tự Prompt gốc.</p><h2 id="prompt-16-uc01-analysis-class">Prompt 16 — UC01 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC01 — Đăng nhập&quot; (login only, registration is the separate use case UC19) of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC01 — Đăng nhập&quot; (login only, registration is the separate use case UC19) of the university library management system, following the class standard: only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt; or &lt;&lt;entity&gt;&gt; — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database.
 
 Classes:
-- &lt;&lt;boundary&gt;&gt; LoginPage
-- &lt;&lt;control&gt;&gt; AuthController: login(username, password)
-- &lt;&lt;entity&gt;&gt; User: id, username, passwordHash, fullName, role, studentCode, phone, email, emailVerified, active; isLibrarian(): boolean
-- UserService class: authenticate(username, password): User, getUserById(id): User
-- UserRepository class: findByUsername(username): User
+- FrmDangNhap: -txtUsername: String, -txtPassword: String; +hienThiForm(): void, +nhanNutDangNhap(): void, +hienThiLoi(msg: String): void
+- DangNhapController: +dangNhap(username: String, password: String): User, +kiemTraMatKhau(password: String, passwordHash: String): boolean, +getUserById(id: int): User, +taoToken(user: User): String
+- User: id, username, passwordHash, fullName, role, studentCode, phone, email, emailVerified, active; +isLibrarian(): boolean, +getId(): int, +getUsername(): String
 
 Relationships:
-- LoginPage → AuthController
-- AuthController → UserService
-- UserService → User, UserService → UserRepository
+- FrmDangNhap -- DangNhapController: solid line, labeled &quot;form uses controller&quot;, 1 - 1
+- DangNhapController ..&gt; User: dashed dependency, labeled &quot;uses User&quot;
 </code></pre>
 <p>PlantUML:</p>
 <pre><code class="language-plantuml">@startuml UC01_Class
-class LoginPage &lt;&lt;boundary&gt;&gt; {
+class FrmDangNhap {
+  -txtUsername : String
+  -txtPassword : String
+  +hienThiForm() : void
+  +nhanNutDangNhap() : void
+  +hienThiLoi(msg : String) : void
 }
-class AuthController &lt;&lt;control&gt;&gt; {
-  login(username, password)
+class DangNhapController {
+  +dangNhap(username : String, password : String) : User
+  +kiemTraMatKhau(password : String, passwordHash : String) : boolean
+  +getUserById(id : int) : User
+  +taoToken(user : User) : String
 }
-class User &lt;&lt;entity&gt;&gt; {
+class User {
   id
   username
   passwordHash
@@ -2620,56 +2625,61 @@ class User &lt;&lt;entity&gt;&gt; {
   email
   emailVerified
   active
-  isLibrarian(): boolean
+  +isLibrarian() : boolean
+  +getId() : int
+  +getUsername() : String
 }
-class UserService {
-  authenticate(username, password): User
-  getUserById(id): User
-}
-class UserRepository {
-  findByUsername(username): User
-}
-
-LoginPage --&gt; AuthController
-AuthController --&gt; UserService
-UserService --&gt; User
-UserService --&gt; UserRepository
+FrmDangNhap -- DangNhapController : &quot;form uses controller&quot;
+DangNhapController ..&gt; User : &quot;uses User&quot;
 @enduml
 </code></pre>
 <hr />
 <h2 id="prompt-19-uc02-analysis-class">Prompt 19 — UC02 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC02 — Quản lý sách&quot; (incl. UC15) of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC02 — Quản lý sách&quot; (incl. UC15) of the university library management system, following the class standard: only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt; or &lt;&lt;entity&gt;&gt; — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database.
 
 Classes:
-- &lt;&lt;boundary&gt;&gt; BookPage
-- &lt;&lt;control&gt;&gt; BookController: listBooks(), createBook(data, quantity), updateBook(id, data), deleteBook(id), getByQr(qrCode), uploadCover(id, file), importExcel(file), syncBookCodes()
-- &lt;&lt;entity&gt;&gt; Book: id, qrCode, bookCode, title, author, category, publisher, publishYear, coverUrl, status; isAvailable(): boolean
-- &lt;&lt;entity&gt;&gt; Category: id, name, code
-- BookService class: createBook(data, quantity): Book[], generateBookCode(category): string, updateBook(id, data): Book, deleteBook(id): void, findByQrCode(qr): Book, search(keyword): Book[], importFromExcel(buffer): {created, errors}, syncBookCodes(): int, setCover(id, filename): void
-- BookRepository class: save(book): Book, findById(id): Book, findByQrCode(qr): Book, search(keyword): Book[], delete(id): void, bookCodeExists(code): boolean, maxCodeSeq(catCode): int, updateCoverUrl(id, url): void
-- CategoryRepository class: findByName(name): Category, save(c): Category, delete(id): void
+- FrmQuanLySach: -txtTieuDe: String, -txtTacGia: String, -txtTheLoai: String, -txtNhaXuatBan: String, -txtNamXuatBan: int, -txtSoLuong: int, -fileAnhBia: String, -fileExcel: String; +hienThiForm(): void, +nhanNutThem(): void, +nhanNutSua(): void, +nhanNutXoa(): void, +hienThiLoi(msg: String): void, +hienThiThanhCong(): void
+- QuanLySachController: +danhSachSach(): Book, +themSach(data, quantity): Book, +suaSach(id, data): Book, +xoaSach(id): void, +timSachTheoQr(qrCode): Book, +timKiem(keyword): Book, +taiLenAnhBia(id, file): void, +nhapExcel(file): [created, errors], +dongBoMaSach(): int, +taoMaSach(category): String
+- Book: id, qrCode, bookCode, title, author, category, publisher, publishYear, coverUrl, status; +isAvailable(): boolean, +save(): boolean
+- Category: id, name, code; +save(): boolean
 
 Relationships:
-- BookPage → BookController
-- BookController → BookService
-- BookService → Book, BookService → BookRepository, BookService → CategoryRepository
-- Category 1 — * Book
+- FrmQuanLySach -- QuanLySachController: solid line, labeled &quot;form uses controller&quot;, 1 - 1
+- QuanLySachController ..&gt; Book: dashed dependency, labeled &quot;uses Book&quot;
+- QuanLySachController ..&gt; Category: dashed dependency, labeled &quot;uses Category&quot;
+- Category &quot;1&quot; -- &quot;*&quot; Book
 </code></pre>
 <p>PlantUML:</p>
 <pre><code class="language-plantuml">@startuml UC02_Class
-class BookPage &lt;&lt;boundary&gt;&gt; {
+class FrmQuanLySach {
+  -txtTieuDe : String
+  -txtTacGia : String
+  -txtTheLoai : String
+  -txtNhaXuatBan : String
+  -txtNamXuatBan : int
+  -txtSoLuong : int
+  -fileAnhBia : String
+  -fileExcel : String
+  +hienThiForm() : void
+  +nhanNutThem() : void
+  +nhanNutSua() : void
+  +nhanNutXoa() : void
+  +hienThiLoi(msg : String) : void
+  +hienThiThanhCong() : void
 }
-class BookController &lt;&lt;control&gt;&gt; {
-  listBooks()
-  createBook(data, quantity)
-  updateBook(id, data)
-  deleteBook(id)
-  getByQr(qrCode)
-  uploadCover(id, file)
-  importExcel(file)
-  syncBookCodes()
+class QuanLySachController {
+  +danhSachSach() : Book
+  +themSach(data, quantity) : Book
+  +suaSach(id, data) : Book
+  +xoaSach(id) : void
+  +timSachTheoQr(qrCode) : Book
+  +timKiem(keyword) : Book
+  +taiLenAnhBia(id, file) : void
+  +nhapExcel(file) : [created, errors]
+  +dongBoMaSach() : int
+  +taoMaSach(category) : String
 }
-class Book &lt;&lt;entity&gt;&gt; {
+class Book {
   id
   qrCode
   bookCode
@@ -2680,75 +2690,57 @@ class Book &lt;&lt;entity&gt;&gt; {
   publishYear
   coverUrl
   status
-  isAvailable(): boolean
+  +isAvailable() : boolean
+  +save() : boolean
 }
-class Category &lt;&lt;entity&gt;&gt; {
+class Category {
   id
   name
   code
+  +save() : boolean
 }
-class BookService {
-  createBook(data, quantity): Book[]
-  generateBookCode(category): string
-  updateBook(id, data): Book
-  deleteBook(id): void
-  findByQrCode(qr): Book
-  search(keyword): Book[]
-  importFromExcel(buffer): [created, errors]
-  syncBookCodes(): int
-  setCover(id, filename): void
-}
-class BookRepository {
-  save(book): Book
-  findById(id): Book
-  findByQrCode(qr): Book
-  search(keyword): Book[]
-  delete(id): void
-  bookCodeExists(code): boolean
-  maxCodeSeq(catCode): int
-  updateCoverUrl(id, url): void
-}
-class CategoryRepository {
-  findByName(name): Category
-  save(c): Category
-  delete(id): void
-}
-
-BookPage --&gt; BookController
-BookController --&gt; BookService
-BookService --&gt; Book
-BookService --&gt; BookRepository
-BookService --&gt; CategoryRepository
+FrmQuanLySach -- QuanLySachController : &quot;form uses controller&quot;
+QuanLySachController ..&gt; Book : &quot;uses Book&quot;
+QuanLySachController ..&gt; Category : &quot;uses Category&quot;
 Category &quot;1&quot; -- &quot;*&quot; Book
 @enduml
 </code></pre>
 <hr />
 <h2 id="prompt-22-uc03-analysis-class">Prompt 22 — UC03 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC03 — Quản lý độc giả&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC03 — Quản lý độc giả&quot; of the university library management system, following the class standard: only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt; or &lt;&lt;entity&gt;&gt; — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database.
 
 Classes:
-- &lt;&lt;boundary&gt;&gt; ReaderPage
-- &lt;&lt;control&gt;&gt; ReaderController: listReaders(), createReader(data), updateReader(id, data), deleteReader(id)
-- &lt;&lt;entity&gt;&gt; User: id, username, passwordHash, fullName, role, studentCode, phone, active
-- UserService class: registerReader(data): User, listReaders(): User[], updateReader(id, data): User, deleteReader(id): void
-- UserRepository class: findByUsername(username): User, save(user): User, delete(id): void, countBorrowingByReader(readerId): int
+- FrmQuanLyDocGia: -txtUsername: String, -txtFullName: String, -txtStudentCode: String, -txtPhone: String; +hienThiForm(): void, +nhanNutThem(): void, +nhanNutSua(): void, +nhanNutXoa(): void, +hienThiLoi(msg: String): void, +hienThiThanhCong(): void
+- QuanLyDocGiaController: +danhSachDocGia(): User, +themDocGia(data): User, +suaDocGia(id, data): User, +xoaDocGia(id): void, +kiemTraUsernameTonTai(username): boolean, +demSachDangMuon(readerId): int
+- User: id, username, passwordHash, fullName, role, studentCode, phone, active; +getId(): int, +getUsername(): String, +save(): boolean, +kiemTraTonTai(): boolean
 
 Relationships:
-- ReaderPage → ReaderController
-- ReaderController → UserService
-- UserService → User, UserService → UserRepository
+- FrmQuanLyDocGia -- QuanLyDocGiaController: solid line, labeled &quot;form uses controller&quot;, 1 - 1
+- QuanLyDocGiaController ..&gt; User: dashed dependency, labeled &quot;uses User&quot;
 </code></pre>
 <p>PlantUML:</p>
 <pre><code class="language-plantuml">@startuml UC03_Class
-class ReaderPage &lt;&lt;boundary&gt;&gt; {
+class FrmQuanLyDocGia {
+  -txtUsername : String
+  -txtFullName : String
+  -txtStudentCode : String
+  -txtPhone : String
+  +hienThiForm() : void
+  +nhanNutThem() : void
+  +nhanNutSua() : void
+  +nhanNutXoa() : void
+  +hienThiLoi(msg : String) : void
+  +hienThiThanhCong() : void
 }
-class ReaderController &lt;&lt;control&gt;&gt; {
-  listReaders()
-  createReader(data)
-  updateReader(id, data)
-  deleteReader(id)
+class QuanLyDocGiaController {
+  +danhSachDocGia() : User
+  +themDocGia(data) : User
+  +suaDocGia(id, data) : User
+  +xoaDocGia(id) : void
+  +kiemTraUsernameTonTai(username) : boolean
+  +demSachDangMuon(readerId) : int
 }
-class User &lt;&lt;entity&gt;&gt; {
+class User {
   id
   username
   passwordHash
@@ -2757,123 +2749,104 @@ class User &lt;&lt;entity&gt;&gt; {
   studentCode
   phone
   active
+  +getId() : int
+  +getUsername() : String
+  +save() : boolean
+  +kiemTraTonTai() : boolean
 }
-class UserService {
-  registerReader(data): User
-  listReaders(): User[]
-  updateReader(id, data): User
-  deleteReader(id): void
-}
-class UserRepository {
-  findByUsername(username): User
-  save(user): User
-  delete(id): void
-  countBorrowingByReader(readerId): int
-}
-
-ReaderPage --&gt; ReaderController
-ReaderController --&gt; UserService
-UserService --&gt; User
-UserService --&gt; UserRepository
+FrmQuanLyDocGia -- QuanLyDocGiaController : &quot;form uses controller&quot;
+QuanLyDocGiaController ..&gt; User : &quot;uses User&quot;
 @enduml
 </code></pre>
+<hr />
 <h2 id="prompt-25-uc04-analysis-class">Prompt 25 — UC04 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC04 — Mượn sách&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC04 — Mượn sách&quot; of the university library management system, following the class standard: only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt; or &lt;&lt;entity&gt;&gt; — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database.
 
 Classes:
-- &lt;&lt;boundary&gt;&gt; BorrowPage
-- &lt;&lt;control&gt;&gt; LoanController: borrowBook(qrCode, readerId)
-- &lt;&lt;entity&gt;&gt; Book: id, qrCode, title, status; isAvailable(): boolean
-- &lt;&lt;entity&gt;&gt; User: id, fullName, role, active; isActive(): boolean
-- &lt;&lt;entity&gt;&gt; Loan: id, borrowedAt, dueAt, returnedAt, fineAmount, status; isOverdue(): boolean, calcOverdueDays(): int, calcFine(finePerDay): int
-- &lt;&lt;entity&gt;&gt; Reservation: id, reservedAt, expiresAt, status; isActive(): boolean, isExpired(): boolean
-- LoanService class: borrowBook(qrCode, readerId): Loan
-- BookRepository class: findByQrCode(qr): Book, updateStatus(id, status): void
-- UserRepository class: findById(id): User
-- LoanRepository class: save(loan): Loan, countActiveByReader(readerId): int, findActiveByBook(bookId): Loan
-- ReservationRepository class: findPendingByBook(bookId): Reservation, updateStatus(id, status): void
-- SettingsRepository class: get(): Settings
+- FrmMuonSach: -txtQrCode: String, -txtReaderId: int; +hienThiForm(): void, +quetMaQr(): void, +nhanNutMuon(): void, +hienThiLoi(msg: String): void, +hienThiThanhCong(): void
+- MuonSachController: +muonSach(qrCode, readerId): Loan, +kiemTraSachConTrong(bookId): boolean, +kiemTraDocGiaHopLe(readerId): boolean, +demSachDangMuon(readerId): int, +layCauHinh(): Settings
+- Book: id, qrCode, title, status; +isAvailable(): boolean, +save(): boolean
+- User: id, fullName, role, active; +isActive(): boolean, +getId(): int
+- Loan: id, borrowedAt, dueAt, returnedAt, fineAmount, status; +isOverdue(): boolean, +calcOverdueDays(): int, +calcFine(finePerDay): int, +save(): boolean
+- Reservation: id, reservedAt, expiresAt, status; +isActive(): boolean, +isExpired(): boolean, +save(): boolean
+- Settings: loanDays, finePerDay, maxBooksPerReader, reservationHours
 
 Relationships:
-- BorrowPage → LoanController
-- LoanController → LoanService
-- LoanService → Book, LoanService → User, LoanService → Loan
-- LoanService → BookRepository, LoanService → UserRepository, LoanService → LoanRepository, LoanService → ReservationRepository, LoanService → SettingsRepository
-- User 1 — * Loan, Book 1 — * Loan, User 1 — * Reservation, Book 1 — * Reservation
+- FrmMuonSach -- MuonSachController: solid line, labeled &quot;form uses controller&quot;, 1 - 1
+- MuonSachController ..&gt; Book: dashed dependency, labeled &quot;uses Book&quot;
+- MuonSachController ..&gt; User: dashed dependency, labeled &quot;uses User&quot;
+- MuonSachController ..&gt; Loan: dashed dependency, labeled &quot;uses Loan&quot;
+- MuonSachController ..&gt; Reservation: dashed dependency, labeled &quot;uses Reservation&quot;
+- MuonSachController ..&gt; Settings: dashed dependency, labeled &quot;uses Settings&quot;
+- User &quot;1&quot; -- &quot;*&quot; Loan, Book &quot;1&quot; -- &quot;*&quot; Loan, User &quot;1&quot; -- &quot;*&quot; Reservation, Book &quot;1&quot; -- &quot;*&quot; Reservation
 </code></pre>
 <p>PlantUML:</p>
 <pre><code class="language-plantuml">@startuml UC04_Class
-class BorrowPage &lt;&lt;boundary&gt;&gt; {
+class FrmMuonSach {
+  -txtQrCode : String
+  -txtReaderId : int
+  +hienThiForm() : void
+  +quetMaQr() : void
+  +nhanNutMuon() : void
+  +hienThiLoi(msg : String) : void
+  +hienThiThanhCong() : void
 }
-class LoanController &lt;&lt;control&gt;&gt; {
-  borrowBook(qrCode, readerId)
+class MuonSachController {
+  +muonSach(qrCode, readerId) : Loan
+  +kiemTraSachConTrong(bookId) : boolean
+  +kiemTraDocGiaHopLe(readerId) : boolean
+  +demSachDangMuon(readerId) : int
+  +layCauHinh() : Settings
 }
-class Book &lt;&lt;entity&gt;&gt; {
+class Book {
   id
   qrCode
   title
   status
-  isAvailable(): boolean
+  +isAvailable() : boolean
+  +save() : boolean
 }
-class User &lt;&lt;entity&gt;&gt; {
+class User {
   id
   fullName
   role
   active
-  isActive(): boolean
+  +isActive() : boolean
+  +getId() : int
 }
-class Loan &lt;&lt;entity&gt;&gt; {
+class Loan {
   id
   borrowedAt
   dueAt
   returnedAt
   fineAmount
   status
-  isOverdue(): boolean
-  calcOverdueDays(): int
-  calcFine(finePerDay): int
+  +isOverdue() : boolean
+  +calcOverdueDays() : int
+  +calcFine(finePerDay) : int
+  +save() : boolean
 }
-class Reservation &lt;&lt;entity&gt;&gt; {
+class Reservation {
   id
   reservedAt
   expiresAt
   status
-  isActive(): boolean
-  isExpired(): boolean
+  +isActive() : boolean
+  +isExpired() : boolean
+  +save() : boolean
 }
-class LoanService {
-  borrowBook(qrCode, readerId): Loan
+class Settings {
+  loanDays
+  finePerDay
+  maxBooksPerReader
+  reservationHours
 }
-class BookRepository {
-  findByQrCode(qr): Book
-  updateStatus(id, status): void
-}
-class UserRepository {
-  findById(id): User
-}
-class LoanRepository {
-  save(loan): Loan
-  countActiveByReader(readerId): int
-  findActiveByBook(bookId): Loan
-}
-class ReservationRepository {
-  findPendingByBook(bookId): Reservation
-  updateStatus(id, status): void
-}
-class SettingsRepository {
-  get(): Settings
-}
-
-BorrowPage --&gt; LoanController
-LoanController --&gt; LoanService
-LoanService --&gt; Book
-LoanService --&gt; User
-LoanService --&gt; Loan
-LoanService --&gt; BookRepository
-LoanService --&gt; UserRepository
-LoanService --&gt; LoanRepository
-LoanService --&gt; ReservationRepository
-LoanService --&gt; SettingsRepository
+FrmMuonSach -- MuonSachController : &quot;form uses controller&quot;
+MuonSachController ..&gt; Book : &quot;uses Book&quot;
+MuonSachController ..&gt; User : &quot;uses User&quot;
+MuonSachController ..&gt; Loan : &quot;uses Loan&quot;
+MuonSachController ..&gt; Reservation : &quot;uses Reservation&quot;
+MuonSachController ..&gt; Settings : &quot;uses Settings&quot;
 User &quot;1&quot; -- &quot;*&quot; Loan
 Book &quot;1&quot; -- &quot;*&quot; Loan
 User &quot;1&quot; -- &quot;*&quot; Reservation
@@ -2882,398 +2855,380 @@ Book &quot;1&quot; -- &quot;*&quot; Reservation
 </code></pre>
 <hr />
 <h2 id="prompt-28-uc05-analysis-class">Prompt 28 — UC05 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC05 — Trả sách&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC05 — Trả sách&quot; of the university library management system, following the class standard: only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt; or &lt;&lt;entity&gt;&gt; — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database.
 
 Classes:
-- &lt;&lt;boundary&gt;&gt; ReturnPage
-- &lt;&lt;control&gt;&gt; LoanController: previewReturn(qrCode), returnBook(loanId)
-- &lt;&lt;entity&gt;&gt; Book: id, qrCode, title, status
-- &lt;&lt;entity&gt;&gt; Loan: id, borrowedAt, dueAt, returnedAt, fineAmount; isOverdue(): boolean, calcOverdueDays(): int, calcFine(finePerDay: int): int
-- &lt;&lt;entity&gt;&gt; Settings: loanDays, finePerDay, maxBooksPerReader, reservationHours
-- LoanService class: previewReturn(qrCode): {loan, overdueDays, estimatedFine}, confirmReturn(loanId): {loan, overdueDays, fineAmount}
-- LoanRepository class: findBorrowingByBook(bookId): Loan, updateReturn(loanId, returnedAt, fineAmount): void
-- BookRepository class, SettingsRepository class
+- FrmTraSach: -txtQrCode: String; +hienThiForm(): void, +quetMaQr(): void, +nhanNutTra(): void, +hienThiLoi(msg: String): void, +hienThiThanhCong(): void
+- TraSachController: +xemTruocTraSach(qrCode): Loan, +xacNhanTraSach(loanId): Loan, +tinhSoNgayQuaHan(loan): int, +tinhTienPhat(loan, finePerDay): int
+- Book: id, qrCode, title, status; +save(): boolean
+- Loan: id, borrowedAt, dueAt, returnedAt, fineAmount; +isOverdue(): boolean, +calcOverdueDays(): int, +calcFine(finePerDay: int): int, +save(): boolean
+- Settings: loanDays, finePerDay, maxBooksPerReader, reservationHours
 
 Relationships:
-- ReturnPage → LoanController
-- LoanController → LoanService
-- LoanService → Loan, LoanService → Book, LoanService → Settings
-- LoanService → LoanRepository, LoanService → BookRepository, LoanService → SettingsRepository
+- FrmTraSach -- TraSachController: solid line, labeled &quot;form uses controller&quot;, 1 - 1
+- TraSachController ..&gt; Book: dashed dependency, labeled &quot;uses Book&quot;
+- TraSachController ..&gt; Loan: dashed dependency, labeled &quot;uses Loan&quot;
+- TraSachController ..&gt; Settings: dashed dependency, labeled &quot;uses Settings&quot;
+- Book &quot;1&quot; -- &quot;*&quot; Loan
 </code></pre>
 <p>PlantUML:</p>
 <pre><code class="language-plantuml">@startuml UC05_Class
-class ReturnPage &lt;&lt;boundary&gt;&gt; {
+class FrmTraSach {
+  -txtQrCode : String
+  +hienThiForm() : void
+  +quetMaQr() : void
+  +nhanNutTra() : void
+  +hienThiLoi(msg : String) : void
+  +hienThiThanhCong() : void
 }
-class LoanController &lt;&lt;control&gt;&gt; {
-  previewReturn(qrCode)
-  returnBook(loanId)
+class TraSachController {
+  +xemTruocTraSach(qrCode) : Loan
+  +xacNhanTraSach(loanId) : Loan
+  +tinhSoNgayQuaHan(loan) : int
+  +tinhTienPhat(loan, finePerDay) : int
 }
-class Book &lt;&lt;entity&gt;&gt; {
+class Book {
   id
   qrCode
   title
   status
+  +save() : boolean
 }
-class Loan &lt;&lt;entity&gt;&gt; {
+class Loan {
   id
   borrowedAt
   dueAt
   returnedAt
   fineAmount
-  isOverdue(): boolean
-  calcOverdueDays(): int
-  calcFine(finePerDay: int): int
+  +isOverdue() : boolean
+  +calcOverdueDays() : int
+  +calcFine(finePerDay : int) : int
+  +save() : boolean
 }
-class Settings &lt;&lt;entity&gt;&gt; {
+class Settings {
   loanDays
   finePerDay
   maxBooksPerReader
   reservationHours
 }
-class LoanService {
-  previewReturn(qrCode): [loan, overdueDays, estimatedFine]
-  confirmReturn(loanId): [loan, overdueDays, fineAmount]
-}
-class LoanRepository {
-  findBorrowingByBook(bookId): Loan
-  updateReturn(loanId, returnedAt, fineAmount): void
-}
-class BookRepository {
-}
-class SettingsRepository {
-}
-
-ReturnPage --&gt; LoanController
-LoanController --&gt; LoanService
-LoanService --&gt; Loan
-LoanService --&gt; Book
-LoanService --&gt; Settings
-LoanService --&gt; LoanRepository
-LoanService --&gt; BookRepository
-LoanService --&gt; SettingsRepository
+FrmTraSach -- TraSachController : &quot;form uses controller&quot;
+TraSachController ..&gt; Book : &quot;uses Book&quot;
+TraSachController ..&gt; Loan : &quot;uses Loan&quot;
+TraSachController ..&gt; Settings : &quot;uses Settings&quot;
+Book &quot;1&quot; -- &quot;*&quot; Loan
 @enduml
 </code></pre>
 <hr />
 <h2 id="prompt-31-uc06-analysis-class">Prompt 31 — UC06 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC06 — Xem danh sách quá hạn&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC06 — Xem danh sách quá hạn&quot; of the university library management system, following the class standard: only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt; or &lt;&lt;entity&gt;&gt; — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database.
 
 Classes:
-- &lt;&lt;boundary&gt;&gt; OverduePage
-- &lt;&lt;control&gt;&gt; LoanController: listOverdue()
-- &lt;&lt;entity&gt;&gt; Loan: id, borrowedAt, dueAt, returnedAt, fineAmount; isOverdue(): boolean, calcOverdueDays(): int, calcFine(finePerDay: int): int
-- &lt;&lt;entity&gt;&gt; Book: id, title
-- &lt;&lt;entity&gt;&gt; User: id, fullName, phone
-- LoanService class: listOverdue(): Loan[]
-- LoanRepository class: findOverdue(): Loan[]
+- FrmQuaHan: +hienThiDanhSach(): void
+- QuaHanController: +danhSachQuaHan(): Loan
+- Loan: id, borrowedAt, dueAt, returnedAt, fineAmount; +isOverdue(): boolean, +calcOverdueDays(): int, +calcFine(finePerDay: int): int
+- Book: id, title
+- User: id, fullName, phone
 
 Relationships:
-- OverduePage → LoanController
-- LoanController → LoanService
-- LoanService → Loan, LoanService → LoanRepository
-- Each Loan is linked to one Book and one User
+- FrmQuaHan -- QuaHanController: solid line, labeled &quot;form uses controller&quot;, 1 - 1
+- QuaHanController ..&gt; Loan: dashed dependency, labeled &quot;uses Loan&quot;
+- QuaHanController ..&gt; Book: dashed dependency, labeled &quot;uses Book&quot;
+- QuaHanController ..&gt; User: dashed dependency, labeled &quot;uses User&quot;
+- Loan &quot;*&quot; -- &quot;1&quot; Book, Loan &quot;*&quot; -- &quot;1&quot; User
 </code></pre>
 <p>PlantUML:</p>
 <pre><code class="language-plantuml">@startuml UC06_Class
-class OverduePage &lt;&lt;boundary&gt;&gt; {
+class FrmQuaHan {
+  +hienThiDanhSach() : void
 }
-class LoanController &lt;&lt;control&gt;&gt; {
-  listOverdue()
+class QuaHanController {
+  +danhSachQuaHan() : Loan
 }
-class Loan &lt;&lt;entity&gt;&gt; {
+class Loan {
   id
   borrowedAt
   dueAt
   returnedAt
   fineAmount
-  isOverdue(): boolean
-  calcOverdueDays(): int
-  calcFine(finePerDay: int): int
+  +isOverdue() : boolean
+  +calcOverdueDays() : int
+  +calcFine(finePerDay : int) : int
 }
-class Book &lt;&lt;entity&gt;&gt; {
+class Book {
   id
   title
 }
-class User &lt;&lt;entity&gt;&gt; {
+class User {
   id
   fullName
   phone
 }
-class LoanService {
-  listOverdue(): Loan[]
-}
-class LoanRepository {
-  findOverdue(): Loan[]
-}
-
-OverduePage --&gt; LoanController
-LoanController --&gt; LoanService
-LoanService --&gt; Loan
-LoanService --&gt; LoanRepository
+FrmQuaHan -- QuaHanController : &quot;form uses controller&quot;
+QuaHanController ..&gt; Loan : &quot;uses Loan&quot;
+QuaHanController ..&gt; Book : &quot;uses Book&quot;
+QuaHanController ..&gt; User : &quot;uses User&quot;
 Loan &quot;*&quot; -- &quot;1&quot; Book
 Loan &quot;*&quot; -- &quot;1&quot; User
 @enduml
 </code></pre>
+<hr />
 <h2 id="prompt-34-uc07-analysis-class">Prompt 34 — UC07 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC07 — Thống kê&quot; (incl. UC14) of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC07 — Thống kê&quot; (incl. UC14) of the university library management system, following the class standard: only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt; or &lt;&lt;entity&gt;&gt; — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database.
 
 Classes:
-- &lt;&lt;boundary&gt;&gt; StatsPage
-- &lt;&lt;control&gt;&gt; StatsController: getDashboard(), exportExcel(filters)
-- StatsService class: getDashboard(): Dashboard, exportExcel(filters): Buffer
-- &lt;&lt;entity&gt;&gt; Book, &lt;&lt;entity&gt;&gt; Loan, &lt;&lt;entity&gt;&gt; User (reused from earlier use cases)
-- BookRepository class: count(): int
-- LoanRepository class: countBorrowing(): int, countOverdue(): int, topBorrowedBooks(5): Book[], findHistory(filters): Loan[]
-- UserRepository class: countReaders(): int
+- FrmThongKe: -txtTuNgay: String, -txtDenNgay: String, -txtBoLoc: String; +hienThiBangDieuKhien(): void, +nhanNutXuatExcel(): void, +hienThiLoi(msg: String): void
+- ThongKeController: +layBangDieuKhien(): Dashboard, +xuatExcel(filters): Buffer, +demSach(): int, +demPhieuDangMuon(): int, +demPhieuQuaHan(): int, +demDocGia(): int, +topSachMuonNhieu(5): Book, +lichSuMuonTra(filters): Loan
+- Book: id, title
+- Loan: id, borrowedAt, dueAt, returnedAt, fineAmount, status
+- User: id, fullName, role
 
 Relationships:
-- StatsPage → StatsController
-- StatsController → StatsService
-- StatsService → BookRepository, StatsService → LoanRepository, StatsService → UserRepository
+- FrmThongKe -- ThongKeController: solid line, labeled &quot;form uses controller&quot;, 1 - 1
+- ThongKeController ..&gt; Book: dashed dependency, labeled &quot;uses Book&quot;
+- ThongKeController ..&gt; Loan: dashed dependency, labeled &quot;uses Loan&quot;
+- ThongKeController ..&gt; User: dashed dependency, labeled &quot;uses User&quot;
+- Book &quot;1&quot; -- &quot;*&quot; Loan, User &quot;1&quot; -- &quot;*&quot; Loan
 </code></pre>
 <p>PlantUML:</p>
 <pre><code class="language-plantuml">@startuml UC07_Class
-class StatsPage &lt;&lt;boundary&gt;&gt; {
+class FrmThongKe {
+  -txtTuNgay : String
+  -txtDenNgay : String
+  -txtBoLoc : String
+  +hienThiBangDieuKhien() : void
+  +nhanNutXuatExcel() : void
+  +hienThiLoi(msg : String) : void
 }
-class StatsController &lt;&lt;control&gt;&gt; {
-  getDashboard()
-  exportExcel(filters)
+class ThongKeController {
+  +layBangDieuKhien() : Dashboard
+  +xuatExcel(filters) : Buffer
+  +demSach() : int
+  +demPhieuDangMuon() : int
+  +demPhieuQuaHan() : int
+  +demDocGia() : int
+  +topSachMuonNhieu(5) : Book
+  +lichSuMuonTra(filters) : Loan
 }
-class StatsService {
-  getDashboard(): Dashboard
-  exportExcel(filters): Buffer
+class Book {
+  id
+  title
 }
-class Book &lt;&lt;entity&gt;&gt; {
-}
-class Loan &lt;&lt;entity&gt;&gt; {
-}
-class User &lt;&lt;entity&gt;&gt; {
-}
-class BookRepository {
-  count(): int
-}
-class LoanRepository {
-  countBorrowing(): int
-  countOverdue(): int
-  topBorrowedBooks(5): Book[]
-  findHistory(filters): Loan[]
-}
-class UserRepository {
-  countReaders(): int
-}
-
-StatsPage --&gt; StatsController
-StatsController --&gt; StatsService
-StatsService --&gt; BookRepository
-StatsService --&gt; LoanRepository
-StatsService --&gt; UserRepository
-@enduml
-</code></pre>
-<hr />
-<h2 id="prompt-37-uc08-analysis-class">Prompt 37 — UC08 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC08 — Xem sách của tôi&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
-
-Classes:
-- &lt;&lt;boundary&gt;&gt; MyBooksPage
-- &lt;&lt;control&gt;&gt; LoanController: getMyLoans()
-- &lt;&lt;control&gt;&gt; ReservationController: listMy(), cancelReservation(id)
-- &lt;&lt;entity&gt;&gt; Loan: id, borrowedAt, dueAt, returnedAt, fineAmount; isOverdue(): boolean
-- &lt;&lt;entity&gt;&gt; Reservation: id, reservedAt, expiresAt, status; isActive(): boolean, isExpired(): boolean
-- &lt;&lt;entity&gt;&gt; Book: id, title
-- LoanService class: getReaderLoans(readerId): Loan[]
-- ReservationService class: listMyReservations(readerId): Reservation[], cancelReservation(id, readerId): void
-- LoanRepository class, ReservationRepository class
-
-Relationships:
-- MyBooksPage → LoanController, MyBooksPage → ReservationController
-- LoanController → LoanService, ReservationController → ReservationService
-- LoanService → Loan, ReservationService → Reservation
-</code></pre>
-<p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml UC08_Class
-class MyBooksPage &lt;&lt;boundary&gt;&gt; {
-}
-class LoanController &lt;&lt;control&gt;&gt; {
-  getMyLoans()
-}
-class ReservationController &lt;&lt;control&gt;&gt; {
-  listMy()
-  cancelReservation(id)
-}
-class Loan &lt;&lt;entity&gt;&gt; {
+class Loan {
   id
   borrowedAt
   dueAt
   returnedAt
   fineAmount
-  isOverdue(): boolean
+  status
 }
-class Reservation &lt;&lt;entity&gt;&gt; {
+class User {
+  id
+  fullName
+  role
+}
+FrmThongKe -- ThongKeController : &quot;form uses controller&quot;
+ThongKeController ..&gt; Book : &quot;uses Book&quot;
+ThongKeController ..&gt; Loan : &quot;uses Loan&quot;
+ThongKeController ..&gt; User : &quot;uses User&quot;
+Book &quot;1&quot; -- &quot;*&quot; Loan
+User &quot;1&quot; -- &quot;*&quot; Loan
+@enduml
+</code></pre>
+<hr />
+<h2 id="prompt-37-uc08-analysis-class">Prompt 37 — UC08 Analysis Class</h2>
+<pre><code>Draw an analysis class diagram for use case &quot;UC08 — Xem sách của tôi&quot; of the university library management system, following the class standard: only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt; or &lt;&lt;entity&gt;&gt; — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database.
+
+Classes:
+- FrmSachCuaToi: +hienThiDanhSach(): void, +nhanNutHuyDatTruoc(): void
+- SachCuaToiController: +layPhieuMuonCuaToi(readerId): Loan, +layDatTruocCuaToi(readerId): Reservation, +huyDatTruoc(id, readerId): void
+- Loan: id, borrowedAt, dueAt, returnedAt, fineAmount; +isOverdue(): boolean, +save(): boolean
+- Reservation: id, reservedAt, expiresAt, status; +isActive(): boolean, +isExpired(): boolean, +save(): boolean
+- Book: id, title
+
+Relationships:
+- FrmSachCuaToi -- SachCuaToiController: solid line, labeled &quot;form uses controller&quot;, 1 - 1
+- SachCuaToiController ..&gt; Loan: dashed dependency, labeled &quot;uses Loan&quot;
+- SachCuaToiController ..&gt; Reservation: dashed dependency, labeled &quot;uses Reservation&quot;
+- SachCuaToiController ..&gt; Book: dashed dependency, labeled &quot;uses Book&quot;
+- Book &quot;1&quot; -- &quot;*&quot; Loan, Book &quot;1&quot; -- &quot;*&quot; Reservation
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml UC08_Class
+class FrmSachCuaToi {
+  +hienThiDanhSach() : void
+  +nhanNutHuyDatTruoc() : void
+}
+class SachCuaToiController {
+  +layPhieuMuonCuaToi(readerId) : Loan
+  +layDatTruocCuaToi(readerId) : Reservation
+  +huyDatTruoc(id, readerId) : void
+}
+class Loan {
+  id
+  borrowedAt
+  dueAt
+  returnedAt
+  fineAmount
+  +isOverdue() : boolean
+  +save() : boolean
+}
+class Reservation {
   id
   reservedAt
   expiresAt
   status
-  isActive(): boolean
-  isExpired(): boolean
+  +isActive() : boolean
+  +isExpired() : boolean
+  +save() : boolean
 }
-class Book &lt;&lt;entity&gt;&gt; {
+class Book {
   id
   title
 }
-class LoanService {
-  getReaderLoans(readerId): Loan[]
-}
-class ReservationService {
-  listMyReservations(readerId): Reservation[]
-  cancelReservation(id, readerId): void
-}
-class LoanRepository {
-}
-class ReservationRepository {
-}
-
-MyBooksPage --&gt; LoanController
-MyBooksPage --&gt; ReservationController
-LoanController --&gt; LoanService
-ReservationController --&gt; ReservationService
-LoanService --&gt; Loan
-ReservationService --&gt; Reservation
+FrmSachCuaToi -- SachCuaToiController : &quot;form uses controller&quot;
+SachCuaToiController ..&gt; Loan : &quot;uses Loan&quot;
+SachCuaToiController ..&gt; Reservation : &quot;uses Reservation&quot;
+SachCuaToiController ..&gt; Book : &quot;uses Book&quot;
+Book &quot;1&quot; -- &quot;*&quot; Loan
+Book &quot;1&quot; -- &quot;*&quot; Reservation
 @enduml
 </code></pre>
 <hr />
 <h2 id="prompt-40-uc09-analysis-class">Prompt 40 — UC09 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC09 — Cấu hình hệ thống&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC09 — Cấu hình hệ thống&quot; of the university library management system, following the class standard: only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt; or &lt;&lt;entity&gt;&gt; — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database.
 
 Classes:
-- &lt;&lt;boundary&gt;&gt; SettingsPage
-- &lt;&lt;control&gt;&gt; SettingsController: getSettings(), updateSettings(data)
-- &lt;&lt;entity&gt;&gt; Settings: id, loanDays, finePerDay, maxBooksPerReader, reservationHours
-- SettingsService class: getSettings(): Settings, updateSettings(data): Settings
-- SettingsRepository class: get(): Settings, save(settings): Settings
+- FrmCauHinh: -txtLoanDays: int, -txtFinePerDay: int, -txtMaxBooksPerReader: int, -txtReservationHours: int; +hienThiForm(): void, +nhanNutLuu(): void, +hienThiLoi(msg: String): void, +hienThiThanhCong(): void
+- CauHinhController: +layCauHinh(): Settings, +capNhatCauHinh(data): Settings
+- Settings: id, loanDays, finePerDay, maxBooksPerReader, reservationHours; +save(): boolean
 
 Relationships:
-- SettingsPage → SettingsController
-- SettingsController → SettingsService
-- SettingsService → Settings, SettingsService → SettingsRepository
+- FrmCauHinh -- CauHinhController: solid line, labeled &quot;form uses controller&quot;, 1 - 1
+- CauHinhController ..&gt; Settings: dashed dependency, labeled &quot;uses Settings&quot;
 </code></pre>
 <p>PlantUML:</p>
 <pre><code class="language-plantuml">@startuml UC09_Class
-class SettingsPage &lt;&lt;boundary&gt;&gt; {
+class FrmCauHinh {
+  -txtLoanDays : int
+  -txtFinePerDay : int
+  -txtMaxBooksPerReader : int
+  -txtReservationHours : int
+  +hienThiForm() : void
+  +nhanNutLuu() : void
+  +hienThiLoi(msg : String) : void
+  +hienThiThanhCong() : void
 }
-class SettingsController &lt;&lt;control&gt;&gt; {
-  getSettings()
-  updateSettings(data)
+class CauHinhController {
+  +layCauHinh() : Settings
+  +capNhatCauHinh(data) : Settings
 }
-class Settings &lt;&lt;entity&gt;&gt; {
+class Settings {
   id
   loanDays
   finePerDay
   maxBooksPerReader
   reservationHours
+  +save() : boolean
 }
-class SettingsService {
-  getSettings(): Settings
-  updateSettings(data): Settings
-}
-class SettingsRepository {
-  get(): Settings
-  save(settings): Settings
-}
-
-SettingsPage --&gt; SettingsController
-SettingsController --&gt; SettingsService
-SettingsService --&gt; Settings
-SettingsService --&gt; SettingsRepository
+FrmCauHinh -- CauHinhController : &quot;form uses controller&quot;
+CauHinhController ..&gt; Settings : &quot;uses Settings&quot;
 @enduml
 </code></pre>
+<hr />
 <h2 id="prompt-43-uc10-analysis-class">Prompt 43 — UC10 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC10 — Quản lý tài khoản thủ thư&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC10 — Quản lý tài khoản thủ thư&quot; of the university library management system, following the class standard: only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt; or &lt;&lt;entity&gt;&gt; — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database.
 
 Classes:
-- &lt;&lt;boundary&gt;&gt; AccountsPage
-- &lt;&lt;control&gt;&gt; AccountController: createAccount(dto), toggleActive(id), resetPassword(id)
-- AccountService class: createAccount(dto): User, toggleActive(id): void, resetPassword(id): string
-- &lt;&lt;entity&gt;&gt; User: id, username, passwordHash, fullName, role, active
-- UserRepository class: findByUsername(username): User, save(user): User, updateActive(id, active): void, updatePassword(id, hash): void
+- FrmQuanLyThuThu: -txtUsername: String, -txtFullName: String, -txtPassword: String; +hienThiForm(): void, +nhanNutThem(): void, +nhanNutKhoaMo(): void, +nhanNutDatLaiMatKhau(): void, +hienThiLoi(msg: String): void, +hienThiThanhCong(): void
+- QuanLyThuThuController: +taoTaiKhoan(dto): User, +batTatTaiKhoan(id): void, +datLaiMatKhau(id): String, +kiemTraUsernameTonTai(username): boolean
+- User: id, username, passwordHash, fullName, role, active; +getId(): int, +getUsername(): String, +save(): boolean, +kiemTraTonTai(): boolean
 
 Relationships:
-- AccountsPage → AccountController
-- AccountController → AccountService
-- AccountService → User, AccountService → UserRepository
+- FrmQuanLyThuThu -- QuanLyThuThuController: solid line, labeled &quot;form uses controller&quot;, 1 - 1
+- QuanLyThuThuController ..&gt; User: dashed dependency, labeled &quot;uses User&quot;
 </code></pre>
 <p>PlantUML:</p>
 <pre><code class="language-plantuml">@startuml UC10_Class
-class AccountsPage &lt;&lt;boundary&gt;&gt; {
+class FrmQuanLyThuThu {
+  -txtUsername : String
+  -txtFullName : String
+  -txtPassword : String
+  +hienThiForm() : void
+  +nhanNutThem() : void
+  +nhanNutKhoaMo() : void
+  +nhanNutDatLaiMatKhau() : void
+  +hienThiLoi(msg : String) : void
+  +hienThiThanhCong() : void
 }
-class AccountController &lt;&lt;control&gt;&gt; {
-  createAccount(dto)
-  toggleActive(id)
-  resetPassword(id)
+class QuanLyThuThuController {
+  +taoTaiKhoan(dto) : User
+  +batTatTaiKhoan(id) : void
+  +datLaiMatKhau(id) : String
+  +kiemTraUsernameTonTai(username) : boolean
 }
-class AccountService {
-  createAccount(dto): User
-  toggleActive(id): void
-  resetPassword(id): string
-}
-class User &lt;&lt;entity&gt;&gt; {
+class User {
   id
   username
   passwordHash
   fullName
   role
   active
+  +getId() : int
+  +getUsername() : String
+  +save() : boolean
+  +kiemTraTonTai() : boolean
 }
-class UserRepository {
-  findByUsername(username): User
-  save(user): User
-  updateActive(id, active): void
-  updatePassword(id, hash): void
-}
-
-AccountsPage --&gt; AccountController
-AccountController --&gt; AccountService
-AccountService --&gt; User
-AccountService --&gt; UserRepository
+FrmQuanLyThuThu -- QuanLyThuThuController : &quot;form uses controller&quot;
+QuanLyThuThuController ..&gt; User : &quot;uses User&quot;
 @enduml
 </code></pre>
 <hr />
 <h2 id="prompt-46-uc11-analysis-class-new-flow">Prompt 46 — UC11 Analysis Class (NEW FLOW)</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC11 — Đặt trước sách&quot; (new flow with approval) of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC11 — Đặt trước sách&quot; (new flow with approval) of the university library management system, following the class standard: only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt; or &lt;&lt;entity&gt;&gt; — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database.
 
 Classes:
-- &lt;&lt;boundary&gt;&gt; BookDetailPage, &lt;&lt;boundary&gt;&gt; ReservationsPage
-- &lt;&lt;control&gt;&gt; ReservationController: create(bookId, readerNote), approve(id, pickupAt), reject(id, reason), cancel(id)
-- ReservationService class: create(bookId, readerId, readerNote): Reservation, approve(id, pickupAt, reviewerId): void, reject(id, reason, reviewerId): void, expireOverdue(): void
-- &lt;&lt;entity&gt;&gt; Reservation: id, code, bookId, readerId, readerNote, reservedAt, expiresAt, pickupAt, reviewedBy, reviewedAt, rejectReason, status; isActive(): boolean, isExpired(): boolean
-- &lt;&lt;entity&gt;&gt; Book: id, qrCode, bookCode, title, status; isAvailable(): boolean
-- &lt;&lt;entity&gt;&gt; Notification: id, audience, type, title, body, isRead
-- ReservationRepository class: save(r): Reservation, findById(id): Reservation, findActiveByBook(bookId): Reservation, updateStatus(id, status, pickupAt, reviewerId): void, findByCode(code): Reservation
-- NotificationService class: notifyLibrarians(title, body): void, notifyReader(readerId, title, body): void
+- FrmChiTietSach: -txtThoiGianNhan: String; +hienThiForm(): void, +nhanNutDatTruoc(): void, +hienThiLoi(msg: String): void, +hienThiThanhCong(): void
+- FrmDatTruoc: +hienThiDanhSach(): void, +nhanNutDuyet(): void, +nhanNutTuChoi(): void, +hienThiLoi(msg: String): void
+- DatTruocController: +taoDatTruoc(bookId, readerNote): Reservation, +duyetDatTruoc(id, pickupAt, reviewerId): void, +tuChoiDatTruoc(id, reason, reviewerId): void, +huyDatTruoc(id): void, +hetHanDatTruoc(): void, +thongBaoChoThuThu(title, body): void, +thongBaoChoDocGia(readerId, title, body): void
+- Reservation: id, code, bookId, readerId, readerNote, reservedAt, expiresAt, pickupAt, reviewedBy, reviewedAt, rejectReason, status; +isActive(): boolean, +isExpired(): boolean, +save(): boolean
+- Book: id, qrCode, bookCode, title, status; +isAvailable(): boolean, +save(): boolean
+- Notification: id, audience, type, title, body, isRead; +save(): boolean
+- User: id, username, fullName, role; +getId(): int
 
 Relationships:
-- BookDetailPage → ReservationController, ReservationsPage → ReservationController
-- ReservationController → ReservationService
-- ReservationService → Reservation, ReservationService → ReservationRepository, ReservationService → NotificationService
-- Book 1 — * Reservation, User 1 — * Reservation, User 1 — * Notification
+- FrmChiTietSach -- DatTruocController: solid line, labeled &quot;form uses controller&quot;, 1 - 1
+- FrmDatTruoc -- DatTruocController: solid line, labeled &quot;form uses controller&quot;, 1 - 1
+- DatTruocController ..&gt; Reservation: dashed dependency, labeled &quot;uses Reservation&quot;
+- DatTruocController ..&gt; Book: dashed dependency, labeled &quot;uses Book&quot;
+- DatTruocController ..&gt; Notification: dashed dependency, labeled &quot;uses Notification&quot;
+- DatTruocController ..&gt; User: dashed dependency, labeled &quot;uses User&quot;
+- Book &quot;1&quot; -- &quot;*&quot; Reservation, User &quot;1&quot; -- &quot;*&quot; Reservation, User &quot;1&quot; -- &quot;*&quot; Notification
 </code></pre>
 <p>PlantUML:</p>
 <pre><code class="language-plantuml">@startuml UC11_Class
-class BookDetailPage &lt;&lt;boundary&gt;&gt; {
+class FrmChiTietSach {
+  -txtThoiGianNhan : String
+  +hienThiForm() : void
+  +nhanNutDatTruoc() : void
+  +hienThiLoi(msg : String) : void
+  +hienThiThanhCong() : void
 }
-class ReservationsPage &lt;&lt;boundary&gt;&gt; {
+class FrmDatTruoc {
+  +hienThiDanhSach() : void
+  +nhanNutDuyet() : void
+  +nhanNutTuChoi() : void
+  +hienThiLoi(msg : String) : void
 }
-class ReservationController &lt;&lt;control&gt;&gt; {
-  create(bookId, readerNote)
-  approve(id, pickupAt)
-  reject(id, reason)
-  cancel(id)
+class DatTruocController {
+  +taoDatTruoc(bookId, readerNote) : Reservation
+  +duyetDatTruoc(id, pickupAt, reviewerId) : void
+  +tuChoiDatTruoc(id, reason, reviewerId) : void
+  +huyDatTruoc(id) : void
+  +hetHanDatTruoc() : void
+  +thongBaoChoThuThu(title, body) : void
+  +thongBaoChoDocGia(readerId, title, body) : void
 }
-class ReservationService {
-  create(bookId, readerId, readerNote): Reservation
-  approve(id, pickupAt, reviewerId): void
-  reject(id, reason, reviewerId): void
-  expireOverdue(): void
-}
-class Reservation &lt;&lt;entity&gt;&gt; {
+class Reservation {
   id
   code
   bookId
@@ -3286,45 +3241,41 @@ class Reservation &lt;&lt;entity&gt;&gt; {
   reviewedAt
   rejectReason
   status
-  isActive(): boolean
-  isExpired(): boolean
+  +isActive() : boolean
+  +isExpired() : boolean
+  +save() : boolean
 }
-class Book &lt;&lt;entity&gt;&gt; {
+class Book {
   id
   qrCode
   bookCode
   title
   status
-  isAvailable(): boolean
+  +isAvailable() : boolean
+  +save() : boolean
 }
-class Notification &lt;&lt;entity&gt;&gt; {
+class Notification {
   id
   audience
   type
   title
   body
   isRead
+  +save() : boolean
 }
-class User &lt;&lt;entity&gt;&gt; {
+class User {
+  id
+  username
+  fullName
+  role
+  +getId() : int
 }
-class ReservationRepository {
-  save(r): Reservation
-  findById(id): Reservation
-  findActiveByBook(bookId): Reservation
-  updateStatus(id, status, pickupAt, reviewerId): void
-  findByCode(code): Reservation
-}
-class NotificationService {
-  notifyLibrarians(title, body): void
-  notifyReader(readerId, title, body): void
-}
-
-BookDetailPage --&gt; ReservationController
-ReservationsPage --&gt; ReservationController
-ReservationController --&gt; ReservationService
-ReservationService --&gt; Reservation
-ReservationService --&gt; ReservationRepository
-ReservationService --&gt; NotificationService
+FrmChiTietSach -- DatTruocController : &quot;form uses controller&quot;
+FrmDatTruoc -- DatTruocController : &quot;form uses controller&quot;
+DatTruocController ..&gt; Reservation : &quot;uses Reservation&quot;
+DatTruocController ..&gt; Book : &quot;uses Book&quot;
+DatTruocController ..&gt; Notification : &quot;uses Notification&quot;
+DatTruocController ..&gt; User : &quot;uses User&quot;
 Book &quot;1&quot; -- &quot;*&quot; Reservation
 User &quot;1&quot; -- &quot;*&quot; Reservation
 User &quot;1&quot; -- &quot;*&quot; Notification
@@ -3332,37 +3283,38 @@ User &quot;1&quot; -- &quot;*&quot; Notification
 </code></pre>
 <hr />
 <h2 id="prompt-uc12-analysis-class">Prompt UC12 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC12 — Hủy đặt trước&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC12 — Hủy đặt trước&quot; of the university library management system, following the class standard: only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt; or &lt;&lt;entity&gt;&gt; — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database.
 
 Classes:
-- &lt;&lt;boundary&gt;&gt; MyReservationsPage
-- &lt;&lt;control&gt;&gt; ReservationController: listMine(), cancel(id)
-- ReservationService class: listMine(readerId): Reservation, cancel(id, readerId): void
-- &lt;&lt;entity&gt;&gt; Reservation: id, code, bookId, readerId, readerNote, reservedAt, expiresAt, pickupAt, reviewedBy, reviewedAt, rejectReason, status; isActive(): boolean, isExpired(): boolean, canCancel(): boolean
-- &lt;&lt;entity&gt;&gt; Book: id, qrCode, bookCode, title, status; isAvailable(): boolean
-- &lt;&lt;entity&gt;&gt; Notification: id, audience, type, title, body, isRead
-- ReservationRepository class: findById(id): Reservation, findMine(readerId): Reservation, updateStatus(id, status): void
-- NotificationService class: notifyLibrarians(title, body): void
+- FrmDatTruocCuaToi: +hienThiDanhSach(): void, +nhanNutHuy(): void, +hienThiLoi(msg: String): void, +hienThiThanhCong(): void
+- HuyDatTruocController: +layDatTruocCuaToi(readerId): Reservation, +huyDatTruoc(id, readerId): void, +thongBaoChoThuThu(title, body): void
+- Reservation: id, code, bookId, readerId, readerNote, reservedAt, expiresAt, pickupAt, reviewedBy, reviewedAt, rejectReason, status; +isActive(): boolean, +isExpired(): boolean, +canCancel(): boolean, +save(): boolean
+- Book: id, qrCode, bookCode, title, status; +isAvailable(): boolean
+- Notification: id, audience, type, title, body, isRead; +save(): boolean
+- User: id, username, fullName, role
 
 Relationships:
-- MyReservationsPage → ReservationController
-- ReservationController → ReservationService
-- ReservationService → Reservation, ReservationService → ReservationRepository, ReservationService → NotificationService
-- Book 1 — * Reservation, User 1 — * Reservation, User 1 — * Notification
+- FrmDatTruocCuaToi -- HuyDatTruocController: solid line, labeled &quot;form uses controller&quot;, 1 - 1
+- HuyDatTruocController ..&gt; Reservation: dashed dependency, labeled &quot;uses Reservation&quot;
+- HuyDatTruocController ..&gt; Book: dashed dependency, labeled &quot;uses Book&quot;
+- HuyDatTruocController ..&gt; Notification: dashed dependency, labeled &quot;uses Notification&quot;
+- HuyDatTruocController ..&gt; User: dashed dependency, labeled &quot;uses User&quot;
+- Book &quot;1&quot; -- &quot;*&quot; Reservation, User &quot;1&quot; -- &quot;*&quot; Reservation, User &quot;1&quot; -- &quot;*&quot; Notification
 </code></pre>
 <p>PlantUML:</p>
 <pre><code class="language-plantuml">@startuml UC12_Class
-class MyReservationsPage &lt;&lt;boundary&gt;&gt; {
+class FrmDatTruocCuaToi {
+  +hienThiDanhSach() : void
+  +nhanNutHuy() : void
+  +hienThiLoi(msg : String) : void
+  +hienThiThanhCong() : void
 }
-class ReservationController &lt;&lt;control&gt;&gt; {
-  listMine()
-  cancel(id)
+class HuyDatTruocController {
+  +layDatTruocCuaToi(readerId) : Reservation
+  +huyDatTruoc(id, readerId) : void
+  +thongBaoChoThuThu(title, body) : void
 }
-class ReservationService {
-  listMine(readerId): Reservation
-  cancel(id, readerId): void
-}
-class Reservation &lt;&lt;entity&gt;&gt; {
+class Reservation {
   id
   code
   bookId
@@ -3375,42 +3327,39 @@ class Reservation &lt;&lt;entity&gt;&gt; {
   reviewedAt
   rejectReason
   status
-  isActive(): boolean
-  isExpired(): boolean
-  canCancel(): boolean
+  +isActive() : boolean
+  +isExpired() : boolean
+  +canCancel() : boolean
+  +save() : boolean
 }
-class Book &lt;&lt;entity&gt;&gt; {
+class Book {
   id
   qrCode
   bookCode
   title
   status
-  isAvailable(): boolean
+  +isAvailable() : boolean
 }
-class Notification &lt;&lt;entity&gt;&gt; {
+class Notification {
   id
   audience
   type
   title
   body
   isRead
+  +save() : boolean
 }
-class User &lt;&lt;entity&gt;&gt; {
+class User {
+  id
+  username
+  fullName
+  role
 }
-class ReservationRepository {
-  findById(id): Reservation
-  findMine(readerId): Reservation
-  updateStatus(id, status): void
-}
-class NotificationService {
-  notifyLibrarians(title, body): void
-}
-
-MyReservationsPage --&gt; ReservationController
-ReservationController --&gt; ReservationService
-ReservationService --&gt; Reservation
-ReservationService --&gt; ReservationRepository
-ReservationService --&gt; NotificationService
+FrmDatTruocCuaToi -- HuyDatTruocController : &quot;form uses controller&quot;
+HuyDatTruocController ..&gt; Reservation : &quot;uses Reservation&quot;
+HuyDatTruocController ..&gt; Book : &quot;uses Book&quot;
+HuyDatTruocController ..&gt; Notification : &quot;uses Notification&quot;
+HuyDatTruocController ..&gt; User : &quot;uses User&quot;
 Book &quot;1&quot; -- &quot;*&quot; Reservation
 User &quot;1&quot; -- &quot;*&quot; Reservation
 User &quot;1&quot; -- &quot;*&quot; Notification
@@ -3418,40 +3367,46 @@ User &quot;1&quot; -- &quot;*&quot; Notification
 </code></pre>
 <hr />
 <h2 id="prompt-uc13-analysis-class">Prompt UC13 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC13 — Hệ thống thông báo&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC13 — Hệ thống thông báo&quot; of the university library management system, following the class standard: only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt; or &lt;&lt;entity&gt;&gt; — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database.
 
 Classes:
-- &lt;&lt;boundary&gt;&gt; NotificationsPage
-- &lt;&lt;control&gt;&gt; NotificationController: create(title, body, audience, type, showOnLanding), list(), unreadCount(), markRead(id), markAllRead()
-- NotificationService class: createNotification(title, body, audience, type, showOnLanding, createdBy): Notification, notifyLibrarians(title, body): void, notifyReader(readerId, title, body): void
-- &lt;&lt;entity&gt;&gt; Notification: id, audience, type, title, body, showOnLanding, createdBy, createdAt; isRead(): boolean
-- &lt;&lt;entity&gt;&gt; NotificationRead: notificationId, userId, readAt
-- &lt;&lt;entity&gt;&gt; User: id, username, fullName, role
-- NotificationRepository class: save(n): Notification, findForUser(userId): Notification, unreadCount(userId): int, markRead(notificationId, userId): void, markAllRead(userId): void
+- FrmThongBao: -txtTieuDe: String, -txtNoiDung: String, -txtDoiTuong: String, -txtLoai: String, -txtHienThiTrangChu: boolean; +hienThiForm(): void, +nhanNutTao(): void, +nhanNutDanhDauDaDoc(): void, +nhanNutDanhDauTatCa(): void, +hienThiLoi(msg: String): void
+- ThongBaoController: +taoThongBao(title, body, audience, type, showOnLanding, createdBy): Notification, +danhSachThongBao(userId): Notification, +demChuaDoc(userId): int, +danhDauDaDoc(id, userId): void, +danhDauTatCaDaDoc(userId): void, +thongBaoChoThuThu(title, body): void, +thongBaoChoDocGia(readerId, title, body): void
+- Notification: id, audience, type, title, body, showOnLanding, createdBy, createdAt; +isRead(): boolean, +save(): boolean
+- NotificationRead: notificationId, userId, readAt; +save(): boolean
+- User: id, username, fullName, role
 
 Relationships:
-- NotificationsPage → NotificationController
-- NotificationController → NotificationService
-- NotificationService → Notification, NotificationService → NotificationRepository
-- Notification 1 — * NotificationRead, User 1 — * NotificationRead, User 1 — * Notification (via createdBy)
+- FrmThongBao -- ThongBaoController: solid line, labeled &quot;form uses controller&quot;, 1 - 1
+- ThongBaoController ..&gt; Notification: dashed dependency, labeled &quot;uses Notification&quot;
+- ThongBaoController ..&gt; NotificationRead: dashed dependency, labeled &quot;uses NotificationRead&quot;
+- ThongBaoController ..&gt; User: dashed dependency, labeled &quot;uses User&quot;
+- Notification &quot;1&quot; -- &quot;*&quot; NotificationRead, User &quot;1&quot; -- &quot;*&quot; NotificationRead, User &quot;1&quot; -- &quot;*&quot; Notification (via createdBy)
 </code></pre>
 <p>PlantUML:</p>
 <pre><code class="language-plantuml">@startuml UC13_Class
-class NotificationsPage &lt;&lt;boundary&gt;&gt; {
+class FrmThongBao {
+  -txtTieuDe : String
+  -txtNoiDung : String
+  -txtDoiTuong : String
+  -txtLoai : String
+  -txtHienThiTrangChu : boolean
+  +hienThiForm() : void
+  +nhanNutTao() : void
+  +nhanNutDanhDauDaDoc() : void
+  +nhanNutDanhDauTatCa() : void
+  +hienThiLoi(msg : String) : void
 }
-class NotificationController &lt;&lt;control&gt;&gt; {
-  create(title, body, audience, type, showOnLanding)
-  list()
-  unreadCount()
-  markRead(id)
-  markAllRead()
+class ThongBaoController {
+  +taoThongBao(title, body, audience, type, showOnLanding, createdBy) : Notification
+  +danhSachThongBao(userId) : Notification
+  +demChuaDoc(userId) : int
+  +danhDauDaDoc(id, userId) : void
+  +danhDauTatCaDaDoc(userId) : void
+  +thongBaoChoThuThu(title, body) : void
+  +thongBaoChoDocGia(readerId, title, body) : void
 }
-class NotificationService {
-  createNotification(title, body, audience, type, showOnLanding, createdBy): Notification
-  notifyLibrarians(title, body): void
-  notifyReader(readerId, title, body): void
-}
-class Notification &lt;&lt;entity&gt;&gt; {
+class Notification {
   id
   audience
   type
@@ -3460,31 +3415,25 @@ class Notification &lt;&lt;entity&gt;&gt; {
   showOnLanding
   createdBy
   createdAt
-  isRead(): boolean
+  +isRead() : boolean
+  +save() : boolean
 }
-class NotificationRead &lt;&lt;entity&gt;&gt; {
+class NotificationRead {
   notificationId
   userId
   readAt
+  +save() : boolean
 }
-class User &lt;&lt;entity&gt;&gt; {
+class User {
   id
   username
   fullName
   role
 }
-class NotificationRepository {
-  save(n): Notification
-  findForUser(userId): Notification
-  unreadCount(userId): int
-  markRead(notificationId, userId): void
-  markAllRead(userId): void
-}
-
-NotificationsPage --&gt; NotificationController
-NotificationController --&gt; NotificationService
-NotificationService --&gt; Notification
-NotificationService --&gt; NotificationRepository
+FrmThongBao -- ThongBaoController : &quot;form uses controller&quot;
+ThongBaoController ..&gt; Notification : &quot;uses Notification&quot;
+ThongBaoController ..&gt; NotificationRead : &quot;uses NotificationRead&quot;
+ThongBaoController ..&gt; User : &quot;uses User&quot;
 Notification &quot;1&quot; -- &quot;*&quot; NotificationRead
 User &quot;1&quot; -- &quot;*&quot; NotificationRead
 User &quot;1&quot; -- &quot;*&quot; Notification
@@ -3492,34 +3441,35 @@ User &quot;1&quot; -- &quot;*&quot; Notification
 </code></pre>
 <hr />
 <h2 id="prompt-uc16-d-analysis-class-uc16">Prompt UC16-D — Analysis Class: UC16</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC16 — Tìm sách bằng AI theo mô tả&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC16 — Tìm sách bằng AI theo mô tả&quot; of the university library management system, following the class standard: only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt; or &lt;&lt;entity&gt;&gt; — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database.
 
 Classes:
-- &lt;&lt;boundary&gt;&gt; LandingPage
-- &lt;&lt;control&gt;&gt; PublicController: aiSearch(description)
-- AiBookSearchService class: search(description): {mode, results}, keywordFallback(description, catalog): {results}
-- &lt;&lt;entity&gt;&gt; Book: id, qrCode, bookCode, title, author, category, publisher, publishYear, coverUrl, status
-- BookRepository class: listDistinctTitles(): Book, findByIds(ids): Book
-- GeminiApiClient class: generateContent(catalog, description): JSON (external service, not part of the system database)
+- FrmTimSach: -txtMoTa: String; +hienThiForm(): void, +nhapMoTa(): void, +nhanNutTimKiem(): void, +hienThiKetQua(): void, +hienThiTrangThaiTrong(): void
+- TimSachAIController: +timSachAI(description): [mode, results], +timKiemTuKhoa(description, catalog): [results], +layDanhMucTieuDe(): Book
+- Book: id, qrCode, bookCode, title, author, category, publisher, publishYear, coverUrl, status
+- GeminiAPI (external service, not a system class): +generateContent(catalog, description): JSON
 
 Relationships:
-- LandingPage → PublicController
-- PublicController → AiBookSearchService
-- AiBookSearchService → BookRepository, AiBookSearchService → GeminiApiClient
-- BookRepository → Book
+- FrmTimSach -- TimSachAIController: solid line, labeled &quot;form uses controller&quot;, 1 - 1
+- TimSachAIController ..&gt; Book: dashed dependency, labeled &quot;uses Book&quot;
+- TimSachAIController ..&gt; GeminiAPI: dashed dependency, labeled &quot;uses GeminiAPI (external)&quot;
 </code></pre>
 <p>PlantUML:</p>
 <pre><code class="language-plantuml">@startuml UC16_Class
-class LandingPage &lt;&lt;boundary&gt;&gt; {
+class FrmTimSach {
+  -txtMoTa : String
+  +hienThiForm() : void
+  +nhapMoTa() : void
+  +nhanNutTimKiem() : void
+  +hienThiKetQua() : void
+  +hienThiTrangThaiTrong() : void
 }
-class PublicController &lt;&lt;control&gt;&gt; {
-  aiSearch(description)
+class TimSachAIController {
+  +timSachAI(description) : [mode, results]
+  +timKiemTuKhoa(description, catalog) : [results]
+  +layDanhMucTieuDe() : Book
 }
-class AiBookSearchService {
-  search(description): [mode, results]
-  keywordFallback(description, catalog): [results]
-}
-class Book &lt;&lt;entity&gt;&gt; {
+class Book {
   id
   qrCode
   bookCode
@@ -3531,52 +3481,42 @@ class Book &lt;&lt;entity&gt;&gt; {
   coverUrl
   status
 }
-class BookRepository {
-  listDistinctTitles(): Book
-  findByIds(ids): Book
+class GeminiAPI {
+  +generateContent(catalog, description) : JSON
 }
-class GeminiApiClient {
-  generateContent(catalog, description): JSON
-}
-
-LandingPage --&gt; PublicController
-PublicController --&gt; AiBookSearchService
-AiBookSearchService --&gt; BookRepository
-AiBookSearchService --&gt; GeminiApiClient
-BookRepository --&gt; Book
+FrmTimSach -- TimSachAIController : &quot;form uses controller&quot;
+TimSachAIController ..&gt; Book : &quot;uses Book&quot;
+TimSachAIController ..&gt; GeminiAPI : &quot;uses GeminiAPI (external)&quot;
 @enduml
 </code></pre>
 <hr />
 <h2 id="prompt-uc17-d-analysis-class-uc17">Prompt UC17-D — Analysis Class: UC17</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC17 — Nhắc hạn qua email&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC17 — Nhắc hạn qua email&quot; (no Frm class: background job, triggered by Scheduler on startup and every 6 hours) of the university library management system, following the class standard: only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt; or &lt;&lt;entity&gt;&gt; — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database.
 
 Classes:
-- &lt;&lt;control&gt;&gt; ReminderScheduler: scan() (triggered on startup and every 6 hours)
-- EmailReminderService class: scanLoans(): void, composeDueSoon(loan): Email, composeOverdue(loan): Email, sendReminder(loan): void
-- &lt;&lt;entity&gt;&gt; Loan: id, bookId, readerId, borrowedAt, dueAt, returnedAt, fineAmount, status, overdueNotified
-- &lt;&lt;entity&gt;&gt; EmailReminder: id, loanId, type, recipientEmail, providerId, sentDay, sentAt
-- &lt;&lt;entity&gt;&gt; User: id, username, fullName, email, emailVerified
-- LoanRepository class: findActiveLoansWithReaderEmail(): Loan
-- EmailReminderRepository class: findLastReminder(loanId, type): EmailReminder, save(reminder): EmailReminder
-- ResendApiClient class: sendEmail(to, subject, body): void (external service)
+- NhacHanController: +quetPhieuMuon(): void, +soanEmailSapHetHan(loan): Email, +soanEmailQuaHan(loan): Email, +guiNhacHan(loan): void, +kiemTraNhacHanCuoi(loanId, type): EmailReminder
+- Loan: id, bookId, readerId, borrowedAt, dueAt, returnedAt, fineAmount, status, overdueNotified; +isOverdue(): boolean, +calcFine(): int, +save(): boolean
+- EmailReminder: id, loanId, type, recipientEmail, providerId, sentDay, sentAt; +save(): boolean
+- User: id, username, fullName, email, emailVerified
+- Resend (external service, not a system class): +sendEmail(to, subject, body): void
 
 Relationships:
-- ReminderScheduler → EmailReminderService
-- EmailReminderService → Loan, EmailReminderService → EmailReminder, EmailReminderService → LoanRepository, EmailReminderService → EmailReminderRepository, EmailReminderService → ResendApiClient
-- Loan 1 — * EmailReminder, User 1 — * Loan
+- NhacHanController ..&gt; Loan: dashed dependency, labeled &quot;uses Loan&quot;
+- NhacHanController ..&gt; EmailReminder: dashed dependency, labeled &quot;uses EmailReminder&quot;
+- NhacHanController ..&gt; User: dashed dependency, labeled &quot;uses User&quot;
+- NhacHanController ..&gt; Resend: dashed dependency, labeled &quot;uses Resend (external)&quot;
+- Loan &quot;1&quot; -- &quot;*&quot; EmailReminder, User &quot;1&quot; -- &quot;*&quot; Loan
 </code></pre>
 <p>PlantUML:</p>
 <pre><code class="language-plantuml">@startuml UC17_Class
-class ReminderScheduler &lt;&lt;control&gt;&gt; {
-  scan()
+class NhacHanController {
+  +quetPhieuMuon() : void
+  +soanEmailSapHetHan(loan) : Email
+  +soanEmailQuaHan(loan) : Email
+  +guiNhacHan(loan) : void
+  +kiemTraNhacHanCuoi(loanId, type) : EmailReminder
 }
-class EmailReminderService {
-  scanLoans(): void
-  composeDueSoon(loan): Email
-  composeOverdue(loan): Email
-  sendReminder(loan): void
-}
-class Loan &lt;&lt;entity&gt;&gt; {
+class Loan {
   id
   bookId
   readerId
@@ -3586,8 +3526,11 @@ class Loan &lt;&lt;entity&gt;&gt; {
   fineAmount
   status
   overdueNotified
+  +isOverdue() : boolean
+  +calcFine() : int
+  +save() : boolean
 }
-class EmailReminder &lt;&lt;entity&gt;&gt; {
+class EmailReminder {
   id
   loanId
   type
@@ -3595,79 +3538,78 @@ class EmailReminder &lt;&lt;entity&gt;&gt; {
   providerId
   sentDay
   sentAt
+  +save() : boolean
 }
-class User &lt;&lt;entity&gt;&gt; {
+class User {
   id
   username
   fullName
   email
   emailVerified
 }
-class LoanRepository {
-  findActiveLoansWithReaderEmail(): Loan
+class Resend {
+  +sendEmail(to, subject, body) : void
 }
-class EmailReminderRepository {
-  findLastReminder(loanId, type): EmailReminder
-  save(reminder): EmailReminder
-}
-class ResendApiClient {
-  sendEmail(to, subject, body): void
-}
-
-ReminderScheduler --&gt; EmailReminderService
-EmailReminderService --&gt; Loan
-EmailReminderService --&gt; EmailReminder
-EmailReminderService --&gt; LoanRepository
-EmailReminderService --&gt; EmailReminderRepository
-EmailReminderService --&gt; ResendApiClient
+NhacHanController ..&gt; Loan : &quot;uses Loan&quot;
+NhacHanController ..&gt; EmailReminder : &quot;uses EmailReminder&quot;
+NhacHanController ..&gt; User : &quot;uses User&quot;
+NhacHanController ..&gt; Resend : &quot;uses Resend (external)&quot;
 Loan &quot;1&quot; -- &quot;*&quot; EmailReminder
 User &quot;1&quot; -- &quot;*&quot; Loan
 @enduml
 </code></pre>
 <hr />
 <h2 id="prompt-uc18-analysis-class">Prompt UC18 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC18 — Quên mật khẩu qua email&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC18 — Quên mật khẩu qua email&quot; of the university library management system, following the class standard: only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt; or &lt;&lt;entity&gt;&gt; — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database.
 
 Classes:
-- &lt;&lt;boundary&gt;&gt; ForgotPasswordPage, &lt;&lt;boundary&gt;&gt; ResetPasswordPage
-- &lt;&lt;control&gt;&gt; AuthController: forgotPassword(email), resetPassword(token, newPassword)
-- EmailAccountService class: sendResetEmail(email): void, validateResetToken(token): boolean, resetPassword(token, newPassword): void
-- &lt;&lt;entity&gt;&gt; User: id, username, passwordHash, email, emailVerified, active
-- &lt;&lt;entity&gt;&gt; EmailToken: id, userId, tokenHash, purpose, expiresAt, usedAt, createdAt
-- UserRepository class: findByEmail(email): User, updatePassword(userId, passwordHash): void
-- EmailTokenRepository class: save(token): EmailToken, findByHash(tokenHash): EmailToken, invalidateOld(userId, purpose): void, markUsed(id): void
-- ResendApiClient class: sendEmail(to, subject, body): void (external service)
+- FrmQuenMatKhau: -txtEmail: String; +hienThiForm(): void, +nhanNutGui(): void, +hienThiThongBaoChung(): void
+- FrmDatLaiMatKhau: -txtMatKhauMoi: String; +hienThiForm(): void, +nhanNutDatLai(): void, +hienThiLoi(msg: String): void, +hienThiThanhCong(): void
+- QuenMatKhauController: +quenMatKhau(email): void, +datLaiMatKhau(token, newPassword): void, +guiEmailDatLai(email): void, +kiemTraTokenDatLai(token): boolean
+- User: id, username, passwordHash, email, emailVerified, active; +getId(): int, +save(): boolean
+- EmailToken: id, userId, tokenHash, purpose, expiresAt, usedAt, createdAt; +save(): boolean
+- Resend (external service, not a system class): +sendEmail(to, subject, body): void
 
 Relationships:
-- ForgotPasswordPage → AuthController, ResetPasswordPage → AuthController
-- AuthController → EmailAccountService
-- EmailAccountService → User, EmailAccountService → EmailToken, EmailAccountService → UserRepository, EmailAccountService → EmailTokenRepository, EmailAccountService → ResendApiClient
-- User 1 — * EmailToken
+- FrmQuenMatKhau -- QuenMatKhauController: solid line, labeled &quot;form uses controller&quot;, 1 - 1
+- FrmDatLaiMatKhau -- QuenMatKhauController: solid line, labeled &quot;form uses controller&quot;, 1 - 1
+- QuenMatKhauController ..&gt; User: dashed dependency, labeled &quot;uses User&quot;
+- QuenMatKhauController ..&gt; EmailToken: dashed dependency, labeled &quot;uses EmailToken&quot;
+- QuenMatKhauController ..&gt; Resend: dashed dependency, labeled &quot;uses Resend (external)&quot;
+- User &quot;1&quot; -- &quot;*&quot; EmailToken
 </code></pre>
 <p>PlantUML:</p>
 <pre><code class="language-plantuml">@startuml UC18_Class
-class ForgotPasswordPage &lt;&lt;boundary&gt;&gt; {
+class FrmQuenMatKhau {
+  -txtEmail : String
+  +hienThiForm() : void
+  +nhanNutGui() : void
+  +hienThiThongBaoChung() : void
 }
-class ResetPasswordPage &lt;&lt;boundary&gt;&gt; {
+class FrmDatLaiMatKhau {
+  -txtMatKhauMoi : String
+  +hienThiForm() : void
+  +nhanNutDatLai() : void
+  +hienThiLoi(msg : String) : void
+  +hienThiThanhCong() : void
 }
-class AuthController &lt;&lt;control&gt;&gt; {
-  forgotPassword(email)
-  resetPassword(token, newPassword)
+class QuenMatKhauController {
+  +quenMatKhau(email) : void
+  +datLaiMatKhau(token, newPassword) : void
+  +guiEmailDatLai(email) : void
+  +kiemTraTokenDatLai(token) : boolean
 }
-class EmailAccountService {
-  sendResetEmail(email): void
-  validateResetToken(token): boolean
-  resetPassword(token, newPassword): void
-}
-class User &lt;&lt;entity&gt;&gt; {
+class User {
   id
   username
   passwordHash
   email
   emailVerified
   active
+  +getId() : int
+  +save() : boolean
 }
-class EmailToken &lt;&lt;entity&gt;&gt; {
+class EmailToken {
   id
   userId
   tokenHash
@@ -3675,76 +3617,75 @@ class EmailToken &lt;&lt;entity&gt;&gt; {
   expiresAt
   usedAt
   createdAt
+  +save() : boolean
 }
-class UserRepository {
-  findByEmail(email): User
-  updatePassword(userId, passwordHash): void
+class Resend {
+  +sendEmail(to, subject, body) : void
 }
-class EmailTokenRepository {
-  save(token): EmailToken
-  findByHash(tokenHash): EmailToken
-  invalidateOld(userId, purpose): void
-  markUsed(id): void
-}
-class ResendApiClient {
-  sendEmail(to, subject, body): void
-}
-
-ForgotPasswordPage --&gt; AuthController
-ResetPasswordPage --&gt; AuthController
-AuthController --&gt; EmailAccountService
-EmailAccountService --&gt; User
-EmailAccountService --&gt; EmailToken
-EmailAccountService --&gt; UserRepository
-EmailAccountService --&gt; EmailTokenRepository
-EmailAccountService --&gt; ResendApiClient
+FrmQuenMatKhau -- QuenMatKhauController : &quot;form uses controller&quot;
+FrmDatLaiMatKhau -- QuenMatKhauController : &quot;form uses controller&quot;
+QuenMatKhauController ..&gt; User : &quot;uses User&quot;
+QuenMatKhauController ..&gt; EmailToken : &quot;uses EmailToken&quot;
+QuenMatKhauController ..&gt; Resend : &quot;uses Resend (external)&quot;
 User &quot;1&quot; -- &quot;*&quot; EmailToken
 @enduml
 </code></pre>
 <hr />
 <h2 id="prompt-uc19-analysis-class">Prompt UC19 Analysis Class</h2>
-<pre><code>Draw an analysis class diagram for use case &quot;UC19 — Đăng ký bằng email thật &amp; xác thực email&quot; of the university library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+<pre><code>Draw an analysis class diagram for use case &quot;UC19 — Đăng ký bằng email thật &amp; xác thực email&quot; of the university library management system, following the class standard: only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt; or &lt;&lt;entity&gt;&gt; — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database.
 
 Classes:
-- &lt;&lt;boundary&gt;&gt; RegisterPage, &lt;&lt;boundary&gt;&gt; VerifyEmailPage, &lt;&lt;boundary&gt;&gt; ProfilePage
-- &lt;&lt;control&gt;&gt; UserController: register(data), verifyEmail(token), changeEmail(newEmail), resendVerification()
-- UserService class: register(data): User, verifyEmail(token): User
-- EmailAccountService class: sendVerificationEmail(user): void, consumeVerificationToken(token): User
-- &lt;&lt;entity&gt;&gt; User: id, username, passwordHash, fullName, studentCode, phone, email, emailVerified, role, active
-- &lt;&lt;entity&gt;&gt; EmailToken: id, userId, tokenHash, purpose, expiresAt, usedAt, createdAt
-- UserRepository class: save(user): User, findByEmail(email): User
-- EmailTokenRepository class: save(token): EmailToken, findByHash(tokenHash): EmailToken, markUsed(id): void, invalidateOld(userId, purpose): void
-- ResendApiClient class: sendEmail(to, subject, body): void (external service)
+- FrmDangKy: -txtFullName: String, -txtStudentCode: String, -txtPhone: String, -txtUsername: String, -txtPassword: String, -txtEmail: String; +hienThiForm(): void, +nhanNutDangKy(): void, +hienThiLoi(msg: String): void, +hienThiThanhCong(): void
+- FrmXacThucEmail: +hienThiTrangThai(): void, +nhanNutGuiLai(): void
+- FrmHoSo: -txtEmailMoi: String; +hienThiForm(): void, +nhanNutDoiEmail(): void, +nhanNutGuiLai(): void
+- DangKyController: +dangKy(data): User, +xacThucEmail(token): User, +doiEmail(newEmail): void, +guiLaiXacThuc(): void, +guiEmailXacThuc(user): void, +kiemTraTokenXacThuc(token): User, +kiemTraEmailTonTai(email): boolean
+- User: id, username, passwordHash, fullName, studentCode, phone, email, emailVerified, role, active; +getId(): int, +getUsername(): String, +save(): boolean, +kiemTraTonTai(): boolean
+- EmailToken: id, userId, tokenHash, purpose, expiresAt, usedAt, createdAt; +save(): boolean
+- Resend (external service, not a system class): +sendEmail(to, subject, body): void
 
 Relationships:
-- RegisterPage → UserController, VerifyEmailPage → UserController, ProfilePage → UserController
-- UserController → UserService, UserController → EmailAccountService
-- UserService → User, UserService → UserRepository, EmailAccountService → User, EmailAccountService → EmailToken, EmailAccountService → UserRepository, EmailAccountService → EmailTokenRepository, EmailAccountService → ResendApiClient
-- User 1 — * EmailToken
+- FrmDangKy -- DangKyController: solid line, labeled &quot;form uses controller&quot;, 1 - 1
+- FrmXacThucEmail -- DangKyController: solid line, labeled &quot;form uses controller&quot;, 1 - 1
+- FrmHoSo -- DangKyController: solid line, labeled &quot;form uses controller&quot;, 1 - 1
+- DangKyController ..&gt; User: dashed dependency, labeled &quot;uses User&quot;
+- DangKyController ..&gt; EmailToken: dashed dependency, labeled &quot;uses EmailToken&quot;
+- DangKyController ..&gt; Resend: dashed dependency, labeled &quot;uses Resend (external)&quot;
+- User &quot;1&quot; -- &quot;*&quot; EmailToken
 </code></pre>
 <p>PlantUML:</p>
 <pre><code class="language-plantuml">@startuml UC19_Class
-class RegisterPage &lt;&lt;boundary&gt;&gt; {
+class FrmDangKy {
+  -txtFullName : String
+  -txtStudentCode : String
+  -txtPhone : String
+  -txtUsername : String
+  -txtPassword : String
+  -txtEmail : String
+  +hienThiForm() : void
+  +nhanNutDangKy() : void
+  +hienThiLoi(msg : String) : void
+  +hienThiThanhCong() : void
 }
-class VerifyEmailPage &lt;&lt;boundary&gt;&gt; {
+class FrmXacThucEmail {
+  +hienThiTrangThai() : void
+  +nhanNutGuiLai() : void
 }
-class ProfilePage &lt;&lt;boundary&gt;&gt; {
+class FrmHoSo {
+  -txtEmailMoi : String
+  +hienThiForm() : void
+  +nhanNutDoiEmail() : void
+  +nhanNutGuiLai() : void
 }
-class UserController &lt;&lt;control&gt;&gt; {
-  register(data)
-  verifyEmail(token)
-  changeEmail(newEmail)
-  resendVerification()
+class DangKyController {
+  +dangKy(data) : User
+  +xacThucEmail(token) : User
+  +doiEmail(newEmail) : void
+  +guiLaiXacThuc() : void
+  +guiEmailXacThuc(user) : void
+  +kiemTraTokenXacThuc(token) : User
+  +kiemTraEmailTonTai(email) : boolean
 }
-class UserService {
-  register(data): User
-  verifyEmail(token): User
-}
-class EmailAccountService {
-  sendVerificationEmail(user): void
-  consumeVerificationToken(token): User
-}
-class User &lt;&lt;entity&gt;&gt; {
+class User {
   id
   username
   passwordHash
@@ -3755,8 +3696,12 @@ class User &lt;&lt;entity&gt;&gt; {
   emailVerified
   role
   active
+  +getId() : int
+  +getUsername() : String
+  +save() : boolean
+  +kiemTraTonTai() : boolean
 }
-class EmailToken &lt;&lt;entity&gt;&gt; {
+class EmailToken {
   id
   userId
   tokenHash
@@ -3764,36 +3709,21 @@ class EmailToken &lt;&lt;entity&gt;&gt; {
   expiresAt
   usedAt
   createdAt
+  +save() : boolean
 }
-class UserRepository {
-  save(user): User
-  findByEmail(email): User
+class Resend {
+  +sendEmail(to, subject, body) : void
 }
-class EmailTokenRepository {
-  save(token): EmailToken
-  findByHash(tokenHash): EmailToken
-  markUsed(id): void
-  invalidateOld(userId, purpose): void
-}
-class ResendApiClient {
-  sendEmail(to, subject, body): void
-}
-
-RegisterPage --&gt; UserController
-VerifyEmailPage --&gt; UserController
-ProfilePage --&gt; UserController
-UserController --&gt; UserService
-UserController --&gt; EmailAccountService
-UserService --&gt; User
-UserService --&gt; UserRepository
-EmailAccountService --&gt; User
-EmailAccountService --&gt; EmailToken
-EmailAccountService --&gt; UserRepository
-EmailAccountService --&gt; EmailTokenRepository
-EmailAccountService --&gt; ResendApiClient
+FrmDangKy -- DangKyController : &quot;form uses controller&quot;
+FrmXacThucEmail -- DangKyController : &quot;form uses controller&quot;
+FrmHoSo -- DangKyController : &quot;form uses controller&quot;
+DangKyController ..&gt; User : &quot;uses User&quot;
+DangKyController ..&gt; EmailToken : &quot;uses EmailToken&quot;
+DangKyController ..&gt; Resend : &quot;uses Resend (external)&quot;
 User &quot;1&quot; -- &quot;*&quot; EmailToken
 @enduml
-</code></pre><h2 id="erd-1-prompt">ERD (1 prompt)</h2><p>Các prompt vẽ sơ đồ ERD, giữ nguyên thứ tự Prompt gốc.</p><h2 id="prompt-51-updated-system-wide-erd-after-the-new-features">Prompt 51 — Updated System-Wide ERD (after the new features)</h2>
+</code></pre>
+<hr /><h2 id="erd-1-prompt">ERD (1 prompt)</h2><p>Các prompt vẽ sơ đồ ERD, giữ nguyên thứ tự Prompt gốc.</p><h2 id="prompt-51-updated-system-wide-erd-after-the-new-features">Prompt 51 — Updated System-Wide ERD (after the new features)</h2>
 <pre><code>Draw the updated full entity relationship diagram (ERD) for the university library management system, including the new tables and columns added in the feature update round.
 
 Table users (unchanged):
