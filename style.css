@@ -153,6 +153,11 @@ a{color:var(--accent)}
 .prog-lightbox img{max-width:92vw;max-height:80vh;background:#fff;border-radius:12px;padding:10px;object-fit:contain}
 .prog-lb-close{background:#fff;border:none;border-radius:999px;padding:8px 20px;font-size:14px;font-weight:700;cursor:pointer;color:var(--ink)}
 .prog-lb-actions a{background:var(--accent);color:#fff;border-radius:999px;padding:9px 22px;font-size:14px;font-weight:600;text-decoration:none}
+.prog-lightbox{overflow:auto}
+.prog-lb-zoom{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center}
+.prog-lb-zoom button{background:#fff;border:none;border-radius:999px;padding:7px 16px;font-size:13.5px;font-weight:700;cursor:pointer;color:var(--ink)}
+.prog-lb-zoom span{color:#fff;font-size:13.5px;font-weight:600;min-width:110px;text-align:center}
+.prog-lb-hint{color:#d8dee3;font-size:13px;text-align:center}
 /* back to top */
 .to-top{position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;
   border:none;background:var(--accent);color:#fff;font-size:19px;cursor:pointer;
