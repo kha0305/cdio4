@@ -29,7 +29,6 @@
 <a href="#class-diagram" class="lv3">Class diagram</a>
 <a href="#use-case-diagram-16-prompt">Use Case Diagram (16 prompt)</a>
 <a href="#prompt-1-overall-system-use-case-diagram">Prompt 1 — Overall System Use Case Diagram</a>
-<a href="#display-requirement-group-the-use-cases-by-actor-using-boundary-package-quan-tri-nghiep-vu-quay-doc-gia-if-the-tool-supports-it-keep-the-use-case-names-in-vietnamese-with-diacritics">Display requirement: group the use cases by actor using boundary/package (Quản trị, Nghiệp vụ quầy, Độc giả) if the tool supports it; keep the use case names in Vietnamese with diacritics.</a>
 <a href="#prompt-2-uc01-use-case-diagram-login-registration">Prompt 2 — UC01 Use Case Diagram: Login &amp; Registration</a>
 <a href="#prompt-3-uc02-use-case-diagram-book-management">Prompt 3 — UC02 Use Case Diagram: Book Management</a>
 <a href="#prompt-4-uc03-use-case-diagram-reader-management">Prompt 4 — UC03 Use Case Diagram: Reader Management</a>
@@ -42,7 +41,6 @@
 <a href="#prompt-11-uc10-use-case-diagram-librarian-account-management">Prompt 11 — UC10 Use Case Diagram: Librarian Account Management</a>
 <a href="#prompt-12-uc11-use-case-diagram-reserve-book">Prompt 12 — UC11 Use Case Diagram: Reserve Book</a>
 <a href="#prompt-13-uc12-use-case-diagram-cancel-reservation">Prompt 13 — UC12 Use Case Diagram: Cancel Reservation</a>
-<a href="#create-exactly-1-use-case-diagram-actor-doc-gia-main-use-case-uc12-huy-dat-truoc-draw-the-association-doc-gia-uc12-add-the-use-case-uc11-dat-truoc-sach-no-actor-link-and-a-dashed-dependency-line-from-uc12-to-uc11-with-a-note-attached-uc12-turns-uc11-s-pending-reservations-into-cancelled-do-not-add-any-other-use-case">Create exactly 1 Use Case Diagram. Actor: Độc giả. Main use case: &quot;UC12 Hủy đặt trước&quot;. Draw the association Độc giả — UC12. Add the use case &quot;UC11 Đặt trước sách&quot; (no actor link) and a dashed dependency line from UC12 to UC11, with a note attached: &quot;UC12 turns UC11&#x27;s pending reservations into cancelled&quot;. Do not add any other use case.</a>
 <a href="#prompt-48-uc13-use-case-diagram-notification-system">Prompt 48 — UC13 Use Case Diagram: Notification System</a>
 <a href="#prompt-uc16-a-use-case-diagram-bo-sung">Prompt UC16-A — Use Case Diagram (bổ sung)</a>
 <a href="#prompt-uc17-a-use-case-diagram-bo-sung">Prompt UC17-A — Use Case Diagram (bổ sung)</a>
@@ -98,7 +96,7 @@
 <div class="backdrop" id="backdrop"></div>
 <main class="content">
 <h1>Prompt UML — 52 prompt cho Visual Paradigm</h1>
-<p class="meta">Đồ án Website Quản lý Thư viện Mini &middot; Cập nhật lần cuối: 23/10/2026</p>
+<p class="meta">Đồ án Website Quản lý Thư viện Mini &middot; Cập nhật lần cuối: 24/10/2026</p>
 <h1>UML PROMPT SET — Mini Library Management Web App</h1>
 <p>52 prompts; each prompt generates exactly 1 diagram in Visual Paradigm AI.
 Select the diagram type stated in the prompt title before pasting.</p>
@@ -120,71 +118,87 @@ Select the diagram type stated in the prompt title before pasting.</p>
 <p>Keep the stereotypes <code>&lt;&lt;boundary&gt;&gt;</code> (page), <code>&lt;&lt;control&gt;&gt;</code> (controller), <code>&lt;&lt;entity&gt;&gt;</code> (entity).</p>
 <hr />
 <h2 id="use-case-diagram-16-prompt">Use Case Diagram (16 prompt)</h2><p>Các prompt vẽ sơ đồ Use Case Diagram, giữ nguyên thứ tự Prompt gốc.</p><h2 id="prompt-1-overall-system-use-case-diagram">Prompt 1 — Overall System Use Case Diagram</h2>
-<p>Create exactly 1 Use Case Diagram. Use only the elements below; do not add any other actor or use case.</p>
-<p><strong>Actors (3):</strong> Admin, Thủ thư, Độc giả.</p>
-<p><strong>Use cases (15), write the names exactly:</strong>
-- "UC01 Đăng nhập &amp; Đăng ký"
-- "UC02 Quản lý sách"
-- "UC03 Quản lý độc giả"
-- "UC04 Mượn sách"
-- "UC05 Trả sách"
-- "UC06 Danh sách quá hạn"
-- "UC07 Thống kê"
-- "UC08 Sách của tôi"
-- "UC09 Cấu hình hệ thống"
-- "UC10 Quản lý tài khoản thủ thư"
-- "UC11 Đặt trước sách"
-- "UC12 Hủy đặt trước"
-- "UC13 Hệ thống thông báo"
-- "UC14 Xuất báo cáo Excel / In PDF"
-- "UC15 Quản lý sách mở rộng"</p>
-<p><strong>Association relationships (solid lines):</strong>
+<pre><code>Create exactly 1 Use Case Diagram. Use only the elements below; do not add any other actor or use case.
+
+**Actors (3):** Admin, Thủ thư, Độc giả.
+
+**Use cases (15), write the names exactly:**
+- &quot;UC01 Đăng nhập &amp; Đăng ký&quot;
+- &quot;UC02 Quản lý sách&quot;
+- &quot;UC03 Quản lý độc giả&quot;
+- &quot;UC04 Mượn sách&quot;
+- &quot;UC05 Trả sách&quot;
+- &quot;UC06 Danh sách quá hạn&quot;
+- &quot;UC07 Thống kê&quot;
+- &quot;UC08 Sách của tôi&quot;
+- &quot;UC09 Cấu hình hệ thống&quot;
+- &quot;UC10 Quản lý tài khoản thủ thư&quot;
+- &quot;UC11 Đặt trước sách&quot;
+- &quot;UC12 Hủy đặt trước&quot;
+- &quot;UC13 Hệ thống thông báo&quot;
+- &quot;UC14 Xuất báo cáo Excel / In PDF&quot;
+- &quot;UC15 Quản lý sách mở rộng&quot;
+
+**Association relationships (solid lines):**
 - Admin — UC01, UC07, UC09, UC10, UC13, UC14
 - Thủ thư — UC01, UC02, UC03, UC04, UC05, UC06, UC07, UC11, UC13, UC14, UC15
-- Độc giả — UC01, UC08, UC11, UC12, UC13</p>
-<p><strong>Notes attached to the diagram (do not draw extra arrows):</strong>
-- "UC04 checks the reservations created by UC11 (D13)"
-- "UC05 computes the fine automatically per D7; it is not a separate use case"
-- "Registration is an alternative flow inside UC01; do not split it into a separate use case"
-- "UC14 extends UC07; UC15 extends UC02"</p>
-<h2 id="display-requirement-group-the-use-cases-by-actor-using-boundary-package-quan-tri-nghiep-vu-quay-doc-gia-if-the-tool-supports-it-keep-the-use-case-names-in-vietnamese-with-diacritics"><strong>Display requirement:</strong> group the use cases by actor using boundary/package (Quản trị, Nghiệp vụ quầy, Độc giả) if the tool supports it; keep the use case names in Vietnamese with diacritics.</h2>
-<hr />
+- Độc giả — UC01, UC08, UC11, UC12, UC13
+
+**Notes attached to the diagram (do not draw extra arrows):**
+- &quot;UC04 checks the reservations created by UC11 (D13)&quot;
+- &quot;UC05 computes the fine automatically per D7; it is not a separate use case&quot;
+- &quot;Registration is an alternative flow inside UC01; do not split it into a separate use case&quot;
+- &quot;UC14 extends UC07; UC15 extends UC02&quot;
+
+**Display requirement:** group the use cases by actor using boundary/package (Quản trị, Nghiệp vụ quầy, Độc giả) if the tool supports it; keep the use case names in Vietnamese with diacritics.
+</code></pre>
 <h2 id="prompt-2-uc01-use-case-diagram-login-registration">Prompt 2 — UC01 Use Case Diagram: Login &amp; Registration</h2>
-<p>Create exactly 1 Use Case Diagram. Actors: Admin, Thủ thư, Độc giả. A single use case: "UC01 Đăng nhập &amp; Đăng ký". Draw associations from all 3 actors to the use case. Add a note: "The registration flow is for Độc giả only (self sign-up); Admin and Thủ thư accounts are issued by the Admin (UC10)". Do not add any other use case.</p>
+<pre><code>Create exactly 1 Use Case Diagram. Actors: Admin, Thủ thư, Độc giả. A single use case: &quot;UC01 Đăng nhập &amp; Đăng ký&quot;. Draw associations from all 3 actors to the use case. Add a note: &quot;The registration flow is for Độc giả only (self sign-up); Admin and Thủ thư accounts are issued by the Admin (UC10)&quot;. Do not add any other use case.
+</code></pre>
 <hr />
 <h2 id="prompt-3-uc02-use-case-diagram-book-management">Prompt 3 — UC02 Use Case Diagram: Book Management</h2>
-<p>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: "UC02 Quản lý sách". Draw the association Thủ thư — UC02. Add a note: "Includes: add (generates QR), edit, delete, search". Do not add any other use case.</p>
+<pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: &quot;UC02 Quản lý sách&quot;. Draw the association Thủ thư — UC02. Add a note: &quot;Includes: add (generates QR), edit, delete, search&quot;. Do not add any other use case.
+</code></pre>
 <hr />
 <h2 id="prompt-4-uc03-use-case-diagram-reader-management">Prompt 4 — UC03 Use Case Diagram: Reader Management</h2>
-<p>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: "UC03 Quản lý độc giả". Draw the association Thủ thư — UC03. Add a note: "Includes: add (default password 123456), edit, delete, search". Do not add any other use case.</p>
+<pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: &quot;UC03 Quản lý độc giả&quot;. Draw the association Thủ thư — UC03. Add a note: &quot;Includes: add (default password 123456), edit, delete, search&quot;. Do not add any other use case.
+</code></pre>
 <hr />
 <h2 id="prompt-5-uc04-use-case-diagram-borrow-book">Prompt 5 — UC04 Use Case Diagram: Borrow Book</h2>
-<p>Create exactly 1 Use Case Diagram. Actor: Thủ thư. Main use case: "UC04 Mượn sách". Draw the association Thủ thư — UC04. Add the use case "UC11 Đặt trước sách" (no actor link) and a dashed dependency line from UC04 to UC11, with a note attached: "UC04 checks and marks fulfilled the reservations created by UC11 (D13)". Do not add any other use case.</p>
+<pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. Main use case: &quot;UC04 Mượn sách&quot;. Draw the association Thủ thư — UC04. Add the use case &quot;UC11 Đặt trước sách&quot; (no actor link) and a dashed dependency line from UC04 to UC11, with a note attached: &quot;UC04 checks and marks fulfilled the reservations created by UC11 (D13)&quot;. Do not add any other use case.
+</code></pre>
 <hr />
 <h2 id="prompt-6-uc05-use-case-diagram-return-book">Prompt 6 — UC05 Use Case Diagram: Return Book</h2>
-<p>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: "UC05 Trả sách". Draw the association Thủ thư — UC05. Add a note: "The fine-calculation step (D7) is an internal step of UC05; do not split it into a separate use case". Do not add any other use case.</p>
+<pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: &quot;UC05 Trả sách&quot;. Draw the association Thủ thư — UC05. Add a note: &quot;The fine-calculation step (D7) is an internal step of UC05; do not split it into a separate use case&quot;. Do not add any other use case.
+</code></pre>
 <hr />
 <h2 id="prompt-7-uc06-use-case-diagram-overdue-list">Prompt 7 — UC06 Use Case Diagram: Overdue List</h2>
-<p>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: "UC06 Danh sách quá hạn". Draw the association Thủ thư — UC06. Add a note: "Read-only: lists borrowing loans whose due_at is before today". Do not add any other use case.</p>
+<pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: &quot;UC06 Danh sách quá hạn&quot;. Draw the association Thủ thư — UC06. Add a note: &quot;Read-only: lists borrowing loans whose due_at is before today&quot;. Do not add any other use case.
+</code></pre>
 <hr />
 <h2 id="prompt-8-uc07-use-case-diagram-statistics">Prompt 8 — UC07 Use Case Diagram: Statistics</h2>
-<p>Create exactly 1 Use Case Diagram. Actors: Thủ thư, Admin. A single use case: "UC07 Thống kê". Draw associations from both actors to the use case. Add a note: "4 stat cards + top-5 chart + borrow/return history". Do not add any other use case.</p>
+<pre><code>Create exactly 1 Use Case Diagram. Actors: Thủ thư, Admin. A single use case: &quot;UC07 Thống kê&quot;. Draw associations from both actors to the use case. Add a note: &quot;4 stat cards + top-5 chart + borrow/return history&quot;. Do not add any other use case.
+</code></pre>
 <hr />
 <h2 id="prompt-9-uc08-use-case-diagram-my-books">Prompt 9 — UC08 Use Case Diagram: My Books</h2>
-<p>Create exactly 1 Use Case Diagram. Actor: Độc giả. A single use case: "UC08 Sách của tôi". Draw the association Độc giả — UC08. Add a note: "3 tabs: Đang mượn / Đặt trước / Lịch sử; each reader sees only their own data". Do not add any other use case.</p>
+<pre><code>Create exactly 1 Use Case Diagram. Actor: Độc giả. A single use case: &quot;UC08 Sách của tôi&quot;. Draw the association Độc giả — UC08. Add a note: &quot;3 tabs: Đang mượn / Đặt trước / Lịch sử; each reader sees only their own data&quot;. Do not add any other use case.
+</code></pre>
 <hr />
 <h2 id="prompt-10-uc09-use-case-diagram-system-configuration">Prompt 10 — UC09 Use Case Diagram: System Configuration</h2>
-<p>Create exactly 1 Use Case Diagram. Actor: Admin. A single use case: "UC09 Cấu hình hệ thống". Draw the association Admin — UC09. Add a note: "4 parameters: loan_days, fine_per_day, max_books_per_reader, reservation_hours; apply to new loans only". Do not add any other use case.</p>
+<pre><code>Create exactly 1 Use Case Diagram. Actor: Admin. A single use case: &quot;UC09 Cấu hình hệ thống&quot;. Draw the association Admin — UC09. Add a note: &quot;4 parameters: loan_days, fine_per_day, max_books_per_reader, reservation_hours; apply to new loans only&quot;. Do not add any other use case.
+</code></pre>
 <hr />
 <h2 id="prompt-11-uc10-use-case-diagram-librarian-account-management">Prompt 11 — UC10 Use Case Diagram: Librarian Account Management</h2>
-<p>Create exactly 1 Use Case Diagram. Actor: Admin. A single use case: "UC10 Quản lý tài khoản thủ thư". Draw the association Admin — UC10. Add a note: "Includes: create, lock/unlock, delete; cannot delete your own account". Do not add any other use case.</p>
+<pre><code>Create exactly 1 Use Case Diagram. Actor: Admin. A single use case: &quot;UC10 Quản lý tài khoản thủ thư&quot;. Draw the association Admin — UC10. Add a note: &quot;Includes: create, lock/unlock, delete; cannot delete your own account&quot;. Do not add any other use case.
+</code></pre>
 <hr />
 <h2 id="prompt-12-uc11-use-case-diagram-reserve-book">Prompt 12 — UC11 Use Case Diagram: Reserve Book</h2>
-<p>Create exactly 1 Use Case Diagram. Actor: Độc giả. Main use case: "UC11 Đặt trước sách". Draw the association Độc giả — UC11. Add the use case "UC04 Mượn sách" (no actor link) and a dashed dependency line from UC11 to UC04, with a note attached: "Pending reservations from UC11 are consumed by UC04 when the reader comes to the counter to pick up the book (D13)". Do not add any other use case.</p>
+<pre><code>Create exactly 1 Use Case Diagram. Actor: Độc giả. Main use case: &quot;UC11 Đặt trước sách&quot;. Draw the association Độc giả — UC11. Add the use case &quot;UC04 Mượn sách&quot; (no actor link) and a dashed dependency line from UC11 to UC04, with a note attached: &quot;Pending reservations from UC11 are consumed by UC04 when the reader comes to the counter to pick up the book (D13)&quot;. Do not add any other use case.
+</code></pre>
 <hr />
 <h2 id="prompt-13-uc12-use-case-diagram-cancel-reservation">Prompt 13 — UC12 Use Case Diagram: Cancel Reservation</h2>
-<h2 id="create-exactly-1-use-case-diagram-actor-doc-gia-main-use-case-uc12-huy-dat-truoc-draw-the-association-doc-gia-uc12-add-the-use-case-uc11-dat-truoc-sach-no-actor-link-and-a-dashed-dependency-line-from-uc12-to-uc11-with-a-note-attached-uc12-turns-uc11-s-pending-reservations-into-cancelled-do-not-add-any-other-use-case">Create exactly 1 Use Case Diagram. Actor: Độc giả. Main use case: "UC12 Hủy đặt trước". Draw the association Độc giả — UC12. Add the use case "UC11 Đặt trước sách" (no actor link) and a dashed dependency line from UC12 to UC11, with a note attached: "UC12 turns UC11's pending reservations into cancelled". Do not add any other use case.</h2>
-<hr />
+<pre><code>Create exactly 1 Use Case Diagram. Actor: Độc giả. Main use case: &quot;UC12 Hủy đặt trước&quot;. Draw the association Độc giả — UC12. Add the use case &quot;UC11 Đặt trước sách&quot; (no actor link) and a dashed dependency line from UC12 to UC11, with a note attached: &quot;UC12 turns UC11's pending reservations into cancelled&quot;. Do not add any other use case.
+</code></pre>
 <h2 id="prompt-48-uc13-use-case-diagram-notification-system">Prompt 48 — UC13 Use Case Diagram: Notification System</h2>
 <pre><code>Create exactly 1 Use Case Diagram for &quot;UC13 — Hệ thống thông báo&quot; of the mini library management system.
 
