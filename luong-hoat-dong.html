@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luồng hoạt động toàn hệ thống — Tài liệu CDIO 4</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f5d8a'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' font-weight='bold' fill='%23ffffff' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+<a class="brand" href="index.html">Tài liệu CDIO 4</a>
+<nav><a href="index.html">Mục lục</a><a href="https://nanioe.me">nanioe.me</a><a href="https://thuvien.nanioe.me">Web thư viện</a></nav>
+</div></div>
+<main class="wrap doc">
+<h1>Luồng hoạt động toàn hệ thống</h1><p class="updated">Cập nhật lần cuối: 17/10/2026</p><h1 id="luong-hoat-ong-tong-the-he-thong-quan-ly-thu-vien-mini">LUỒNG HOẠT ĐỘNG TỔNG THỂ — HỆ THỐNG QUẢN LÝ THƯ VIỆN MINI</h1>
+<p>Activity diagram duy nhất bao quát toàn hệ thống.
+4 swimlane: <strong>Actor | Giao diện | Hệ thống | CSDL</strong>.
+Mỗi bước ghi rõ làn trong ngoặc vuông. Hình thoi = điểm rẽ nhánh.</p>
+<hr />
+<h2 id="1-khach-chua-ang-nhap">1. Khách (chưa đăng nhập)</h2>
+<ul>
+<li>[Actor] Mở trang landing <code>/</code></li>
+<li>[Giao diện] Hiển thị: catalog sách, ô tìm kiếm, lọc thể loại, phân trang, thẻ thông báo nổi (nếu admin/thủ thư có đăng, tắt được, nhớ trong session)</li>
+<li>[Actor] Tra cứu: tìm theo tên, lọc thể loại → xem badge trạng thái mỗi sách (<strong>Còn</strong> xanh / <strong>Đang giữ chỗ</strong> vàng / <strong>Đang mượn</strong> xám)</li>
+<li>[Actor] Mở chi tiết <code>/sach/:id</code>: xem "Còn X/Y bản", thông tin sách, bìa</li>
+<li>◇ Muốn mượn hoặc đặt trước?</li>
+<li>Không → kết thúc (tiếp tục tra cứu)</li>
+<li>Có → [Actor] bấm Đăng nhập / Đăng ký → sang mục 2</li>
+</ul>
+<h2 id="2-ang-nhap-ang-ky">2. Đăng nhập / Đăng ký</h2>
+<ul>
+<li>[Giao diện] Form đăng nhập/đăng ký: nút hiện/ẩn mật khẩu, nút "← Trở lại trang chủ"</li>
+<li>Đăng ký: [Hệ thống] kiểm tra policy mật khẩu (8+ ký tự, 1 hoa, 1 thường, 1 số/ký tự đặc biệt) → [CSDL] lưu <code>users</code> → tự đăng nhập</li>
+<li>Đăng nhập: [Hệ thống] kiểm tra tài khoản (không kiểm format mật khẩu, giữ tài khoản demo) → cấp JWT 8h</li>
+<li>[Hệ thống] Rẽ nhánh theo vai trò → mục 3 (Độc giả) / 4 (Thủ thư) / 5 (Admin)</li>
+</ul>
+<h2 id="3-nhanh-oc-gia">3. Nhánh Độc giả</h2>
+<ul>
+<li>[Actor] Tìm sách đang <strong>Còn</strong> → bấm Đặt trước (+ ghi chú giờ mong muốn, tự do)</li>
+<li>[Hệ thống] Tạo <code>reservations</code> (status = <strong>pending</strong>, sinh mã QR 8 ký tự A-Z0-9) → <strong>khóa đúng bản đó</strong> (người khác không mượn được)</li>
+<li>[Hệ thống] Gửi thông báo "đặt trước mới" → Thủ thư (chuông + trang <code>/thong-bao</code>)</li>
+<li>[Actor] Xem "Đặt trước của tôi": badge <strong>Chờ duyệt</strong> (vàng), lịch hẹn (nếu có)</li>
+<li>◇ [Actor] Hủy khi đang pending? → Có: status = <strong>cancelled</strong>, mở khóa bản sách → kết thúc nhánh đặt</li>
+<li>Thủ thư xử lý (xem mục 4):</li>
+<li><strong>Duyệt</strong> + chốt <code>pickup_at</code> → status = <strong>approved</strong> (xanh, giữ chỗ đến giờ hẹn + 2h)</li>
+<li><strong>Từ chối</strong> + lý do → status = <strong>rejected</strong> (đỏ, mở khóa bản sách ngay)</li>
+<li>[Hệ thống] Gửi thông báo kết quả duyệt/từ chối → Độc giả</li>
+<li>Nếu approved: [Giao diện] hiển thị <strong>QR + mã chữ</strong> của lượt đặt</li>
+<li>[Actor] Đến quầy, đưa QR → Thủ thư quét → "Cho mượn" → status = <strong>fulfilled</strong> → [CSDL] tạo <code>loans</code> (hạn trả = ngày mượn + số ngày mượn trong cấu hình)</li>
+<li>[Hệ thống] Gửi thông báo nhắc hạn trả → Độc giả</li>
+<li>[Actor] Xem "Sách của tôi": sách đang mượn, hạn trả, quá hạn + tiền phạt tự tính</li>
+<li>[Actor] Mở <code>/thong-bao</code>: xem theo màu loại (đặt trước vàng, mượn/trả xanh dương, quá hạn đỏ, chung xanh lá, hệ thống xám) → "Đánh dấu đã đọc" / "Đánh dấu tất cả"</li>
+</ul>
+<h2 id="4-nhanh-thu-thu">4. Nhánh Thủ thư</h2>
+<ul>
+<li><strong>Quản lý sách</strong> (<code>/sach</code>): [Giao diện] danh sách + sort bắt buộc + lọc nâng cao (trạng thái Còn/Đang mượn/Đang giữ chỗ, NXB, năm XB)</li>
+<li>[Actor] Thêm/sửa/xóa sách; <strong>thêm N bản cùng lúc</strong> (1–50, mỗi bản 1 mã riêng); <strong>nhập Excel</strong> (tải file mẫu, báo rõ dòng lỗi); <strong>upload bìa</strong> (jpg/png/webp ≤ 2MB); nút <strong>"Đồng bộ mã"</strong> cho sách cũ (<code>book_code</code> = <code>&lt;MÃ_TL&gt;-&lt;seq 4 số&gt;</code>, VD <code>VH-0001</code>)</li>
+<li>[Hệ thống] validate → [CSDL] bảng <code>books</code></li>
+<li><strong>Quản lý thể loại</strong> (<code>/categories</code>): [Actor] thêm/sửa/xóa (name + code unique)</li>
+<li>◇ Xóa thể loại đang có sách dùng? → [Hệ thống] <strong>chặn</strong>, báo lỗi</li>
+<li><strong>Quản lý đặt trước</strong>: [Giao diện] danh sách + badge số chờ duyệt (sort Mới nhất/Cũ nhất)</li>
+<li>[Actor] <strong>Duyệt</strong> (+ chốt giờ hẹn <code>pickup_at</code>) / <strong>Từ chối</strong> (+ lý do) → [Hệ thống] cập nhật status → [Hệ thống] gửi thông báo → Độc giả</li>
+<li><strong>Cho mượn</strong> (<code>/muon</code>): [Actor] nhập mã thủ công / nút <strong>Dán</strong> (clipboard) / quét QR</li>
+<li>Mã QR đặt trước → [Hệ thống] <code>findByCode</code> → hiện thẻ lượt đặt (cố định độc giả) → [Actor] bấm "Cho mượn" → fulfilled → tạo loan</li>
+<li>Mã sách → [Actor] chọn độc giả (list sẵn, mặc định sort "Mượn gần đây") → [Hệ thống] kiểm tra:<ul>
+<li>◇ Bản đang bị reservation active của <strong>người khác</strong>? → <strong>chặn</strong></li>
+<li>◇ Là reservation <strong>của chính độc giả</strong>? → chuyển fulfilled, cho mượn</li>
+</ul>
+</li>
+<li>Nút <strong>Copy</strong> mã sách ở danh sách</li>
+<li><strong>Nhận trả</strong>: [Actor] quét/nhập mã sách → [Hệ thống] tính <strong>phạt trễ</strong> (số ngày trễ × mức phạt/ngày trong cấu hình) → [CSDL] đóng loan</li>
+<li><strong>Quá hạn</strong>: [Giao diện] danh sách quá hạn + sort → [Actor] gửi thông báo nhắc (thủ công)</li>
+<li><strong>Thống kê</strong>: [Giao diện] biểu đồ + số liệu đếm động → [Actor] <strong>Xuất Excel</strong> (2 sheet "Mượn trả" + "Tổng quan") / <strong>In - Lưu PDF</strong> (print CSS ẩn sidebar/topbar/nút)</li>
+<li><strong>Quản lý độc giả</strong>: [Actor] xem/sửa (kể cả MSSV — độc giả tự sửa bị backend chặn), khóa/mở tài khoản → [CSDL] bảng <code>users</code></li>
+</ul>
+<h2 id="5-nhanh-admin">5. Nhánh Admin</h2>
+<ul>
+<li><strong>Quản lý tài khoản</strong>: [Actor] tạo/sửa/khóa tài khoản thủ thư (sort bắt buộc)</li>
+<li><strong>Cấu hình hệ thống</strong>: [Actor] sửa số ngày mượn, mức phạt/ngày, số sách tối đa/độc giả, giờ giữ đặt trước → [CSDL] bảng <code>settings</code></li>
+<li><strong>Soạn thông báo</strong>: [Actor] chọn đối tượng (tất cả / độc giả / thủ thư) + cờ <strong>hiện ở landing</strong> → [Hệ thống] gửi → [CSDL] <code>notifications</code></li>
+<li><strong>Thống kê</strong>: xem toàn hệ thống + xuất Excel/PDF</li>
+</ul>
+<h2 id="6-luong-nen-he-thong-tu-chay-khong-can-actor">6. Luồng nền (Hệ thống tự chạy, không cần Actor)</h2>
+<ul>
+<li>[Hệ thống] Đặt trước <strong>pending quá 48h</strong> → chuyển <strong>expired</strong>, mở khóa bản sách</li>
+<li>[Hệ thống] Đặt trước <strong>approved quá giờ hẹn + 2h</strong> mà chưa đến mượn → <strong>expired</strong>, mở khóa bản sách</li>
+<li>[Hệ thống] Quét quá hạn định kỳ → gửi thông báo quá hạn → Độc giả (chống gửi trùng bằng cờ <code>loans.overdue_notified</code>)</li>
+<li>[Hệ thống] Chuông thông báo: frontend poll số chưa đọc mỗi <strong>5 giây</strong> (có cleanup, chống request chồng)</li>
+</ul>
+<h2 id="7-ket-thuc">7. Kết thúc</h2>
+<ul>
+<li>Mỗi nhánh kết thúc khi Actor đăng xuất hoặc đóng trang.</li>
+<li>Điểm kết thúc riêng cho: Khách chỉ tra cứu / Độc giả / Thủ thư / Admin.</li>
+</ul>
+</main>
+<footer>© 2026 Bảo Kha · Tài liệu đồ án CDIO 4 — Website Quản lý Thư viện Mini · <a href="index.html">Mục lục</a></footer>
+
+</body>
+</html>

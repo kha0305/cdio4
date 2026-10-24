@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt UML — 52 prompt cho Visual Paradigm — Tài liệu CDIO 4</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f5d8a'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' font-weight='bold' fill='%23ffffff' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+<a class="brand" href="index.html">Tài liệu CDIO 4</a>
+<nav><a href="index.html">Mục lục</a><a href="https://nanioe.me">nanioe.me</a><a href="https://thuvien.nanioe.me">Web thư viện</a></nav>
+</div></div>
+<main class="wrap doc">
+<h1>Prompt UML — 52 prompt cho Visual Paradigm</h1><p class="updated">Cập nhật lần cuối: 23/10/2026</p><h1 id="uml-prompt-set-mini-library-management-web-app">UML PROMPT SET — Mini Library Management Web App</h1>
+<p>52 prompts; each prompt generates exactly 1 diagram in Visual Paradigm AI.
+Select the diagram type stated in the prompt title before pasting.</p>
+<h2 id="mandatory-drawing-conventions-apply-to-every-prompt">MANDATORY DRAWING CONVENTIONS (apply to every prompt)</h2>
+<h3 id="sequence-diagram-exactly-5-lifelines">Sequence diagram — exactly 5 lifelines</h3>
+<p>Order from left to right, do NOT add or remove any:
+1. <strong>Actor</strong> — the user (state the role explicitly: Thủ thư / Độc giả / Admin).
+2. <strong>Giao diện</strong> — the React page (e.g. BorrowPage, LoginPage).
+3. <strong>Form</strong> — the form/modal/input control on that page (e.g. the login form, the add-book form, the search box, a tab).
+4. <strong>Hệ thống</strong> — the entire backend merged into one (Controller + Service + Repository). Detailed function names are still written in full on the arrows, using the pattern <code>Hệ thống: ServiceName.functionName(params)</code>.
+5. <strong>CSDL</strong> — MySQL (state the table and the operation explicitly: SELECT / INSERT / UPDATE which table).</p>
+<h3 id="activity-diagram-exactly-4-swimlanes">Activity diagram — exactly 4 swimlanes</h3>
+<p><code>Actor</code> | <code>Giao diện</code> | <code>Hệ thống</code> | <code>CSDL</code>. Place every activity and every decision node in the correct lane:
+- <strong>Actor</strong>: user actions (clicking buttons, entering data, scanning QR codes).
+- <strong>Giao diện</strong>: rendering pages/forms/notifications, navigation.
+- <strong>Hệ thống</strong>: data validation, business logic, code generation, calculations.
+- <strong>CSDL</strong>: all data read/write operations.</p>
+<h3 id="class-diagram">Class diagram</h3>
+<p>Keep the stereotypes <code>&lt;&lt;boundary&gt;&gt;</code> (page), <code>&lt;&lt;control&gt;&gt;</code> (controller), <code>&lt;&lt;entity&gt;&gt;</code> (entity).</p>
+<hr />
+<h2 id="prompt-0-overall-system-activity-diagram">Prompt 0 — Overall System Activity Diagram</h2>
+<pre><code>Draw ONE activity diagram covering the entire mini library management system.
+
+Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
+- Actor: user actions — here including Khách (not logged in), Độc giả, Thủ thư, Admin (state the role in parentheses).
+- Giao diện: rendering pages/forms/notifications, navigation.
+- Hệ thống: data validation, business logic, code generation, calculations, automatic notifications.
+- CSDL: all data read/write operations.
+
+Overall flow:
+- [Actor (Khách)] Start point: Khách opens the landing page (no login required).
+- [Giao diện] Display the home page: search books by name, book catalog, overview statistics.
+- [Actor (Khách)] Look up books: view each book's status (Còn / Đang giữ chỗ / Đang mượn), view details + copy counts (Còn X/Y bản).
+- [Hệ thống] Decision node: Does Khách want to borrow or reserve a book?
+  - Branch No: go to the end point (guest branch).
+  - Branch Yes: [Giao diện] navigate to the login/registration page.
+- [Actor] Log in (UC01): enter username/password.
+- [Hệ thống] Decision node: What is the role? (authenticate via the CSDL table users, create JWT)
+  - Branch &quot;Độc giả&quot;:
+    - [Actor (Độc giả)] Search books → [Actor (Độc giả)] reserve an available copy (UC11): enter the desired pickup time → [CSDL] INSERT table reservations (status = 'pending', generate code).
+    - [Actor (Độc giả)] Open &quot;My reservations&quot;: view status/appointment; approved reservations show the QR code + text code; can only cancel while still pending (UC12).
+    - [Actor (Độc giả)] Come to the counter with the reservation QR code → [Actor (Thủ thư)] scan → lend (UC04): [CSDL] INSERT table loans, UPDATE the book to 'borrowed', the reservation to 'fulfilled'.
+    - [Actor (Độc giả)] Open &quot;My books&quot;: track due dates; receive due-date reminders / overdue notifications (UC13).
+    - End point (reader branch).
+  - Branch &quot;Thủ thư&quot;:
+    - [Actor (Thủ thư)] Manage books (UC02 + UC15): CRUD, generate book_code (&lt;MÃ_TL&gt;-&lt;seq&gt;), upload cover images, add N copies at once, import Excel, manage categories separately.
+    - [Actor (Thủ thư)] Open &quot;Reservation management&quot;: [Hệ thống] Decision node: approve or reject? (UC11)
+      - Branch &quot;Approve&quot;: confirm the appointment time → [CSDL] UPDATE reservations to 'approved' (hold until pickup_at + 2 hours).
+      - Branch &quot;Reject&quot;: enter the reason → [CSDL] UPDATE to 'rejected', unlock the book immediately.
+    - [Actor (Thủ thư)] Scan the book QR (or the reservation code / enter the code manually) → lend at the counter (UC04).
+    - [Actor (Thủ thư)] Scan the QR to receive returned books: [Hệ thống] calculate the late fine (D6, D7) → [CSDL] UPDATE loans (returned_at, fine_amount) (UC05).
+    - [Actor (Thủ thư)] Open &quot;Overdue&quot;: [Hệ thống] list overdue loans, auto-send overdue notifications to readers (UC06 + UC13).
+    - [Actor (Thủ thư)] Open &quot;Statistics&quot;: view figures/charts; export Excel (2 sheets) / print-save PDF (UC07 + UC14).
+    - [Actor (Thủ thư)] Manage readers (UC03): add (default password), edit, lock.
+    - End point (librarian branch).
+  - Branch &quot;Admin&quot;:
+    - [Actor (Admin)] Manage librarian accounts: add/lock/reset password (UC10).
+    - [Actor (Admin)] System configuration: edit loan days, fine per day, max books, reservation hold hours (UC09; applies to new loans only).
+    - [Actor (Admin)] View statistics, create general announcements (UC13).
+    - End point (admin branch).
+
+Background flows of the Hệ thống (no actor needed, run in parallel):
+- [Hệ thống] Automatic notifications (UC13): new reservation → all librarians; approve/reject → that reader; loan created → due-date reminder for the reader; overdue detected → red warning for the reader (once per loan).
+- [Hệ thống] 'pending' reservations past expires_at (48 hours) not yet reviewed → [CSDL] UPDATE to 'expired'.
+- [Hệ thống] 'approved' reservations past pickup_at + 2 hours not yet picked up → [CSDL] UPDATE to 'expired'.
+</code></pre>
+<hr />
+<h2 id="prompt-1-overall-system-use-case-diagram">Prompt 1 — Overall System Use Case Diagram</h2>
+<p>Create exactly 1 Use Case Diagram. Use only the elements below; do not add any other actor or use case.</p>
+<p><strong>Actors (3):</strong> Admin, Thủ thư, Độc giả.</p>
+<p><strong>Use cases (15), write the names exactly:</strong>
+- "UC01 Đăng nhập &amp; Đăng ký"
+- "UC02 Quản lý sách"
+- "UC03 Quản lý độc giả"
+- "UC04 Mượn sách"
+- "UC05 Trả sách"
+- "UC06 Danh sách quá hạn"
+- "UC07 Thống kê"
+- "UC08 Sách của tôi"
+- "UC09 Cấu hình hệ thống"
+- "UC10 Quản lý tài khoản thủ thư"
+- "UC11 Đặt trước sách"
+- "UC12 Hủy đặt trước"
+- "UC13 Hệ thống thông báo"
+- "UC14 Xuất báo cáo Excel / In PDF"
+- "UC15 Quản lý sách mở rộng"</p>
+<p><strong>Association relationships (solid lines):</strong>
+- Admin — UC01, UC07, UC09, UC10, UC13, UC14
+- Thủ thư — UC01, UC02, UC03, UC04, UC05, UC06, UC07, UC11, UC13, UC14, UC15
+- Độc giả — UC01, UC08, UC11, UC12, UC13</p>
+<p><strong>Notes attached to the diagram (do not draw extra arrows):</strong>
+- "UC04 checks the reservations created by UC11 (D13)"
+- "UC05 computes the fine automatically per D7; it is not a separate use case"
+- "Registration is an alternative flow inside UC01; do not split it into a separate use case"
+- "UC14 extends UC07; UC15 extends UC02"</p>
+<h2 id="display-requirement-group-the-use-cases-by-actor-using-boundarypackage-quan-tri-nghiep-vu-quay-oc-gia-if-the-tool-supports-it-keep-the-use-case-names-in-vietnamese-with-diacritics"><strong>Display requirement:</strong> group the use cases by actor using boundary/package (Quản trị, Nghiệp vụ quầy, Độc giả) if the tool supports it; keep the use case names in Vietnamese with diacritics.</h2>
+<hr />
+<h2 id="prompt-2-uc01-use-case-diagram-login-registration">Prompt 2 — UC01 Use Case Diagram: Login &amp; Registration</h2>
+<p>Create exactly 1 Use Case Diagram. Actors: Admin, Thủ thư, Độc giả. A single use case: "UC01 Đăng nhập &amp; Đăng ký". Draw associations from all 3 actors to the use case. Add a note: "The registration flow is for Độc giả only (self sign-up); Admin and Thủ thư accounts are issued by the Admin (UC10)". Do not add any other use case.</p>
+<hr />
+<h2 id="prompt-3-uc02-use-case-diagram-book-management">Prompt 3 — UC02 Use Case Diagram: Book Management</h2>
+<p>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: "UC02 Quản lý sách". Draw the association Thủ thư — UC02. Add a note: "Includes: add (generates QR), edit, delete, search". Do not add any other use case.</p>
+<hr />
+<h2 id="prompt-4-uc03-use-case-diagram-reader-management">Prompt 4 — UC03 Use Case Diagram: Reader Management</h2>
+<p>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: "UC03 Quản lý độc giả". Draw the association Thủ thư — UC03. Add a note: "Includes: add (default password 123456), edit, delete, search". Do not add any other use case.</p>
+<hr />
+<h2 id="prompt-5-uc04-use-case-diagram-borrow-book">Prompt 5 — UC04 Use Case Diagram: Borrow Book</h2>
+<p>Create exactly 1 Use Case Diagram. Actor: Thủ thư. Main use case: "UC04 Mượn sách". Draw the association Thủ thư — UC04. Add the use case "UC11 Đặt trước sách" (no actor link) and a dashed dependency line from UC04 to UC11, with a note attached: "UC04 checks and marks fulfilled the reservations created by UC11 (D13)". Do not add any other use case.</p>
+<hr />
+<h2 id="prompt-6-uc05-use-case-diagram-return-book">Prompt 6 — UC05 Use Case Diagram: Return Book</h2>
+<p>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: "UC05 Trả sách". Draw the association Thủ thư — UC05. Add a note: "The fine-calculation step (D7) is an internal step of UC05; do not split it into a separate use case". Do not add any other use case.</p>
+<hr />
+<h2 id="prompt-7-uc06-use-case-diagram-overdue-list">Prompt 7 — UC06 Use Case Diagram: Overdue List</h2>
+<p>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: "UC06 Danh sách quá hạn". Draw the association Thủ thư — UC06. Add a note: "Read-only: lists borrowing loans whose due_at is before today". Do not add any other use case.</p>
+<hr />
+<h2 id="prompt-8-uc07-use-case-diagram-statistics">Prompt 8 — UC07 Use Case Diagram: Statistics</h2>
+<p>Create exactly 1 Use Case Diagram. Actors: Thủ thư, Admin. A single use case: "UC07 Thống kê". Draw associations from both actors to the use case. Add a note: "4 stat cards + top-5 chart + borrow/return history". Do not add any other use case.</p>
+<hr />
+<h2 id="prompt-9-uc08-use-case-diagram-my-books">Prompt 9 — UC08 Use Case Diagram: My Books</h2>
+<p>Create exactly 1 Use Case Diagram. Actor: Độc giả. A single use case: "UC08 Sách của tôi". Draw the association Độc giả — UC08. Add a note: "3 tabs: Đang mượn / Đặt trước / Lịch sử; each reader sees only their own data". Do not add any other use case.</p>
+<hr />
+<h2 id="prompt-10-uc09-use-case-diagram-system-configuration">Prompt 10 — UC09 Use Case Diagram: System Configuration</h2>
+<p>Create exactly 1 Use Case Diagram. Actor: Admin. A single use case: "UC09 Cấu hình hệ thống". Draw the association Admin — UC09. Add a note: "4 parameters: loan_days, fine_per_day, max_books_per_reader, reservation_hours; apply to new loans only". Do not add any other use case.</p>
+<hr />
+<h2 id="prompt-11-uc10-use-case-diagram-librarian-account-management">Prompt 11 — UC10 Use Case Diagram: Librarian Account Management</h2>
+<p>Create exactly 1 Use Case Diagram. Actor: Admin. A single use case: "UC10 Quản lý tài khoản thủ thư". Draw the association Admin — UC10. Add a note: "Includes: create, lock/unlock, delete; cannot delete your own account". Do not add any other use case.</p>
+<hr />
+<h2 id="prompt-12-uc11-use-case-diagram-reserve-book">Prompt 12 — UC11 Use Case Diagram: Reserve Book</h2>
+<p>Create exactly 1 Use Case Diagram. Actor: Độc giả. Main use case: "UC11 Đặt trước sách". Draw the association Độc giả — UC11. Add the use case "UC04 Mượn sách" (no actor link) and a dashed dependency line from UC11 to UC04, with a note attached: "Pending reservations from UC11 are consumed by UC04 when the reader comes to the counter to pick up the book (D13)". Do not add any other use case.</p>
+<hr />
+<h2 id="prompt-13-uc12-use-case-diagram-cancel-reservation">Prompt 13 — UC12 Use Case Diagram: Cancel Reservation</h2>
+<h2 id="create-exactly-1-use-case-diagram-actor-oc-gia-main-use-case-uc12-huy-at-truoc-draw-the-association-oc-gia-uc12-add-the-use-case-uc11-at-truoc-sach-no-actor-link-and-a-dashed-dependency-line-from-uc12-to-uc11-with-a-note-attached-uc12-turns-uc11s-pending-reservations-into-cancelled-do-not-add-any-other-use-case">Create exactly 1 Use Case Diagram. Actor: Độc giả. Main use case: "UC12 Hủy đặt trước". Draw the association Độc giả — UC12. Add the use case "UC11 Đặt trước sách" (no actor link) and a dashed dependency line from UC12 to UC11, with a note attached: "UC12 turns UC11's pending reservations into cancelled". Do not add any other use case.</h2>
+<hr />
+<h2 id="prompt-14-uc01-activity-login-registration">Prompt 14 — UC01 Activity: Login &amp; Registration</h2>
+<pre><code>Draw an activity diagram for use case &quot;UC01 — Đăng nhập &amp; Đăng ký&quot; of the mini library management system.
+
+Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
+- Actor: user actions (clicking buttons, entering data, scanning QR codes).
+- Giao diện: rendering pages/forms/notifications, navigation.
+- Hệ thống: data validation, business logic, code generation, calculations.
+- CSDL: all data read/write operations (state the table explicitly).
+
+Actor(s): User (Admin, Thủ thư, Độc giả).
+
+Activity flow:
+- [Actor] Start point: The user opens the login page.
+- [Actor] Decision node: Already has an account?
+  - Branch &quot;No&quot;: [Giao diện] open the registration page.
+    - [Actor] Enter full name, student code, phone, username, password into the registration form.
+    - [Hệ thống] Decision node: Is the information valid? (full name/username not empty; password meets the policy: at least 8 characters, 1 uppercase, 1 lowercase, 1 digit or special character)
+      - Branch No: [Giao diện] show the corresponding error (&quot;... không được để trống&quot; / &quot;Mật khẩu phải có ít nhất 8 ký tự, 1 chữ hoa, ...&quot;), go to the end point.
+      - Branch Yes: [Hệ thống] check that the username does not exist yet in the CSDL.
+        - Branch exists: [Giao diện] show &quot;Tên đăng nhập đã được sử dụng&quot;, go to the end point.
+        - Branch not exists: [CSDL] INSERT table users (role = 'reader', password hashed with bcrypt); [Giao diện] log the user in automatically.
+  - Branch &quot;Yes&quot;: [Actor] enter username and password, click &quot;Đăng nhập&quot;. (Note: login does NOT validate the password format.)
+    - [Hệ thống] Decision node: Correct username and password? (compare the bcrypt hash against the CSDL)
+      - Branch No: [Giao diện] show &quot;Sai tên đăng nhập hoặc mật khẩu&quot;, go to the end point.
+      - Branch Yes: continue.
+    - [Hệ thống] Decision node: Is the account active (active = 1)?
+      - Branch No: [Giao diện] show &quot;Tài khoản đã bị khóa&quot;, go to the end point.
+      - Branch Yes: continue; [Hệ thống] create a JWT (expires in 8 hours).
+- [Hệ thống] Decision node: What is the account's role?
+  - admin branch: [Giao diện] navigate to the admin page.
+  - librarian branch: [Giao diện] navigate to the librarian Dashboard.
+  - reader branch: [Giao diện] navigate to the &quot;Sách của tôi&quot; page.
+- End point.
+</code></pre>
+<hr />
+<h2 id="prompt-15-uc01-sequence-login">Prompt 15 — UC01 Sequence: Login</h2>
+<pre><code>Draw a sequence diagram for use case &quot;UC01 — Đăng nhập&quot; of the mini library management system.
+
+Mandatory requirements:
+- Exactly 5 lifelines in order from left to right; do NOT draw any extra lifeline.
+- On every message arrow write the full function name with parameters; do not write generic descriptions. Backend steps follow the pattern &quot;Hệ thống: ServiceName.functionName(params)&quot;.
+
+Lifelines (exactly 5, in order from left to right):
+1. Actor (User)
+2. Giao diện (LoginPage)
+3. Form (login form: username/password)
+4. Hệ thống (backend: AuthController + UserService + UserRepository)
+5. CSDL (MySQL)
+
+Message flow:
+1. Actor enters username/password into the Form, clicks &quot;Đăng nhập&quot; → Giao diện.
+2. Giao diện → Form: get the entered data.
+3. Giao diện → Hệ thống: AuthController.login(username, password).
+4. Hệ thống: UserService.authenticate(username, password) → CSDL: SELECT table users WHERE username = ? (UserRepository.findByUsername). If null: return the error &quot;Sai tên đăng nhập hoặc mật khẩu&quot;, end the flow.
+5. Hệ thống: bcrypt.compare(password, user.passwordHash). If wrong: return the error &quot;Sai tên đăng nhập hoặc mật khẩu&quot;, end the flow. (Login does NOT validate the password format.)
+6. Hệ thống: check user.active. If 0: return the error &quot;Tài khoản đã bị khóa&quot;, end the flow.
+7. Hệ thống: create a JWT (expires in 8 hours), return the token + role to Giao diện.
+8. Giao diện navigates by role: admin → admin page, librarian → Dashboard, reader → &quot;Sách của tôi&quot;.
+</code></pre>
+<hr />
+<h2 id="prompt-16-uc01-analysis-class">Prompt 16 — UC01 Analysis Class</h2>
+<pre><code>Draw an analysis class diagram for use case &quot;UC01 — Đăng nhập &amp; Đăng ký&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+
+Classes:
+- &lt;&lt;boundary&gt;&gt; LoginPage
+- &lt;&lt;boundary&gt;&gt; RegisterPage
+- &lt;&lt;control&gt;&gt; AuthController: login(username, password), register(data)
+- &lt;&lt;entity&gt;&gt; User: id, username, passwordHash, fullName, role, studentCode, phone, active; isLibrarian(): boolean
+- UserService class: registerReader(data): User, authenticate(username, password): User, createLibrarian(data): User, setAccountActive(id, active): User
+- UserRepository class: findByUsername(username): User, findById(id): User, save(user): User
+
+Relationships:
+- LoginPage → AuthController, RegisterPage → AuthController
+- AuthController → UserService
+- UserService → User, UserService → UserRepository
+</code></pre>
+<hr />
+<h2 id="prompt-17-uc02-activity-book-management-incl-uc15-extension">Prompt 17 — UC02 Activity: Book Management (incl. UC15 extension)</h2>
+<pre><code>Draw an activity diagram for use case &quot;UC02 — Quản lý sách&quot; and &quot;UC15 — Quản lý sách mở rộng&quot; of the mini library management system.
+
+Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
+- Actor: user actions (clicking buttons, entering data, scanning QR codes).
+- Giao diện: rendering pages/forms/notifications, navigation.
+- Hệ thống: data validation, business logic, code generation, calculations.
+- CSDL: all data read/write operations (state the table explicitly).
+
+Actor(s): Thủ thư.
+
+Activity flow:
+- [Actor] Start point: Thủ thư opens the Book Management page.
+- [Actor] Decision node: Choose an action?
+  - Branch &quot;Add book&quot;: [Actor] enter the title (required), author, category (select from dropdown), publisher, publish year, copy count (1–50) into the form.
+    - [Hệ thống] Decision node: Is there a title?
+      - Branch No: [Giao diện] show &quot;Tiêu đề không được để trống&quot;, go to the end point.
+      - Branch Yes: [Hệ thống] generate book_code per D14 (&lt;MÃ_TL&gt;-&lt;seq 4 digits&gt;, e.g. VH-0001; qr_code = book_code); [CSDL] INSERT table books (one row per copy, status = 'available'); [Giao diện] show the QR code for download/print and report &quot;Đã tạo N bản&quot;, go to the end point.
+  - Branch &quot;Edit book&quot;: [Actor] select a book, edit its info (qr_code and book_code cannot be changed); may upload a new cover image (JPEG/PNG/WebP ≤ 2MB, old file auto-deleted).
+    - [Hệ thống] Decision node: Is the data valid? Branch No: [Giao diện] show the error. Branch Yes: [CSDL] UPDATE table books; [Giao diện] report success, go to the end point.
+  - Branch &quot;Delete book&quot;:
+    - [Hệ thống] Decision node: Is the book in &quot;Còn&quot; (available) status?
+      - Branch No: [Giao diện] show &quot;Không thể xóa sách đang được mượn&quot;, go to the end point.
+      - Branch Yes: [CSDL] DELETE table books; [Giao diện] report success, go to the end point.
+  - Branch &quot;Import Excel&quot; (UC15): [Actor] download the template file, choose a .xlsx file (≤ 5MB).
+    - [Hệ thống] Decision node: Is the file valid? Branch No: [Giao diện] show the error. Branch Yes: [Hệ thống] validate each row; [CSDL] INSERT the valid rows; [Giao diện] report &quot;Tạo thành công X cuốn&quot; + the list of failed rows with reasons, go to the end point.
+  - Branch &quot;Search/Filter/Sort&quot;: [Actor] enter a keyword / select a status (Còn/Đang mượn/Đang giữ chỗ) / publisher / publish year / sort order on the form.
+    - [Hệ thống] query the CSDL with the conditions; [Giao diện] display the result list, go to the end point.
+</code></pre>
+<hr />
+<h2 id="prompt-18-uc02-sequence-add-book-incl-uc15">Prompt 18 — UC02 Sequence: Add Book (incl. UC15)</h2>
+<pre><code>Draw a sequence diagram for the &quot;Add book&quot; function (UC02 + UC15) of the mini library management system.
+
+Mandatory requirements:
+- Exactly 5 lifelines in order from left to right; do NOT draw any extra lifeline.
+- On every message arrow write the full function name with parameters; do not write generic descriptions. Backend steps follow the pattern &quot;Hệ thống: ServiceName.functionName(params)&quot;.
+
+Lifelines (exactly 5, in order from left to right):
+1. Actor (Thủ thư)
+2. Giao diện (BookPage)
+3. Form (add-book form: title/author/category/publisher/publish year/copy count)
+4. Hệ thống (backend: BookController + BookService + BookRepository + CategoryRepository)
+5. CSDL (MySQL)
+
+Message flow:
+1. Actor enters the information into the Form (copy count defaults to 1, max 50), clicks &quot;Lưu&quot; → Giao diện.
+2. Giao diện → Form: get the entered data.
+3. Giao diện → Hệ thống: BookController.createBook(data, quantity).
+4. Hệ thống: BookService.createBook(data, quantity) — check data.title is not empty. If empty: return the error &quot;Tiêu đề không được để trống&quot;, end the flow.
+5. Hệ thống: BookService.generateBookCode(category) — Hệ thống: CategoryRepository.findByName(category) → CSDL: SELECT table categories (get code; if none → &quot;SACH&quot;); seq = current max seq of the category + 1 → book_code like &quot;VH-0001&quot;; loop until unique (BookRepository.bookCodeExists).
+6. Hệ thống: for each copy, create Book(qrCode = bookCode, bookCode, status = 'available') → CSDL: INSERT table books (BookRepository.save). Repeat N times per the quantity.
+7. The list of created Books is returned to Giao diện; Giao diện displays the QR codes (per book_code) for the librarian to download/print and reports &quot;Đã tạo N bản&quot;.
+</code></pre>
+<hr />
+<h2 id="prompt-19-uc02-analysis-class">Prompt 19 — UC02 Analysis Class</h2>
+<pre><code>Draw an analysis class diagram for use case &quot;UC02 — Quản lý sách&quot; (incl. UC15) of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+
+Classes:
+- &lt;&lt;boundary&gt;&gt; BookPage
+- &lt;&lt;control&gt;&gt; BookController: listBooks(), createBook(data, quantity), updateBook(id, data), deleteBook(id), getByQr(qrCode), uploadCover(id, file), importExcel(file), syncBookCodes()
+- &lt;&lt;entity&gt;&gt; Book: id, qrCode, bookCode, title, author, category, publisher, publishYear, coverUrl, status; isAvailable(): boolean
+- &lt;&lt;entity&gt;&gt; Category: id, name, code
+- BookService class: createBook(data, quantity): Book[], generateBookCode(category): string, updateBook(id, data): Book, deleteBook(id): void, findByQrCode(qr): Book, search(keyword): Book[], importFromExcel(buffer): {created, errors}, syncBookCodes(): int, setCover(id, filename): void
+- BookRepository class: save(book): Book, findById(id): Book, findByQrCode(qr): Book, search(keyword): Book[], delete(id): void, bookCodeExists(code): boolean, maxCodeSeq(catCode): int, updateCoverUrl(id, url): void
+- CategoryRepository class: findByName(name): Category, save(c): Category, delete(id): void
+
+Relationships:
+- BookPage → BookController
+- BookController → BookService
+- BookService → Book, BookService → BookRepository, BookService → CategoryRepository
+- Category 1 — * Book
+</code></pre>
+<hr />
+<h2 id="prompt-20-uc03-activity-reader-management">Prompt 20 — UC03 Activity: Reader Management</h2>
+<pre><code>Draw an activity diagram for use case &quot;UC03 — Quản lý độc giả&quot; of the mini library management system.
+
+Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
+- Actor: user actions (clicking buttons, entering data, scanning QR codes).
+- Giao diện: rendering pages/forms/notifications, navigation.
+- Hệ thống: data validation, business logic, code generation, calculations.
+- CSDL: all data read/write operations (state the table explicitly).
+
+Actor(s): Thủ thư.
+
+Activity flow:
+- [Actor] Start point: Thủ thư opens the Reader Management page.
+- [Actor] Decision node: Choose an action?
+  - Branch &quot;Add reader&quot;: [Actor] enter full name (required), student code, phone, username (required) into the form.
+    - [Hệ thống] Decision node: Does the username already exist in the CSDL?
+      - Branch Yes: [Giao diện] show &quot;Tên đăng nhập đã được sử dụng&quot;, go to the end point.
+      - Branch No: [Hệ thống] hash the default password &quot;123456&quot; with bcrypt; [CSDL] INSERT table users (role = 'reader', active = 1); [Giao diện] report success along with the default password for the librarian to hand to the reader, go to the end point.
+  - Branch &quot;Edit reader&quot;: [Actor] select a reader, edit full name/student code/phone (username cannot change); [CSDL] UPDATE table users; [Giao diện] report success, go to the end point.
+  - Branch &quot;Delete reader&quot;:
+    - [Hệ thống] Decision node: Does the reader still have unreturned loans (loans.status = 'borrowing')?
+      - Branch Yes: [Giao diện] show &quot;Độc giả còn N cuốn chưa trả, không thể xóa&quot;, go to the end point.
+      - Branch No: [CSDL] DELETE table users; [Giao diện] report success, go to the end point.
+</code></pre>
+<hr />
+<h2 id="prompt-21-uc03-sequence-add-reader">Prompt 21 — UC03 Sequence: Add Reader</h2>
+<pre><code>Draw a sequence diagram for the &quot;Add reader&quot; function (UC03) of the mini library management system.
+
+Mandatory requirements:
+- Exactly 5 lifelines in order from left to right; do NOT draw any extra lifeline.
+- On every message arrow write the full function name with parameters; do not write generic descriptions. Backend steps follow the pattern &quot;Hệ thống: ServiceName.functionName(params)&quot;.
+
+Lifelines (exactly 5, in order from left to right):
+1. Actor (Thủ thư)
+2. Giao diện (ReaderPage)
+3. Form (add-reader form: full name/student code/phone/username)
+4. Hệ thống (backend: ReaderController + UserService + UserRepository)
+5. CSDL (MySQL)
+
+Message flow:
+1. Actor enters the information into the Form, clicks &quot;Lưu&quot; → Giao diện.
+2. Giao diện → Form: get the entered data.
+3. Giao diện → Hệ thống: ReaderController.createReader(data).
+4. Hệ thống: UserService.createReader(data) → CSDL: SELECT table users WHERE username = ? (UserRepository.findByUsername). If it already exists: return the error &quot;Tên đăng nhập đã được sử dụng&quot;, end the flow.
+5. Hệ thống: hash the default password &quot;123456&quot; with bcrypt, create User(role = 'reader', active = 1).
+6. Hệ thống → CSDL: INSERT table users (UserRepository.save).
+7. The User object is returned to Giao diện; Giao diện shows a success message along with the default password for the librarian to hand to the reader.
+</code></pre>
+<hr />
+<h2 id="prompt-22-uc03-analysis-class">Prompt 22 — UC03 Analysis Class</h2>
+<pre><code>Draw an analysis class diagram for use case &quot;UC03 — Quản lý độc giả&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+
+Classes:
+- &lt;&lt;boundary&gt;&gt; ReaderPage
+- &lt;&lt;control&gt;&gt; ReaderController: listReaders(), createReader(data), updateReader(id, data), deleteReader(id)
+- &lt;&lt;entity&gt;&gt; User: id, username, passwordHash, fullName, role, studentCode, phone, active
+- UserService class: registerReader(data): User, listReaders(): User[], updateReader(id, data): User, deleteReader(id): void
+- UserRepository class: findByUsername(username): User, save(user): User, delete(id): void, countBorrowingByReader(readerId): int
+
+Relationships:
+- ReaderPage → ReaderController
+- ReaderController → UserService
+- UserService → User, UserService → UserRepository
+</code></pre>
+<h2 id="-">---</h2>
+<h2 id="prompt-23-uc04-activity-borrow-book">Prompt 23 — UC04 Activity: Borrow Book</h2>
+<pre><code>Draw an activity diagram for use case &quot;UC04 — Mượn sách&quot; of the mini library management system.
+
+Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
+- Actor: user actions (clicking buttons, entering data, scanning QR codes).
+- Giao diện: rendering pages/forms/notifications, navigation.
+- Hệ thống: data validation, business logic, code generation, calculations.
+- CSDL: all data read/write operations (state the table explicitly).
+
+Actor(s): Thủ thư.
+
+Activity flow:
+- [Actor] Start point: Thủ thư clicks &quot;Mượn sách&quot;.
+- [Actor] Scan the QR code on the book with the camera, or type the code manually into the &quot;Nhập mã sách thủ công&quot; box (with a paste-from-clipboard button) then click &quot;Tìm&quot;.
+- [Hệ thống] Decision node: Is the code a still-valid reservation code (reservations.code)?
+  - Branch Yes: [Giao diện] show the reservation card (book, reader, appointment); the reader is fixed by the reservation; go to the confirm step.
+  - Branch No: [Hệ thống] look up the book by qr_code or book_code.
+    - [Hệ thống] Decision node: Does the book exist?
+      - Branch No: [Giao diện] show &quot;Không tìm thấy sách&quot;, go to the end point.
+      - Branch Yes: continue.
+    - [Hệ thống] Decision node: Is the book in &quot;Còn&quot; (available) status?
+      - Branch No: [Giao diện] show &quot;Sách đang được mượn bởi [tên độc giả]&quot;, go to the end point.
+      - Branch Yes: continue.
+    - [Actor] Thủ thư finds and selects the borrowing reader (ready-made list, sorted by most recent borrowing by default).
+    - [Hệ thống] Decision node: Does the reader exist and is the account active (active = 1)?
+      - Branch No: [Giao diện] show the corresponding error (&quot;Không tìm thấy độc giả&quot; / &quot;Tài khoản độc giả đã bị khóa&quot;), go to the end point.
+      - Branch Yes: continue.
+    - [Hệ thống] Decision node: Is the reader borrowing below the max book limit (max_books_per_reader in settings, default 5)?
+      - Branch No: [Giao diện] show &quot;Độc giả đã mượn tối đa [N] cuốn&quot;, go to the end point.
+      - Branch Yes: continue.
+- [Hệ thống] Decision node: Does the book have an active reservation? (D13)
+  - Branch Yes and it belongs to another reader: [Giao diện] show &quot;Sách đã được [tên] đặt trước&quot;, go to the end point.
+  - Branch No or it belongs to this reader: continue.
+- [Actor] Click &quot;Xác nhận mượn&quot; (or &quot;Cho mượn&quot; in the reservation-code flow).
+- [Hệ thống] Create the loan inside one transaction: borrowed_at = now, due_at = borrowed_at + loan_days (from settings, default 14 days); [CSDL] INSERT table loans, UPDATE table books SET status = 'borrowed'; if there is a reservation of this exact reader then UPDATE table reservations SET status = 'fulfilled'. All succeed or all roll back.
+- [Hệ thống] Send a due-date reminder notification to the reader (UC13).
+- [Giao diện] Show a borrow-success message with the due date (format dd/mm/yyyy hh:mm).
+- End point.
+</code></pre>
+<hr />
+<h2 id="prompt-24-uc04-sequence-borrow-book">Prompt 24 — UC04 Sequence: Borrow Book</h2>
+<pre><code>Draw a sequence diagram for use case &quot;UC04 — Mượn sách&quot; of the mini library management system.
+
+Mandatory requirements:
+- Exactly 5 lifelines in order from left to right; do NOT draw any extra lifeline.
+- On every message arrow write the full function name with parameters; do not write generic descriptions. Backend steps follow the pattern &quot;Hệ thống: ServiceName.functionName(params)&quot;.
+
+Lifelines (exactly 5, in order from left to right):
+1. Actor (Thủ thư)
+2. Giao diện (BorrowPage)
+3. Form (borrow form: book-code scan/entry box + reader picker list + confirm button)
+4. Hệ thống (backend: LoanController + LoanService + Repositories + NotificationService)
+5. CSDL (MySQL)
+
+Message flow:
+(steps 4–12 run inside one transaction: all succeed or all roll back)
+1. Actor scans the QR code (or types the code manually / pastes from clipboard then clicks &quot;Tìm&quot;) → Giao diện.
+2. Giao diện → Hệ thống: LoanController.borrowBook(qrCode, readerId). (If the code is a reservation code: Hệ thống: ReservationRepository.findByCode(code) → CSDL: SELECT table reservations; on a hit the reader is fixed by the reservation, skipping the reader-picker step.)
+3. Hệ thống: LoanService.borrowBook(qrCode, readerId) — read settings: Hệ thống: SettingsRepository.get() → CSDL: SELECT table settings (loanDays, maxBooksPerReader).
+4. Hệ thống: BookRepository.findByQrCode(qrCode) → CSDL: SELECT table books WHERE qr_code = ? OR book_code = ?. If not found: return the error &quot;Không tìm thấy sách&quot;, end the flow.
+5. Hệ thống: book.isAvailable(). If false: Hệ thống: LoanRepository.findActiveByBook(bookId) → CSDL: SELECT table loans → return the error &quot;Sách đang được mượn bởi [tên độc giả]&quot;, end the flow.
+6. Hệ thống: UserRepository.findById(readerId) → CSDL: SELECT table users. If not found or role is not 'reader': return the error &quot;Không tìm thấy độc giả&quot;, end the flow. If active = 0: return the error &quot;Tài khoản độc giả đã bị khóa&quot;, end the flow.
+7. Hệ thống: LoanRepository.countActiveByReader(readerId) → CSDL: SELECT COUNT table loans. If &gt;= maxBooksPerReader: return the error &quot;Độc giả đã mượn tối đa [N] cuốn&quot;, end the flow.
+8. Hệ thống: ReservationRepository.findActiveByBook(bookId) → CSDL: SELECT table reservations. If there is a reservation by another reader: return the error &quot;Sách đã được [tên] đặt trước&quot;, end the flow.
+9. Hệ thống: create Loan(borrowedAt = now, dueAt = now + loanDays days, status = 'borrowing') → CSDL: INSERT table loans (LoanRepository.save).
+10. Hệ thống → CSDL: UPDATE table books SET status = 'borrowed' (BookRepository.updateStatus).
+11. If there is a reservation by this exact reader: Hệ thống → CSDL: UPDATE table reservations SET status = 'fulfilled' (inside the same transaction).
+12. Commit the transaction. Hệ thống: NotificationService.notifyLoanCreated(readerId, dueAt) → CSDL: INSERT table notifications (due-date reminder).
+13. The result with the due date is returned to Giao diện; Giao diện shows the borrow-success message (format dd/mm/yyyy hh:mm).
+</code></pre>
+<hr />
+<h2 id="prompt-25-uc04-analysis-class">Prompt 25 — UC04 Analysis Class</h2>
+<pre><code>Draw an analysis class diagram for use case &quot;UC04 — Mượn sách&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+
+Classes:
+- &lt;&lt;boundary&gt;&gt; BorrowPage
+- &lt;&lt;control&gt;&gt; LoanController: borrowBook(qrCode, readerId)
+- &lt;&lt;entity&gt;&gt; Book: id, qrCode, title, status; isAvailable(): boolean
+- &lt;&lt;entity&gt;&gt; User: id, fullName, role, active; isActive(): boolean
+- &lt;&lt;entity&gt;&gt; Loan: id, borrowedAt, dueAt, returnedAt, fineAmount, status; isOverdue(): boolean, calcOverdueDays(): int, calcFine(finePerDay): int
+- &lt;&lt;entity&gt;&gt; Reservation: id, reservedAt, expiresAt, status; isActive(): boolean, isExpired(): boolean
+- LoanService class: borrowBook(qrCode, readerId): Loan
+- BookRepository class: findByQrCode(qr): Book, updateStatus(id, status): void
+- UserRepository class: findById(id): User
+- LoanRepository class: save(loan): Loan, countActiveByReader(readerId): int, findActiveByBook(bookId): Loan
+- ReservationRepository class: findPendingByBook(bookId): Reservation, updateStatus(id, status): void
+- SettingsRepository class: get(): Settings
+
+Relationships:
+- BorrowPage → LoanController
+- LoanController → LoanService
+- LoanService → Book, LoanService → User, LoanService → Loan
+- LoanService → BookRepository, LoanService → UserRepository, LoanService → LoanRepository, LoanService → ReservationRepository, LoanService → SettingsRepository
+- User 1 — * Loan, Book 1 — * Loan, User 1 — * Reservation, Book 1 — * Reservation
+</code></pre>
+<hr />
+<h2 id="prompt-26-uc05-activity-return-book">Prompt 26 — UC05 Activity: Return Book</h2>
+<pre><code>Draw an activity diagram for use case &quot;UC05 — Trả sách&quot; of the mini library management system.
+
+Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
+- Actor: user actions (clicking buttons, entering data, scanning QR codes).
+- Giao diện: rendering pages/forms/notifications, navigation.
+- Hệ thống: data validation, business logic, code generation, calculations.
+- CSDL: all data read/write operations (state the table explicitly).
+
+Actor(s): Thủ thư.
+
+Activity flow:
+- [Actor] Start point: Thủ thư clicks &quot;Trả sách&quot;.
+- [Actor] Scan the QR code on the book with the camera.
+- [Hệ thống] Find the open loan (status = 'borrowing') of the book in the CSDL.
+- [Hệ thống] Decision node: Is there an open loan?
+  - Branch No: [Giao diện] show &quot;Sách này không trong trạng thái cho mượn&quot;, go to the end point.
+  - Branch Yes: continue.
+- [Hệ thống] Compute overdue days = CEIL((today - due date) / 86400) (D6); 0 if returned on time or early.
+- [Hệ thống] Decision node: Are overdue days greater than 0?
+  - Branch Yes: fine = overdue days × current fine rate (D7); [Giao diện] show the fine to the librarian.
+  - Branch No: fine = 0.
+- [Giao diện] Show the confirmation form: book title, reader, borrow date, due date, fine.
+- [Actor] Click &quot;Xác nhận trả&quot;.
+- [Hệ thống] Inside one transaction: [CSDL] UPDATE table loans SET returned_at = NOW(), fine_amount = fine, status = 'returned'; [CSDL] UPDATE table books SET status = 'available'.
+- [Giao diện] Show the return-success message (+ the fine amount if any).
+- End point.
+</code></pre>
+<hr />
+<h2 id="prompt-27-uc05-sequence-return-book">Prompt 27 — UC05 Sequence: Return Book</h2>
+<pre><code>Draw a sequence diagram for use case &quot;UC05 — Trả sách&quot; of the mini library management system.
+
+Mandatory requirements:
+- Exactly 5 lifelines in order from left to right; do NOT draw any extra lifeline.
+- On every message arrow write the full function name with parameters; do not write generic descriptions. Backend steps follow the pattern &quot;Hệ thống: ServiceName.functionName(params)&quot;.
+
+Lifelines (exactly 5, in order from left to right):
+1. Actor (Thủ thư)
+2. Giao diện (ReturnPage)
+3. Form (return confirmation form: loan info + fine + confirm button)
+4. Hệ thống (backend: LoanController + LoanService + Repository)
+5. CSDL (MySQL)
+
+Message flow:
+(2 phases: preview then confirm)
+1. Actor scans the QR code → Giao diện → Hệ thống: LoanController.previewReturn(qrCode).
+2. Hệ thống: LoanService.previewReturn(qrCode) — Hệ thống: BookRepository.findByQrCode(qrCode) → CSDL: SELECT table books.
+3. Hệ thống: LoanRepository.findBorrowingByBook(bookId) → CSDL: SELECT table loans WHERE status = 'borrowing'. If null: return the error &quot;Sách này không trong trạng thái cho mượn&quot;, end the flow.
+4. Hệ thống: loan.calcOverdueDays() (D6); Hệ thống: SettingsRepository.get() → CSDL: SELECT table settings; Hệ thống: loan.calcFine(finePerDay) (D7).
+5. The loan info + overdue days + fine are returned to Giao diện; Giao diện shows the Form for the Actor to review.
+6. Actor clicks &quot;Xác nhận trả&quot; on the Form → Giao diện → Hệ thống: LoanController.returnBook(loanId).
+7. Hệ thống: LoanService.confirmReturn(loanId) — inside one transaction → CSDL: UPDATE table loans SET returned_at = NOW(), fine_amount, status = 'returned' (LoanRepository.updateReturn); CSDL: UPDATE table books SET status = 'available' (BookRepository.updateStatus).
+8. Commit the transaction. The result is returned to Giao diện; Giao diện shows the return-success message.
+</code></pre>
+<hr />
+<h2 id="prompt-28-uc05-analysis-class">Prompt 28 — UC05 Analysis Class</h2>
+<pre><code>Draw an analysis class diagram for use case &quot;UC05 — Trả sách&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+
+Classes:
+- &lt;&lt;boundary&gt;&gt; ReturnPage
+- &lt;&lt;control&gt;&gt; LoanController: previewReturn(qrCode), returnBook(loanId)
+- &lt;&lt;entity&gt;&gt; Book: id, qrCode, title, status
+- &lt;&lt;entity&gt;&gt; Loan: id, borrowedAt, dueAt, returnedAt, fineAmount; isOverdue(): boolean, calcOverdueDays(): int, calcFine(finePerDay: int): int
+- &lt;&lt;entity&gt;&gt; Settings: loanDays, finePerDay, maxBooksPerReader, reservationHours
+- LoanService class: previewReturn(qrCode): {loan, overdueDays, estimatedFine}, confirmReturn(loanId): {loan, overdueDays, fineAmount}
+- LoanRepository class: findBorrowingByBook(bookId): Loan, updateReturn(loanId, returnedAt, fineAmount): void
+- BookRepository class, SettingsRepository class
+
+Relationships:
+- ReturnPage → LoanController
+- LoanController → LoanService
+- LoanService → Loan, LoanService → Book, LoanService → Settings
+- LoanService → LoanRepository, LoanService → BookRepository, LoanService → SettingsRepository
+</code></pre>
+<hr />
+<h2 id="prompt-29-uc06-activity-overdue-list">Prompt 29 — UC06 Activity: Overdue List</h2>
+<pre><code>Draw an activity diagram for use case &quot;UC06 — Xem danh sách quá hạn&quot; of the mini library management system.
+
+Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
+- Actor: user actions (clicking buttons, entering data, scanning QR codes).
+- Giao diện: rendering pages/forms/notifications, navigation.
+- Hệ thống: data validation, business logic, code generation, calculations.
+- CSDL: all data read/write operations (state the table explicitly).
+
+Actor(s): Thủ thư.
+
+Activity flow:
+- [Actor] Start point: Thủ thư opens the &quot;Quá hạn&quot; page.
+- [Hệ thống] Query the CSDL: open loans (status = 'borrowing') whose due date is before now.
+- [Hệ thống] Decision node: Any overdue loans?
+  - Branch No: [Giao diện] show &quot;Không có phiếu quá hạn&quot;, go to the end point.
+  - Branch Yes: continue.
+- [Hệ thống] For each loan: compute overdue days (D6) and the estimated fine = overdue days × current fine rate (D7, not saved to DB); for loans not yet notified (overdue_notified = 0): send the overdue notification to the reader (UC13) and mark as notified in the CSDL.
+- [Giao diện] Display the list with book title, reader, phone, due date, overdue days, estimated fine; sort by overdue days descending; supports sorting by due date.
+- End point.
+</code></pre>
+<hr />
+<h2 id="prompt-30-uc06-sequence-overdue-list">Prompt 30 — UC06 Sequence: Overdue List</h2>
+<pre><code>Draw a sequence diagram for use case &quot;UC06 — Xem danh sách quá hạn&quot; of the mini library management system.
+
+Mandatory requirements:
+- Exactly 5 lifelines in order from left to right; do NOT draw any extra lifeline.
+- On every message arrow write the full function name with parameters; do not write generic descriptions. Backend steps follow the pattern &quot;Hệ thống: ServiceName.functionName(params)&quot;.
+
+Lifelines (exactly 5, in order from left to right):
+1. Actor (Thủ thư)
+2. Giao diện (OverduePage)
+3. Form (filter/search box and sort-order picker on the page)
+4. Hệ thống (backend: LoanController + LoanService + LoanRepository + NotificationService)
+5. CSDL (MySQL)
+
+Message flow:
+1. Actor opens the page (may enter a filter keyword / change the sort order on the Form) → Giao diện → Hệ thống: LoanController.listOverdue(params).
+2. Hệ thống: LoanService.listOverdue() — Hệ thống: LoanRepository.findOverdue() → CSDL: SELECT table loans JOIN table books JOIN table users WHERE loans.status = 'borrowing' AND due_at &lt; NOW().
+3. For each loan: Hệ thống: loan.calcOverdueDays() (D6) and loan.calcFine(finePerDay) (estimated fine per D7, not saved to DB).
+4. For each loan with overdue_notified = 0: Hệ thống: NotificationService.notifyOverdue(readerId, ...) → CSDL: INSERT table notifications; CSDL: UPDATE table loans SET overdue_notified = 1 (each loan is notified only once).
+5. The list with overdue days and estimated fines is returned to Giao diện; Giao diện renders the table sorted by overdue days descending.
+</code></pre>
+<hr />
+<h2 id="prompt-31-uc06-analysis-class">Prompt 31 — UC06 Analysis Class</h2>
+<pre><code>Draw an analysis class diagram for use case &quot;UC06 — Xem danh sách quá hạn&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+
+Classes:
+- &lt;&lt;boundary&gt;&gt; OverduePage
+- &lt;&lt;control&gt;&gt; LoanController: listOverdue()
+- &lt;&lt;entity&gt;&gt; Loan: id, borrowedAt, dueAt, returnedAt, fineAmount; isOverdue(): boolean, calcOverdueDays(): int, calcFine(finePerDay: int): int
+- &lt;&lt;entity&gt;&gt; Book: id, title
+- &lt;&lt;entity&gt;&gt; User: id, fullName, phone
+- LoanService class: listOverdue(): Loan[]
+- LoanRepository class: findOverdue(): Loan[]
+
+Relationships:
+- OverduePage → LoanController
+- LoanController → LoanService
+- LoanService → Loan, LoanService → LoanRepository
+- Each Loan is linked to one Book and one User
+</code></pre>
+<h2 id="-_1">---</h2>
+<h2 id="prompt-32-uc07-activity-statistics-incl-uc14-report-export">Prompt 32 — UC07 Activity: Statistics (incl. UC14 report export)</h2>
+<pre><code>Draw an activity diagram for use case &quot;UC07 — Thống kê&quot; and &quot;UC14 — Xuất báo cáo Excel / In PDF&quot; of the mini library management system.
+
+Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
+- Actor: user actions (clicking buttons, entering data, scanning QR codes).
+- Giao diện: rendering pages/forms/notifications, navigation.
+- Hệ thống: data validation, business logic, code generation, calculations.
+- CSDL: all data read/write operations (state the table explicitly).
+
+Actor(s): Thủ thư, Admin.
+
+Activity flow:
+- [Actor] Start point: The user opens the &quot;Thống kê&quot; page.
+- [Hệ thống] Count in the CSDL: total books, borrowed books, overdue loans (computed dynamically), total readers.
+- [Giao diện] Display the 4 overview stat cards.
+- [Hệ thống] Count borrows per book in the CSDL, take the top 5.
+- [Giao diện] Display the bar chart of the top 5 most borrowed books.
+- [Giao diện] Display the borrow/return history table; [Actor] can filter by reader, status, date range and sort by newest/oldest borrow date on the form.
+- [Actor] Decision node: Export a report?
+  - Branch &quot;Xuất Excel&quot; (UC14): [Hệ thống] generate the .xlsx file (filename contains date-time) with 2 sheets &quot;Muon tra&quot; (loan details matching the current filters) and &quot;Tong quan&quot; (summary figures); [Giao diện] download the file to the machine, go to the end point.
+  - Branch &quot;In / Lưu PDF&quot; (UC14): [Actor] click the button; [Giao diện] call window.print(); the @media print CSS prints only the report block (hides sidebar, topbar, buttons, filters); [Actor] choose a printer or &quot;Save as PDF&quot;, go to the end point.
+  - Branch &quot;No&quot;: go to the end point.
+</code></pre>
+<hr />
+<h2 id="prompt-33-uc07-sequence-statistics-incl-uc14">Prompt 33 — UC07 Sequence: Statistics (incl. UC14)</h2>
+<pre><code>Draw a sequence diagram for use case &quot;UC07 — Thống kê&quot; and &quot;UC14 — Xuất báo cáo&quot; of the mini library management system.
+
+Mandatory requirements:
+- Exactly 5 lifelines in order from left to right; do NOT draw any extra lifeline.
+- On every message arrow write the full function name with parameters; do not write generic descriptions. Backend steps follow the pattern &quot;Hệ thống: ServiceName.functionName(params)&quot;.
+
+Lifelines (exactly 5, in order from left to right):
+1. Actor (Thủ thư / Admin)
+2. Giao diện (StatsPage)
+3. Form (history filter form: status/reader/from date/to date)
+4. Hệ thống (backend: StatsController + StatsService + Repository + exceljs)
+5. CSDL (MySQL)
+
+Message flow:
+View-statistics flow:
+1. Actor opens the page → Giao diện → Hệ thống: StatsController.getDashboard().
+2. Hệ thống: StatsService.getDashboard() → CSDL: COUNT queries (BookRepository.count, LoanRepository.countBorrowing/countOverdue, UserRepository.countReaders) and top 5 (LoanRepository.topBorrowedBooks(5)).
+3. Hệ thống aggregates into a dashboard object, returns it to Giao diện; Giao diện renders the 4 stat cards + top-5 bar chart + history table.
+Export-Excel flow (UC14):
+4. Actor sets filters on the Form, clicks &quot;Xuất Excel&quot; → Giao diện → Hệ thống: StatsController.exportExcel(filters).
+5. Hệ thống: StatsService.exportExcel(filters) — query loan details matching the filters → CSDL: SELECT table loans JOIN table books JOIN table users; generate the .xlsx file with 2 sheets (&quot;Muon tra&quot;, &quot;Tong quan&quot;) using exceljs.
+6. The file is returned to Giao diện; the browser downloads it to the machine.
+Print/PDF flow (UC14):
+7. Actor clicks &quot;In / Lưu PDF&quot; → Giao diện calls window.print(); the @media print CSS prints only the report block.
+</code></pre>
+<hr />
+<h2 id="prompt-34-uc07-analysis-class">Prompt 34 — UC07 Analysis Class</h2>
+<pre><code>Draw an analysis class diagram for use case &quot;UC07 — Thống kê&quot; (incl. UC14) of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+
+Classes:
+- &lt;&lt;boundary&gt;&gt; StatsPage
+- &lt;&lt;control&gt;&gt; StatsController: getDashboard(), exportExcel(filters)
+- StatsService class: getDashboard(): Dashboard, exportExcel(filters): Buffer
+- &lt;&lt;entity&gt;&gt; Book, &lt;&lt;entity&gt;&gt; Loan, &lt;&lt;entity&gt;&gt; User (reused from earlier use cases)
+- BookRepository class: count(): int
+- LoanRepository class: countBorrowing(): int, countOverdue(): int, topBorrowedBooks(5): Book[], findHistory(filters): Loan[]
+- UserRepository class: countReaders(): int
+
+Relationships:
+- StatsPage → StatsController
+- StatsController → StatsService
+- StatsService → BookRepository, StatsService → LoanRepository, StatsService → UserRepository
+</code></pre>
+<hr />
+<h2 id="prompt-35-uc08-activity-my-books">Prompt 35 — UC08 Activity: My Books</h2>
+<pre><code>Draw an activity diagram for use case &quot;UC08 — Xem sách của tôi&quot; of the mini library management system.
+
+Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
+- Actor: user actions (clicking buttons, entering data, scanning QR codes).
+- Giao diện: rendering pages/forms/notifications, navigation.
+- Hệ thống: data validation, business logic, code generation, calculations.
+- CSDL: all data read/write operations (state the table explicitly).
+
+Actor(s): Độc giả.
+
+Activity flow:
+- [Actor] Start point: Độc giả opens the &quot;Sách của tôi&quot; page.
+- [Actor] Decision node: Which tab? (tab control on the form)
+  - Branch &quot;Đang mượn&quot;: [Hệ thống] query the CSDL for the reader's borrowing loans; [Giao diện] show book title, borrow date, due date; attach the &quot;Sắp hết hạn&quot; label if ≤ 2 days remain, the &quot;Quá hạn&quot; label if past due (computed dynamically).
+  - Branch &quot;Đặt trước&quot;: [Hệ thống] query the CSDL for the reader's reservations; [Giao diện] show the status badge (Chờ duyệt yellow / Đã duyệt green / Từ chối red / Hết hạn gray), the pickup appointment when approved, remaining hold time; approved reservations show the QR code + text code to present to the librarian at the counter; the &quot;Hủy&quot; button only appears while pending.
+  - Branch &quot;Lịch sử&quot;: [Hệ thống] query the CSDL for returned loans; [Giao diện] show book title, return date and fine per loan.
+- End point.
+</code></pre>
+<hr />
+<h2 id="prompt-36-uc08-sequence-my-books">Prompt 36 — UC08 Sequence: My Books</h2>
+<pre><code>Draw a sequence diagram for use case &quot;UC08 — Xem sách của tôi&quot; of the mini library management system.
+
+Mandatory requirements:
+- Exactly 5 lifelines in order from left to right; do NOT draw any extra lifeline.
+- On every message arrow write the full function name with parameters; do not write generic descriptions. Backend steps follow the pattern &quot;Hệ thống: ServiceName.functionName(params)&quot;.
+
+Lifelines (exactly 5, in order from left to right):
+1. Actor (Độc giả)
+2. Giao diện (MyBooksPage)
+3. Form (3-tab control: Đang mượn / Đặt trước / Lịch sử)
+4. Hệ thống (backend: LoanController + ReservationController + Service + Repository)
+5. CSDL (MySQL)
+
+Message flow:
+1. Actor opens the page, the &quot;Đang mượn&quot; tab is selected → Giao diện → Hệ thống: LoanController.getMyLoans() (readerId taken from the JWT).
+2. Hệ thống: LoanService.getReaderLoans(readerId) — Hệ thống: LoanRepository.findByReader(readerId) → CSDL: SELECT table loans JOIN table books WHERE reader_id = ?.
+3. Actor switches to the &quot;Đặt trước&quot; tab on the Form → Giao diện → Hệ thống: ReservationController.my().
+4. Hệ thống: ReservationService.listMyReservations(readerId) — Hệ thống: ReservationRepository.findByReader(readerId) → CSDL: SELECT table reservations JOIN table books WHERE reader_id = ?.
+5. Actor switches to the &quot;Lịch sử&quot; tab → reuse the returned-loan data from step 2 (filter status = 'returned').
+6. The data is returned to Giao diện; Giao diện renders: the Borrowing tab (&quot;Sắp hết hạn&quot;/&quot;Quá hạn&quot; labels), the Reservations tab (status badge, appointment, QR code when approved, Cancel button when pending), the History tab (fine per loan).
+</code></pre>
+<hr />
+<h2 id="prompt-37-uc08-analysis-class">Prompt 37 — UC08 Analysis Class</h2>
+<pre><code>Draw an analysis class diagram for use case &quot;UC08 — Xem sách của tôi&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+
+Classes:
+- &lt;&lt;boundary&gt;&gt; MyBooksPage
+- &lt;&lt;control&gt;&gt; LoanController: getMyLoans()
+- &lt;&lt;control&gt;&gt; ReservationController: listMy(), cancelReservation(id)
+- &lt;&lt;entity&gt;&gt; Loan: id, borrowedAt, dueAt, returnedAt, fineAmount; isOverdue(): boolean
+- &lt;&lt;entity&gt;&gt; Reservation: id, reservedAt, expiresAt, status; isActive(): boolean, isExpired(): boolean
+- &lt;&lt;entity&gt;&gt; Book: id, title
+- LoanService class: getReaderLoans(readerId): Loan[]
+- ReservationService class: listMyReservations(readerId): Reservation[], cancelReservation(id, readerId): void
+- LoanRepository class, ReservationRepository class
+
+Relationships:
+- MyBooksPage → LoanController, MyBooksPage → ReservationController
+- LoanController → LoanService, ReservationController → ReservationService
+- LoanService → Loan, ReservationService → Reservation
+</code></pre>
+<hr />
+<h2 id="prompt-38-uc09-activity-system-configuration">Prompt 38 — UC09 Activity: System Configuration</h2>
+<pre><code>Draw an activity diagram for use case &quot;UC09 — Cấu hình hệ thống&quot; of the mini library management system.
+
+Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
+- Actor: user actions (clicking buttons, entering data, scanning QR codes).
+- Giao diện: rendering pages/forms/notifications, navigation.
+- Hệ thống: data validation, business logic, code generation, calculations.
+- CSDL: all data read/write operations (state the table explicitly).
+
+Actor(s): Admin.
+
+Activity flow:
+- [Actor] Start point: Admin opens the &quot;Cài đặt&quot; page.
+- [Giao diện] Show the form with the current parameters: loan days allowed, fine per day, max books per reader, reservation hold hours.
+- [Actor] Edit the parameters on the form, click &quot;Lưu&quot;.
+- [Hệ thống] Decision node: Are all values positive integers?
+  - Branch No: [Giao diện] show &quot;Giá trị phải là số nguyên dương&quot;, do not save, go to the end point.
+  - Branch Yes: continue.
+- [CSDL] UPDATE table settings (id = 1).
+- [Hệ thống] Loans created after this point use the new parameters; old loans keep their due dates and fine rates (D10).
+- [Giao diện] Show the save-success message.
+- End point.
+</code></pre>
+<hr />
+<h2 id="prompt-39-uc09-sequence-system-configuration">Prompt 39 — UC09 Sequence: System Configuration</h2>
+<pre><code>Draw a sequence diagram for use case &quot;UC09 — Cấu hình hệ thống&quot; of the mini library management system.
+
+Mandatory requirements:
+- Exactly 5 lifelines in order from left to right; do NOT draw any extra lifeline.
+- On every message arrow write the full function name with parameters; do not write generic descriptions. Backend steps follow the pattern &quot;Hệ thống: ServiceName.functionName(params)&quot;.
+
+Lifelines (exactly 5, in order from left to right):
+1. Actor (Admin)
+2. Giao diện (SettingsPage)
+3. Form (settings form: loan_days/fine_per_day/max_books_per_reader/reservation_hours)
+4. Hệ thống (backend: SettingsController + SettingsService + SettingsRepository)
+5. CSDL (MySQL)
+
+Message flow:
+1. Actor edits the parameters on the Form, clicks &quot;Lưu&quot; → Giao diện.
+2. Giao diện → Form: get the entered data.
+3. Giao diện → Hệ thống: SettingsController.updateSettings(data).
+4. Hệ thống: SettingsService.updateSettings(data) — validate that every value is a positive integer. If not: return the error &quot;Giá trị phải là số nguyên dương&quot;, end the flow.
+5. Hệ thống → CSDL: UPDATE table settings WHERE id = 1 (SettingsRepository.save).
+6. The result is returned to Giao diện; Giao diện shows the save-success message. (New parameters apply to newly created loans only — D10.)
+</code></pre>
+<hr />
+<h2 id="prompt-40-uc09-analysis-class">Prompt 40 — UC09 Analysis Class</h2>
+<pre><code>Draw an analysis class diagram for use case &quot;UC09 — Cấu hình hệ thống&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+
+Classes:
+- &lt;&lt;boundary&gt;&gt; SettingsPage
+- &lt;&lt;control&gt;&gt; SettingsController: getSettings(), updateSettings(data)
+- &lt;&lt;entity&gt;&gt; Settings: id, loanDays, finePerDay, maxBooksPerReader, reservationHours
+- SettingsService class: getSettings(): Settings, updateSettings(data): Settings
+- SettingsRepository class: get(): Settings, save(settings): Settings
+
+Relationships:
+- SettingsPage → SettingsController
+- SettingsController → SettingsService
+- SettingsService → Settings, SettingsService → SettingsRepository
+</code></pre>
+<h2 id="-_2">---</h2>
+<h2 id="prompt-41-uc10-activity-librarian-account-management">Prompt 41 — UC10 Activity: Librarian Account Management</h2>
+<pre><code>Draw an activity diagram for use case &quot;UC10 — Quản lý tài khoản thủ thư&quot; of the mini library management system.
+
+Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
+- Actor: user actions (clicking buttons, entering data, scanning QR codes).
+- Giao diện: rendering pages/forms/notifications, navigation.
+- Hệ thống: data validation, business logic, code generation, calculations.
+- CSDL: all data read/write operations (state the table explicitly).
+
+Actor(s): Admin.
+
+Activity flow:
+- [Actor] Start point: Admin opens the &quot;Quản lý tài khoản&quot; page.
+- [Hệ thống] Query the CSDL; [Giao diện] show the list of librarian accounts (name, username, active status), with a search box and sorting.
+- [Actor] Decision node: Which action?
+  - Branch &quot;Add&quot;: [Giao diện] show the form (full name, username, password, role).
+    - [Actor] Enter and click &quot;Lưu&quot;.
+    - [Hệ thống] Decision node: Is the data valid? (username not yet in the CSDL; password meets the policy: at least 8 characters, 1 uppercase, 1 lowercase, 1 digit or special character)
+      - Branch No: [Giao diện] show the corresponding error, back to the form.
+      - Branch Yes: [Hệ thống] hash the password with bcrypt; [CSDL] INSERT table users (role = 'librarian', active = 1); [Giao diện] show &quot;Thêm thành công&quot;.
+  - Branch &quot;Lock/Unlock&quot;: [CSDL] UPDATE table users SET active; [Giao diện] show the confirmation. A locked account cannot log in (UC01 blocks it at the active check).
+  - Branch &quot;Reset password&quot;: [Hệ thống] generate a new policy-compliant password, hash with bcrypt; [CSDL] UPDATE table users; [Giao diện] show the new password to the Admin (the Admin forwards it to the librarian).
+- End point.
+</code></pre>
+<hr />
+<h2 id="prompt-42-uc10-sequence-add-librarian-account">Prompt 42 — UC10 Sequence: Add Librarian Account</h2>
+<pre><code>Draw a sequence diagram for use case &quot;UC10 — Quản lý tài khoản thủ thư&quot; (the add-new flow) of the mini library management system.
+
+Mandatory requirements:
+- Exactly 5 lifelines in order from left to right; do NOT draw any extra lifeline.
+- On every message arrow write the full function name with parameters; do not write generic descriptions. Backend steps follow the pattern &quot;Hệ thống: ServiceName.functionName(params)&quot;.
+
+Lifelines (exactly 5, in order from left to right):
+1. Actor (Admin)
+2. Giao diện (AccountsPage)
+3. Form (add-account form: full name/username/password/role)
+4. Hệ thống (backend: AccountController + AccountService + UserRepository)
+5. CSDL (MySQL)
+
+Message flow:
+1. Actor fills the form, clicks &quot;Lưu&quot; → Giao diện.
+2. Giao diện → Form: get the entered data.
+3. Giao diện → Hệ thống: AccountController.createAccount(dto).
+4. Hệ thống: AccountService.createAccount(dto) — validate the password policy; Hệ thống: UserRepository.findByUsername(username) → CSDL: SELECT table users. If it already exists: return the error &quot;Tên đăng nhập đã được sử dụng&quot;, end the flow.
+5. Hệ thống: hash the password with bcrypt, create User(role = 'librarian', active = 1).
+6. Hệ thống → CSDL: INSERT table users (UserRepository.save).
+7. The result is returned to Giao diện; Giao diện shows &quot;Thêm tài khoản thành công&quot; and reloads the list.
+</code></pre>
+<hr />
+<h2 id="prompt-43-uc10-analysis-class">Prompt 43 — UC10 Analysis Class</h2>
+<pre><code>Draw an analysis class diagram for use case &quot;UC10 — Quản lý tài khoản thủ thư&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+
+Classes:
+- &lt;&lt;boundary&gt;&gt; AccountsPage
+- &lt;&lt;control&gt;&gt; AccountController: createAccount(dto), toggleActive(id), resetPassword(id)
+- AccountService class: createAccount(dto): User, toggleActive(id): void, resetPassword(id): string
+- &lt;&lt;entity&gt;&gt; User: id, username, passwordHash, fullName, role, active
+- UserRepository class: findByUsername(username): User, save(user): User, updateActive(id, active): void, updatePassword(id, hash): void
+
+Relationships:
+- AccountsPage → AccountController
+- AccountController → AccountService
+- AccountService → User, AccountService → UserRepository
+</code></pre>
+<hr />
+<h2 id="prompt-44-uc11-activity-reserve-book-new-flow-with-approval">Prompt 44 — UC11 Activity: Reserve Book (NEW FLOW WITH APPROVAL)</h2>
+<pre><code>Draw an activity diagram for use case &quot;UC11 — Đặt trước sách&quot; (new flow with librarian approval) of the mini library management system.
+
+Mandatory requirement: use exactly 4 swimlanes: Actor (Độc giả / Thủ thư) | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
+- Actor: user actions (clicking buttons, entering data, scanning QR codes).
+- Giao diện: rendering pages/forms/notifications, navigation.
+- Hệ thống: data validation, business logic, code generation, calculations.
+- CSDL: all data read/write operations (state the table explicitly).
+
+Actor(s): Độc giả, Thủ thư.
+
+Reader's reservation flow:
+- [Actor (Độc giả)] Start point: Độc giả opens the book detail page of a book in &quot;Còn&quot; status.
+- [Actor (Độc giả)] Enter the desired pickup time (optional) into the form and click &quot;Đặt trước&quot;.
+- [Hệ thống] Check in the CSDL that the book is still available and has no active reservation; if not: [Giao diện] show &quot;Sách hiện không khả dụng&quot; / &quot;Cuốn này đang được giữ chỗ&quot;, go to the end point.
+- [Hệ thống] Generate a random 8-character code; [CSDL] INSERT table reservations (status = 'pending', expires_at = reservation time + reservation_hours, default 48 hours).
+- [Hệ thống] Lock that exact copy (other copies of the same title can still be borrowed normally) and send a notification to the librarians (UC13).
+- [Giao diện] Show &quot;Đặt trước thành công, đang chờ thủ thư duyệt&quot;.
+- End point (reader branch).
+
+Librarian's approval flow:
+- [Actor (Thủ thư)] Start point: Thủ thư opens the &quot;Quản lý đặt trước&quot; page (shows the pending-count badge).
+- [Giao diện] Show the list of pending reservations.
+- [Actor (Thủ thư)] Decision node: choose?
+  - Branch &quot;Approve&quot;: [Actor (Thủ thư)] confirm the pickup appointment (pickup_at) on the form.
+    - [CSDL] UPDATE table reservations SET status = 'approved', pickup_at, reviewed_by, reviewed_at; hold until pickup_at + 2 hours.
+    - [Hệ thống] Send a notification to the reader with the pickup QR code (UC13).
+  - Branch &quot;Reject&quot;: [Actor (Thủ thư)] enter the reason (optional).
+    - [CSDL] UPDATE table reservations SET status = 'rejected', reject_reason, reviewed_by, reviewed_at; unlock the book immediately.
+    - [Hệ thống] Send a notification to the reader with the reason (UC13).
+- End point (librarian branch).
+
+Automatic system flow (no actor needed):
+- [Hệ thống] 'pending' reservations past expires_at (48 hours) not yet reviewed → [CSDL] UPDATE to 'expired', unlock the book.
+- [Hệ thống] 'approved' reservations past pickup_at + 2 hours with the reader not yet arrived → [CSDL] UPDATE to 'expired', unlock the book.
+- [Hệ thống] Reader scans the reservation QR code at the counter and is lent the book (UC04) → [CSDL] UPDATE to 'fulfilled'.
+</code></pre>
+<hr />
+<h2 id="prompt-45-uc11-sequence-reserve-and-approve-new-flow">Prompt 45 — UC11 Sequence: Reserve and Approve (NEW FLOW)</h2>
+<pre><code>Draw a sequence diagram for use case &quot;UC11 — Đặt trước sách&quot; (new flow with approval) of the mini library management system, with 2 phases: reader reserves and librarian approves.
+
+Mandatory requirements:
+- Exactly 5 lifelines in order from left to right. Phase 1: Actor (Độc giả) → Giao diện (BookDetailPage) → Form (reservation form: desired time) → Hệ thống (backend: ReservationController + ReservationService + Repository + NotificationService) → CSDL (MySQL). Phase 2: Actor (Thủ thư) → Giao diện (ReservationsPage) → Form (approval form: confirm appointment) → Hệ thống → CSDL. Do NOT draw any extra lifeline.
+- On every message arrow write the full function name with parameters; do not write generic descriptions. Backend steps follow the pattern &quot;Hệ thống: ServiceName.functionName(params)&quot;.
+
+Phase 1 — Reader reserves:
+1. Actor enters the desired time into the Form, clicks &quot;Đặt trước&quot; → Giao diện.
+2. Giao diện → Hệ thống: ReservationController.create(bookId, readerNote).
+3. Hệ thống: ReservationService.create(bookId, readerId, readerNote) — Hệ thống: BookRepository.findById(bookId) → CSDL: SELECT table books. If status is not 'available': return the error &quot;Sách không khả dụng để đặt trước&quot;, end.
+4. Hệ thống: ReservationRepository.findActiveByBook(bookId) → CSDL: SELECT table reservations. If an active reservation already exists: return the error &quot;Sách đã được đặt trước&quot;, end.
+5. Hệ thống: SettingsRepository.get() → CSDL: SELECT table settings (get reservationHours).
+6. Hệ thống: generate a random 8-character code, create Reservation(status = 'pending', expiresAt = now + reservationHours) → CSDL: INSERT table reservations (ReservationRepository.save).
+7. Hệ thống: NotificationService.notifyLibrarians(...) → CSDL: INSERT table notifications (notify all librarians).
+
+Phase 2 — Librarian approves:
+8. Actor (Thủ thư) confirms the appointment time on the Form, clicks &quot;Duyệt&quot; → Giao diện (ReservationsPage) → Hệ thống: ReservationController.approve(id, pickupAt).
+9. Hệ thống: ReservationService.approve(id, pickupAt, reviewerId) — Hệ thống: ReservationRepository.findById(id) → CSDL: SELECT table reservations. If status is not 'pending' or already past expiresAt: return the error &quot;Lượt đặt đã hết hiệu lực&quot;, end.
+10. Hệ thống → CSDL: UPDATE table reservations SET status = 'approved', pickup_at, reviewed_by, reviewed_at (ReservationRepository.updateStatus).
+11. Hệ thống: NotificationService.notifyReader(readerId, 'Đặt trước được duyệt', body) → CSDL: INSERT table notifications (notify the reader with the QR code).
+12. The result is returned to Giao diện; the &quot;Chờ duyệt&quot; badge and the reader-side status update automatically (poll every 5 seconds).
+</code></pre>
+<hr />
+<h2 id="prompt-46-uc11-analysis-class-new-flow">Prompt 46 — UC11 Analysis Class (NEW FLOW)</h2>
+<pre><code>Draw an analysis class diagram for use case &quot;UC11 — Đặt trước sách&quot; (new flow with approval) of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
+
+Classes:
+- &lt;&lt;boundary&gt;&gt; BookDetailPage, &lt;&lt;boundary&gt;&gt; ReservationsPage
+- &lt;&lt;control&gt;&gt; ReservationController: create(bookId, readerNote), approve(id, pickupAt), reject(id, reason), cancel(id)
+- ReservationService class: create(bookId, readerId, readerNote): Reservation, approve(id, pickupAt, reviewerId): void, reject(id, reason, reviewerId): void, expireOverdue(): void
+- &lt;&lt;entity&gt;&gt; Reservation: id, code, bookId, readerId, readerNote, reservedAt, expiresAt, pickupAt, reviewedBy, reviewedAt, rejectReason, status; isActive(): boolean, isExpired(): boolean
+- &lt;&lt;entity&gt;&gt; Book: id, qrCode, bookCode, title, status; isAvailable(): boolean
+- &lt;&lt;entity&gt;&gt; Notification: id, audience, type, title, body, isRead
+- ReservationRepository class: save(r): Reservation, findById(id): Reservation, findActiveByBook(bookId): Reservation, updateStatus(id, status, pickupAt, reviewerId): void, findByCode(code): Reservation
+- NotificationService class: notifyLibrarians(title, body): void, notifyReader(readerId, title, body): void
+
+Relationships:
+- BookDetailPage → ReservationController, ReservationsPage → ReservationController
+- ReservationController → ReservationService
+- ReservationService → Reservation, ReservationService → ReservationRepository, ReservationService → NotificationService
+- Book 1 — * Reservation, User 1 — * Reservation, User 1 — * Notification
+</code></pre>
+<hr />
+<h2 id="prompt-47-uc12-activity-cancel-reservation-updated">Prompt 47 — UC12 Activity: Cancel Reservation (UPDATED)</h2>
+<pre><code>Draw an activity diagram for use case &quot;UC12 — Hủy đặt trước&quot; (updated for the new approval flow) of the mini library management system.
+
+Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
+- Actor: user actions (clicking buttons, entering data, scanning QR codes).
+- Giao diện: rendering pages/forms/notifications, navigation.
+- Hệ thống: data validation, business logic, code generation, calculations.
+- CSDL: all data read/write operations (state the table explicitly).
+
+Actor(s): Độc giả.
+
+Activity flow:
+- [Actor] Start point: Độc giả opens the &quot;Đặt trước&quot; tab on the &quot;Sách của tôi&quot; page.
+- [Hệ thống] Query the CSDL; [Giao diện] show the reader's reservation list with statuses (Chờ duyệt / Đã duyệt / Từ chối / Hết hạn) and the appointment if any.
+- [Hệ thống] Decision node: Is the reservation in 'pending' status?
+  - Branch No: [Giao diện] hide the &quot;Hủy&quot; button, go to the end point.
+  - Branch Yes: [Actor] click &quot;Hủy&quot;.
+- [Giao diện] Show the confirmation dialog.
+- [Actor] Decision node: Confirm?
+  - Branch No: go to the end point.
+  - Branch Yes: [CSDL] UPDATE table reservations SET status = 'cancelled' (unlock the book immediately); [Hệ thống] send a notification to the librarians (UC13); [Giao diện] report the successful cancellation.
+- End point.
+
+Additional note in the diagram (as a note): 'pending' reservations past 48 hours not yet reviewed, and 'approved' reservations past the appointment + 2 hours, automatically become 'expired' (lazy, no background process needed); the reader needs no action.
+</code></pre>
+<hr />
+<h2 id="prompt-48-uc13-use-case-diagram-notification-system">Prompt 48 — UC13 Use Case Diagram: Notification System</h2>
+<pre><code>Create exactly 1 Use Case Diagram for &quot;UC13 — Hệ thống thông báo&quot; of the mini library management system.
+
+Actors: Admin, Thủ thư, Độc giả.
+
+Use cases:
+- &quot;UC13.1 Nhận thông báo&quot; — linked to all 3 actors.
+- &quot;UC13.2 Đánh dấu đã đọc&quot; — linked to all 3 actors, with an &lt;&lt;include&gt;&gt; relationship to UC13.1.
+- &quot;UC13.3 Tạo thông báo&quot; — linked to Admin and Thủ thư only.
+- &quot;UC13.4 Xem thông báo ở trang chủ&quot; — linked to Khách only (extra actor, not logged in), representing the floating announcement on the landing page.
+
+Note in the diagram: &quot;The system auto-generates notifications: new reservation → librarians; approve/reject → the reader; loan created → due-date reminder; overdue → red alert.&quot;
+</code></pre>
+<hr />
+<h2 id="prompt-49-uc13-activity-notification-system">Prompt 49 — UC13 Activity: Notification System</h2>
+<pre><code>Draw an activity diagram for use case &quot;UC13 — Hệ thống thông báo&quot; of the mini library management system.
+
+Mandatory requirement: use exactly 4 swimlanes: Actor (Admin / Thủ thư / Độc giả) | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
+- Actor: user actions (clicking buttons, entering data, scanning QR codes).
+- Giao diện: rendering pages/forms/notifications, navigation.
+- Hệ thống: data validation, business logic, code generation, calculations.
+- CSDL: all data read/write operations (state the table explicitly).
+
+Actor(s): Admin, Thủ thư, Độc giả, Hệ thống (automatic).
+
+Manual creation flow (Admin/Thủ thư):
+- [Actor] Start point: Admin/Thủ thư opens the &quot;Thông báo&quot; page and clicks &quot;Tạo thông báo&quot;.
+- [Actor] Enter the title, body, choose the audience (tất cả / tất cả độc giả / tất cả thủ thư / một độc giả), choose the type (đặt trước / mượn-trả / quá hạn / chung / hệ thống), choose whether to show on the home page.
+- [CSDL] INSERT table notifications (read state stored separately in table notification_reads).
+- [Giao diện] Update the unread count on the recipients' bell icon.
+- End point.
+
+Automatic flow (no actor needed):
+- [Hệ thống] Event &quot;new reservation created&quot; → [CSDL] INSERT a &quot;đặt trước&quot; type notification (yellow) sent to all librarians.
+- [Hệ thống] Event &quot;librarian approves/rejects a reservation&quot; → [CSDL] INSERT a notification sent to that exact reader (with the appointment or the reason).
+- [Hệ thống] Event &quot;loan created&quot; → [CSDL] INSERT a &quot;mượn-trả&quot; type notification (blue) reminding the reader of the due date.
+- [Hệ thống] Event &quot;Overdue page opened&quot;: for each overdue loan with overdue_notified = 0 → [CSDL] INSERT a &quot;quá hạn&quot; type notification (red) sent to the reader, then UPDATE overdue_notified = 1 (each loan is notified only once).
+- End point.
+
+Reading flow (Độc giả/Thủ thư/Admin):
+- [Actor] Start point: the user clicks the bell icon (shows the unread count, auto-refreshes every 5 seconds).
+- [Giao diện] Open the &quot;Thông báo&quot; page, show the list color-coded by type.
+- [Actor] Click &quot;Đánh dấu đã đọc&quot; per notification or &quot;Đánh dấu tất cả đã đọc&quot;.
+- [CSDL] INSERT/UPDATE table notification_reads; [Giao diện] the unread count on the bell decreases accordingly.
+- End point.
+</code></pre>
+<hr />
+<h2 id="prompt-50-uc13-sequence-automatic-notification-on-reservation-approval">Prompt 50 — UC13 Sequence: Automatic Notification on Reservation Approval</h2>
+<pre><code>Draw a sequence diagram for the &quot;automatic notification when the librarian approves a reservation&quot; flow (part of UC13) in the mini library management system.
+
+Mandatory requirements:
+- Exactly 5 lifelines in order from left to right: Actor (Thủ thư) → Giao diện (ReservationsPage) → Form (approval form: confirm appointment) → Hệ thống (backend: ReservationService + NotificationService + Repository) → CSDL (MySQL). Do NOT draw any extra lifeline.
+- On every message arrow write the full function name with parameters; do not write generic descriptions. Backend steps follow the pattern &quot;Hệ thống: ServiceName.functionName(params)&quot;.
+
+Message flow:
+1. Actor confirms the appointment time on the Form, clicks &quot;Duyệt&quot; → Giao diện → Hệ thống: ReservationController.approve(id, pickupAt).
+2. Hệ thống: ReservationService.approve(id, pickupAt, reviewerId) → CSDL: UPDATE table reservations SET status = 'approved' (ReservationRepository.updateStatus).
+3. Hệ thống: NotificationService.notifyReader(readerId, 'Đặt trước được duyệt', body) — create Notification(audience = 'readers', type = 'reservation', userId = readerId) → CSDL: INSERT table notifications (NotificationRepository.save).
+4. Actor (Độc giả) with the web open: Giao diện polls Hệ thống: NotificationController.unreadCount() every 5 seconds → CSDL: SELECT COUNT; the unread count on the bell increases; clicking the bell reveals the new yellow notification with the pickup QR code.
+</code></pre>
+<hr />
+<h2 id="prompt-51-updated-system-wide-erd-after-the-new-features">Prompt 51 — Updated System-Wide ERD (after the new features)</h2>
+<pre><code>Draw the updated full entity relationship diagram (ERD) for the mini library management system, including the new tables and columns added in the feature update round.
+
+Table users (unchanged):
+- id INT PRIMARY KEY AUTO_INCREMENT
+- username VARCHAR(50) UNIQUE NOT NULL
+- password_hash VARCHAR(255) NOT NULL
+- full_name VARCHAR(100), student_code VARCHAR(20) UNIQUE NULL, phone VARCHAR(20) NULL
+- role ENUM('admin','librarian','reader'), active TINYINT DEFAULT 1
+
+Table categories (NEW):
+- id INT PRIMARY KEY AUTO_INCREMENT
+- name VARCHAR(100) NOT NULL UNIQUE (category name, e.g. &quot;Văn học&quot;)
+- code VARCHAR(10) NOT NULL UNIQUE (code used to generate book codes, e.g. &quot;VH&quot;)
+
+Table books (new columns):
+- id INT PRIMARY KEY AUTO_INCREMENT (primary key, unchanged)
+- qr_code VARCHAR(50) UNIQUE NOT NULL (old books: hex string; new books: same as book_code for readability)
+- book_code VARCHAR(20) NULL UNIQUE (display code, e.g. &quot;VH-0001&quot;, generated once and never changed)
+- category_id INT NULL, foreign key to categories(id)
+- title, author, category (kept for compatibility), publisher, publish_year
+- cover_url VARCHAR(500) NULL (uploaded cover image path)
+- status ENUM('available','borrowed') DEFAULT 'available'
+
+Table reservations (updated for the approval flow):
+- id INT PRIMARY KEY AUTO_INCREMENT
+- code VARCHAR(16) NULL UNIQUE (reservation QR code)
+- book_id, reader_id (foreign keys)
+- reader_note VARCHAR(255) NULL (desired time)
+- reserved_at, expires_at (review deadline = reserved_at + reservation_hours)
+- pickup_at DATETIME NULL (appointment confirmed by the librarian on approval)
+- reviewed_by INT NULL (foreign key to users(id)), reviewed_at DATETIME NULL
+- reject_reason VARCHAR(255) NULL
+- status ENUM('pending','approved','rejected','fulfilled','cancelled','expired')
+
+Tables notifications (NEW) and notification_reads (NEW):
+- notifications: id PK, audience ENUM('all','readers','librarians'), type ENUM('reservation','loan','overdue','general','system'), title VARCHAR(255), body TEXT, show_on_landing BOOL DEFAULT FALSE, created_by INT NULL FK users(id), created_at DATETIME
+- notification_reads: notification_id FK, user_id FK, read_at DATETIME, composite primary key (notification_id, user_id)
+
+Table loans (1 new column): overdue_notified BOOL DEFAULT FALSE (marks that the overdue notification was sent; prevents duplicates).
+
+Unchanged tables: settings.
+
+Relationships:
+- categories 1 — n books
+- books 1 — n loans, users 1 — n loans
+- books 1 — n reservations, users 1 — n reservations, users 1 — n reservations (via reviewed_by, the reviewer role)
+- users 1 — n notifications (via created_by), notifications 1 — n notification_reads, users 1 — n notification_reads
+</code></pre>
+<hr />
+<h1 id="prompt-bo-sung-uc16-tim-sach-bang-ai-theo-mo-ta-23102026">Prompt bổ sung — UC16 Tìm sách bằng AI theo mô tả (23/10/2026)</h1>
+<h2 id="prompt-uc16-a-use-case-diagram-bo-sung">Prompt UC16-A — Use Case Diagram (bổ sung)</h2>
+<pre><code>Add one use case to the existing use case diagram of the &quot;Library Mini&quot; system:
+- Use case &quot;UC16 AI book search by description&quot; inside the system boundary.
+- Actors: Reader and Guest (a generalization of Reader without login) both connect to UC16.
+- UC16 includes &quot;Validate description (3-600 chars) + rate limit 10 req/60s per IP&quot;.
+- UC16 has an extend relationship: &quot;Keyword fallback search&quot; extends UC16 (used when the AI service is unavailable or no API key is configured).
+Keep all existing actors and use cases unchanged.
+</code></pre>
+<h2 id="prompt-uc16-b-activity-diagram-uc16">Prompt UC16-B — Activity Diagram: UC16</h2>
+<pre><code>Draw an activity diagram for use case &quot;UC16 AI book search by description&quot;:
+Start -&gt; User selects &quot;Search by description (AI)&quot; mode on the landing page -&gt; Enter content description -&gt; Click &quot;Search with AI&quot; -&gt; System validates length (3-600 chars) [invalid -&gt; show error, back to Enter] -&gt; System checks rate limit [exceeded -&gt; show 429 message, end] -&gt; Load distinct titles catalog -&gt; Decision: Gemini API key configured and service responds within 15s? [yes -&gt; Send catalog + description to Gemini -&gt; Parse JSON result -&gt; Filter out ids not in catalog -&gt; Rank by score desc, max 8] [no/error -&gt; Keyword fallback scoring (diacritics-free tokens, weights title 3 / author 2 / category 2)] -&gt; Decision: any result? [yes -&gt; Display book grid with match % badge and reason] [no -&gt; Display empty state suggesting a clearer description] -&gt; End.
+</code></pre>
+<h2 id="prompt-uc16-c-sequence-diagram-uc16">Prompt UC16-C — Sequence Diagram: UC16</h2>
+<pre><code>Draw a sequence diagram for use case &quot;UC16 AI book search by description&quot; with objects:
+Guest (actor), LandingPage (boundary), PublicController (control), AiBookSearchService (control), BookRepository (control), GeminiAPI (external actor), MySQL (database).
+Flow:
+1. Guest -&gt; LandingPage: enter description, click Search with AI
+2. LandingPage -&gt; PublicController: POST /api/public/books/ai-search {description}
+3. PublicController: validate length + rate limit
+4. PublicController -&gt; AiBookSearchService: search(description)
+5. AiBookSearchService -&gt; BookRepository: listDistinctTitles()
+6. BookRepository -&gt; MySQL: SELECT representative rows GROUP BY title, author
+7. alt [AI available]: AiBookSearchService -&gt; GeminiAPI: generateContent(catalog + description); GeminiAPI --&gt; AiBookSearchService: JSON [{id, score, reason}]; AiBookSearchService: keep only ids existing in catalog, sort by score, max 8
+8. alt [AI error / no key]: AiBookSearchService: keyword fallback scoring over title/author/category
+9. AiBookSearchService --&gt; PublicController: {mode, results}
+10. PublicController --&gt; LandingPage: 200 JSON with public book DTOs + aiScore + aiReason (never expose qrCode)
+11. LandingPage --&gt; Guest: book grid with match % and reason
+</code></pre>
+<hr />
+<h1 id="prompt-bo-sung-uc17uc18uc19-email-nhac-han-quen-mat-khau-xac-thuc-email-23102026">Prompt bổ sung — UC17/UC18/UC19 Email: nhắc hạn, quên mật khẩu, xác thực email (23/10/2026)</h1>
+<h2 id="prompt-uc17-a-use-case-diagram-bo-sung">Prompt UC17-A — Use Case Diagram (bổ sung)</h2>
+<pre><code>Add three use cases to the existing use case diagram of the &quot;Library Mini&quot; system:
+- &quot;UC17 Due-date reminder email&quot; connected to a Time/Scheduler actor and to Reader; it extends &quot;UC13 Notification system&quot;.
+- &quot;UC18 Forgot password via email&quot; connected to Reader (also usable by Librarian and Admin accounts that have an email).
+- &quot;UC19 Register with real email &amp; verify email&quot; connected to Reader; UC19 includes &quot;Send verification email&quot; and UC17 includes &quot;Send email via Resend&quot;.
+- Show an external actor &quot;Resend email service&quot; outside the boundary, connected to the two send-email included use cases.
+Keep all existing actors and use cases unchanged.
+</code></pre>
+<h2 id="prompt-uc17-b-activity-diagram-uc17-nhac-han-qua-email">Prompt UC17-B — Activity Diagram: UC17 nhắc hạn qua email</h2>
+<pre><code>Draw an activity diagram for use case &quot;UC17 Due-date reminder email&quot; with 4 swimlanes (Scheduler, ReminderService, Resend API, Database):
+1. Scheduler triggers a scan on startup and every 6 hours.
+2. ReminderService loads all active loans with reader email from Database.
+3. Decision point per loan: due within 48h and never reminded -&gt; compose &quot;due soon&quot; email; overdue and (never reminded OR last reminder &gt;= 3 days ago) -&gt; compose &quot;overdue&quot; email including fine estimate; otherwise skip.
+4. ReminderService sends the email via Resend API.
+5. On success, ReminderService writes a log row into email_reminders (prevents duplicates). On failure, it logs the error and continues with the next loan.
+</code></pre>
+<h2 id="prompt-uc18-sequence-diagram-uc18-quen-mat-khau">Prompt UC18 — Sequence Diagram: UC18 quên mật khẩu</h2>
+<pre><code>Draw a sequence diagram for &quot;UC18 Forgot password via email&quot; with 5 lifelines (Reader, Giao dien, Form/Controller, He thong/Service, CSDL):
+1. Reader enters email on the Forgot Password page and submits.
+2. AuthController always returns the same generic message (never reveals whether the email exists).
+3. EmailAccountService looks up the account by email in CSDL; only if an active account is found: generate a random token, store only its SHA-256 hash in email_tokens (purpose reset_password, 30-minute expiry, single use; creating a new token invalidates the old one), and send the reset link via Resend.
+4. Reader opens the link, enters a new password; EmailAccountService validates the password policy, checks token hash + expiry + unused, updates password_hash (bcrypt) and marks the token used.
+5. alt [invalid/expired/used token]: return 400 &quot;link invalid or expired&quot;.
+</code></pre>
+<h2 id="prompt-uc19-sequence-diagram-uc19-xac-thuc-email">Prompt UC19 — Sequence Diagram: UC19 xác thực email</h2>
+<pre><code>Draw a sequence diagram for &quot;UC19 Register with real email &amp; verify email&quot; with 5 lifelines (Reader, Giao dien, Form/Controller, He thong/Service, CSDL):
+1. Reader submits the registration form including a valid email (format checked; duplicate email -&gt; 409).
+2. UserService creates the account with email_verified = 0.
+3. EmailAccountService creates a verify_email token (SHA-256 hash stored, 24-hour expiry, single use) and sends the verification link via Resend; a send failure does not fail the registration.
+4. Reader clicks the link; the Verify Email page posts the token; EmailAccountService consumes the token and sets email_verified = 1.
+5. alt [not verified yet]: the app layout shows a reminder banner; from the Profile page the reader can change email (resets to unverified + sends a new link) or resend the verification email (1 per minute).
+</code></pre>
+</main>
+<footer>© 2026 Bảo Kha · Tài liệu đồ án CDIO 4 — Website Quản lý Thư viện Mini · <a href="index.html">Mục lục</a></footer>
+<script>
+document.querySelectorAll('pre').forEach(function(pre){
+  var btn=document.createElement('button');btn.className='copybtn';btn.textContent='Sao chép';
+  btn.addEventListener('click',function(){
+    var text=pre.innerText.replace(/^Sao chép\n/,'');
+    navigator.clipboard.writeText(text).then(function(){btn.textContent='Đã chép';setTimeout(function(){btn.textContent='Sao chép'},1500);});
+  });
+  pre.appendChild(btn);
+});
+</script>
+</body>
+</html>
