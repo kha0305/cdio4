@@ -27,6 +27,48 @@
     });
   });
 
+  // Image viewer for every image on the site (progress diagrams, SQL
+  // diagram, and any image added later): click to open, zoom, drag.
+  (function(){
+    var lb=document.createElement('div');lb.className='prog-lightbox';lb.id='progLightbox';
+    lb.innerHTML='<button type="button" class="prog-lb-close" id="progLbClose">Đóng</button><img id="progLbImg" alt="Ảnh phóng lớn"><div class="prog-lb-zoom"><button type="button" id="progLbZoomOut">Thu nhỏ</button><span id="progLbZoomLabel">Vừa màn hình</span><button type="button" id="progLbZoomIn">Phóng to</button><button type="button" id="progLbZoomFit">Đặt lại</button></div><div class="prog-lb-hint">Lăn chuột để zoom, kéo để di chuyển, bấm đúp vào ảnh để phóng to 200%</div><div class="prog-lb-actions"><a id="progLbDownload" href="#" download>Tải ảnh này</a></div>';
+    document.body.appendChild(lb);
+    var img=document.getElementById('progLbImg');var dl=document.getElementById('progLbDownload');
+    var zOut=document.getElementById('progLbZoomOut');var zIn=document.getElementById('progLbZoomIn');
+    var zFit=document.getElementById('progLbZoomFit');var zLabel=document.getElementById('progLbZoomLabel');
+    var mode='fit',scale=1;
+    function label(){zLabel.textContent=(mode==='fit')?'Vừa màn hình':Math.round(scale*100)+'%';}
+    function fit(){mode='fit';img.style.width='';img.style.maxWidth='92vw';img.style.maxHeight='80vh';img.style.cursor='zoom-in';label();}
+    function apply(){img.style.maxWidth='none';img.style.maxHeight='none';img.style.width=Math.round(img.naturalWidth*scale)+'px';img.style.cursor='grab';label();}
+    function zoomIn(){if(!img.naturalWidth){return;}if(mode==='fit'){scale=(img.clientWidth/img.naturalWidth)*1.25;mode='zoom';}else{scale=Math.min(scale*1.25,8);}apply();}
+    function zoomOut(){if(mode==='fit'){return;}scale=scale/1.25;if(scale<0.3){fit();}else{apply();}}
+    function open(src){img.src=src;dl.href=src;lb.classList.add('open');lb.scrollTop=0;lb.scrollLeft=0;fit();}
+    function close(){lb.classList.remove('open');img.src='';fit();}
+    function isImgLink(a){var h=a.getAttribute('href')||'';return /\.(svg|png|jpe?g|webp|gif)(\?.*)?$/i.test(h);}
+    document.querySelectorAll('.prog-thumb,.prog-view').forEach(function(el){el.addEventListener('click',function(){open(el.getAttribute('data-full'));});});
+    document.querySelectorAll('.content img, .home img').forEach(function(im){
+      if(im.id==='progLbImg'||im.classList.contains('prog-thumb')){return;}
+      im.addEventListener('click',function(){
+        var link=im.closest('a');
+        if(link&&isImgLink(link)){return;}
+        open(im.getAttribute('data-full')||im.src);});
+    });
+    document.querySelectorAll('.content a, .home a').forEach(function(a){
+      var im=a.querySelector('img');if(!im||!isImgLink(a)){return;}
+      a.addEventListener('click',function(e){e.preventDefault();open(a.getAttribute('href'));});
+    });
+    document.getElementById('progLbClose').addEventListener('click',close);
+    lb.addEventListener('click',function(e){if(e.target===lb){close();}});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'){close();}});
+    zIn.addEventListener('click',zoomIn);zOut.addEventListener('click',zoomOut);zFit.addEventListener('click',fit);
+    img.addEventListener('dblclick',function(){if(mode==='fit'){scale=2;mode='zoom';apply();}else{fit();}});
+    lb.addEventListener('wheel',function(e){e.preventDefault();if(e.deltaY<0){zoomIn();}else{zoomOut();}},{passive:false});
+    var dragging=false,sx=0,sy=0,sl=0,st=0;
+    lb.addEventListener('pointerdown',function(e){if(mode!=='zoom'){return;}dragging=true;sx=e.clientX;sy=e.clientY;sl=lb.scrollLeft;st=lb.scrollTop;});
+    window.addEventListener('pointermove',function(e){if(!dragging){return;}lb.scrollLeft=sl-(e.clientX-sx);lb.scrollTop=st-(e.clientY-sy);});
+    window.addEventListener('pointerup',function(){dragging=false;});
+  })();
+
   // Scrollspy for the per-page TOC
   var tocLinks={};
   document.querySelectorAll('.toc a').forEach(function(a){

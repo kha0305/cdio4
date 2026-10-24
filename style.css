@@ -154,6 +154,7 @@ a{color:var(--accent)}
 .prog-lb-close{background:#fff;border:none;border-radius:999px;padding:8px 20px;font-size:14px;font-weight:700;cursor:pointer;color:var(--ink)}
 .prog-lb-actions a{background:var(--accent);color:#fff;border-radius:999px;padding:9px 22px;font-size:14px;font-weight:600;text-decoration:none}
 .prog-lightbox{overflow:auto}
+.content img,.home img{cursor:zoom-in}
 .prog-lb-zoom{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center}
 .prog-lb-zoom button{background:#fff;border:none;border-radius:999px;padding:7px 16px;font-size:13.5px;font-weight:700;cursor:pointer;color:var(--ink)}
 .prog-lb-zoom span{color:#fff;font-size:13.5px;font-weight:600;min-width:110px;text-align:center}
