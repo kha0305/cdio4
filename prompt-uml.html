@@ -1084,6 +1084,44 @@ Message flow:
 7. Hệ thống: create a JWT (expires in 8 hours), return the token + role to Giao diện.
 8. Giao diện navigates by role: admin → admin page, librarian → Dashboard, reader → &quot;Sách của tôi&quot;.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+actor &quot;User&quot; as Actor
+participant &quot;LoginPage&quot; as GiaoDien
+participant &quot;Form đăng nhập&quot; as Form
+participant &quot;Hệ thống&quot; as HeThong
+database &quot;MySQL&quot; as CSDL
+Actor -&gt; Form : Nhập username/password, bấm &quot;Đăng nhập&quot;
+Form -&gt; GiaoDien : Dữ liệu đã nhập
+GiaoDien -&gt; Form : get the entered data
+GiaoDien -&gt; HeThong : AuthController.login(username, password)
+HeThong -&gt; HeThong : UserService.authenticate(username, password)
+HeThong -&gt; CSDL : SELECT table users WHERE username = ? (UserRepository.findByUsername)
+alt user = null
+  HeThong --&gt; GiaoDien : Lỗi &quot;Sai tên đăng nhập hoặc mật khẩu&quot;
+else user found
+  HeThong -&gt; HeThong : bcrypt.compare(password, user.passwordHash)
+  alt mật khẩu sai
+    HeThong --&gt; GiaoDien : Lỗi &quot;Sai tên đăng nhập hoặc mật khẩu&quot;
+  else mật khẩu đúng
+    alt user.active = 0
+      HeThong --&gt; GiaoDien : Lỗi &quot;Tài khoản đã bị khóa&quot;
+    else user.active = 1
+      HeThong -&gt; HeThong : create a JWT (expires in 8 hours)
+      HeThong --&gt; GiaoDien : token + role
+      alt role = admin
+        GiaoDien -&gt; GiaoDien : Navigate to admin page
+      else role = librarian
+        GiaoDien -&gt; GiaoDien : Navigate to Dashboard
+      else role = reader
+        GiaoDien -&gt; GiaoDien : Navigate to &quot;Sách của tôi&quot;
+      end
+    end
+  end
+end
+note over HeThong : Login does NOT validate the password format.
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-18-uc02-sequence-add-book-incl-uc15">Prompt 18 — UC02 Sequence: Add Book (incl. UC15)</h2>
 <pre><code>Draw a sequence diagram for the &quot;Add book&quot; function (UC02 + UC15) of the mini library management system.
@@ -1108,6 +1146,32 @@ Message flow:
 6. Hệ thống: for each copy, create Book(qrCode = bookCode, bookCode, status = 'available') → CSDL: INSERT table books (BookRepository.save). Repeat N times per the quantity.
 7. The list of created Books is returned to Giao diện; Giao diện displays the QR codes (per book_code) for the librarian to download/print and reports &quot;Đã tạo N bản&quot;.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+actor &quot;Thủ thư&quot; as Actor
+participant &quot;BookPage&quot; as GiaoDien
+participant &quot;Form thêm sách&quot; as Form
+participant &quot;Hệ thống&quot; as HeThong
+database &quot;MySQL&quot; as CSDL
+Actor -&gt; Form : Nhập thông tin (số bản mặc định 1, tối đa 50), bấm &quot;Lưu&quot;
+Form -&gt; GiaoDien : Dữ liệu đã nhập
+GiaoDien -&gt; Form : get the entered data
+GiaoDien -&gt; HeThong : BookController.createBook(data, quantity)
+HeThong -&gt; HeThong : BookService.createBook(data, quantity)
+alt data.title rỗng
+  HeThong --&gt; GiaoDien : Lỗi &quot;Tiêu đề không được để trống&quot;
+else data.title không rỗng
+  HeThong -&gt; HeThong : BookService.generateBookCode(category)
+  HeThong -&gt; CSDL : SELECT table categories (CategoryRepository.findByName(category))
+  note over HeThong : Nếu không có code thì dùng &quot;SACH&quot;; seq = max seq của category + 1, book_code dạng &quot;VH-0001&quot;; lặp cho đến khi duy nhất (BookRepository.bookCodeExists)
+  loop mỗi bản sách
+    HeThong -&gt; CSDL : INSERT table books (BookRepository.save) \nBook(qrCode = bookCode, bookCode, status = 'available')
+  end
+  HeThong --&gt; GiaoDien : Danh sách các Book đã tạo
+  GiaoDien -&gt; GiaoDien : Hiển thị QR code (theo book_code) để tải/in và báo &quot;Đã tạo N bản&quot;
+end
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-21-uc03-sequence-add-reader">Prompt 21 — UC03 Sequence: Add Reader</h2>
 <pre><code>Draw a sequence diagram for the &quot;Add reader&quot; function (UC03) of the mini library management system.
@@ -1131,6 +1195,29 @@ Message flow:
 5. Hệ thống: hash the default password &quot;123456&quot; with bcrypt, create User(role = 'reader', active = 1).
 6. Hệ thống → CSDL: INSERT table users (UserRepository.save).
 7. The User object is returned to Giao diện; Giao diện shows a success message along with the default password for the librarian to hand to the reader.
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+actor &quot;Thủ thư&quot; as Actor
+participant &quot;ReaderPage&quot; as GiaoDien
+participant &quot;Form thêm độc giả&quot; as Form
+participant &quot;Hệ thống&quot; as HeThong
+database &quot;MySQL&quot; as CSDL
+Actor -&gt; Form : Nhập thông tin, bấm &quot;Lưu&quot;
+Form -&gt; GiaoDien : Dữ liệu đã nhập
+GiaoDien -&gt; Form : get the entered data
+GiaoDien -&gt; HeThong : ReaderController.createReader(data)
+HeThong -&gt; HeThong : UserService.createReader(data)
+HeThong -&gt; CSDL : SELECT table users WHERE username = ? (UserRepository.findByUsername)
+alt username đã tồn tại
+  HeThong --&gt; GiaoDien : Lỗi &quot;Tên đăng nhập đã được sử dụng&quot;
+else username chưa tồn tại
+  HeThong -&gt; HeThong : Hash mật khẩu mặc định &quot;123456&quot; bằng bcrypt, tạo User(role = 'reader', active = 1)
+  HeThong -&gt; CSDL : INSERT table users (UserRepository.save)
+  HeThong --&gt; GiaoDien : User object
+  GiaoDien -&gt; GiaoDien : Hiển thị thông báo thành công kèm mật khẩu mặc định để đưa cho độc giả
+end
+@enduml
 </code></pre>
 <hr />
 <h2 id="prompt-24-uc04-sequence-borrow-book">Prompt 24 — UC04 Sequence: Borrow Book</h2>
@@ -1163,6 +1250,64 @@ Message flow:
 12. Commit the transaction. Hệ thống: NotificationService.notifyLoanCreated(readerId, dueAt) → CSDL: INSERT table notifications (due-date reminder).
 13. The result with the due date is returned to Giao diện; Giao diện shows the borrow-success message (format dd/mm/yyyy hh:mm).
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+actor &quot;Thủ thư&quot; as Actor
+participant &quot;BorrowPage&quot; as GiaoDien
+participant &quot;Form mượn sách&quot; as Form
+participant &quot;Hệ thống&quot; as HeThong
+database &quot;MySQL&quot; as CSDL
+note over HeThong, CSDL : Các bước 4-12 chạy trong một transaction: tất cả thành công hoặc tất cả rollback.
+Actor -&gt; GiaoDien : Quét QR code (hoặc nhập mã thủ công / dán từ clipboard rồi bấm &quot;Tìm&quot;)
+GiaoDien -&gt; HeThong : LoanController.borrowBook(qrCode, readerId)
+alt mã là reservation code
+  HeThong -&gt; CSDL : SELECT table reservations (ReservationRepository.findByCode(code))
+  note over HeThong : Nếu trúng reservation thì độc giả được cố định theo reservation, bỏ qua bước chọn độc giả.
+end
+HeThong -&gt; HeThong : LoanService.borrowBook(qrCode, readerId)
+HeThong -&gt; CSDL : SELECT table settings (SettingsRepository.get)
+note over HeThong : Lấy loanDays, maxBooksPerReader.
+HeThong -&gt; CSDL : SELECT table books WHERE qr_code = ? OR book_code = ? (BookRepository.findByQrCode(qrCode))
+alt không tìm thấy sách
+  HeThong --&gt; GiaoDien : Lỗi &quot;Không tìm thấy sách&quot;
+else tìm thấy sách
+  HeThong -&gt; HeThong : book.isAvailable()
+  alt sách không khả dụng
+    HeThong -&gt; CSDL : SELECT table loans (LoanRepository.findActiveByBook(bookId))
+    HeThong --&gt; GiaoDien : Lỗi &quot;Sách đang được mượn bởi [tên độc giả]&quot;
+  else sách khả dụng
+    HeThong -&gt; CSDL : SELECT table users (UserRepository.findById(readerId))
+    alt không tìm thấy độc giả hoặc role không phải 'reader'
+      HeThong --&gt; GiaoDien : Lỗi &quot;Không tìm thấy độc giả&quot;
+    else độc giả hợp lệ
+      alt active = 0
+        HeThong --&gt; GiaoDien : Lỗi &quot;Tài khoản độc giả đã bị khóa&quot;
+      else active = 1
+        HeThong -&gt; CSDL : SELECT COUNT table loans (LoanRepository.countActiveByReader(readerId))
+        alt số sách đang mượn &gt;= maxBooksPerReader
+          HeThong --&gt; GiaoDien : Lỗi &quot;Độc giả đã mượn tối đa [N] cuốn&quot;
+        else chưa đạt giới hạn
+          HeThong -&gt; CSDL : SELECT table reservations (ReservationRepository.findActiveByBook(bookId))
+          alt có reservation của độc giả khác
+            HeThong --&gt; GiaoDien : Lỗi &quot;Sách đã được [tên] đặt trước&quot;
+          else không có reservation của người khác
+            HeThong -&gt; CSDL : INSERT table loans (LoanRepository.save) \nLoan(borrowedAt = now, dueAt = now + loanDays days, status = 'borrowing')
+            HeThong -&gt; CSDL : UPDATE table books SET status = 'borrowed' (BookRepository.updateStatus)
+            alt có reservation của chính độc giả này
+              HeThong -&gt; CSDL : UPDATE table reservations SET status = 'fulfilled'
+            end
+            HeThong -&gt; HeThong : Commit transaction
+            HeThong -&gt; CSDL : INSERT table notifications (NotificationService.notifyLoanCreated(readerId, dueAt))
+            HeThong --&gt; GiaoDien : Kết quả kèm ngày hạn trả
+            GiaoDien -&gt; GiaoDien : Hiển thị thông báo mượn thành công (định dạng dd/mm/yyyy hh:mm)
+          end
+        end
+      end
+    end
+  end
+end
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-27-uc05-sequence-return-book">Prompt 27 — UC05 Sequence: Return Book</h2>
 <pre><code>Draw a sequence diagram for use case &quot;UC05 — Trả sách&quot; of the mini library management system.
@@ -1189,6 +1334,39 @@ Message flow:
 7. Hệ thống: LoanService.confirmReturn(loanId) — inside one transaction → CSDL: UPDATE table loans SET returned_at = NOW(), fine_amount, status = 'returned' (LoanRepository.updateReturn); CSDL: UPDATE table books SET status = 'available' (BookRepository.updateStatus).
 8. Commit the transaction. The result is returned to Giao diện; Giao diện shows the return-success message.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+actor &quot;Thủ thư&quot; as Actor
+participant &quot;ReturnPage&quot; as GiaoDien
+participant &quot;Form xác nhận trả sách&quot; as Form
+participant &quot;Hệ thống&quot; as HeThong
+database &quot;MySQL&quot; as CSDL
+note over HeThong : 2 giai đoạn: xem trước rồi xác nhận.
+Actor -&gt; GiaoDien : Quét QR code
+GiaoDien -&gt; HeThong : LoanController.previewReturn(qrCode)
+HeThong -&gt; HeThong : LoanService.previewReturn(qrCode)
+HeThong -&gt; CSDL : SELECT table books (BookRepository.findByQrCode(qrCode))
+HeThong -&gt; CSDL : SELECT table loans WHERE status = 'borrowing' (LoanRepository.findBorrowingByBook(bookId))
+alt không có loan đang mượn
+  HeThong --&gt; GiaoDien : Lỗi &quot;Sách này không trong trạng thái cho mượn&quot;
+else có loan đang mượn
+  HeThong -&gt; HeThong : loan.calcOverdueDays()
+  HeThong -&gt; CSDL : SELECT table settings (SettingsRepository.get)
+  HeThong -&gt; HeThong : loan.calcFine(finePerDay)
+  HeThong --&gt; GiaoDien : Thông tin loan + số ngày quá hạn + tiền phạt
+  GiaoDien -&gt; Form : Hiển thị form để Actor xem lại
+  Actor -&gt; Form : Bấm &quot;Xác nhận trả&quot;
+  Form -&gt; GiaoDien : Xác nhận trả
+  GiaoDien -&gt; HeThong : LoanController.returnBook(loanId)
+  HeThong -&gt; HeThong : LoanService.confirmReturn(loanId)
+  HeThong -&gt; CSDL : UPDATE table loans SET returned_at = NOW(), fine_amount, status = 'returned' (LoanRepository.updateReturn)
+  HeThong -&gt; CSDL : UPDATE table books SET status = 'available' (BookRepository.updateStatus)
+  HeThong -&gt; HeThong : Commit transaction
+  HeThong --&gt; GiaoDien : Kết quả trả sách
+  GiaoDien -&gt; GiaoDien : Hiển thị thông báo trả thành công
+end
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-30-uc06-sequence-overdue-list">Prompt 30 — UC06 Sequence: Overdue List</h2>
 <pre><code>Draw a sequence diagram for use case &quot;UC06 — Xem danh sách quá hạn&quot; of the mini library management system.
@@ -1210,6 +1388,31 @@ Message flow:
 3. For each loan: Hệ thống: loan.calcOverdueDays() (D6) and loan.calcFine(finePerDay) (estimated fine per D7, not saved to DB).
 4. For each loan with overdue_notified = 0: Hệ thống: NotificationService.notifyOverdue(readerId, ...) → CSDL: INSERT table notifications; CSDL: UPDATE table loans SET overdue_notified = 1 (each loan is notified only once).
 5. The list with overdue days and estimated fines is returned to Giao diện; Giao diện renders the table sorted by overdue days descending.
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+actor &quot;Thủ thư&quot; as Actor
+participant &quot;OverduePage&quot; as GiaoDien
+participant &quot;Form lọc/tìm kiếm và sắp xếp&quot; as Form
+participant &quot;Hệ thống&quot; as HeThong
+database &quot;MySQL&quot; as CSDL
+Actor -&gt; Form : Mở trang (có thể nhập từ khóa lọc / đổi thứ tự sắp xếp)
+Form -&gt; GiaoDien : Filter/sort đã chọn
+GiaoDien -&gt; HeThong : LoanController.listOverdue(params)
+HeThong -&gt; HeThong : LoanService.listOverdue()
+HeThong -&gt; CSDL : SELECT table loans JOIN table books JOIN table users WHERE loans.status = 'borrowing' AND due_at &lt; NOW() (LoanRepository.findOverdue())
+loop mỗi loan
+  HeThong -&gt; HeThong : loan.calcOverdueDays() và loan.calcFine(finePerDay)
+  note over HeThong : Tiền phạt ước tính, không lưu vào DB.
+  alt overdue_notified = 0
+    HeThong -&gt; CSDL : INSERT table notifications (NotificationService.notifyOverdue(readerId, ...))
+    HeThong -&gt; CSDL : UPDATE table loans SET overdue_notified = 1
+    note over HeThong : Mỗi loan chỉ được thông báo một lần.
+  end
+end
+HeThong --&gt; GiaoDien : Danh sách kèm số ngày quá hạn và tiền phạt ước tính
+GiaoDien -&gt; GiaoDien : Render bảng sắp xếp theo số ngày quá hạn giảm dần
+@enduml
 </code></pre>
 <hr />
 <h2 id="prompt-33-uc07-sequence-statistics-incl-uc14">Prompt 33 — UC07 Sequence: Statistics (incl. UC14)</h2>
@@ -1238,6 +1441,36 @@ Export-Excel flow (UC14):
 Print/PDF flow (UC14):
 7. Actor clicks &quot;In / Lưu PDF&quot; → Giao diện calls window.print(); the @media print CSS prints only the report block.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+actor &quot;Thủ thư / Admin&quot; as Actor
+participant &quot;StatsPage&quot; as GiaoDien
+participant &quot;Form lọc lịch sử&quot; as Form
+participant &quot;Hệ thống&quot; as HeThong
+database &quot;MySQL&quot; as CSDL
+note over Actor, CSDL : Luồng xem thống kê:
+Actor -&gt; GiaoDien : Mở trang
+GiaoDien -&gt; HeThong : StatsController.getDashboard()
+HeThong -&gt; HeThong : StatsService.getDashboard()
+HeThong -&gt; CSDL : COUNT queries (BookRepository.count, LoanRepository.countBorrowing/countOverdue, UserRepository.countReaders) và top 5 (LoanRepository.topBorrowedBooks(5))
+HeThong -&gt; HeThong : Aggregate thành dashboard object
+HeThong --&gt; GiaoDien : Dashboard object
+GiaoDien -&gt; GiaoDien : Render 4 stat card + biểu đồ top-5 + bảng lịch sử
+note over Actor, CSDL : Luồng xuất Excel (UC14):
+Actor -&gt; Form : Đặt filter, bấm &quot;Xuất Excel&quot;
+Form -&gt; GiaoDien : Filters
+GiaoDien -&gt; HeThong : StatsController.exportExcel(filters)
+HeThong -&gt; HeThong : StatsService.exportExcel(filters)
+HeThong -&gt; CSDL : SELECT table loans JOIN table books JOIN table users theo filters
+HeThong -&gt; HeThong : Tạo file .xlsx 2 sheet (&quot;Muon tra&quot;, &quot;Tong quan&quot;) bằng exceljs
+HeThong --&gt; GiaoDien : File .xlsx
+GiaoDien -&gt; GiaoDien : Trình duyệt tải file về máy
+note over Actor, CSDL : Luồng In / Lưu PDF (UC14):
+Actor -&gt; GiaoDien : Bấm &quot;In / Lưu PDF&quot;
+GiaoDien -&gt; GiaoDien : window.print()
+note over GiaoDien : CSS @media print chỉ in khối báo cáo.
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-36-uc08-sequence-my-books">Prompt 36 — UC08 Sequence: My Books</h2>
 <pre><code>Draw a sequence diagram for use case &quot;UC08 — Xem sách của tôi&quot; of the mini library management system.
@@ -1261,6 +1494,29 @@ Message flow:
 5. Actor switches to the &quot;Lịch sử&quot; tab → reuse the returned-loan data from step 2 (filter status = 'returned').
 6. The data is returned to Giao diện; Giao diện renders: the Borrowing tab (&quot;Sắp hết hạn&quot;/&quot;Quá hạn&quot; labels), the Reservations tab (status badge, appointment, QR code when approved, Cancel button when pending), the History tab (fine per loan).
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+actor &quot;Độc giả&quot; as Actor
+participant &quot;MyBooksPage&quot; as GiaoDien
+participant &quot;Form 3 tab&quot; as Form
+participant &quot;Hệ thống&quot; as HeThong
+database &quot;MySQL&quot; as CSDL
+Actor -&gt; GiaoDien : Mở trang, tab &quot;Đang mượn&quot; được chọn
+GiaoDien -&gt; HeThong : LoanController.getMyLoans()
+note over HeThong : readerId lấy từ JWT.
+HeThong -&gt; HeThong : LoanService.getReaderLoans(readerId)
+HeThong -&gt; CSDL : SELECT table loans JOIN table books WHERE reader_id = ? (LoanRepository.findByReader(readerId))
+Actor -&gt; Form : Chuyển sang tab &quot;Đặt trước&quot;
+Form -&gt; GiaoDien : Chuyển tab
+GiaoDien -&gt; HeThong : ReservationController.my()
+HeThong -&gt; HeThong : ReservationService.listMyReservations(readerId)
+HeThong -&gt; CSDL : SELECT table reservations JOIN table books WHERE reader_id = ? (ReservationRepository.findByReader(readerId))
+Actor -&gt; Form : Chuyển sang tab &quot;Lịch sử&quot;
+note over HeThong : Tái dùng dữ liệu loan đã trả từ bước 2 (filter status = 'returned').
+HeThong --&gt; GiaoDien : Dữ liệu các tab
+GiaoDien -&gt; GiaoDien : Render tab Đang mượn (nhãn &quot;Sắp hết hạn&quot;/&quot;Quá hạn&quot;), tab Đặt trước (status badge, appointment, QR code khi đã duyệt, nút Hủy khi pending), tab Lịch sử (tiền phạt mỗi loan)
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-39-uc09-sequence-system-configuration">Prompt 39 — UC09 Sequence: System Configuration</h2>
 <pre><code>Draw a sequence diagram for use case &quot;UC09 — Cấu hình hệ thống&quot; of the mini library management system.
@@ -1283,6 +1539,28 @@ Message flow:
 4. Hệ thống: SettingsService.updateSettings(data) — validate that every value is a positive integer. If not: return the error &quot;Giá trị phải là số nguyên dương&quot;, end the flow.
 5. Hệ thống → CSDL: UPDATE table settings WHERE id = 1 (SettingsRepository.save).
 6. The result is returned to Giao diện; Giao diện shows the save-success message. (New parameters apply to newly created loans only — D10.)
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+actor &quot;Admin&quot; as Actor
+participant &quot;SettingsPage&quot; as GiaoDien
+participant &quot;Form cấu hình&quot; as Form
+participant &quot;Hệ thống&quot; as HeThong
+database &quot;MySQL&quot; as CSDL
+Actor -&gt; Form : Sửa các tham số, bấm &quot;Lưu&quot;
+Form -&gt; GiaoDien : Dữ liệu đã nhập
+GiaoDien -&gt; Form : get the entered data
+GiaoDien -&gt; HeThong : SettingsController.updateSettings(data)
+HeThong -&gt; HeThong : SettingsService.updateSettings(data)
+alt giá trị không phải số nguyên dương
+  HeThong --&gt; GiaoDien : Lỗi &quot;Giá trị phải là số nguyên dương&quot;
+else mọi giá trị đều là số nguyên dương
+  HeThong -&gt; CSDL : UPDATE table settings WHERE id = 1 (SettingsRepository.save)
+  HeThong --&gt; GiaoDien : Kết quả lưu
+  GiaoDien -&gt; GiaoDien : Hiển thị thông báo lưu thành công
+end
+note over HeThong : Tham số mới chỉ áp dụng cho loan mới tạo (D10).
+@enduml
 </code></pre>
 <hr />
 <h2 id="prompt-42-uc10-sequence-add-librarian-account">Prompt 42 — UC10 Sequence: Add Librarian Account</h2>
@@ -1308,6 +1586,30 @@ Message flow:
 6. Hệ thống → CSDL: INSERT table users (UserRepository.save).
 7. The result is returned to Giao diện; Giao diện shows &quot;Thêm tài khoản thành công&quot; and reloads the list.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+actor &quot;Admin&quot; as Actor
+participant &quot;AccountsPage&quot; as GiaoDien
+participant &quot;Form thêm tài khoản&quot; as Form
+participant &quot;Hệ thống&quot; as HeThong
+database &quot;MySQL&quot; as CSDL
+Actor -&gt; Form : Điền form, bấm &quot;Lưu&quot;
+Form -&gt; GiaoDien : Dữ liệu đã nhập
+GiaoDien -&gt; Form : get the entered data
+GiaoDien -&gt; HeThong : AccountController.createAccount(dto)
+HeThong -&gt; HeThong : AccountService.createAccount(dto)
+HeThong -&gt; HeThong : Validate password policy
+HeThong -&gt; CSDL : SELECT table users (UserRepository.findByUsername(username))
+alt username đã tồn tại
+  HeThong --&gt; GiaoDien : Lỗi &quot;Tên đăng nhập đã được sử dụng&quot;
+else username chưa tồn tại
+  HeThong -&gt; HeThong : Hash mật khẩu bằng bcrypt, tạo User(role = 'librarian', active = 1)
+  HeThong -&gt; CSDL : INSERT table users (UserRepository.save)
+  HeThong --&gt; GiaoDien : Kết quả tạo tài khoản
+  GiaoDien -&gt; GiaoDien : Hiển thị &quot;Thêm tài khoản thành công&quot; và tải lại danh sách
+end
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-45-uc11-sequence-reserve-and-approve-new-flow">Prompt 45 — UC11 Sequence: Reserve and Approve (NEW FLOW)</h2>
 <pre><code>Draw a sequence diagram for use case &quot;UC11 — Đặt trước sách&quot; (new flow with approval) of the mini library management system, with 2 phases: reader reserves and librarian approves.
@@ -1332,6 +1634,51 @@ Phase 2 — Librarian approves:
 11. Hệ thống: NotificationService.notifyReader(readerId, 'Đặt trước được duyệt', body) → CSDL: INSERT table notifications (notify the reader with the QR code).
 12. The result is returned to Giao diện; the &quot;Chờ duyệt&quot; badge and the reader-side status update automatically (poll every 5 seconds).
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+actor &quot;Độc giả / Thủ thư&quot; as Actor
+participant &quot;BookDetailPage / ReservationsPage&quot; as GiaoDien
+participant &quot;Form đặt trước / Form duyệt&quot; as Form
+participant &quot;Hệ thống&quot; as HeThong
+database &quot;MySQL&quot; as CSDL
+note over Actor, CSDL : Phase 1 — Độc giả đặt trước (BookDetailPage, form: desired time):
+Actor -&gt; Form : Nhập thời gian muốn nhận, bấm &quot;Đặt trước&quot;
+Form -&gt; GiaoDien : Dữ liệu đã nhập
+GiaoDien -&gt; HeThong : ReservationController.create(bookId, readerNote)
+HeThong -&gt; HeThong : ReservationService.create(bookId, readerId, readerNote)
+HeThong -&gt; CSDL : SELECT table books (BookRepository.findById(bookId))
+alt status không phải 'available'
+  HeThong --&gt; GiaoDien : Lỗi &quot;Sách không khả dụng để đặt trước&quot;
+else status = 'available'
+  HeThong -&gt; CSDL : SELECT table reservations (ReservationRepository.findActiveByBook(bookId))
+  alt đã có active reservation
+    HeThong --&gt; GiaoDien : Lỗi &quot;Sách đã được đặt trước&quot;
+  else chưa có active reservation
+    HeThong -&gt; CSDL : SELECT table settings (SettingsRepository.get)
+    note over HeThong : Lấy reservationHours.
+    HeThong -&gt; HeThong : Generate random 8-character code, tạo Reservation(status = 'pending', expiresAt = now + reservationHours)
+    HeThong -&gt; CSDL : INSERT table reservations (ReservationRepository.save)
+    HeThong -&gt; CSDL : INSERT table notifications (NotificationService.notifyLibrarians(...))
+    note over HeThong : Thông báo cho tất cả thủ thư.
+  end
+end
+note over Actor, CSDL : Phase 2 — Thủ thư duyệt (ReservationsPage, form: confirm appointment):
+Actor -&gt; Form : Xác nhận thời gian hẹn, bấm &quot;Duyệt&quot;
+Form -&gt; GiaoDien : Dữ liệu đã nhập
+GiaoDien -&gt; HeThong : ReservationController.approve(id, pickupAt)
+HeThong -&gt; HeThong : ReservationService.approve(id, pickupAt, reviewerId)
+HeThong -&gt; CSDL : SELECT table reservations (ReservationRepository.findById(id))
+alt status không phải 'pending' hoặc đã quá expiresAt
+  HeThong --&gt; GiaoDien : Lỗi &quot;Lượt đặt đã hết hiệu lực&quot;
+else pending và còn hiệu lực
+  HeThong -&gt; CSDL : UPDATE table reservations SET status = 'approved', pickup_at, reviewed_by, reviewed_at (ReservationRepository.updateStatus)
+  HeThong -&gt; CSDL : INSERT table notifications (NotificationService.notifyReader(readerId, 'Đặt trước được duyệt', body))
+  note over HeThong : Thông báo cho độc giả kèm QR code.
+  HeThong --&gt; GiaoDien : Kết quả duyệt
+  GiaoDien -&gt; GiaoDien : Badge &quot;Chờ duyệt&quot; và trạng thái phía độc giả tự cập nhật (poll mỗi 5 giây)
+end
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-50-uc13-sequence-automatic-notification-on-reservation-approval">Prompt 50 — UC13 Sequence: Automatic Notification on Reservation Approval</h2>
 <pre><code>Draw a sequence diagram for the &quot;automatic notification when the librarian approves a reservation&quot; flow (part of UC13) in the mini library management system.
@@ -1345,6 +1692,28 @@ Message flow:
 2. Hệ thống: ReservationService.approve(id, pickupAt, reviewerId) → CSDL: UPDATE table reservations SET status = 'approved' (ReservationRepository.updateStatus).
 3. Hệ thống: NotificationService.notifyReader(readerId, 'Đặt trước được duyệt', body) — create Notification(audience = 'readers', type = 'reservation', userId = readerId) → CSDL: INSERT table notifications (NotificationRepository.save).
 4. Actor (Độc giả) with the web open: Giao diện polls Hệ thống: NotificationController.unreadCount() every 5 seconds → CSDL: SELECT COUNT; the unread count on the bell increases; clicking the bell reveals the new yellow notification with the pickup QR code.
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+actor &quot;Thủ thư / Độc giả&quot; as Actor
+participant &quot;ReservationsPage&quot; as GiaoDien
+participant &quot;Form duyệt&quot; as Form
+participant &quot;Hệ thống&quot; as HeThong
+database &quot;MySQL&quot; as CSDL
+Actor -&gt; Form : Xác nhận thời gian hẹn, bấm &quot;Duyệt&quot;
+Form -&gt; GiaoDien : Dữ liệu đã nhập
+GiaoDien -&gt; HeThong : ReservationController.approve(id, pickupAt)
+HeThong -&gt; HeThong : ReservationService.approve(id, pickupAt, reviewerId)
+HeThong -&gt; CSDL : UPDATE table reservations SET status = 'approved' (ReservationRepository.updateStatus)
+HeThong -&gt; HeThong : NotificationService.notifyReader(readerId, 'Đặt trước được duyệt', body)
+HeThong -&gt; CSDL : INSERT table notifications (NotificationRepository.save)
+note over HeThong : Tạo Notification(audience = 'readers', type = 'reservation', userId = readerId).
+Actor -&gt; GiaoDien : Độc giả đang mở web, Giao diện poll mỗi 5 giây
+GiaoDien -&gt; HeThong : NotificationController.unreadCount()
+HeThong -&gt; CSDL : SELECT COUNT
+HeThong --&gt; GiaoDien : Số thông báo chưa đọc
+GiaoDien -&gt; GiaoDien : Số trên chuông tăng; bấm chuông hiện thông báo mới màu vàng kèm QR code nhận sách
+@enduml
 </code></pre>
 <hr />
 <h2 id="prompt-uc16-c-sequence-diagram-uc16">Prompt UC16-C — Sequence Diagram: UC16</h2>
@@ -1363,6 +1732,33 @@ Flow:
 10. PublicController --&gt; LandingPage: 200 JSON with public book DTOs + aiScore + aiReason (never expose qrCode)
 11. LandingPage --&gt; Guest: book grid with match % and reason
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+actor Guest
+participant LandingPage
+participant PublicController
+participant AiBookSearchService
+participant BookRepository
+actor GeminiAPI
+database MySQL
+Guest -&gt; LandingPage : enter description, click Search with AI
+LandingPage -&gt; PublicController : POST /api/public/books/ai-search {description}
+PublicController -&gt; PublicController : validate length + rate limit
+PublicController -&gt; AiBookSearchService : search(description)
+AiBookSearchService -&gt; BookRepository : listDistinctTitles()
+BookRepository -&gt; MySQL : SELECT representative rows GROUP BY title, author
+alt AI available
+  AiBookSearchService -&gt; GeminiAPI : generateContent(catalog + description)
+  GeminiAPI --&gt; AiBookSearchService : JSON [{id, score, reason}]
+  AiBookSearchService -&gt; AiBookSearchService : keep only ids existing in catalog, sort by score, max 8
+else AI error / no key
+  AiBookSearchService -&gt; AiBookSearchService : keyword fallback scoring over title/author/category
+end
+AiBookSearchService --&gt; PublicController : {mode, results}
+PublicController --&gt; LandingPage : 200 JSON with public book DTOs + aiScore + aiReason (never expose qrCode)
+LandingPage --&gt; Guest : book grid with match % and reason
+@enduml
+</code></pre>
 <hr />
 
 <h2 id="prompt-uc18-sequence-diagram-uc18-quen-mat-khau">Prompt UC18 — Sequence Diagram: UC18 quên mật khẩu</h2>
@@ -1373,6 +1769,37 @@ Flow:
 4. Reader opens the link, enters a new password; EmailAccountService validates the password policy, checks token hash + expiry + unused, updates password_hash (bcrypt) and marks the token used.
 5. alt [invalid/expired/used token]: return 400 &quot;link invalid or expired&quot;.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+actor Reader
+participant &quot;Giao dien&quot; as GiaoDien
+participant &quot;Form/Controller&quot; as Form
+participant &quot;He thong/Service&quot; as HeThong
+database &quot;CSDL&quot; as CSDL
+Reader -&gt; GiaoDien : Enter email on the Forgot Password page and submit
+GiaoDien -&gt; Form : Submit email
+Form -&gt; HeThong : AuthController (forgot password request)
+HeThong --&gt; GiaoDien : Always the same generic message (never reveals whether the email exists)
+HeThong -&gt; CSDL : Look up the account by email
+alt an active account is found
+  HeThong -&gt; HeThong : Generate a random token; invalidate any old token for this user
+  HeThong -&gt; CSDL : Store only its SHA-256 hash in email_tokens (purpose reset_password, 30-minute expiry, single use)
+  HeThong -&gt; HeThong : Send the reset link via Resend
+else no active account found
+  note over HeThong : No email is sent, no token is created.
+end
+Reader -&gt; GiaoDien : Open the link, enter a new password
+GiaoDien -&gt; Form : Submit new password
+Form -&gt; HeThong : EmailAccountService (reset password request)
+HeThong -&gt; HeThong : Validate the password policy; check token hash + expiry + unused
+alt token invalid / expired / used
+  HeThong --&gt; GiaoDien : 400 &quot;link invalid or expired&quot;
+else token valid
+  HeThong -&gt; CSDL : Update password_hash (bcrypt) and mark the token used
+  HeThong --&gt; GiaoDien : Password reset successfully
+end
+@enduml
+</code></pre>
 <h2 id="prompt-uc19-sequence-diagram-uc19-xac-thuc-email">Prompt UC19 — Sequence Diagram: UC19 xác thực email</h2>
 <pre><code>Draw a sequence diagram for &quot;UC19 Register with real email &amp; verify email&quot; with 5 lifelines (Reader, Giao dien, Form/Controller, He thong/Service, CSDL):
 1. Reader submits the registration form including a valid email (format checked; duplicate email -&gt; 409).
@@ -1380,6 +1807,37 @@ Flow:
 3. EmailAccountService creates a verify_email token (SHA-256 hash stored, 24-hour expiry, single use) and sends the verification link via Resend; a send failure does not fail the registration.
 4. Reader clicks the link; the Verify Email page posts the token; EmailAccountService consumes the token and sets email_verified = 1.
 5. alt [not verified yet]: the app layout shows a reminder banner; from the Profile page the reader can change email (resets to unverified + sends a new link) or resend the verification email (1 per minute).
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+actor Reader
+participant &quot;Giao dien&quot; as GiaoDien
+participant &quot;Form/Controller&quot; as Form
+participant &quot;He thong/Service&quot; as HeThong
+database &quot;CSDL&quot; as CSDL
+Reader -&gt; GiaoDien : Submit the registration form including a valid email
+GiaoDien -&gt; Form : Submit registration data
+Form -&gt; HeThong : Check email format
+alt duplicate email
+  HeThong --&gt; GiaoDien : 409
+else email not duplicate
+  HeThong -&gt; HeThong : UserService creates the account with email_verified = 0
+  HeThong -&gt; CSDL : Create account (email_verified = 0)
+  HeThong -&gt; HeThong : EmailAccountService creates a verify_email token (SHA-256 hash stored, 24-hour expiry, single use)
+  HeThong -&gt; HeThong : Send the verification link via Resend
+  note over HeThong : A send failure does not fail the registration.
+  HeThong --&gt; GiaoDien : Account created
+end
+Reader -&gt; GiaoDien : Click the link
+GiaoDien -&gt; Form : Post the token (Verify Email page)
+Form -&gt; HeThong : EmailAccountService consumes the token
+HeThong -&gt; CSDL : Set email_verified = 1
+HeThong --&gt; GiaoDien : Email verified
+alt not verified yet
+  GiaoDien -&gt; GiaoDien : Layout shows a reminder banner
+  Reader -&gt; GiaoDien : From the Profile page, change email (resets to unverified + sends a new link) or resend the verification email (1 per minute)
+end
+@enduml
 </code></pre>
 
 <h2 id="prompt-uc12-sequence-cancel-reservation">Prompt UC12 Sequence: Cancel Reservation</h2>
@@ -1397,6 +1855,40 @@ Message flow:
 5. Hệ thống: NotificationService.notifyLibrarians('Đặt trước bị hủy', body) → CSDL: INSERT table notifications (NotificationRepository.save).
 6. Hệ thống returns success → Giao diện reports the successful cancellation and refreshes the list.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+actor &quot;Độc giả&quot; as Actor
+participant &quot;MyReservationsPage&quot; as GiaoDien
+participant &quot;Form xác nhận hủy&quot; as Form
+participant &quot;Hệ thống&quot; as HeThong
+database &quot;MySQL&quot; as CSDL
+Actor -&gt; GiaoDien : Mở tab &quot;Đặt trước&quot;
+GiaoDien -&gt; HeThong : ReservationController.listMine()
+HeThong -&gt; CSDL : SELECT table reservations WHERE reader_id = ? (ReservationRepository.findMine)
+HeThong --&gt; GiaoDien : Danh sách reservation
+GiaoDien -&gt; GiaoDien : Hiển thị danh sách với trạng thái (Chờ duyệt / Đã duyệt / Từ chối / Hết hạn)
+alt reservation không ở trạng thái 'pending'
+  GiaoDien -&gt; GiaoDien : Ẩn nút &quot;Hủy&quot;, kết thúc luồng
+else reservation ở trạng thái 'pending'
+  Actor -&gt; GiaoDien : Bấm &quot;Hủy&quot;
+  GiaoDien -&gt; Form : Hiển thị hộp thoại xác nhận
+  Actor -&gt; Form : Xác nhận
+  Form -&gt; GiaoDien : Xác nhận hủy
+  GiaoDien -&gt; HeThong : ReservationController.cancel(id)
+  HeThong -&gt; HeThong : ReservationService.cancel(id, readerId)
+  HeThong -&gt; CSDL : Check the reservation status (ReservationRepository.findById)
+  alt status không phải 'pending'
+    HeThong --&gt; GiaoDien : Lỗi, kết thúc luồng
+  else status = 'pending'
+    HeThong -&gt; CSDL : UPDATE table reservations SET status = 'cancelled' (ReservationRepository.updateStatus)
+    note over HeThong : Sách được mở khóa ngay lập tức.
+    HeThong -&gt; CSDL : INSERT table notifications (NotificationService.notifyLibrarians('Đặt trước bị hủy', body))
+    HeThong --&gt; GiaoDien : Success
+    GiaoDien -&gt; GiaoDien : Báo hủy thành công và làm mới danh sách
+  end
+end
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-uc17-c-sequence-diagram-uc17-nhac-han-qua-email">Prompt UC17-C — Sequence Diagram: UC17 nhắc hạn qua email</h2>
 <pre><code>Draw a sequence diagram for use case &quot;UC17 — Nhắc hạn qua email&quot; of the mini library management system.
@@ -1412,6 +1904,38 @@ Message flow:
 4. Hệ thống → CSDL: check the last reminder for this loan and type (EmailReminderRepository.findLastReminder) to prevent duplicates.
 5. Hệ thống → Resend API: sendEmail(recipientEmail, subject, body); Resend API → Reader (mailbox): deliver the email.
 6. On success, Hệ thống → CSDL: INSERT table email_reminders (loan_id, type, recipient_email, provider_id, sent_day) (EmailReminderRepository.save). On failure, Hệ thống logs the error and continues with the next loan (no row is inserted, so the next scan retries it).
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+actor Scheduler
+participant &quot;Hệ thống&quot; as HeThong
+database &quot;MySQL&quot; as CSDL
+participant &quot;Resend API&quot; as Resend
+actor Reader
+Scheduler -&gt; HeThong : Trigger scan on startup and every 6 hours
+HeThong -&gt; HeThong : EmailReminderService.scan()
+HeThong -&gt; CSDL : SELECT active loans with a reader email (LoanRepository.findActiveLoansWithReaderEmail)
+CSDL --&gt; HeThong : Active loans
+loop mỗi loan
+  alt due within 48h and never reminded
+    HeThong -&gt; HeThong : Compose &quot;due soon&quot; email
+  else overdue and (never reminded OR last reminder &gt;= 3 days ago)
+    HeThong -&gt; HeThong : Compose &quot;overdue&quot; email including the fine estimate
+  else otherwise
+    note over HeThong : Skip the loan, next loan.
+  end
+  HeThong -&gt; CSDL : Check the last reminder for this loan and type (EmailReminderRepository.findLastReminder)
+  alt cần gửi email
+    HeThong -&gt; Resend : sendEmail(recipientEmail, subject, body)
+    Resend -&gt; Reader : Deliver the email
+    alt gửi thành công
+      HeThong -&gt; CSDL : INSERT table email_reminders (loan_id, type, recipient_email, provider_id, sent_day) (EmailReminderRepository.save)
+    else gửi thất bại
+      HeThong -&gt; HeThong : Log the error and continue with the next loan (no row is inserted, so the next scan retries it)
+    end
+  end
+end
+@enduml
 </code></pre>
 <hr />
 <h2 id="class-diagram-17-prompt">Class Diagram (17 prompt)</h2><p>Các prompt vẽ sơ đồ Class Diagram, giữ nguyên thứ tự Prompt gốc.</p><h2 id="prompt-16-uc01-analysis-class">Prompt 16 — UC01 Analysis Class</h2>
