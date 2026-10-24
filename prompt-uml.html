@@ -236,10 +236,6 @@ Resend --&gt; UC18
 Resend --&gt; UC19
 UC14 .&gt; UC07 : &lt;&lt;extend&gt;&gt;
 UC15 .&gt; UC02 : &lt;&lt;extend&gt;&gt;
-note right of UC04 : UC04 checks the reservations created by UC11 (D13)
-note right of UC05 : UC05 computes the fine automatically per D7; it is not a separate use case
-note right of UC01 : UC01 is Login only; registration is a separate use case UC19
-note right of UC17 : UC17 is triggered by the Scheduler, not by a user click
 @enduml
 </code></pre>
 <h2 id="prompt-2-uc01-use-case-diagram-login">Prompt 2 — UC01 Use Case Diagram: Login</h2>
@@ -257,7 +253,6 @@ rectangle &quot;Thư viện Mini&quot; {
 Admin --&gt; UC01
 ThuThu --&gt; UC01
 DocGia --&gt; UC01
-note right of UC01 : UC01 is Login only. Registration is a separate use case UC19; Admin and Thủ thư accounts are issued by the Admin (UC10)
 @enduml
 </code></pre>
 <hr />
@@ -272,7 +267,6 @@ rectangle &quot;Thư viện Mini&quot; {
   usecase &quot;UC02 Quản lý sách&quot; as UC02
 }
 ThuThu --&gt; UC02
-note right of UC02 : Includes: add (generates QR), edit, delete, search
 @enduml
 </code></pre>
 <hr />
@@ -287,7 +281,6 @@ rectangle &quot;Thư viện Mini&quot; {
   usecase &quot;UC03 Quản lý độc giả&quot; as UC03
 }
 ThuThu --&gt; UC03
-note right of UC03 : Includes: add (default password 123456), edit, delete, search
 @enduml
 </code></pre>
 <hr />
@@ -304,7 +297,6 @@ rectangle &quot;Thư viện Mini&quot; {
 }
 ThuThu --&gt; UC04
 UC04 ..&gt; UC11
-note right of UC11 : UC04 checks and marks fulfilled the reservations created by UC11 (D13)
 @enduml
 </code></pre>
 <hr />
@@ -319,7 +311,6 @@ rectangle &quot;Thư viện Mini&quot; {
   usecase &quot;UC05 Trả sách&quot; as UC05
 }
 ThuThu --&gt; UC05
-note right of UC05 : The fine-calculation step (D7) is an internal step of UC05; do not split it into a separate use case
 @enduml
 </code></pre>
 <hr />
@@ -334,7 +325,6 @@ rectangle &quot;Thư viện Mini&quot; {
   usecase &quot;UC06 Danh sách quá hạn&quot; as UC06
 }
 ThuThu --&gt; UC06
-note right of UC06 : Read-only: lists borrowing loans whose due_at is before today
 @enduml
 </code></pre>
 <hr />
@@ -351,7 +341,6 @@ rectangle &quot;Thư viện Mini&quot; {
 }
 ThuThu --&gt; UC07
 Admin --&gt; UC07
-note right of UC07 : 4 stat cards + top-5 chart + borrow/return history
 @enduml
 </code></pre>
 <hr />
@@ -366,7 +355,6 @@ rectangle &quot;Thư viện Mini&quot; {
   usecase &quot;UC08 Sách của tôi&quot; as UC08
 }
 DocGia --&gt; UC08
-note right of UC08 : 3 tabs: Đang mượn / Đặt trước / Lịch sử; each reader sees only their own data
 @enduml
 </code></pre>
 <hr />
@@ -381,7 +369,6 @@ rectangle &quot;Thư viện Mini&quot; {
   usecase &quot;UC09 Cấu hình hệ thống&quot; as UC09
 }
 Admin --&gt; UC09
-note right of UC09 : 4 parameters: loan_days, fine_per_day, max_books_per_reader, reservation_hours; apply to new loans only
 @enduml
 </code></pre>
 <hr />
@@ -396,7 +383,6 @@ rectangle &quot;Thư viện Mini&quot; {
   usecase &quot;UC10 Quản lý tài khoản thủ thư&quot; as UC10
 }
 Admin --&gt; UC10
-note right of UC10 : Includes: create, lock/unlock, delete; cannot delete your own account
 @enduml
 </code></pre>
 <hr />
@@ -413,7 +399,6 @@ rectangle &quot;Thư viện Mini&quot; {
 }
 DocGia --&gt; UC11
 UC11 ..&gt; UC04
-note right of UC04 : Pending reservations from UC11 are consumed by UC04 when the reader comes to the counter to pick up the book (D13)
 @enduml
 </code></pre>
 <hr />
@@ -430,7 +415,6 @@ rectangle &quot;Thư viện Mini&quot; {
 }
 DocGia --&gt; UC12
 UC12 ..&gt; UC11
-note right of UC11 : UC12 turns UC11's pending reservations into cancelled
 @enduml
 </code></pre>
 <h2 id="prompt-48-uc13-use-case-diagram-notification-system">Prompt 48 — UC13 Use Case Diagram: Notification System</h2>
@@ -469,7 +453,6 @@ Admin --&gt; UC133
 ThuThu --&gt; UC133
 Khach --&gt; UC134
 UC132 .&gt; UC131 : &lt;&lt;include&gt;&gt;
-note right of UC131 : The system auto-generates notifications: new reservation → librarians; approve/reject → the reader; loan created → due-date reminder; overdue → red alert.
 @enduml
 </code></pre>
 <hr />
@@ -495,7 +478,6 @@ Reader --&gt; UC16
 Guest --&gt; UC16
 UC16 .&gt; Validate : &lt;&lt;include&gt;&gt;
 Fallback .&gt; UC16 : &lt;&lt;extend&gt;&gt;
-note right of Fallback : Used when the AI service is unavailable or no API key is configured
 @enduml
 </code></pre>
 <h2 id="prompt-uc17-a-use-case-diagram-bo-sung">Prompt UC17-A — Use Case Diagram (bổ sung)</h2>
@@ -554,7 +536,6 @@ Librarian --&gt; UC18
 Admin --&gt; UC18
 UC18 .&gt; SendReset : &lt;&lt;include&gt;&gt;
 Resend --&gt; SendReset
-note right of UC18 : The system always shows the same generic message and never reveals whether the email exists; the reset token is 30-minute, single-use, only its SHA-256 hash is stored
 @enduml
 </code></pre>
 <hr />
@@ -575,7 +556,6 @@ Guest --&gt; UC19
 Reader --&gt; UC19
 UC19 .&gt; SendVerify : &lt;&lt;include&gt;&gt;
 Resend --&gt; SendVerify
-note right of UC19 : Registration creates the account with email_verified = 0; a duplicate email returns 409; the verification token is 24-hour, single-use, only its SHA-256 hash is stored; until verified, the layout shows a reminder banner and the reader can change the email (resets to unverified) or resend the verification email (1 per minute)
 @enduml
 </code></pre>
 <hr />
@@ -1119,7 +1099,6 @@ else user found
     end
   end
 end
-note over HeThong : Login does NOT validate the password format.
 @enduml
 </code></pre>
 <hr />
@@ -1163,7 +1142,6 @@ alt data.title rỗng
 else data.title không rỗng
   HeThong -&gt; HeThong : BookService.generateBookCode(category)
   HeThong -&gt; CSDL : SELECT table categories (CategoryRepository.findByName(category))
-  note over HeThong : Nếu không có code thì dùng &quot;SACH&quot;; seq = max seq của category + 1, book_code dạng &quot;VH-0001&quot;; lặp cho đến khi duy nhất (BookRepository.bookCodeExists)
   loop mỗi bản sách
     HeThong -&gt; CSDL : INSERT table books (BookRepository.save) \nBook(qrCode = bookCode, bookCode, status = 'available')
   end
@@ -1257,16 +1235,13 @@ participant &quot;BorrowPage&quot; as GiaoDien
 participant &quot;Form mượn sách&quot; as Form
 participant &quot;Hệ thống&quot; as HeThong
 database &quot;MySQL&quot; as CSDL
-note over HeThong, CSDL : Các bước 4-12 chạy trong một transaction: tất cả thành công hoặc tất cả rollback.
 Actor -&gt; GiaoDien : Quét QR code (hoặc nhập mã thủ công / dán từ clipboard rồi bấm &quot;Tìm&quot;)
 GiaoDien -&gt; HeThong : LoanController.borrowBook(qrCode, readerId)
 alt mã là reservation code
   HeThong -&gt; CSDL : SELECT table reservations (ReservationRepository.findByCode(code))
-  note over HeThong : Nếu trúng reservation thì độc giả được cố định theo reservation, bỏ qua bước chọn độc giả.
 end
 HeThong -&gt; HeThong : LoanService.borrowBook(qrCode, readerId)
 HeThong -&gt; CSDL : SELECT table settings (SettingsRepository.get)
-note over HeThong : Lấy loanDays, maxBooksPerReader.
 HeThong -&gt; CSDL : SELECT table books WHERE qr_code = ? OR book_code = ? (BookRepository.findByQrCode(qrCode))
 alt không tìm thấy sách
   HeThong --&gt; GiaoDien : Lỗi &quot;Không tìm thấy sách&quot;
@@ -1341,7 +1316,6 @@ participant &quot;ReturnPage&quot; as GiaoDien
 participant &quot;Form xác nhận trả sách&quot; as Form
 participant &quot;Hệ thống&quot; as HeThong
 database &quot;MySQL&quot; as CSDL
-note over HeThong : 2 giai đoạn: xem trước rồi xác nhận.
 Actor -&gt; GiaoDien : Quét QR code
 GiaoDien -&gt; HeThong : LoanController.previewReturn(qrCode)
 HeThong -&gt; HeThong : LoanService.previewReturn(qrCode)
@@ -1403,11 +1377,9 @@ HeThong -&gt; HeThong : LoanService.listOverdue()
 HeThong -&gt; CSDL : SELECT table loans JOIN table books JOIN table users WHERE loans.status = 'borrowing' AND due_at &lt; NOW() (LoanRepository.findOverdue())
 loop mỗi loan
   HeThong -&gt; HeThong : loan.calcOverdueDays() và loan.calcFine(finePerDay)
-  note over HeThong : Tiền phạt ước tính, không lưu vào DB.
   alt overdue_notified = 0
     HeThong -&gt; CSDL : INSERT table notifications (NotificationService.notifyOverdue(readerId, ...))
     HeThong -&gt; CSDL : UPDATE table loans SET overdue_notified = 1
-    note over HeThong : Mỗi loan chỉ được thông báo một lần.
   end
 end
 HeThong --&gt; GiaoDien : Danh sách kèm số ngày quá hạn và tiền phạt ước tính
@@ -1448,7 +1420,6 @@ participant &quot;StatsPage&quot; as GiaoDien
 participant &quot;Form lọc lịch sử&quot; as Form
 participant &quot;Hệ thống&quot; as HeThong
 database &quot;MySQL&quot; as CSDL
-note over Actor, CSDL : Luồng xem thống kê:
 Actor -&gt; GiaoDien : Mở trang
 GiaoDien -&gt; HeThong : StatsController.getDashboard()
 HeThong -&gt; HeThong : StatsService.getDashboard()
@@ -1456,7 +1427,6 @@ HeThong -&gt; CSDL : COUNT queries (BookRepository.count, LoanRepository.countBo
 HeThong -&gt; HeThong : Aggregate thành dashboard object
 HeThong --&gt; GiaoDien : Dashboard object
 GiaoDien -&gt; GiaoDien : Render 4 stat card + biểu đồ top-5 + bảng lịch sử
-note over Actor, CSDL : Luồng xuất Excel (UC14):
 Actor -&gt; Form : Đặt filter, bấm &quot;Xuất Excel&quot;
 Form -&gt; GiaoDien : Filters
 GiaoDien -&gt; HeThong : StatsController.exportExcel(filters)
@@ -1465,10 +1435,8 @@ HeThong -&gt; CSDL : SELECT table loans JOIN table books JOIN table users theo f
 HeThong -&gt; HeThong : Tạo file .xlsx 2 sheet (&quot;Muon tra&quot;, &quot;Tong quan&quot;) bằng exceljs
 HeThong --&gt; GiaoDien : File .xlsx
 GiaoDien -&gt; GiaoDien : Trình duyệt tải file về máy
-note over Actor, CSDL : Luồng In / Lưu PDF (UC14):
 Actor -&gt; GiaoDien : Bấm &quot;In / Lưu PDF&quot;
 GiaoDien -&gt; GiaoDien : window.print()
-note over GiaoDien : CSS @media print chỉ in khối báo cáo.
 @enduml
 </code></pre>
 <hr />
@@ -1503,7 +1471,6 @@ participant &quot;Hệ thống&quot; as HeThong
 database &quot;MySQL&quot; as CSDL
 Actor -&gt; GiaoDien : Mở trang, tab &quot;Đang mượn&quot; được chọn
 GiaoDien -&gt; HeThong : LoanController.getMyLoans()
-note over HeThong : readerId lấy từ JWT.
 HeThong -&gt; HeThong : LoanService.getReaderLoans(readerId)
 HeThong -&gt; CSDL : SELECT table loans JOIN table books WHERE reader_id = ? (LoanRepository.findByReader(readerId))
 Actor -&gt; Form : Chuyển sang tab &quot;Đặt trước&quot;
@@ -1512,7 +1479,6 @@ GiaoDien -&gt; HeThong : ReservationController.my()
 HeThong -&gt; HeThong : ReservationService.listMyReservations(readerId)
 HeThong -&gt; CSDL : SELECT table reservations JOIN table books WHERE reader_id = ? (ReservationRepository.findByReader(readerId))
 Actor -&gt; Form : Chuyển sang tab &quot;Lịch sử&quot;
-note over HeThong : Tái dùng dữ liệu loan đã trả từ bước 2 (filter status = 'returned').
 HeThong --&gt; GiaoDien : Dữ liệu các tab
 GiaoDien -&gt; GiaoDien : Render tab Đang mượn (nhãn &quot;Sắp hết hạn&quot;/&quot;Quá hạn&quot;), tab Đặt trước (status badge, appointment, QR code khi đã duyệt, nút Hủy khi pending), tab Lịch sử (tiền phạt mỗi loan)
 @enduml
@@ -1559,7 +1525,6 @@ else mọi giá trị đều là số nguyên dương
   HeThong --&gt; GiaoDien : Kết quả lưu
   GiaoDien -&gt; GiaoDien : Hiển thị thông báo lưu thành công
 end
-note over HeThong : Tham số mới chỉ áp dụng cho loan mới tạo (D10).
 @enduml
 </code></pre>
 <hr />
@@ -1641,7 +1606,6 @@ participant &quot;BookDetailPage / ReservationsPage&quot; as GiaoDien
 participant &quot;Form đặt trước / Form duyệt&quot; as Form
 participant &quot;Hệ thống&quot; as HeThong
 database &quot;MySQL&quot; as CSDL
-note over Actor, CSDL : Phase 1 — Độc giả đặt trước (BookDetailPage, form: desired time):
 Actor -&gt; Form : Nhập thời gian muốn nhận, bấm &quot;Đặt trước&quot;
 Form -&gt; GiaoDien : Dữ liệu đã nhập
 GiaoDien -&gt; HeThong : ReservationController.create(bookId, readerNote)
@@ -1655,14 +1619,11 @@ else status = 'available'
     HeThong --&gt; GiaoDien : Lỗi &quot;Sách đã được đặt trước&quot;
   else chưa có active reservation
     HeThong -&gt; CSDL : SELECT table settings (SettingsRepository.get)
-    note over HeThong : Lấy reservationHours.
     HeThong -&gt; HeThong : Generate random 8-character code, tạo Reservation(status = 'pending', expiresAt = now + reservationHours)
     HeThong -&gt; CSDL : INSERT table reservations (ReservationRepository.save)
     HeThong -&gt; CSDL : INSERT table notifications (NotificationService.notifyLibrarians(...))
-    note over HeThong : Thông báo cho tất cả thủ thư.
   end
 end
-note over Actor, CSDL : Phase 2 — Thủ thư duyệt (ReservationsPage, form: confirm appointment):
 Actor -&gt; Form : Xác nhận thời gian hẹn, bấm &quot;Duyệt&quot;
 Form -&gt; GiaoDien : Dữ liệu đã nhập
 GiaoDien -&gt; HeThong : ReservationController.approve(id, pickupAt)
@@ -1673,7 +1634,6 @@ alt status không phải 'pending' hoặc đã quá expiresAt
 else pending và còn hiệu lực
   HeThong -&gt; CSDL : UPDATE table reservations SET status = 'approved', pickup_at, reviewed_by, reviewed_at (ReservationRepository.updateStatus)
   HeThong -&gt; CSDL : INSERT table notifications (NotificationService.notifyReader(readerId, 'Đặt trước được duyệt', body))
-  note over HeThong : Thông báo cho độc giả kèm QR code.
   HeThong --&gt; GiaoDien : Kết quả duyệt
   GiaoDien -&gt; GiaoDien : Badge &quot;Chờ duyệt&quot; và trạng thái phía độc giả tự cập nhật (poll mỗi 5 giây)
 end
@@ -1707,7 +1667,6 @@ HeThong -&gt; HeThong : ReservationService.approve(id, pickupAt, reviewerId)
 HeThong -&gt; CSDL : UPDATE table reservations SET status = 'approved' (ReservationRepository.updateStatus)
 HeThong -&gt; HeThong : NotificationService.notifyReader(readerId, 'Đặt trước được duyệt', body)
 HeThong -&gt; CSDL : INSERT table notifications (NotificationRepository.save)
-note over HeThong : Tạo Notification(audience = 'readers', type = 'reservation', userId = readerId).
 Actor -&gt; GiaoDien : Độc giả đang mở web, Giao diện poll mỗi 5 giây
 GiaoDien -&gt; HeThong : NotificationController.unreadCount()
 HeThong -&gt; CSDL : SELECT COUNT
@@ -1786,7 +1745,6 @@ alt an active account is found
   HeThong -&gt; CSDL : Store only its SHA-256 hash in email_tokens (purpose reset_password, 30-minute expiry, single use)
   HeThong -&gt; HeThong : Send the reset link via Resend
 else no active account found
-  note over HeThong : No email is sent, no token is created.
 end
 Reader -&gt; GiaoDien : Open the link, enter a new password
 GiaoDien -&gt; Form : Submit new password
@@ -1825,7 +1783,6 @@ else email not duplicate
   HeThong -&gt; CSDL : Create account (email_verified = 0)
   HeThong -&gt; HeThong : EmailAccountService creates a verify_email token (SHA-256 hash stored, 24-hour expiry, single use)
   HeThong -&gt; HeThong : Send the verification link via Resend
-  note over HeThong : A send failure does not fail the registration.
   HeThong --&gt; GiaoDien : Account created
 end
 Reader -&gt; GiaoDien : Click the link
@@ -1881,7 +1838,6 @@ else reservation ở trạng thái 'pending'
     HeThong --&gt; GiaoDien : Lỗi, kết thúc luồng
   else status = 'pending'
     HeThong -&gt; CSDL : UPDATE table reservations SET status = 'cancelled' (ReservationRepository.updateStatus)
-    note over HeThong : Sách được mở khóa ngay lập tức.
     HeThong -&gt; CSDL : INSERT table notifications (NotificationService.notifyLibrarians('Đặt trước bị hủy', body))
     HeThong --&gt; GiaoDien : Success
     GiaoDien -&gt; GiaoDien : Báo hủy thành công và làm mới danh sách
@@ -1922,7 +1878,6 @@ loop mỗi loan
   else overdue and (never reminded OR last reminder &gt;= 3 days ago)
     HeThong -&gt; HeThong : Compose &quot;overdue&quot; email including the fine estimate
   else otherwise
-    note over HeThong : Skip the loan, next loan.
   end
   HeThong -&gt; CSDL : Check the last reminder for this loan and type (EmailReminderRepository.findLastReminder)
   alt cần gửi email
@@ -1945,7 +1900,7 @@ Classes:
 - &lt;&lt;boundary&gt;&gt; LoginPage
 - &lt;&lt;control&gt;&gt; AuthController: login(username, password)
 - &lt;&lt;entity&gt;&gt; User: id, username, passwordHash, fullName, role, studentCode, phone, email, emailVerified, active; isLibrarian(): boolean
-- UserService class: authenticate(username, password): User
+- UserService class: authenticate(username, password): User, getUserById(id): User
 - UserRepository class: findByUsername(username): User
 
 Relationships:
@@ -1975,6 +1930,7 @@ class User &lt;&lt;entity&gt;&gt; {
 }
 class UserService {
   authenticate(username, password): User
+  getUserById(id): User
 }
 class UserRepository {
   findByUsername(username): User
