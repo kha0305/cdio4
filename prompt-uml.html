@@ -2595,7 +2595,7 @@ Classes:
   Note: kiểm tra phải có đường form uses controller tới DangNhapController (1-1)
 - DangNhapController: +dangNhap(username: String, password: String): User, +kiemTraMatKhau(password: String, passwordHash: String): boolean, +getUserById(id: int): User, +taoToken(user: User): String
   Note: kiểm tra phải có uses User (đường đứt)
-- User: id, username, passwordHash, fullName, role, studentCode, phone, email, emailVerified, active; +isLibrarian(): boolean, +getId(): int, +getUsername(): String
+- User: id: int, username: String, passwordHash: String, fullName: String, role: String, studentCode: String, phone: String, email: String, emailVerified: boolean, active: boolean; +isLibrarian(): boolean, +getId(): int, +getUsername(): String
   Note: kiểm tra phải được DangNhapController uses (đường đứt)
 
 Relationships:
@@ -2624,16 +2624,16 @@ note bottom of DangNhapController
   Kiểm tra: phải có uses User (đường đứt)
 end note
 class User {
-  id
-  username
-  passwordHash
-  fullName
-  role
-  studentCode
-  phone
-  email
-  emailVerified
-  active
+  -id : int
+  -username : String
+  -passwordHash : String
+  -fullName : String
+  -role : String
+  -studentCode : String
+  -phone : String
+  -email : String
+  -emailVerified : boolean
+  -active : boolean
   +isLibrarian() : boolean
   +getId() : int
   +getUsername() : String
@@ -2654,9 +2654,9 @@ Classes:
   Note: kiểm tra phải có đường form uses controller tới QuanLySachController (1-1)
 - QuanLySachController: +danhSachSach(): Book, +themSach(data, quantity): Book, +suaSach(id, data): Book, +xoaSach(id): void, +timSachTheoQr(qrCode): Book, +timKiem(keyword): Book, +taiLenAnhBia(id, file): void, +nhapExcel(file): [created, errors], +dongBoMaSach(): int, +taoMaSach(category): String
   Note: kiểm tra phải có uses Book (đường đứt); uses Category (đường đứt)
-- Book: id, qrCode, bookCode, title, author, category, publisher, publishYear, coverUrl, status; +isAvailable(): boolean, +save(): boolean
+- Book: id: int, qrCode: String, bookCode: String, title: String, author: String, category: String, publisher: String, publishYear: int, coverUrl: String, status: String; +isAvailable(): boolean, +save(): boolean
   Note: kiểm tra phải được QuanLySachController uses (đường đứt) và Category 1 — * Book
-- Category: id, name, code; +save(): boolean
+- Category: id: int, name: String, code: String; +save(): boolean
   Note: kiểm tra phải được QuanLySachController uses (đường đứt) và Category 1 — * Book
 
 Relationships:
@@ -2702,16 +2702,16 @@ note bottom of QuanLySachController
   Kiểm tra: phải có uses Book (đường đứt); uses Category (đường đứt)
 end note
 class Book {
-  id
-  qrCode
-  bookCode
-  title
-  author
-  category
-  publisher
-  publishYear
-  coverUrl
-  status
+  -id : int
+  -qrCode : String
+  -bookCode : String
+  -title : String
+  -author : String
+  -category : String
+  -publisher : String
+  -publishYear : int
+  -coverUrl : String
+  -status : String
   +isAvailable() : boolean
   +save() : boolean
 }
@@ -2719,9 +2719,9 @@ note bottom of Book
   Kiểm tra: phải được QuanLySachController uses (đường đứt) và Category 1 — * Book
 end note
 class Category {
-  id
-  name
-  code
+  -id : int
+  -name : String
+  -code : String
   +save() : boolean
 }
 note bottom of Category
@@ -2742,7 +2742,7 @@ Classes:
   Note: kiểm tra phải có đường form uses controller tới QuanLyDocGiaController (1-1)
 - QuanLyDocGiaController: +danhSachDocGia(): User, +themDocGia(data): User, +suaDocGia(id, data): User, +xoaDocGia(id): void, +kiemTraUsernameTonTai(username): boolean, +demSachDangMuon(readerId): int
   Note: kiểm tra phải có uses User (đường đứt)
-- User: id, username, passwordHash, fullName, role, studentCode, phone, active; +getId(): int, +getUsername(): String, +save(): boolean, +kiemTraTonTai(): boolean
+- User: id: int, username: String, passwordHash: String, fullName: String, role: String, studentCode: String, phone: String, active: boolean; +getId(): int, +getUsername(): String, +save(): boolean, +kiemTraTonTai(): boolean
   Note: kiểm tra phải được QuanLyDocGiaController uses (đường đứt)
 
 Relationships:
@@ -2778,14 +2778,14 @@ note bottom of QuanLyDocGiaController
   Kiểm tra: phải có uses User (đường đứt)
 end note
 class User {
-  id
-  username
-  passwordHash
-  fullName
-  role
-  studentCode
-  phone
-  active
+  -id : int
+  -username : String
+  -passwordHash : String
+  -fullName : String
+  -role : String
+  -studentCode : String
+  -phone : String
+  -active : boolean
   +getId() : int
   +getUsername() : String
   +save() : boolean
@@ -2807,15 +2807,15 @@ Classes:
   Note: kiểm tra phải có đường form uses controller tới MuonSachController (1-1)
 - MuonSachController: +muonSach(qrCode, readerId): Loan, +kiemTraSachConTrong(bookId): boolean, +kiemTraDocGiaHopLe(readerId): boolean, +demSachDangMuon(readerId): int, +layCauHinh(): Settings
   Note: kiểm tra phải có uses Book (đường đứt); uses User (đường đứt); uses Loan (đường đứt); uses Reservation (đường đứt); uses Settings (đường đứt)
-- Book: id, qrCode, title, status; +isAvailable(): boolean, +save(): boolean
+- Book: id: int, qrCode: String, title: String, status: String; +isAvailable(): boolean, +save(): boolean
   Note: kiểm tra phải được MuonSachController uses (đường đứt) và Book 1 — * Loan và Book 1 — * Reservation
-- User: id, fullName, role, active; +isActive(): boolean, +getId(): int
+- User: id: int, fullName: String, role: String, active: boolean; +isActive(): boolean, +getId(): int
   Note: kiểm tra phải được MuonSachController uses (đường đứt) và User 1 — * Loan và User 1 — * Reservation
-- Loan: id, borrowedAt, dueAt, returnedAt, fineAmount, status; +isOverdue(): boolean, +calcOverdueDays(): int, +calcFine(finePerDay): int, +save(): boolean
+- Loan: id: int, borrowedAt: String, dueAt: String, returnedAt: String, fineAmount: int, status: String; +isOverdue(): boolean, +calcOverdueDays(): int, +calcFine(finePerDay): int, +save(): boolean
   Note: kiểm tra phải được MuonSachController uses (đường đứt) và User 1 — * Loan và Book 1 — * Loan
-- Reservation: id, reservedAt, expiresAt, status; +isActive(): boolean, +isExpired(): boolean, +save(): boolean
+- Reservation: id: int, reservedAt: String, expiresAt: String, status: String; +isActive(): boolean, +isExpired(): boolean, +save(): boolean
   Note: kiểm tra phải được MuonSachController uses (đường đứt) và User 1 — * Reservation và Book 1 — * Reservation
-- Settings: loanDays, finePerDay, maxBooksPerReader, reservationHours
+- Settings: loanDays: int, finePerDay: int, maxBooksPerReader: int, reservationHours: int
   Note: kiểm tra phải được MuonSachController uses (đường đứt)
 
 Relationships:
@@ -2852,10 +2852,10 @@ note bottom of MuonSachController
   Kiểm tra: phải có uses Book (đường đứt); uses User (đường đứt); uses Loan (đường đứt); uses Reservation (đường đứt); uses Settings (đường đứt)
 end note
 class Book {
-  id
-  qrCode
-  title
-  status
+  -id : int
+  -qrCode : String
+  -title : String
+  -status : String
   +isAvailable() : boolean
   +save() : boolean
 }
@@ -2863,10 +2863,10 @@ note bottom of Book
   Kiểm tra: phải được MuonSachController uses (đường đứt) và Book 1 — * Loan và Book 1 — * Reservation
 end note
 class User {
-  id
-  fullName
-  role
-  active
+  -id : int
+  -fullName : String
+  -role : String
+  -active : boolean
   +isActive() : boolean
   +getId() : int
 }
@@ -2874,12 +2874,12 @@ note bottom of User
   Kiểm tra: phải được MuonSachController uses (đường đứt) và User 1 — * Loan và User 1 — * Reservation
 end note
 class Loan {
-  id
-  borrowedAt
-  dueAt
-  returnedAt
-  fineAmount
-  status
+  -id : int
+  -borrowedAt : String
+  -dueAt : String
+  -returnedAt : String
+  -fineAmount : int
+  -status : String
   +isOverdue() : boolean
   +calcOverdueDays() : int
   +calcFine(finePerDay) : int
@@ -2889,10 +2889,10 @@ note bottom of Loan
   Kiểm tra: phải được MuonSachController uses (đường đứt) và User 1 — * Loan và Book 1 — * Loan
 end note
 class Reservation {
-  id
-  reservedAt
-  expiresAt
-  status
+  -id : int
+  -reservedAt : String
+  -expiresAt : String
+  -status : String
   +isActive() : boolean
   +isExpired() : boolean
   +save() : boolean
@@ -2901,10 +2901,10 @@ note bottom of Reservation
   Kiểm tra: phải được MuonSachController uses (đường đứt) và User 1 — * Reservation và Book 1 — * Reservation
 end note
 class Settings {
-  loanDays
-  finePerDay
-  maxBooksPerReader
-  reservationHours
+  -loanDays : int
+  -finePerDay : int
+  -maxBooksPerReader : int
+  -reservationHours : int
 }
 note bottom of Settings
   Kiểm tra: phải được MuonSachController uses (đường đứt)
@@ -2930,11 +2930,11 @@ Classes:
   Note: kiểm tra phải có đường form uses controller tới TraSachController (1-1)
 - TraSachController: +xemTruocTraSach(qrCode): Loan, +xacNhanTraSach(loanId): Loan, +tinhSoNgayQuaHan(loan): int, +tinhTienPhat(loan, finePerDay): int
   Note: kiểm tra phải có uses Book (đường đứt); uses Loan (đường đứt); uses Settings (đường đứt)
-- Book: id, qrCode, title, status; +save(): boolean
+- Book: id: int, qrCode: String, title: String, status: String; +save(): boolean
   Note: kiểm tra phải được TraSachController uses (đường đứt) và Book 1 — * Loan
-- Loan: id, borrowedAt, dueAt, returnedAt, fineAmount; +isOverdue(): boolean, +calcOverdueDays(): int, +calcFine(finePerDay: int): int, +save(): boolean
+- Loan: id: int, borrowedAt: String, dueAt: String, returnedAt: String, fineAmount: int; +isOverdue(): boolean, +calcOverdueDays(): int, +calcFine(finePerDay: int): int, +save(): boolean
   Note: kiểm tra phải được TraSachController uses (đường đứt) và Book 1 — * Loan
-- Settings: loanDays, finePerDay, maxBooksPerReader, reservationHours
+- Settings: loanDays: int, finePerDay: int, maxBooksPerReader: int, reservationHours: int
   Note: kiểm tra phải được TraSachController uses (đường đứt)
 
 Relationships:
@@ -2967,21 +2967,21 @@ note bottom of TraSachController
   Kiểm tra: phải có uses Book (đường đứt); uses Loan (đường đứt); uses Settings (đường đứt)
 end note
 class Book {
-  id
-  qrCode
-  title
-  status
+  -id : int
+  -qrCode : String
+  -title : String
+  -status : String
   +save() : boolean
 }
 note bottom of Book
   Kiểm tra: phải được TraSachController uses (đường đứt) và Book 1 — * Loan
 end note
 class Loan {
-  id
-  borrowedAt
-  dueAt
-  returnedAt
-  fineAmount
+  -id : int
+  -borrowedAt : String
+  -dueAt : String
+  -returnedAt : String
+  -fineAmount : int
   +isOverdue() : boolean
   +calcOverdueDays() : int
   +calcFine(finePerDay : int) : int
@@ -2991,10 +2991,10 @@ note bottom of Loan
   Kiểm tra: phải được TraSachController uses (đường đứt) và Book 1 — * Loan
 end note
 class Settings {
-  loanDays
-  finePerDay
-  maxBooksPerReader
-  reservationHours
+  -loanDays : int
+  -finePerDay : int
+  -maxBooksPerReader : int
+  -reservationHours : int
 }
 note bottom of Settings
   Kiểm tra: phải được TraSachController uses (đường đứt)
@@ -3015,11 +3015,11 @@ Classes:
   Note: kiểm tra phải có đường form uses controller tới QuaHanController (1-1)
 - QuaHanController: +danhSachQuaHan(): Loan
   Note: kiểm tra phải có uses Loan (đường đứt); uses Book (đường đứt); uses User (đường đứt)
-- Loan: id, borrowedAt, dueAt, returnedAt, fineAmount; +isOverdue(): boolean, +calcOverdueDays(): int, +calcFine(finePerDay: int): int
+- Loan: id: int, borrowedAt: String, dueAt: String, returnedAt: String, fineAmount: int; +isOverdue(): boolean, +calcOverdueDays(): int, +calcFine(finePerDay: int): int
   Note: kiểm tra phải được QuaHanController uses (đường đứt) và Loan * — 1 Book và Loan * — 1 User
-- Book: id, title
+- Book: id: int, title: String
   Note: kiểm tra phải được QuaHanController uses (đường đứt) và Loan * — 1 Book
-- User: id, fullName, phone
+- User: id: int, fullName: String, phone: String
   Note: kiểm tra phải được QuaHanController uses (đường đứt) và Loan * — 1 User
 
 Relationships:
@@ -3044,11 +3044,11 @@ note bottom of QuaHanController
   Kiểm tra: phải có uses Loan (đường đứt); uses Book (đường đứt); uses User (đường đứt)
 end note
 class Loan {
-  id
-  borrowedAt
-  dueAt
-  returnedAt
-  fineAmount
+  -id : int
+  -borrowedAt : String
+  -dueAt : String
+  -returnedAt : String
+  -fineAmount : int
   +isOverdue() : boolean
   +calcOverdueDays() : int
   +calcFine(finePerDay : int) : int
@@ -3057,16 +3057,16 @@ note bottom of Loan
   Kiểm tra: phải được QuaHanController uses (đường đứt) và Loan * — 1 Book và Loan * — 1 User
 end note
 class Book {
-  id
-  title
+  -id : int
+  -title : String
 }
 note bottom of Book
   Kiểm tra: phải được QuaHanController uses (đường đứt) và Loan * — 1 Book
 end note
 class User {
-  id
-  fullName
-  phone
+  -id : int
+  -fullName : String
+  -phone : String
 }
 note bottom of User
   Kiểm tra: phải được QuaHanController uses (đường đứt) và Loan * — 1 User
@@ -3088,11 +3088,11 @@ Classes:
   Note: kiểm tra phải có đường form uses controller tới ThongKeController (1-1)
 - ThongKeController: +layBangDieuKhien(): Dashboard, +xuatExcel(filters): Buffer, +demSach(): int, +demPhieuDangMuon(): int, +demPhieuQuaHan(): int, +demDocGia(): int, +topSachMuonNhieu(5): Book, +lichSuMuonTra(filters): Loan
   Note: kiểm tra phải có uses Book (đường đứt); uses Loan (đường đứt); uses User (đường đứt)
-- Book: id, title
+- Book: id: int, title: String
   Note: kiểm tra phải được ThongKeController uses (đường đứt) và Book 1 — * Loan
-- Loan: id, borrowedAt, dueAt, returnedAt, fineAmount, status
+- Loan: id: int, borrowedAt: String, dueAt: String, returnedAt: String, fineAmount: int, status: String
   Note: kiểm tra phải được ThongKeController uses (đường đứt) và Book 1 — * Loan và User 1 — * Loan
-- User: id, fullName, role
+- User: id: int, fullName: String, role: String
   Note: kiểm tra phải được ThongKeController uses (đường đứt) và User 1 — * Loan
 
 Relationships:
@@ -3129,27 +3129,27 @@ note bottom of ThongKeController
   Kiểm tra: phải có uses Book (đường đứt); uses Loan (đường đứt); uses User (đường đứt)
 end note
 class Book {
-  id
-  title
+  -id : int
+  -title : String
 }
 note bottom of Book
   Kiểm tra: phải được ThongKeController uses (đường đứt) và Book 1 — * Loan
 end note
 class Loan {
-  id
-  borrowedAt
-  dueAt
-  returnedAt
-  fineAmount
-  status
+  -id : int
+  -borrowedAt : String
+  -dueAt : String
+  -returnedAt : String
+  -fineAmount : int
+  -status : String
 }
 note bottom of Loan
   Kiểm tra: phải được ThongKeController uses (đường đứt) và Book 1 — * Loan và User 1 — * Loan
 end note
 class User {
-  id
-  fullName
-  role
+  -id : int
+  -fullName : String
+  -role : String
 }
 note bottom of User
   Kiểm tra: phải được ThongKeController uses (đường đứt) và User 1 — * Loan
@@ -3171,11 +3171,11 @@ Classes:
   Note: kiểm tra phải có đường form uses controller tới SachCuaToiController (1-1)
 - SachCuaToiController: +layPhieuMuonCuaToi(readerId): Loan, +layDatTruocCuaToi(readerId): Reservation, +huyDatTruoc(id, readerId): void
   Note: kiểm tra phải có uses Loan (đường đứt); uses Reservation (đường đứt); uses Book (đường đứt)
-- Loan: id, borrowedAt, dueAt, returnedAt, fineAmount; +isOverdue(): boolean, +save(): boolean
+- Loan: id: int, borrowedAt: String, dueAt: String, returnedAt: String, fineAmount: int; +isOverdue(): boolean, +save(): boolean
   Note: kiểm tra phải được SachCuaToiController uses (đường đứt) và Book 1 — * Loan
-- Reservation: id, reservedAt, expiresAt, status; +isActive(): boolean, +isExpired(): boolean, +save(): boolean
+- Reservation: id: int, reservedAt: String, expiresAt: String, status: String; +isActive(): boolean, +isExpired(): boolean, +save(): boolean
   Note: kiểm tra phải được SachCuaToiController uses (đường đứt) và Book 1 — * Reservation
-- Book: id, title
+- Book: id: int, title: String
   Note: kiểm tra phải được SachCuaToiController uses (đường đứt) và Book 1 — * Loan và Book 1 — * Reservation
 
 Relationships:
@@ -3203,11 +3203,11 @@ note bottom of SachCuaToiController
   Kiểm tra: phải có uses Loan (đường đứt); uses Reservation (đường đứt); uses Book (đường đứt)
 end note
 class Loan {
-  id
-  borrowedAt
-  dueAt
-  returnedAt
-  fineAmount
+  -id : int
+  -borrowedAt : String
+  -dueAt : String
+  -returnedAt : String
+  -fineAmount : int
   +isOverdue() : boolean
   +save() : boolean
 }
@@ -3215,10 +3215,10 @@ note bottom of Loan
   Kiểm tra: phải được SachCuaToiController uses (đường đứt) và Book 1 — * Loan
 end note
 class Reservation {
-  id
-  reservedAt
-  expiresAt
-  status
+  -id : int
+  -reservedAt : String
+  -expiresAt : String
+  -status : String
   +isActive() : boolean
   +isExpired() : boolean
   +save() : boolean
@@ -3227,8 +3227,8 @@ note bottom of Reservation
   Kiểm tra: phải được SachCuaToiController uses (đường đứt) và Book 1 — * Reservation
 end note
 class Book {
-  id
-  title
+  -id : int
+  -title : String
 }
 note bottom of Book
   Kiểm tra: phải được SachCuaToiController uses (đường đứt) và Book 1 — * Loan và Book 1 — * Reservation
@@ -3250,7 +3250,7 @@ Classes:
   Note: kiểm tra phải có đường form uses controller tới CauHinhController (1-1)
 - CauHinhController: +layCauHinh(): Settings, +capNhatCauHinh(data): Settings
   Note: kiểm tra phải có uses Settings (đường đứt)
-- Settings: id, loanDays, finePerDay, maxBooksPerReader, reservationHours; +save(): boolean
+- Settings: id: int, loanDays: int, finePerDay: int, maxBooksPerReader: int, reservationHours: int; +save(): boolean
   Note: kiểm tra phải được CauHinhController uses (đường đứt)
 
 Relationships:
@@ -3280,11 +3280,11 @@ note bottom of CauHinhController
   Kiểm tra: phải có uses Settings (đường đứt)
 end note
 class Settings {
-  id
-  loanDays
-  finePerDay
-  maxBooksPerReader
-  reservationHours
+  -id : int
+  -loanDays : int
+  -finePerDay : int
+  -maxBooksPerReader : int
+  -reservationHours : int
   +save() : boolean
 }
 note bottom of Settings
@@ -3303,7 +3303,7 @@ Classes:
   Note: kiểm tra phải có đường form uses controller tới QuanLyThuThuController (1-1)
 - QuanLyThuThuController: +taoTaiKhoan(dto): User, +batTatTaiKhoan(id): void, +datLaiMatKhau(id): String, +kiemTraUsernameTonTai(username): boolean
   Note: kiểm tra phải có uses User (đường đứt)
-- User: id, username, passwordHash, fullName, role, active; +getId(): int, +getUsername(): String, +save(): boolean, +kiemTraTonTai(): boolean
+- User: id: int, username: String, passwordHash: String, fullName: String, role: String, active: boolean; +getId(): int, +getUsername(): String, +save(): boolean, +kiemTraTonTai(): boolean
   Note: kiểm tra phải được QuanLyThuThuController uses (đường đứt)
 
 Relationships:
@@ -3336,12 +3336,12 @@ note bottom of QuanLyThuThuController
   Kiểm tra: phải có uses User (đường đứt)
 end note
 class User {
-  id
-  username
-  passwordHash
-  fullName
-  role
-  active
+  -id : int
+  -username : String
+  -passwordHash : String
+  -fullName : String
+  -role : String
+  -active : boolean
   +getId() : int
   +getUsername() : String
   +save() : boolean
@@ -3365,13 +3365,13 @@ Classes:
   Note: kiểm tra phải có đường form uses controller tới DatTruocController (1-1)
 - DatTruocController: +taoDatTruoc(bookId, readerNote): Reservation, +duyetDatTruoc(id, pickupAt, reviewerId): void, +tuChoiDatTruoc(id, reason, reviewerId): void, +huyDatTruoc(id): void, +hetHanDatTruoc(): void, +thongBaoChoThuThu(title, body): void, +thongBaoChoDocGia(readerId, title, body): void
   Note: kiểm tra phải có uses Reservation (đường đứt); uses Book (đường đứt); uses Notification (đường đứt); uses User (đường đứt)
-- Reservation: id, code, bookId, readerId, readerNote, reservedAt, expiresAt, pickupAt, reviewedBy, reviewedAt, rejectReason, status; +isActive(): boolean, +isExpired(): boolean, +save(): boolean
+- Reservation: id: int, code: String, bookId: int, readerId: int, readerNote: String, reservedAt: String, expiresAt: String, pickupAt: String, reviewedBy: int, reviewedAt: String, rejectReason: String, status: String; +isActive(): boolean, +isExpired(): boolean, +save(): boolean
   Note: kiểm tra phải được DatTruocController uses (đường đứt) và Book 1 — * Reservation và User 1 — * Reservation
-- Book: id, qrCode, bookCode, title, status; +isAvailable(): boolean, +save(): boolean
+- Book: id: int, qrCode: String, bookCode: String, title: String, status: String; +isAvailable(): boolean, +save(): boolean
   Note: kiểm tra phải được DatTruocController uses (đường đứt) và Book 1 — * Reservation
-- Notification: id, audience, type, title, body, isRead; +save(): boolean
+- Notification: id: int, audience: String, type: String, title: String, body: String, isRead: boolean; +save(): boolean
   Note: kiểm tra phải được DatTruocController uses (đường đứt) và User 1 — * Notification
-- User: id, username, fullName, role; +getId(): int
+- User: id: int, username: String, fullName: String, role: String; +getId(): int
   Note: kiểm tra phải được DatTruocController uses (đường đứt) và User 1 — * Reservation và User 1 — * Notification
 
 Relationships:
@@ -3417,18 +3417,18 @@ note bottom of DatTruocController
   Kiểm tra: phải có uses Reservation (đường đứt); uses Book (đường đứt); uses Notification (đường đứt); uses User (đường đứt)
 end note
 class Reservation {
-  id
-  code
-  bookId
-  readerId
-  readerNote
-  reservedAt
-  expiresAt
-  pickupAt
-  reviewedBy
-  reviewedAt
-  rejectReason
-  status
+  -id : int
+  -code : String
+  -bookId : int
+  -readerId : int
+  -readerNote : String
+  -reservedAt : String
+  -expiresAt : String
+  -pickupAt : String
+  -reviewedBy : int
+  -reviewedAt : String
+  -rejectReason : String
+  -status : String
   +isActive() : boolean
   +isExpired() : boolean
   +save() : boolean
@@ -3437,11 +3437,11 @@ note bottom of Reservation
   Kiểm tra: phải được DatTruocController uses (đường đứt) và Book 1 — * Reservation và User 1 — * Reservation
 end note
 class Book {
-  id
-  qrCode
-  bookCode
-  title
-  status
+  -id : int
+  -qrCode : String
+  -bookCode : String
+  -title : String
+  -status : String
   +isAvailable() : boolean
   +save() : boolean
 }
@@ -3449,22 +3449,22 @@ note bottom of Book
   Kiểm tra: phải được DatTruocController uses (đường đứt) và Book 1 — * Reservation
 end note
 class Notification {
-  id
-  audience
-  type
-  title
-  body
-  isRead
+  -id : int
+  -audience : String
+  -type : String
+  -title : String
+  -body : String
+  -isRead : boolean
   +save() : boolean
 }
 note bottom of Notification
   Kiểm tra: phải được DatTruocController uses (đường đứt) và User 1 — * Notification
 end note
 class User {
-  id
-  username
-  fullName
-  role
+  -id : int
+  -username : String
+  -fullName : String
+  -role : String
   +getId() : int
 }
 note bottom of User
@@ -3490,13 +3490,13 @@ Classes:
   Note: kiểm tra phải có đường form uses controller tới HuyDatTruocController (1-1)
 - HuyDatTruocController: +layDatTruocCuaToi(readerId): Reservation, +huyDatTruoc(id, readerId): void, +thongBaoChoThuThu(title, body): void
   Note: kiểm tra phải có uses Reservation (đường đứt); uses Book (đường đứt); uses Notification (đường đứt); uses User (đường đứt)
-- Reservation: id, code, bookId, readerId, readerNote, reservedAt, expiresAt, pickupAt, reviewedBy, reviewedAt, rejectReason, status; +isActive(): boolean, +isExpired(): boolean, +canCancel(): boolean, +save(): boolean
+- Reservation: id: int, code: String, bookId: int, readerId: int, readerNote: String, reservedAt: String, expiresAt: String, pickupAt: String, reviewedBy: int, reviewedAt: String, rejectReason: String, status: String; +isActive(): boolean, +isExpired(): boolean, +canCancel(): boolean, +save(): boolean
   Note: kiểm tra phải được HuyDatTruocController uses (đường đứt) và Book 1 — * Reservation và User 1 — * Reservation
-- Book: id, qrCode, bookCode, title, status; +isAvailable(): boolean
+- Book: id: int, qrCode: String, bookCode: String, title: String, status: String; +isAvailable(): boolean
   Note: kiểm tra phải được HuyDatTruocController uses (đường đứt) và Book 1 — * Reservation
-- Notification: id, audience, type, title, body, isRead; +save(): boolean
+- Notification: id: int, audience: String, type: String, title: String, body: String, isRead: boolean; +save(): boolean
   Note: kiểm tra phải được HuyDatTruocController uses (đường đứt) và User 1 — * Notification
-- User: id, username, fullName, role
+- User: id: int, username: String, fullName: String, role: String
   Note: kiểm tra phải được HuyDatTruocController uses (đường đứt) và User 1 — * Reservation và User 1 — * Notification
 
 Relationships:
@@ -3527,18 +3527,18 @@ note bottom of HuyDatTruocController
   Kiểm tra: phải có uses Reservation (đường đứt); uses Book (đường đứt); uses Notification (đường đứt); uses User (đường đứt)
 end note
 class Reservation {
-  id
-  code
-  bookId
-  readerId
-  readerNote
-  reservedAt
-  expiresAt
-  pickupAt
-  reviewedBy
-  reviewedAt
-  rejectReason
-  status
+  -id : int
+  -code : String
+  -bookId : int
+  -readerId : int
+  -readerNote : String
+  -reservedAt : String
+  -expiresAt : String
+  -pickupAt : String
+  -reviewedBy : int
+  -reviewedAt : String
+  -rejectReason : String
+  -status : String
   +isActive() : boolean
   +isExpired() : boolean
   +canCancel() : boolean
@@ -3548,33 +3548,33 @@ note bottom of Reservation
   Kiểm tra: phải được HuyDatTruocController uses (đường đứt) và Book 1 — * Reservation và User 1 — * Reservation
 end note
 class Book {
-  id
-  qrCode
-  bookCode
-  title
-  status
+  -id : int
+  -qrCode : String
+  -bookCode : String
+  -title : String
+  -status : String
   +isAvailable() : boolean
 }
 note bottom of Book
   Kiểm tra: phải được HuyDatTruocController uses (đường đứt) và Book 1 — * Reservation
 end note
 class Notification {
-  id
-  audience
-  type
-  title
-  body
-  isRead
+  -id : int
+  -audience : String
+  -type : String
+  -title : String
+  -body : String
+  -isRead : boolean
   +save() : boolean
 }
 note bottom of Notification
   Kiểm tra: phải được HuyDatTruocController uses (đường đứt) và User 1 — * Notification
 end note
 class User {
-  id
-  username
-  fullName
-  role
+  -id : int
+  -username : String
+  -fullName : String
+  -role : String
 }
 note bottom of User
   Kiểm tra: phải được HuyDatTruocController uses (đường đứt) và User 1 — * Reservation và User 1 — * Notification
@@ -3598,11 +3598,11 @@ Classes:
   Note: kiểm tra phải có đường form uses controller tới ThongBaoController (1-1)
 - ThongBaoController: +taoThongBao(title, body, audience, type, showOnLanding, createdBy): Notification, +danhSachThongBao(userId): Notification, +demChuaDoc(userId): int, +danhDauDaDoc(id, userId): void, +danhDauTatCaDaDoc(userId): void, +thongBaoChoThuThu(title, body): void, +thongBaoChoDocGia(readerId, title, body): void
   Note: kiểm tra phải có uses Notification (đường đứt); uses NotificationRead (đường đứt); uses User (đường đứt)
-- Notification: id, audience, type, title, body, showOnLanding, createdBy, createdAt; +isRead(): boolean, +save(): boolean
+- Notification: id: int, audience: String, type: String, title: String, body: String, showOnLanding: boolean, createdBy: int, createdAt: String; +isRead(): boolean, +save(): boolean
   Note: kiểm tra phải được ThongBaoController uses (đường đứt) và Notification 1 — * NotificationRead và User 1 — * Notification (qua createdBy)
-- NotificationRead: notificationId, userId, readAt; +save(): boolean
+- NotificationRead: notificationId: int, userId: int, readAt: String; +save(): boolean
   Note: kiểm tra phải được ThongBaoController uses (đường đứt) và Notification 1 — * NotificationRead và User 1 — * NotificationRead
-- User: id, username, fullName, role
+- User: id: int, username: String, fullName: String, role: String
   Note: kiểm tra phải được ThongBaoController uses (đường đứt) và User 1 — * NotificationRead và User 1 — * Notification (qua createdBy)
 
 Relationships:
@@ -3642,14 +3642,14 @@ note bottom of ThongBaoController
   Kiểm tra: phải có uses Notification (đường đứt); uses NotificationRead (đường đứt); uses User (đường đứt)
 end note
 class Notification {
-  id
-  audience
-  type
-  title
-  body
-  showOnLanding
-  createdBy
-  createdAt
+  -id : int
+  -audience : String
+  -type : String
+  -title : String
+  -body : String
+  -showOnLanding : boolean
+  -createdBy : int
+  -createdAt : String
   +isRead() : boolean
   +save() : boolean
 }
@@ -3657,19 +3657,19 @@ note bottom of Notification
   Kiểm tra: phải được ThongBaoController uses (đường đứt) và Notification 1 — * NotificationRead và User 1 — * Notification (qua createdBy)
 end note
 class NotificationRead {
-  notificationId
-  userId
-  readAt
+  -notificationId : int
+  -userId : int
+  -readAt : String
   +save() : boolean
 }
 note bottom of NotificationRead
   Kiểm tra: phải được ThongBaoController uses (đường đứt) và Notification 1 — * NotificationRead và User 1 — * NotificationRead
 end note
 class User {
-  id
-  username
-  fullName
-  role
+  -id : int
+  -username : String
+  -fullName : String
+  -role : String
 }
 note bottom of User
   Kiểm tra: phải được ThongBaoController uses (đường đứt) và User 1 — * NotificationRead và User 1 — * Notification (qua createdBy)
@@ -3692,7 +3692,7 @@ Classes:
   Note: kiểm tra phải có đường form uses controller tới TimSachAIController (1-1)
 - TimSachAIController: +timSachAI(description): [mode, results], +timKiemTuKhoa(description, catalog): [results], +layDanhMucTieuDe(): Book
   Note: kiểm tra phải có uses Book (đường đứt); uses GeminiAPI (đường đứt, external)
-- Book: id, qrCode, bookCode, title, author, category, publisher, publishYear, coverUrl, status
+- Book: id: int, qrCode: String, bookCode: String, title: String, author: String, category: String, publisher: String, publishYear: int, coverUrl: String, status: String
   Note: kiểm tra phải được TimSachAIController uses (đường đứt)
 - GeminiAPI (external service, not a system class): +generateContent(catalog, description): JSON
   Note: kiểm tra phải được TimSachAIController uses (đường đứt, external)
@@ -3724,16 +3724,16 @@ note bottom of TimSachAIController
   Kiểm tra: phải có uses Book (đường đứt); uses GeminiAPI (đường đứt, external)
 end note
 class Book {
-  id
-  qrCode
-  bookCode
-  title
-  author
-  category
-  publisher
-  publishYear
-  coverUrl
-  status
+  -id : int
+  -qrCode : String
+  -bookCode : String
+  -title : String
+  -author : String
+  -category : String
+  -publisher : String
+  -publishYear : int
+  -coverUrl : String
+  -status : String
 }
 note bottom of Book
   Kiểm tra: phải được TimSachAIController uses (đường đứt)
@@ -3756,11 +3756,11 @@ TimSachAIController ..&gt; GeminiAPI : &quot;uses GeminiAPI (external)&quot;
 Classes:
 - NhacHanController: +quetPhieuMuon(): void, +soanEmailSapHetHan(loan): Email, +soanEmailQuaHan(loan): Email, +guiNhacHan(loan): void, +kiemTraNhacHanCuoi(loanId, type): EmailReminder
   Note: kiểm tra phải có uses Loan (đường đứt); uses EmailReminder (đường đứt); uses User (đường đứt); uses Resend (đường đứt, external)
-- Loan: id, bookId, readerId, borrowedAt, dueAt, returnedAt, fineAmount, status, overdueNotified; +isOverdue(): boolean, +calcFine(): int, +save(): boolean
+- Loan: id: int, bookId: int, readerId: int, borrowedAt: String, dueAt: String, returnedAt: String, fineAmount: int, status: String, overdueNotified: boolean; +isOverdue(): boolean, +calcFine(): int, +save(): boolean
   Note: kiểm tra phải được NhacHanController uses (đường đứt) và Loan 1 — * EmailReminder và User 1 — * Loan
-- EmailReminder: id, loanId, type, recipientEmail, providerId, sentDay, sentAt; +save(): boolean
+- EmailReminder: id: int, loanId: int, type: String, recipientEmail: String, providerId: String, sentDay: String, sentAt: String; +save(): boolean
   Note: kiểm tra phải được NhacHanController uses (đường đứt) và Loan 1 — * EmailReminder
-- User: id, username, fullName, email, emailVerified
+- User: id: int, username: String, fullName: String, email: String, emailVerified: boolean
   Note: kiểm tra phải được NhacHanController uses (đường đứt) và User 1 — * Loan
 - Resend (external service, not a system class): +sendEmail(to, subject, body): void
   Note: kiểm tra phải được NhacHanController uses (đường đứt, external)
@@ -3785,15 +3785,15 @@ note bottom of NhacHanController
   Kiểm tra: phải có uses Loan (đường đứt); uses EmailReminder (đường đứt); uses User (đường đứt); uses Resend (đường đứt, external)
 end note
 class Loan {
-  id
-  bookId
-  readerId
-  borrowedAt
-  dueAt
-  returnedAt
-  fineAmount
-  status
-  overdueNotified
+  -id : int
+  -bookId : int
+  -readerId : int
+  -borrowedAt : String
+  -dueAt : String
+  -returnedAt : String
+  -fineAmount : int
+  -status : String
+  -overdueNotified : boolean
   +isOverdue() : boolean
   +calcFine() : int
   +save() : boolean
@@ -3802,24 +3802,24 @@ note bottom of Loan
   Kiểm tra: phải được NhacHanController uses (đường đứt) và Loan 1 — * EmailReminder và User 1 — * Loan
 end note
 class EmailReminder {
-  id
-  loanId
-  type
-  recipientEmail
-  providerId
-  sentDay
-  sentAt
+  -id : int
+  -loanId : int
+  -type : String
+  -recipientEmail : String
+  -providerId : String
+  -sentDay : String
+  -sentAt : String
   +save() : boolean
 }
 note bottom of EmailReminder
   Kiểm tra: phải được NhacHanController uses (đường đứt) và Loan 1 — * EmailReminder
 end note
 class User {
-  id
-  username
-  fullName
-  email
-  emailVerified
+  -id : int
+  -username : String
+  -fullName : String
+  -email : String
+  -emailVerified : boolean
 }
 note bottom of User
   Kiểm tra: phải được NhacHanController uses (đường đứt) và User 1 — * Loan
@@ -3849,9 +3849,9 @@ Classes:
   Note: kiểm tra phải có đường form uses controller tới QuenMatKhauController (1-1)
 - QuenMatKhauController: +quenMatKhau(email): void, +datLaiMatKhau(token, newPassword): void, +guiEmailDatLai(email): void, +kiemTraTokenDatLai(token): boolean
   Note: kiểm tra phải có uses User (đường đứt); uses EmailToken (đường đứt); uses Resend (đường đứt, external)
-- User: id, username, passwordHash, email, emailVerified, active; +getId(): int, +save(): boolean
+- User: id: int, username: String, passwordHash: String, email: String, emailVerified: boolean, active: boolean; +getId(): int, +save(): boolean
   Note: kiểm tra phải được QuenMatKhauController uses (đường đứt) và User 1 — * EmailToken
-- EmailToken: id, userId, tokenHash, purpose, expiresAt, usedAt, createdAt; +save(): boolean
+- EmailToken: id: int, userId: int, tokenHash: String, purpose: String, expiresAt: String, usedAt: String, createdAt: String; +save(): boolean
   Note: kiểm tra phải được QuenMatKhauController uses (đường đứt) và User 1 — * EmailToken
 - Resend (external service, not a system class): +sendEmail(to, subject, body): void
   Note: kiểm tra phải được QuenMatKhauController uses (đường đứt, external)
@@ -3895,12 +3895,12 @@ note bottom of QuenMatKhauController
   Kiểm tra: phải có uses User (đường đứt); uses EmailToken (đường đứt); uses Resend (đường đứt, external)
 end note
 class User {
-  id
-  username
-  passwordHash
-  email
-  emailVerified
-  active
+  -id : int
+  -username : String
+  -passwordHash : String
+  -email : String
+  -emailVerified : boolean
+  -active : boolean
   +getId() : int
   +save() : boolean
 }
@@ -3908,13 +3908,13 @@ note bottom of User
   Kiểm tra: phải được QuenMatKhauController uses (đường đứt) và User 1 — * EmailToken
 end note
 class EmailToken {
-  id
-  userId
-  tokenHash
-  purpose
-  expiresAt
-  usedAt
-  createdAt
+  -id : int
+  -userId : int
+  -tokenHash : String
+  -purpose : String
+  -expiresAt : String
+  -usedAt : String
+  -createdAt : String
   +save() : boolean
 }
 note bottom of EmailToken
@@ -3947,9 +3947,9 @@ Classes:
   Note: kiểm tra phải có đường form uses controller tới DangKyController (1-1)
 - DangKyController: +dangKy(data): User, +xacThucEmail(token): User, +doiEmail(newEmail): void, +guiLaiXacThuc(): void, +guiEmailXacThuc(user): void, +kiemTraTokenXacThuc(token): User, +kiemTraEmailTonTai(email): boolean
   Note: kiểm tra phải có uses User (đường đứt); uses EmailToken (đường đứt); uses Resend (đường đứt, external)
-- User: id, username, passwordHash, fullName, studentCode, phone, email, emailVerified, role, active; +getId(): int, +getUsername(): String, +save(): boolean, +kiemTraTonTai(): boolean
+- User: id: int, username: String, passwordHash: String, fullName: String, studentCode: String, phone: String, email: String, emailVerified: boolean, role: String, active: boolean; +getId(): int, +getUsername(): String, +save(): boolean, +kiemTraTonTai(): boolean
   Note: kiểm tra phải được DangKyController uses (đường đứt) và User 1 — * EmailToken
-- EmailToken: id, userId, tokenHash, purpose, expiresAt, usedAt, createdAt; +save(): boolean
+- EmailToken: id: int, userId: int, tokenHash: String, purpose: String, expiresAt: String, usedAt: String, createdAt: String; +save(): boolean
   Note: kiểm tra phải được DangKyController uses (đường đứt) và User 1 — * EmailToken
 - Resend (external service, not a system class): +sendEmail(to, subject, body): void
   Note: kiểm tra phải được DangKyController uses (đường đứt, external)
@@ -4009,16 +4009,16 @@ note bottom of DangKyController
   Kiểm tra: phải có uses User (đường đứt); uses EmailToken (đường đứt); uses Resend (đường đứt, external)
 end note
 class User {
-  id
-  username
-  passwordHash
-  fullName
-  studentCode
-  phone
-  email
-  emailVerified
-  role
-  active
+  -id : int
+  -username : String
+  -passwordHash : String
+  -fullName : String
+  -studentCode : String
+  -phone : String
+  -email : String
+  -emailVerified : boolean
+  -role : String
+  -active : boolean
   +getId() : int
   +getUsername() : String
   +save() : boolean
@@ -4028,13 +4028,13 @@ note bottom of User
   Kiểm tra: phải được DangKyController uses (đường đứt) và User 1 — * EmailToken
 end note
 class EmailToken {
-  id
-  userId
-  tokenHash
-  purpose
-  expiresAt
-  usedAt
-  createdAt
+  -id : int
+  -userId : int
+  -tokenHash : String
+  -purpose : String
+  -expiresAt : String
+  -usedAt : String
+  -createdAt : String
   +save() : boolean
 }
 note bottom of EmailToken
