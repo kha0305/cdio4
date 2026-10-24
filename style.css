@@ -47,6 +47,8 @@ a{color:var(--accent)}
 .toc a{display:block;text-decoration:none;font-size:13.5px;color:var(--ink-soft);
   padding:4px 10px 4px 14px;margin-left:-1px;border-left:2px solid transparent;line-height:1.45}
 .toc a.lv3{padding-left:27px;font-size:13px;color:var(--muted)}
+.toc a.toc-group{font-weight:700;color:var(--ink);font-size:14px;margin-top:12px;padding-top:10px;border-top:1px solid var(--line-soft)}
+.toc a.toc-prompt{padding-left:27px;font-size:13px}
 .toc a:hover{color:var(--accent-ink)}
 .toc a.active{color:var(--accent-ink);font-weight:700;border-left-color:var(--accent);background:var(--accent-soft)}
 .backdrop{display:none}
