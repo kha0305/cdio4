@@ -132,7 +132,7 @@ Select the diagram type stated in the prompt title before pasting.</p>
 <h2 id="use-case-diagram-18-prompt">Use Case Diagram (18 prompt)</h2><p>Các prompt vẽ sơ đồ Use Case Diagram, giữ nguyên thứ tự Prompt gốc.</p><h2 id="prompt-1-overall-system-use-case-diagram">Prompt 1 — Overall System Use Case Diagram</h2>
 <pre><code>Create exactly 1 Use Case Diagram. Use only the elements below; do not add any other actor or use case.
 
-**Actors (3):** Admin, Thủ thư, Độc giả.
+**Actors:** Admin, Thủ thư, Độc giả, Khách (not logged in), Scheduler/Time (automatic), Resend email service (external).
 
 **Use cases (19), write the names exactly:**
 - &quot;UC01 Đăng nhập&quot;
@@ -166,59 +166,272 @@ Select the diagram type stated in the prompt title before pasting.</p>
 **Notes attached to the diagram (do not draw extra arrows):**
 - &quot;UC04 checks the reservations created by UC11 (D13)&quot;
 - &quot;UC05 computes the fine automatically per D7; it is not a separate use case&quot;
-- &quot;Registration is an alternative flow inside UC01; do not split it into a separate use case&quot;
 - &quot;UC14 extends UC07; UC15 extends UC02&quot;
 - &quot;UC01 is Login only; registration is a separate use case UC19, not part of UC01; Admin and Thủ thư accounts are issued by the Admin (UC10), Độc giả self-registration is UC19&quot;
 - &quot;UC17 is triggered by the Scheduler, not by a user click; UC18 is usable by Reader, Librarian and Admin accounts that have an email&quot;
 
 **Display requirement:** group the use cases by actor using boundary/package (Quản trị, Nghiệp vụ quầy, Độc giả) if the tool supports it; keep the use case names in Vietnamese with diacritics.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+left to right direction
+actor Admin as Admin
+actor &quot;Thủ thư&quot; as ThuThu
+actor &quot;Độc giả&quot; as DocGia
+actor &quot;Khách&quot; as Khach
+actor &quot;Scheduler/Time&quot; as Scheduler
+actor &quot;Resend email service&quot; as Resend
+rectangle &quot;Thư viện Mini&quot; {
+  usecase &quot;UC01 Đăng nhập&quot; as UC01
+  usecase &quot;UC02 Quản lý sách&quot; as UC02
+  usecase &quot;UC03 Quản lý độc giả&quot; as UC03
+  usecase &quot;UC04 Mượn sách&quot; as UC04
+  usecase &quot;UC05 Trả sách&quot; as UC05
+  usecase &quot;UC06 Danh sách quá hạn&quot; as UC06
+  usecase &quot;UC07 Thống kê&quot; as UC07
+  usecase &quot;UC08 Sách của tôi&quot; as UC08
+  usecase &quot;UC09 Cấu hình hệ thống&quot; as UC09
+  usecase &quot;UC10 Quản lý tài khoản thủ thư&quot; as UC10
+  usecase &quot;UC11 Đặt trước sách&quot; as UC11
+  usecase &quot;UC12 Hủy đặt trước&quot; as UC12
+  usecase &quot;UC13 Hệ thống thông báo&quot; as UC13
+  usecase &quot;UC14 Xuất báo cáo Excel / In PDF&quot; as UC14
+  usecase &quot;UC15 Quản lý sách mở rộng&quot; as UC15
+  usecase &quot;UC16 Tìm sách bằng AI theo mô tả&quot; as UC16
+  usecase &quot;UC17 Nhắc hạn qua email&quot; as UC17
+  usecase &quot;UC18 Quên mật khẩu qua email&quot; as UC18
+  usecase &quot;UC19 Đăng ký bằng email thật &amp; xác thực email&quot; as UC19
+}
+Admin --&gt; UC01
+Admin --&gt; UC07
+Admin --&gt; UC09
+Admin --&gt; UC10
+Admin --&gt; UC13
+Admin --&gt; UC14
+ThuThu --&gt; UC01
+ThuThu --&gt; UC02
+ThuThu --&gt; UC03
+ThuThu --&gt; UC04
+ThuThu --&gt; UC05
+ThuThu --&gt; UC06
+ThuThu --&gt; UC07
+ThuThu --&gt; UC11
+ThuThu --&gt; UC13
+ThuThu --&gt; UC14
+ThuThu --&gt; UC15
+DocGia --&gt; UC01
+DocGia --&gt; UC08
+DocGia --&gt; UC11
+DocGia --&gt; UC12
+DocGia --&gt; UC13
+DocGia --&gt; UC16
+DocGia --&gt; UC17
+DocGia --&gt; UC18
+DocGia --&gt; UC19
+Khach --&gt; UC16
+Khach --&gt; UC19
+Scheduler --&gt; UC17
+Resend --&gt; UC17
+Resend --&gt; UC18
+Resend --&gt; UC19
+UC14 .&gt; UC07 : &lt;&lt;extend&gt;&gt;
+UC15 .&gt; UC02 : &lt;&lt;extend&gt;&gt;
+note right of UC04 : UC04 checks the reservations created by UC11 (D13)
+note right of UC05 : UC05 computes the fine automatically per D7; it is not a separate use case
+note right of UC01 : UC01 is Login only; registration is a separate use case UC19
+note right of UC17 : UC17 is triggered by the Scheduler, not by a user click
+@enduml
+</code></pre>
 <h2 id="prompt-2-uc01-use-case-diagram-login">Prompt 2 — UC01 Use Case Diagram: Login</h2>
 <pre><code>Create exactly 1 Use Case Diagram. Actors: Admin, Thủ thư, Độc giả. A single use case: &quot;UC01 Đăng nhập&quot;. Draw associations from all 3 actors to the use case. Add a note: &quot;UC01 is Login only. Registration is a separate use case UC19; Admin and Thủ thư accounts are issued by the Admin (UC10)&quot;. Do not add any other use case.
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+left to right direction
+actor Admin as Admin
+actor &quot;Thủ thư&quot; as ThuThu
+actor &quot;Độc giả&quot; as DocGia
+rectangle &quot;Thư viện Mini&quot; {
+  usecase &quot;UC01 Đăng nhập&quot; as UC01
+}
+Admin --&gt; UC01
+ThuThu --&gt; UC01
+DocGia --&gt; UC01
+note right of UC01 : UC01 is Login only. Registration is a separate use case UC19; Admin and Thủ thư accounts are issued by the Admin (UC10)
+@enduml
 </code></pre>
 <hr />
 <h2 id="prompt-3-uc02-use-case-diagram-book-management">Prompt 3 — UC02 Use Case Diagram: Book Management</h2>
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: &quot;UC02 Quản lý sách&quot;. Draw the association Thủ thư — UC02. Add a note: &quot;Includes: add (generates QR), edit, delete, search&quot;. Do not add any other use case.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+left to right direction
+actor &quot;Thủ thư&quot; as ThuThu
+rectangle &quot;Thư viện Mini&quot; {
+  usecase &quot;UC02 Quản lý sách&quot; as UC02
+}
+ThuThu --&gt; UC02
+note right of UC02 : Includes: add (generates QR), edit, delete, search
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-4-uc03-use-case-diagram-reader-management">Prompt 4 — UC03 Use Case Diagram: Reader Management</h2>
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: &quot;UC03 Quản lý độc giả&quot;. Draw the association Thủ thư — UC03. Add a note: &quot;Includes: add (default password 123456), edit, delete, search&quot;. Do not add any other use case.
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+left to right direction
+actor &quot;Thủ thư&quot; as ThuThu
+rectangle &quot;Thư viện Mini&quot; {
+  usecase &quot;UC03 Quản lý độc giả&quot; as UC03
+}
+ThuThu --&gt; UC03
+note right of UC03 : Includes: add (default password 123456), edit, delete, search
+@enduml
 </code></pre>
 <hr />
 <h2 id="prompt-5-uc04-use-case-diagram-borrow-book">Prompt 5 — UC04 Use Case Diagram: Borrow Book</h2>
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. Main use case: &quot;UC04 Mượn sách&quot;. Draw the association Thủ thư — UC04. Add the use case &quot;UC11 Đặt trước sách&quot; (no actor link) and a dashed dependency line from UC04 to UC11, with a note attached: &quot;UC04 checks and marks fulfilled the reservations created by UC11 (D13)&quot;. Do not add any other use case.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+left to right direction
+actor &quot;Thủ thư&quot; as ThuThu
+rectangle &quot;Thư viện Mini&quot; {
+  usecase &quot;UC04 Mượn sách&quot; as UC04
+  usecase &quot;UC11 Đặt trước sách&quot; as UC11
+}
+ThuThu --&gt; UC04
+UC04 ..&gt; UC11
+note right of UC11 : UC04 checks and marks fulfilled the reservations created by UC11 (D13)
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-6-uc05-use-case-diagram-return-book">Prompt 6 — UC05 Use Case Diagram: Return Book</h2>
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: &quot;UC05 Trả sách&quot;. Draw the association Thủ thư — UC05. Add a note: &quot;The fine-calculation step (D7) is an internal step of UC05; do not split it into a separate use case&quot;. Do not add any other use case.
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+left to right direction
+actor &quot;Thủ thư&quot; as ThuThu
+rectangle &quot;Thư viện Mini&quot; {
+  usecase &quot;UC05 Trả sách&quot; as UC05
+}
+ThuThu --&gt; UC05
+note right of UC05 : The fine-calculation step (D7) is an internal step of UC05; do not split it into a separate use case
+@enduml
 </code></pre>
 <hr />
 <h2 id="prompt-7-uc06-use-case-diagram-overdue-list">Prompt 7 — UC06 Use Case Diagram: Overdue List</h2>
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: &quot;UC06 Danh sách quá hạn&quot;. Draw the association Thủ thư — UC06. Add a note: &quot;Read-only: lists borrowing loans whose due_at is before today&quot;. Do not add any other use case.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+left to right direction
+actor &quot;Thủ thư&quot; as ThuThu
+rectangle &quot;Thư viện Mini&quot; {
+  usecase &quot;UC06 Danh sách quá hạn&quot; as UC06
+}
+ThuThu --&gt; UC06
+note right of UC06 : Read-only: lists borrowing loans whose due_at is before today
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-8-uc07-use-case-diagram-statistics">Prompt 8 — UC07 Use Case Diagram: Statistics</h2>
 <pre><code>Create exactly 1 Use Case Diagram. Actors: Thủ thư, Admin. A single use case: &quot;UC07 Thống kê&quot;. Draw associations from both actors to the use case. Add a note: &quot;4 stat cards + top-5 chart + borrow/return history&quot;. Do not add any other use case.
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+left to right direction
+actor &quot;Thủ thư&quot; as ThuThu
+actor Admin as Admin
+rectangle &quot;Thư viện Mini&quot; {
+  usecase &quot;UC07 Thống kê&quot; as UC07
+}
+ThuThu --&gt; UC07
+Admin --&gt; UC07
+note right of UC07 : 4 stat cards + top-5 chart + borrow/return history
+@enduml
 </code></pre>
 <hr />
 <h2 id="prompt-9-uc08-use-case-diagram-my-books">Prompt 9 — UC08 Use Case Diagram: My Books</h2>
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Độc giả. A single use case: &quot;UC08 Sách của tôi&quot;. Draw the association Độc giả — UC08. Add a note: &quot;3 tabs: Đang mượn / Đặt trước / Lịch sử; each reader sees only their own data&quot;. Do not add any other use case.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+left to right direction
+actor &quot;Độc giả&quot; as DocGia
+rectangle &quot;Thư viện Mini&quot; {
+  usecase &quot;UC08 Sách của tôi&quot; as UC08
+}
+DocGia --&gt; UC08
+note right of UC08 : 3 tabs: Đang mượn / Đặt trước / Lịch sử; each reader sees only their own data
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-10-uc09-use-case-diagram-system-configuration">Prompt 10 — UC09 Use Case Diagram: System Configuration</h2>
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Admin. A single use case: &quot;UC09 Cấu hình hệ thống&quot;. Draw the association Admin — UC09. Add a note: &quot;4 parameters: loan_days, fine_per_day, max_books_per_reader, reservation_hours; apply to new loans only&quot;. Do not add any other use case.
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+left to right direction
+actor Admin as Admin
+rectangle &quot;Thư viện Mini&quot; {
+  usecase &quot;UC09 Cấu hình hệ thống&quot; as UC09
+}
+Admin --&gt; UC09
+note right of UC09 : 4 parameters: loan_days, fine_per_day, max_books_per_reader, reservation_hours; apply to new loans only
+@enduml
 </code></pre>
 <hr />
 <h2 id="prompt-11-uc10-use-case-diagram-librarian-account-management">Prompt 11 — UC10 Use Case Diagram: Librarian Account Management</h2>
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Admin. A single use case: &quot;UC10 Quản lý tài khoản thủ thư&quot;. Draw the association Admin — UC10. Add a note: &quot;Includes: create, lock/unlock, delete; cannot delete your own account&quot;. Do not add any other use case.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+left to right direction
+actor Admin as Admin
+rectangle &quot;Thư viện Mini&quot; {
+  usecase &quot;UC10 Quản lý tài khoản thủ thư&quot; as UC10
+}
+Admin --&gt; UC10
+note right of UC10 : Includes: create, lock/unlock, delete; cannot delete your own account
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-12-uc11-use-case-diagram-reserve-book">Prompt 12 — UC11 Use Case Diagram: Reserve Book</h2>
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Độc giả. Main use case: &quot;UC11 Đặt trước sách&quot;. Draw the association Độc giả — UC11. Add the use case &quot;UC04 Mượn sách&quot; (no actor link) and a dashed dependency line from UC11 to UC04, with a note attached: &quot;Pending reservations from UC11 are consumed by UC04 when the reader comes to the counter to pick up the book (D13)&quot;. Do not add any other use case.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+left to right direction
+actor &quot;Độc giả&quot; as DocGia
+rectangle &quot;Thư viện Mini&quot; {
+  usecase &quot;UC11 Đặt trước sách&quot; as UC11
+  usecase &quot;UC04 Mượn sách&quot; as UC04
+}
+DocGia --&gt; UC11
+UC11 ..&gt; UC04
+note right of UC04 : Pending reservations from UC11 are consumed by UC04 when the reader comes to the counter to pick up the book (D13)
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-13-uc12-use-case-diagram-cancel-reservation">Prompt 13 — UC12 Use Case Diagram: Cancel Reservation</h2>
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Độc giả. Main use case: &quot;UC12 Hủy đặt trước&quot;. Draw the association Độc giả — UC12. Add the use case &quot;UC11 Đặt trước sách&quot; (no actor link) and a dashed dependency line from UC12 to UC11, with a note attached: &quot;UC12 turns UC11's pending reservations into cancelled&quot;. Do not add any other use case.
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+left to right direction
+actor &quot;Độc giả&quot; as DocGia
+rectangle &quot;Thư viện Mini&quot; {
+  usecase &quot;UC12 Hủy đặt trước&quot; as UC12
+  usecase &quot;UC11 Đặt trước sách&quot; as UC11
+}
+DocGia --&gt; UC12
+UC12 ..&gt; UC11
+note right of UC11 : UC12 turns UC11's pending reservations into cancelled
+@enduml
 </code></pre>
 <h2 id="prompt-48-uc13-use-case-diagram-notification-system">Prompt 48 — UC13 Use Case Diagram: Notification System</h2>
 <pre><code>Create exactly 1 Use Case Diagram for &quot;UC13 — Hệ thống thông báo&quot; of the mini library management system.
@@ -233,6 +446,32 @@ Use cases:
 
 Note in the diagram: &quot;The system auto-generates notifications: new reservation → librarians; approve/reject → the reader; loan created → due-date reminder; overdue → red alert.&quot;
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+left to right direction
+actor Admin as Admin
+actor &quot;Thủ thư&quot; as ThuThu
+actor &quot;Độc giả&quot; as DocGia
+actor &quot;Khách&quot; as Khach
+rectangle &quot;Thư viện Mini&quot; {
+  usecase &quot;UC13.1 Nhận thông báo&quot; as UC131
+  usecase &quot;UC13.2 Đánh dấu đã đọc&quot; as UC132
+  usecase &quot;UC13.3 Tạo thông báo&quot; as UC133
+  usecase &quot;UC13.4 Xem thông báo ở trang chủ&quot; as UC134
+}
+Admin --&gt; UC131
+ThuThu --&gt; UC131
+DocGia --&gt; UC131
+Admin --&gt; UC132
+ThuThu --&gt; UC132
+DocGia --&gt; UC132
+Admin --&gt; UC133
+ThuThu --&gt; UC133
+Khach --&gt; UC134
+UC132 .&gt; UC131 : &lt;&lt;include&gt;&gt;
+note right of UC131 : The system auto-generates notifications: new reservation → librarians; approve/reject → the reader; loan created → due-date reminder; overdue → red alert.
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-uc16-a-use-case-diagram-bo-sung">Prompt UC16-A — Use Case Diagram (bổ sung)</h2>
 <pre><code>Add one use case to the existing use case diagram of the &quot;Library Mini&quot; system:
@@ -242,6 +481,23 @@ Note in the diagram: &quot;The system auto-generates notifications: new reservat
 - UC16 has an extend relationship: &quot;Keyword fallback search&quot; extends UC16 (used when the AI service is unavailable or no API key is configured).
 Keep all existing actors and use cases unchanged.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+left to right direction
+actor &quot;Độc giả&quot; as Reader
+actor &quot;Khách&quot; as Guest
+rectangle &quot;Thư viện Mini&quot; {
+  usecase &quot;UC16 AI book search by description&quot; as UC16
+  usecase &quot;Validate description (3-600 chars) + rate limit 10 req/60s per IP&quot; as Validate
+  usecase &quot;Keyword fallback search&quot; as Fallback
+}
+Reader --&gt; UC16
+Guest --&gt; UC16
+UC16 .&gt; Validate : &lt;&lt;include&gt;&gt;
+Fallback .&gt; UC16 : &lt;&lt;extend&gt;&gt;
+note right of Fallback : Used when the AI service is unavailable or no API key is configured
+@enduml
+</code></pre>
 <h2 id="prompt-uc17-a-use-case-diagram-bo-sung">Prompt UC17-A — Use Case Diagram (bổ sung)</h2>
 <pre><code>Add three use cases to the existing use case diagram of the &quot;Library Mini&quot; system:
 - &quot;UC17 Due-date reminder email&quot; connected to a Time/Scheduler actor and to Reader; it extends &quot;UC13 Notification system&quot;.
@@ -250,12 +506,77 @@ Keep all existing actors and use cases unchanged.
 - Show an external actor &quot;Resend email service&quot; outside the boundary, connected to the two send-email included use cases.
 Keep all existing actors and use cases unchanged.
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+left to right direction
+actor &quot;Time/Scheduler&quot; as Scheduler
+actor &quot;Độc giả&quot; as Reader
+actor &quot;Thủ thư&quot; as Librarian
+actor Admin as Admin
+actor &quot;Resend email service&quot; as Resend
+rectangle &quot;Thư viện Mini&quot; {
+  usecase &quot;UC17 Due-date reminder email&quot; as UC17
+  usecase &quot;UC18 Forgot password via email&quot; as UC18
+  usecase &quot;UC19 Register with real email &amp; verify email&quot; as UC19
+  usecase &quot;UC13 Notification system&quot; as UC13
+  usecase &quot;Send verification email&quot; as SendVerify
+  usecase &quot;Send email via Resend&quot; as SendEmail
+}
+Scheduler --&gt; UC17
+Reader --&gt; UC17
+Reader --&gt; UC18
+Librarian --&gt; UC18
+Admin --&gt; UC18
+Reader --&gt; UC19
+UC17 .&gt; UC13 : &lt;&lt;extend&gt;&gt;
+UC19 .&gt; SendVerify : &lt;&lt;include&gt;&gt;
+UC17 .&gt; SendEmail : &lt;&lt;include&gt;&gt;
+Resend --&gt; SendVerify
+Resend --&gt; SendEmail
+@enduml
+</code></pre>
 <h2 id="prompt-uc18-use-case-diagram-uc18-quen-mat-khau">Prompt UC18 Use Case Diagram: UC18 quên mật khẩu</h2>
 <pre><code>Create exactly 1 Use Case Diagram. Actors: Reader, Librarian, Admin (any account that has an email). A single use case: &quot;UC18 Quên mật khẩu qua email&quot;. Draw associations from all 3 actors to the use case. Add the included use case &quot;Send reset email via Resend&quot; (external actor Resend email service outside the boundary, connected to the included use case). Add a note: &quot;The system always shows the same generic message and never reveals whether the email exists; the reset token is 30-minute, single-use, only its SHA-256 hash is stored&quot;. Do not add any other use case.
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+left to right direction
+actor Reader as Reader
+actor Librarian as Librarian
+actor Admin as Admin
+actor &quot;Resend email service&quot; as Resend
+rectangle &quot;Thư viện Mini&quot; {
+  usecase &quot;UC18 Quên mật khẩu qua email&quot; as UC18
+  usecase &quot;Send reset email via Resend&quot; as SendReset
+}
+Reader --&gt; UC18
+Librarian --&gt; UC18
+Admin --&gt; UC18
+UC18 .&gt; SendReset : &lt;&lt;include&gt;&gt;
+Resend --&gt; SendReset
+note right of UC18 : The system always shows the same generic message and never reveals whether the email exists; the reset token is 30-minute, single-use, only its SHA-256 hash is stored
+@enduml
 </code></pre>
 <hr />
 <h2 id="prompt-uc19-use-case-diagram-uc19-dang-ky-va-xac-thuc-email">Prompt UC19 Use Case Diagram: UC19 đăng ký và xác thực email</h2>
 <pre><code>Create exactly 1 Use Case Diagram. Actors: Khách (Guest, not logged in), Độc giả (after registration). A single use case: &quot;UC19 Đăng ký bằng email thật &amp; xác thực email&quot;. Draw associations from Khách and Độc giả to the use case. Add the included use case &quot;Send verification email via Resend&quot; (external actor Resend email service outside the boundary, connected to the included use case). Add a note: &quot;Registration creates the account with email_verified = 0; a duplicate email returns 409; the verification token is 24-hour, single-use, only its SHA-256 hash is stored; until verified, the layout shows a reminder banner and the reader can change the email (resets to unverified) or resend the verification email (1 per minute)&quot;. Do not add any other use case.
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+left to right direction
+actor &quot;Khách&quot; as Guest
+actor &quot;Độc giả&quot; as Reader
+actor &quot;Resend email service&quot; as Resend
+rectangle &quot;Thư viện Mini&quot; {
+  usecase &quot;UC19 Đăng ký bằng email thật &amp; xác thực email&quot; as UC19
+  usecase &quot;Send verification email via Resend&quot; as SendVerify
+}
+Guest --&gt; UC19
+Reader --&gt; UC19
+UC19 .&gt; SendVerify : &lt;&lt;include&gt;&gt;
+Resend --&gt; SendVerify
+note right of UC19 : Registration creates the account with email_verified = 0; a duplicate email returns 409; the verification token is 24-hour, single-use, only its SHA-256 hash is stored; until verified, the layout shows a reminder banner and the reader can change the email (resets to unverified) or resend the verification email (1 per minute)
+@enduml
 </code></pre>
 <hr />
 <h2 id="activity-diagram-18-prompt">Activity Diagram (18 prompt)</h2><p>Các prompt vẽ sơ đồ Activity Diagram, giữ nguyên thứ tự Prompt gốc.</p><h2 id="prompt-0-overall-system-activity-diagram">Prompt 0 — Overall System Activity Diagram</h2>
