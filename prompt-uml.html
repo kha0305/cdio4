@@ -164,7 +164,7 @@ Select the diagram type stated in the prompt title before pasting.</p>
 - Admin inherits Thủ Thư (Admin also does Thủ Thư's use cases)
 
 **Include relationships (dashed lines with &lt;&lt;Include&gt;&gt;, arrow into Đăng nhập):**
-- Đặt trước sách, Mượn sách, Sách của tôi, Nhắc hạn qua email — include — Đăng nhập
+- Đặt trước sách, Mượn sách, Sách của tôi, Nhắc hạn qua email, Cấu hình hệ thống, Quản lý tài khoản thủ thư, Quản lý thông báo, Thống kê, Quản lý sách, Quản lý độc giả, Trả sách, Danh sách quá hạn — include — Đăng nhập
 
 **Notes (do not draw extra ovals or arrows):**
 - Do NOT draw separate ovals for Hủy đặt trước, Xuất báo cáo Excel / In PDF, Quản lý sách mở rộng; they are detailed flows inside Sách của tôi, Thống kê, Quản lý sách respectively, to avoid further decomposition.
@@ -226,6 +226,14 @@ DatTruocSach ..&gt; DangNhap : &lt;&lt;include&gt;&gt;
 MuonSach ..&gt; DangNhap : &lt;&lt;include&gt;&gt;
 SachCuaToi ..&gt; DangNhap : &lt;&lt;include&gt;&gt;
 NhacHan ..&gt; DangNhap : &lt;&lt;include&gt;&gt;
+CauHinh ..&gt; DangNhap : &lt;&lt;include&gt;&gt;
+QuanLyThuThu ..&gt; DangNhap : &lt;&lt;include&gt;&gt;
+QuanLyThongBao ..&gt; DangNhap : &lt;&lt;include&gt;&gt;
+ThongKe ..&gt; DangNhap : &lt;&lt;include&gt;&gt;
+QuanLySach ..&gt; DangNhap : &lt;&lt;include&gt;&gt;
+QuanLyDocGia ..&gt; DangNhap : &lt;&lt;include&gt;&gt;
+TraSach ..&gt; DangNhap : &lt;&lt;include&gt;&gt;
+DanhSachQuaHan ..&gt; DangNhap : &lt;&lt;include&gt;&gt;
 @enduml
 </code></pre>
 <h2 id="prompt-2-uc01-use-case-diagram-login">Prompt 2 — UC01 Sơ đồ Use Case: Đăng nhập</h2>
