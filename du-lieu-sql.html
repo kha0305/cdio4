@@ -23,6 +23,7 @@
 </nav>
 <div class="side-label">Trong trang này</div>
 <nav class="toc">
+<a href="#so-do-bang-csdl">Sơ đồ bảng CSDL</a>
 <a href="#cau-truc-8-bang">Cấu trúc 8 bảng</a>
 <a href="#users-tai-khoan-nguoi-dung-admin-thu-thu-doc-gia" class="lv3">users — Tài khoản người dùng: admin, thủ thư, độc giả</a>
 <a href="#books-dau-sach-va-ban-sao-moi-ban-co-ma-qr-rieng" class="lv3">books — Đầu sách và bản sao, mỗi bản có mã QR riêng</a>
@@ -41,6 +42,10 @@
 <p class="meta">Đồ án Website Quản lý Thư viện Mini &middot; Cập nhật lần cuối: 18/10/2026</p>
 <p>File SQL dựng lại toàn bộ cơ sở dữ liệu của hệ thống (xóa cấu trúc cũ, tạo lại 8 bảng, nạp dữ liệu mẫu và tài khoản demo). File này cũng đang chạy trên bản live của thư viện.</p>
 <p><a class="btn" href="cdio4-full-reset.sql" download>Tải file cdio4-full-reset.sql</a></p>
+<h2 id="so-do-bang-csdl">Sơ đồ bảng CSDL</h2>
+<p>Sơ đồ các bảng vật lý của CSDL (vẽ bằng dbdiagram.io từ schema SQL thật). Lưu ý: sơ đồ này khác với ERD thiết kế ở Prompt 51 — ERD là mô hình thiết kế, còn đây là các bảng vật lý sẽ tạo trong MySQL.</p>
+<p><a href="images/cdio4-db.svg"><img src="images/cdio4-db.svg" alt="Sơ đồ bảng CSDL" style="width:100%;border:1px solid var(--line);border-radius:14px;background:#fff"></a></p>
+<p><a class="btn" href="images/cdio4-db.svg" download>Tải sơ đồ bảng CSDL (SVG)</a></p>
 <h2 id="cau-truc-8-bang">Cấu trúc 8 bảng</h2>
 <h3 id="users-tai-khoan-nguoi-dung-admin-thu-thu-doc-gia">users — Tài khoản người dùng: admin, thủ thư, độc giả</h3>
 <div class="table-wrap"><table><thead><tr><th>Cột</th><th>Kiểu / ràng buộc</th></tr></thead><tbody><tr><td><code>id</code></td><td>INT AUTO_INCREMENT PRIMARY KEY</td></tr><tr><td><code>username</code></td><td>VARCHAR(50) NOT NULL UNIQUE</td></tr><tr><td><code>password_hash</code></td><td>VARCHAR(255) NOT NULL COMMENT &#x27;bcrypt hash (D8)&#x27;</td></tr><tr><td><code>full_name</code></td><td>VARCHAR(100) NOT NULL</td></tr><tr><td><code>role</code></td><td>ENUM(&#x27;admin&#x27;,&#x27;librarian&#x27;,&#x27;reader&#x27;) NOT NULL</td></tr><tr><td><code>student_code</code></td><td>VARCHAR(20) NULL COMMENT &#x27;chi dung cho reader&#x27;</td></tr><tr><td><code>phone</code></td><td>VARCHAR(20) NULL</td></tr><tr><td><code>active</code></td><td>TINYINT(1) NOT NULL DEFAULT 1 COMMENT &#x27;1=hoat dong, 0=bi khoa&#x27;</td></tr><tr><td><code>created_at</code></td><td>DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP</td></tr></tbody></table></div>
