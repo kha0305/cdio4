@@ -1429,6 +1429,39 @@ Relationships:
 - AuthController → UserService
 - UserService → User, UserService → UserRepository
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+class LoginPage &lt;&lt;boundary&gt;&gt; {
+}
+class AuthController &lt;&lt;control&gt;&gt; {
+  login(username, password)
+}
+class User &lt;&lt;entity&gt;&gt; {
+  id
+  username
+  passwordHash
+  fullName
+  role
+  studentCode
+  phone
+  email
+  emailVerified
+  active
+  isLibrarian(): boolean
+}
+class UserService {
+  authenticate(username, password): User
+}
+class UserRepository {
+  findByUsername(username): User
+}
+
+LoginPage --&gt; AuthController
+AuthController --&gt; UserService
+UserService --&gt; User
+UserService --&gt; UserRepository
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-19-uc02-analysis-class">Prompt 19 — UC02 Analysis Class</h2>
 <pre><code>Draw an analysis class diagram for use case &quot;UC02 — Quản lý sách&quot; (incl. UC15) of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
@@ -1448,6 +1481,73 @@ Relationships:
 - BookService → Book, BookService → BookRepository, BookService → CategoryRepository
 - Category 1 — * Book
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+class BookPage &lt;&lt;boundary&gt;&gt; {
+}
+class BookController &lt;&lt;control&gt;&gt; {
+  listBooks()
+  createBook(data, quantity)
+  updateBook(id, data)
+  deleteBook(id)
+  getByQr(qrCode)
+  uploadCover(id, file)
+  importExcel(file)
+  syncBookCodes()
+}
+class Book &lt;&lt;entity&gt;&gt; {
+  id
+  qrCode
+  bookCode
+  title
+  author
+  category
+  publisher
+  publishYear
+  coverUrl
+  status
+  isAvailable(): boolean
+}
+class Category &lt;&lt;entity&gt;&gt; {
+  id
+  name
+  code
+}
+class BookService {
+  createBook(data, quantity): Book[]
+  generateBookCode(category): string
+  updateBook(id, data): Book
+  deleteBook(id): void
+  findByQrCode(qr): Book
+  search(keyword): Book[]
+  importFromExcel(buffer): [created, errors]
+  syncBookCodes(): int
+  setCover(id, filename): void
+}
+class BookRepository {
+  save(book): Book
+  findById(id): Book
+  findByQrCode(qr): Book
+  search(keyword): Book[]
+  delete(id): void
+  bookCodeExists(code): boolean
+  maxCodeSeq(catCode): int
+  updateCoverUrl(id, url): void
+}
+class CategoryRepository {
+  findByName(name): Category
+  save(c): Category
+  delete(id): void
+}
+
+BookPage --&gt; BookController
+BookController --&gt; BookService
+BookService --&gt; Book
+BookService --&gt; BookRepository
+BookService --&gt; CategoryRepository
+Category &quot;1&quot; -- &quot;*&quot; Book
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-22-uc03-analysis-class">Prompt 22 — UC03 Analysis Class</h2>
 <pre><code>Draw an analysis class diagram for use case &quot;UC03 — Quản lý độc giả&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
@@ -1463,6 +1563,45 @@ Relationships:
 - ReaderPage → ReaderController
 - ReaderController → UserService
 - UserService → User, UserService → UserRepository
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+class ReaderPage &lt;&lt;boundary&gt;&gt; {
+}
+class ReaderController &lt;&lt;control&gt;&gt; {
+  listReaders()
+  createReader(data)
+  updateReader(id, data)
+  deleteReader(id)
+}
+class User &lt;&lt;entity&gt;&gt; {
+  id
+  username
+  passwordHash
+  fullName
+  role
+  studentCode
+  phone
+  active
+}
+class UserService {
+  registerReader(data): User
+  listReaders(): User[]
+  updateReader(id, data): User
+  deleteReader(id): void
+}
+class UserRepository {
+  findByUsername(username): User
+  save(user): User
+  delete(id): void
+  countBorrowingByReader(readerId): int
+}
+
+ReaderPage --&gt; ReaderController
+ReaderController --&gt; UserService
+UserService --&gt; User
+UserService --&gt; UserRepository
+@enduml
 </code></pre>
 <h2 id="prompt-25-uc04-analysis-class">Prompt 25 — UC04 Analysis Class</h2>
 <pre><code>Draw an analysis class diagram for use case &quot;UC04 — Mượn sách&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
@@ -1488,6 +1627,85 @@ Relationships:
 - LoanService → BookRepository, LoanService → UserRepository, LoanService → LoanRepository, LoanService → ReservationRepository, LoanService → SettingsRepository
 - User 1 — * Loan, Book 1 — * Loan, User 1 — * Reservation, Book 1 — * Reservation
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+class BorrowPage &lt;&lt;boundary&gt;&gt; {
+}
+class LoanController &lt;&lt;control&gt;&gt; {
+  borrowBook(qrCode, readerId)
+}
+class Book &lt;&lt;entity&gt;&gt; {
+  id
+  qrCode
+  title
+  status
+  isAvailable(): boolean
+}
+class User &lt;&lt;entity&gt;&gt; {
+  id
+  fullName
+  role
+  active
+  isActive(): boolean
+}
+class Loan &lt;&lt;entity&gt;&gt; {
+  id
+  borrowedAt
+  dueAt
+  returnedAt
+  fineAmount
+  status
+  isOverdue(): boolean
+  calcOverdueDays(): int
+  calcFine(finePerDay): int
+}
+class Reservation &lt;&lt;entity&gt;&gt; {
+  id
+  reservedAt
+  expiresAt
+  status
+  isActive(): boolean
+  isExpired(): boolean
+}
+class LoanService {
+  borrowBook(qrCode, readerId): Loan
+}
+class BookRepository {
+  findByQrCode(qr): Book
+  updateStatus(id, status): void
+}
+class UserRepository {
+  findById(id): User
+}
+class LoanRepository {
+  save(loan): Loan
+  countActiveByReader(readerId): int
+  findActiveByBook(bookId): Loan
+}
+class ReservationRepository {
+  findPendingByBook(bookId): Reservation
+  updateStatus(id, status): void
+}
+class SettingsRepository {
+  get(): Settings
+}
+
+BorrowPage --&gt; LoanController
+LoanController --&gt; LoanService
+LoanService --&gt; Book
+LoanService --&gt; User
+LoanService --&gt; Loan
+LoanService --&gt; BookRepository
+LoanService --&gt; UserRepository
+LoanService --&gt; LoanRepository
+LoanService --&gt; ReservationRepository
+LoanService --&gt; SettingsRepository
+User &quot;1&quot; -- &quot;*&quot; Loan
+Book &quot;1&quot; -- &quot;*&quot; Loan
+User &quot;1&quot; -- &quot;*&quot; Reservation
+Book &quot;1&quot; -- &quot;*&quot; Reservation
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-28-uc05-analysis-class">Prompt 28 — UC05 Analysis Class</h2>
 <pre><code>Draw an analysis class diagram for use case &quot;UC05 — Trả sách&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
@@ -1508,6 +1726,59 @@ Relationships:
 - LoanService → Loan, LoanService → Book, LoanService → Settings
 - LoanService → LoanRepository, LoanService → BookRepository, LoanService → SettingsRepository
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+class ReturnPage &lt;&lt;boundary&gt;&gt; {
+}
+class LoanController &lt;&lt;control&gt;&gt; {
+  previewReturn(qrCode)
+  returnBook(loanId)
+}
+class Book &lt;&lt;entity&gt;&gt; {
+  id
+  qrCode
+  title
+  status
+}
+class Loan &lt;&lt;entity&gt;&gt; {
+  id
+  borrowedAt
+  dueAt
+  returnedAt
+  fineAmount
+  isOverdue(): boolean
+  calcOverdueDays(): int
+  calcFine(finePerDay: int): int
+}
+class Settings &lt;&lt;entity&gt;&gt; {
+  loanDays
+  finePerDay
+  maxBooksPerReader
+  reservationHours
+}
+class LoanService {
+  previewReturn(qrCode): [loan, overdueDays, estimatedFine]
+  confirmReturn(loanId): [loan, overdueDays, fineAmount]
+}
+class LoanRepository {
+  findBorrowingByBook(bookId): Loan
+  updateReturn(loanId, returnedAt, fineAmount): void
+}
+class BookRepository {
+}
+class SettingsRepository {
+}
+
+ReturnPage --&gt; LoanController
+LoanController --&gt; LoanService
+LoanService --&gt; Loan
+LoanService --&gt; Book
+LoanService --&gt; Settings
+LoanService --&gt; LoanRepository
+LoanService --&gt; BookRepository
+LoanService --&gt; SettingsRepository
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-31-uc06-analysis-class">Prompt 31 — UC06 Analysis Class</h2>
 <pre><code>Draw an analysis class diagram for use case &quot;UC06 — Xem danh sách quá hạn&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
@@ -1527,6 +1798,47 @@ Relationships:
 - LoanService → Loan, LoanService → LoanRepository
 - Each Loan is linked to one Book and one User
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+class OverduePage &lt;&lt;boundary&gt;&gt; {
+}
+class LoanController &lt;&lt;control&gt;&gt; {
+  listOverdue()
+}
+class Loan &lt;&lt;entity&gt;&gt; {
+  id
+  borrowedAt
+  dueAt
+  returnedAt
+  fineAmount
+  isOverdue(): boolean
+  calcOverdueDays(): int
+  calcFine(finePerDay: int): int
+}
+class Book &lt;&lt;entity&gt;&gt; {
+  id
+  title
+}
+class User &lt;&lt;entity&gt;&gt; {
+  id
+  fullName
+  phone
+}
+class LoanService {
+  listOverdue(): Loan[]
+}
+class LoanRepository {
+  findOverdue(): Loan[]
+}
+
+OverduePage --&gt; LoanController
+LoanController --&gt; LoanService
+LoanService --&gt; Loan
+LoanService --&gt; LoanRepository
+Loan &quot;*&quot; -- &quot;1&quot; Book
+Loan &quot;*&quot; -- &quot;1&quot; User
+@enduml
+</code></pre>
 <h2 id="prompt-34-uc07-analysis-class">Prompt 34 — UC07 Analysis Class</h2>
 <pre><code>Draw an analysis class diagram for use case &quot;UC07 — Thống kê&quot; (incl. UC14) of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
@@ -1543,6 +1855,44 @@ Relationships:
 - StatsPage → StatsController
 - StatsController → StatsService
 - StatsService → BookRepository, StatsService → LoanRepository, StatsService → UserRepository
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+class StatsPage &lt;&lt;boundary&gt;&gt; {
+}
+class StatsController &lt;&lt;control&gt;&gt; {
+  getDashboard()
+  exportExcel(filters)
+}
+class StatsService {
+  getDashboard(): Dashboard
+  exportExcel(filters): Buffer
+}
+class Book &lt;&lt;entity&gt;&gt; {
+}
+class Loan &lt;&lt;entity&gt;&gt; {
+}
+class User &lt;&lt;entity&gt;&gt; {
+}
+class BookRepository {
+  count(): int
+}
+class LoanRepository {
+  countBorrowing(): int
+  countOverdue(): int
+  topBorrowedBooks(5): Book[]
+  findHistory(filters): Loan[]
+}
+class UserRepository {
+  countReaders(): int
+}
+
+StatsPage --&gt; StatsController
+StatsController --&gt; StatsService
+StatsService --&gt; BookRepository
+StatsService --&gt; LoanRepository
+StatsService --&gt; UserRepository
+@enduml
 </code></pre>
 <hr />
 <h2 id="prompt-37-uc08-analysis-class">Prompt 37 — UC08 Analysis Class</h2>
@@ -1564,6 +1914,57 @@ Relationships:
 - LoanController → LoanService, ReservationController → ReservationService
 - LoanService → Loan, ReservationService → Reservation
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+class MyBooksPage &lt;&lt;boundary&gt;&gt; {
+}
+class LoanController &lt;&lt;control&gt;&gt; {
+  getMyLoans()
+}
+class ReservationController &lt;&lt;control&gt;&gt; {
+  listMy()
+  cancelReservation(id)
+}
+class Loan &lt;&lt;entity&gt;&gt; {
+  id
+  borrowedAt
+  dueAt
+  returnedAt
+  fineAmount
+  isOverdue(): boolean
+}
+class Reservation &lt;&lt;entity&gt;&gt; {
+  id
+  reservedAt
+  expiresAt
+  status
+  isActive(): boolean
+  isExpired(): boolean
+}
+class Book &lt;&lt;entity&gt;&gt; {
+  id
+  title
+}
+class LoanService {
+  getReaderLoans(readerId): Loan[]
+}
+class ReservationService {
+  listMyReservations(readerId): Reservation[]
+  cancelReservation(id, readerId): void
+}
+class LoanRepository {
+}
+class ReservationRepository {
+}
+
+MyBooksPage --&gt; LoanController
+MyBooksPage --&gt; ReservationController
+LoanController --&gt; LoanService
+ReservationController --&gt; ReservationService
+LoanService --&gt; Loan
+ReservationService --&gt; Reservation
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-40-uc09-analysis-class">Prompt 40 — UC09 Analysis Class</h2>
 <pre><code>Draw an analysis class diagram for use case &quot;UC09 — Cấu hình hệ thống&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
@@ -1580,6 +1981,36 @@ Relationships:
 - SettingsController → SettingsService
 - SettingsService → Settings, SettingsService → SettingsRepository
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+class SettingsPage &lt;&lt;boundary&gt;&gt; {
+}
+class SettingsController &lt;&lt;control&gt;&gt; {
+  getSettings()
+  updateSettings(data)
+}
+class Settings &lt;&lt;entity&gt;&gt; {
+  id
+  loanDays
+  finePerDay
+  maxBooksPerReader
+  reservationHours
+}
+class SettingsService {
+  getSettings(): Settings
+  updateSettings(data): Settings
+}
+class SettingsRepository {
+  get(): Settings
+  save(settings): Settings
+}
+
+SettingsPage --&gt; SettingsController
+SettingsController --&gt; SettingsService
+SettingsService --&gt; Settings
+SettingsService --&gt; SettingsRepository
+@enduml
+</code></pre>
 <h2 id="prompt-43-uc10-analysis-class">Prompt 43 — UC10 Analysis Class</h2>
 <pre><code>Draw an analysis class diagram for use case &quot;UC10 — Quản lý tài khoản thủ thư&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
 
@@ -1594,6 +2025,41 @@ Relationships:
 - AccountsPage → AccountController
 - AccountController → AccountService
 - AccountService → User, AccountService → UserRepository
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+class AccountsPage &lt;&lt;boundary&gt;&gt; {
+}
+class AccountController &lt;&lt;control&gt;&gt; {
+  createAccount(dto)
+  toggleActive(id)
+  resetPassword(id)
+}
+class AccountService {
+  createAccount(dto): User
+  toggleActive(id): void
+  resetPassword(id): string
+}
+class User &lt;&lt;entity&gt;&gt; {
+  id
+  username
+  passwordHash
+  fullName
+  role
+  active
+}
+class UserRepository {
+  findByUsername(username): User
+  save(user): User
+  updateActive(id, active): void
+  updatePassword(id, hash): void
+}
+
+AccountsPage --&gt; AccountController
+AccountController --&gt; AccountService
+AccountService --&gt; User
+AccountService --&gt; UserRepository
+@enduml
 </code></pre>
 <hr />
 <h2 id="prompt-46-uc11-analysis-class-new-flow">Prompt 46 — UC11 Analysis Class (NEW FLOW)</h2>
@@ -1615,6 +2081,81 @@ Relationships:
 - ReservationService → Reservation, ReservationService → ReservationRepository, ReservationService → NotificationService
 - Book 1 — * Reservation, User 1 — * Reservation, User 1 — * Notification
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+class BookDetailPage &lt;&lt;boundary&gt;&gt; {
+}
+class ReservationsPage &lt;&lt;boundary&gt;&gt; {
+}
+class ReservationController &lt;&lt;control&gt;&gt; {
+  create(bookId, readerNote)
+  approve(id, pickupAt)
+  reject(id, reason)
+  cancel(id)
+}
+class ReservationService {
+  create(bookId, readerId, readerNote): Reservation
+  approve(id, pickupAt, reviewerId): void
+  reject(id, reason, reviewerId): void
+  expireOverdue(): void
+}
+class Reservation &lt;&lt;entity&gt;&gt; {
+  id
+  code
+  bookId
+  readerId
+  readerNote
+  reservedAt
+  expiresAt
+  pickupAt
+  reviewedBy
+  reviewedAt
+  rejectReason
+  status
+  isActive(): boolean
+  isExpired(): boolean
+}
+class Book &lt;&lt;entity&gt;&gt; {
+  id
+  qrCode
+  bookCode
+  title
+  status
+  isAvailable(): boolean
+}
+class Notification &lt;&lt;entity&gt;&gt; {
+  id
+  audience
+  type
+  title
+  body
+  isRead
+}
+class User &lt;&lt;entity&gt;&gt; {
+}
+class ReservationRepository {
+  save(r): Reservation
+  findById(id): Reservation
+  findActiveByBook(bookId): Reservation
+  updateStatus(id, status, pickupAt, reviewerId): void
+  findByCode(code): Reservation
+}
+class NotificationService {
+  notifyLibrarians(title, body): void
+  notifyReader(readerId, title, body): void
+}
+
+BookDetailPage --&gt; ReservationController
+ReservationsPage --&gt; ReservationController
+ReservationController --&gt; ReservationService
+ReservationService --&gt; Reservation
+ReservationService --&gt; ReservationRepository
+ReservationService --&gt; NotificationService
+Book &quot;1&quot; -- &quot;*&quot; Reservation
+User &quot;1&quot; -- &quot;*&quot; Reservation
+User &quot;1&quot; -- &quot;*&quot; Notification
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-uc12-analysis-class">Prompt UC12 Analysis Class</h2>
 <pre><code>Draw an analysis class diagram for use case &quot;UC12 — Hủy đặt trước&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
@@ -1635,6 +2176,72 @@ Relationships:
 - ReservationService → Reservation, ReservationService → ReservationRepository, ReservationService → NotificationService
 - Book 1 — * Reservation, User 1 — * Reservation, User 1 — * Notification
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+class MyReservationsPage &lt;&lt;boundary&gt;&gt; {
+}
+class ReservationController &lt;&lt;control&gt;&gt; {
+  listMine()
+  cancel(id)
+}
+class ReservationService {
+  listMine(readerId): Reservation
+  cancel(id, readerId): void
+}
+class Reservation &lt;&lt;entity&gt;&gt; {
+  id
+  code
+  bookId
+  readerId
+  readerNote
+  reservedAt
+  expiresAt
+  pickupAt
+  reviewedBy
+  reviewedAt
+  rejectReason
+  status
+  isActive(): boolean
+  isExpired(): boolean
+  canCancel(): boolean
+}
+class Book &lt;&lt;entity&gt;&gt; {
+  id
+  qrCode
+  bookCode
+  title
+  status
+  isAvailable(): boolean
+}
+class Notification &lt;&lt;entity&gt;&gt; {
+  id
+  audience
+  type
+  title
+  body
+  isRead
+}
+class User &lt;&lt;entity&gt;&gt; {
+}
+class ReservationRepository {
+  findById(id): Reservation
+  findMine(readerId): Reservation
+  updateStatus(id, status): void
+}
+class NotificationService {
+  notifyLibrarians(title, body): void
+}
+
+MyReservationsPage --&gt; ReservationController
+ReservationController --&gt; ReservationService
+ReservationService --&gt; Reservation
+ReservationService --&gt; ReservationRepository
+ReservationService --&gt; NotificationService
+Book &quot;1&quot; -- &quot;*&quot; Reservation
+User &quot;1&quot; -- &quot;*&quot; Reservation
+User &quot;1&quot; -- &quot;*&quot; Notification
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-uc13-analysis-class">Prompt UC13 Analysis Class</h2>
 <pre><code>Draw an analysis class diagram for use case &quot;UC13 — Hệ thống thông báo&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
@@ -1654,6 +2261,61 @@ Relationships:
 - NotificationService → Notification, NotificationService → NotificationRepository
 - Notification 1 — * NotificationRead, User 1 — * NotificationRead, User 1 — * Notification (via createdBy)
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+class NotificationsPage &lt;&lt;boundary&gt;&gt; {
+}
+class NotificationController &lt;&lt;control&gt;&gt; {
+  create(title, body, audience, type, showOnLanding)
+  list()
+  unreadCount()
+  markRead(id)
+  markAllRead()
+}
+class NotificationService {
+  createNotification(title, body, audience, type, showOnLanding, createdBy): Notification
+  notifyLibrarians(title, body): void
+  notifyReader(readerId, title, body): void
+}
+class Notification &lt;&lt;entity&gt;&gt; {
+  id
+  audience
+  type
+  title
+  body
+  showOnLanding
+  createdBy
+  createdAt
+  isRead(): boolean
+}
+class NotificationRead &lt;&lt;entity&gt;&gt; {
+  notificationId
+  userId
+  readAt
+}
+class User &lt;&lt;entity&gt;&gt; {
+  id
+  username
+  fullName
+  role
+}
+class NotificationRepository {
+  save(n): Notification
+  findForUser(userId): Notification
+  unreadCount(userId): int
+  markRead(notificationId, userId): void
+  markAllRead(userId): void
+}
+
+NotificationsPage --&gt; NotificationController
+NotificationController --&gt; NotificationService
+NotificationService --&gt; Notification
+NotificationService --&gt; NotificationRepository
+Notification &quot;1&quot; -- &quot;*&quot; NotificationRead
+User &quot;1&quot; -- &quot;*&quot; NotificationRead
+User &quot;1&quot; -- &quot;*&quot; Notification
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-uc16-d-analysis-class-uc16">Prompt UC16-D — Analysis Class: UC16</h2>
 <pre><code>Draw an analysis class diagram for use case &quot;UC16 — Tìm sách bằng AI theo mô tả&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
@@ -1671,6 +2333,44 @@ Relationships:
 - PublicController → AiBookSearchService
 - AiBookSearchService → BookRepository, AiBookSearchService → GeminiApiClient
 - BookRepository → Book
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+class LandingPage &lt;&lt;boundary&gt;&gt; {
+}
+class PublicController &lt;&lt;control&gt;&gt; {
+  aiSearch(description)
+}
+class AiBookSearchService {
+  search(description): [mode, results]
+  keywordFallback(description, catalog): [results]
+}
+class Book &lt;&lt;entity&gt;&gt; {
+  id
+  qrCode
+  bookCode
+  title
+  author
+  category
+  publisher
+  publishYear
+  coverUrl
+  status
+}
+class BookRepository {
+  listDistinctTitles(): Book
+  findByIds(ids): Book
+}
+class GeminiApiClient {
+  generateContent(catalog, description): JSON
+}
+
+LandingPage --&gt; PublicController
+PublicController --&gt; AiBookSearchService
+AiBookSearchService --&gt; BookRepository
+AiBookSearchService --&gt; GeminiApiClient
+BookRepository --&gt; Book
+@enduml
 </code></pre>
 <hr />
 <h2 id="prompt-uc17-d-analysis-class-uc17">Prompt UC17-D — Analysis Class: UC17</h2>
@@ -1690,6 +2390,65 @@ Relationships:
 - ReminderScheduler → EmailReminderService
 - EmailReminderService → Loan, EmailReminderService → EmailReminder, EmailReminderService → LoanRepository, EmailReminderService → EmailReminderRepository, EmailReminderService → ResendApiClient
 - Loan 1 — * EmailReminder, User 1 — * Loan
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+class ReminderScheduler &lt;&lt;control&gt;&gt; {
+  scan()
+}
+class EmailReminderService {
+  scanLoans(): void
+  composeDueSoon(loan): Email
+  composeOverdue(loan): Email
+  sendReminder(loan): void
+}
+class Loan &lt;&lt;entity&gt;&gt; {
+  id
+  bookId
+  readerId
+  borrowedAt
+  dueAt
+  returnedAt
+  fineAmount
+  status
+  overdueNotified
+}
+class EmailReminder &lt;&lt;entity&gt;&gt; {
+  id
+  loanId
+  type
+  recipientEmail
+  providerId
+  sentDay
+  sentAt
+}
+class User &lt;&lt;entity&gt;&gt; {
+  id
+  username
+  fullName
+  email
+  emailVerified
+}
+class LoanRepository {
+  findActiveLoansWithReaderEmail(): Loan
+}
+class EmailReminderRepository {
+  findLastReminder(loanId, type): EmailReminder
+  save(reminder): EmailReminder
+}
+class ResendApiClient {
+  sendEmail(to, subject, body): void
+}
+
+ReminderScheduler --&gt; EmailReminderService
+EmailReminderService --&gt; Loan
+EmailReminderService --&gt; EmailReminder
+EmailReminderService --&gt; LoanRepository
+EmailReminderService --&gt; EmailReminderRepository
+EmailReminderService --&gt; ResendApiClient
+Loan &quot;1&quot; -- &quot;*&quot; EmailReminder
+User &quot;1&quot; -- &quot;*&quot; Loan
+@enduml
 </code></pre>
 <hr />
 <h2 id="prompt-uc18-analysis-class">Prompt UC18 Analysis Class</h2>
@@ -1711,6 +2470,63 @@ Relationships:
 - EmailAccountService → User, EmailAccountService → EmailToken, EmailAccountService → UserRepository, EmailAccountService → EmailTokenRepository, EmailAccountService → ResendApiClient
 - User 1 — * EmailToken
 </code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+class ForgotPasswordPage &lt;&lt;boundary&gt;&gt; {
+}
+class ResetPasswordPage &lt;&lt;boundary&gt;&gt; {
+}
+class AuthController &lt;&lt;control&gt;&gt; {
+  forgotPassword(email)
+  resetPassword(token, newPassword)
+}
+class EmailAccountService {
+  sendResetEmail(email): void
+  validateResetToken(token): boolean
+  resetPassword(token, newPassword): void
+}
+class User &lt;&lt;entity&gt;&gt; {
+  id
+  username
+  passwordHash
+  email
+  emailVerified
+  active
+}
+class EmailToken &lt;&lt;entity&gt;&gt; {
+  id
+  userId
+  tokenHash
+  purpose
+  expiresAt
+  usedAt
+  createdAt
+}
+class UserRepository {
+  findByEmail(email): User
+  updatePassword(userId, passwordHash): void
+}
+class EmailTokenRepository {
+  save(token): EmailToken
+  findByHash(tokenHash): EmailToken
+  invalidateOld(userId, purpose): void
+  markUsed(id): void
+}
+class ResendApiClient {
+  sendEmail(to, subject, body): void
+}
+
+ForgotPasswordPage --&gt; AuthController
+ResetPasswordPage --&gt; AuthController
+AuthController --&gt; EmailAccountService
+EmailAccountService --&gt; User
+EmailAccountService --&gt; EmailToken
+EmailAccountService --&gt; UserRepository
+EmailAccountService --&gt; EmailTokenRepository
+EmailAccountService --&gt; ResendApiClient
+User &quot;1&quot; -- &quot;*&quot; EmailToken
+@enduml
+</code></pre>
 <hr />
 <h2 id="prompt-uc19-analysis-class">Prompt UC19 Analysis Class</h2>
 <pre><code>Draw an analysis class diagram for use case &quot;UC19 — Đăng ký bằng email thật &amp; xác thực email&quot; of the mini library management system, using stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt;, &lt;&lt;entity&gt;&gt;.
@@ -1731,6 +2547,78 @@ Relationships:
 - UserController → UserService, UserController → EmailAccountService
 - UserService → User, UserService → UserRepository, EmailAccountService → User, EmailAccountService → EmailToken, EmailAccountService → UserRepository, EmailAccountService → EmailTokenRepository, EmailAccountService → ResendApiClient
 - User 1 — * EmailToken
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+class RegisterPage &lt;&lt;boundary&gt;&gt; {
+}
+class VerifyEmailPage &lt;&lt;boundary&gt;&gt; {
+}
+class ProfilePage &lt;&lt;boundary&gt;&gt; {
+}
+class UserController &lt;&lt;control&gt;&gt; {
+  register(data)
+  verifyEmail(token)
+  changeEmail(newEmail)
+  resendVerification()
+}
+class UserService {
+  register(data): User
+  verifyEmail(token): User
+}
+class EmailAccountService {
+  sendVerificationEmail(user): void
+  consumeVerificationToken(token): User
+}
+class User &lt;&lt;entity&gt;&gt; {
+  id
+  username
+  passwordHash
+  fullName
+  studentCode
+  phone
+  email
+  emailVerified
+  role
+  active
+}
+class EmailToken &lt;&lt;entity&gt;&gt; {
+  id
+  userId
+  tokenHash
+  purpose
+  expiresAt
+  usedAt
+  createdAt
+}
+class UserRepository {
+  save(user): User
+  findByEmail(email): User
+}
+class EmailTokenRepository {
+  save(token): EmailToken
+  findByHash(tokenHash): EmailToken
+  markUsed(id): void
+  invalidateOld(userId, purpose): void
+}
+class ResendApiClient {
+  sendEmail(to, subject, body): void
+}
+
+RegisterPage --&gt; UserController
+VerifyEmailPage --&gt; UserController
+ProfilePage --&gt; UserController
+UserController --&gt; UserService
+UserController --&gt; EmailAccountService
+UserService --&gt; User
+UserService --&gt; UserRepository
+EmailAccountService --&gt; User
+EmailAccountService --&gt; EmailToken
+EmailAccountService --&gt; UserRepository
+EmailAccountService --&gt; EmailTokenRepository
+EmailAccountService --&gt; ResendApiClient
+User &quot;1&quot; -- &quot;*&quot; EmailToken
+@enduml
 </code></pre><h2 id="erd-1-prompt">ERD (1 prompt)</h2><p>Các prompt vẽ sơ đồ ERD, giữ nguyên thứ tự Prompt gốc.</p><h2 id="prompt-51-updated-system-wide-erd-after-the-new-features">Prompt 51 — Updated System-Wide ERD (after the new features)</h2>
 <pre><code>Draw the updated full entity relationship diagram (ERD) for the mini library management system, including the new tables and columns added in the feature update round.
 
@@ -1785,6 +2673,118 @@ Relationships:
 - books 1 — n reservations, users 1 — n reservations, users 1 — n reservations (via reviewed_by, the reviewer role)
 - users 1 — n notifications (via created_by), notifications 1 — n notification_reads, users 1 — n notification_reads
 - users 1 — n email_tokens, loans 1 — n email_reminders
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml
+entity users {
+  * id : INT &lt;&lt;PK&gt;&gt;
+  username : VARCHAR(50) &lt;&lt;unique&gt;&gt;
+  password_hash : VARCHAR(255)
+  full_name : VARCHAR(100)
+  student_code : VARCHAR(20) &lt;&lt;unique&gt;&gt;
+  phone : VARCHAR(20)
+  role : ENUM
+  active : TINYINT
+  email : VARCHAR(150)
+  email_verified : TINYINT
+  avatar_url : VARCHAR(255)
+}
+entity categories {
+  * id : INT &lt;&lt;PK&gt;&gt;
+  name : VARCHAR(100) &lt;&lt;unique&gt;&gt;
+  code : VARCHAR(10) &lt;&lt;unique&gt;&gt;
+}
+entity books {
+  * id : INT &lt;&lt;PK&gt;&gt;
+  qr_code : VARCHAR(50) &lt;&lt;unique&gt;&gt;
+  book_code : VARCHAR(20) &lt;&lt;unique&gt;&gt;
+  category_id : INT &lt;&lt;FK&gt;&gt;
+  title
+  author
+  category
+  publisher
+  publish_year
+  cover_url : VARCHAR(500)
+  status : ENUM
+}
+entity loans {
+  * id : INT &lt;&lt;PK&gt;&gt;
+  book_id : INT &lt;&lt;FK&gt;&gt;
+  reader_id : INT &lt;&lt;FK&gt;&gt;
+  borrowed_at
+  due_at
+  returned_at
+  fine_amount
+  status
+  overdue_notified : BOOL
+}
+entity reservations {
+  * id : INT &lt;&lt;PK&gt;&gt;
+  code : VARCHAR(16) &lt;&lt;unique&gt;&gt;
+  book_id : INT &lt;&lt;FK&gt;&gt;
+  reader_id : INT &lt;&lt;FK&gt;&gt;
+  reader_note : VARCHAR(255)
+  reserved_at
+  expires_at
+  pickup_at : DATETIME
+  reviewed_by : INT &lt;&lt;FK&gt;&gt;
+  reviewed_at : DATETIME
+  reject_reason : VARCHAR(255)
+  status : ENUM
+}
+entity notifications {
+  * id : INT &lt;&lt;PK&gt;&gt;
+  audience : ENUM
+  type : ENUM
+  title : VARCHAR(255)
+  body : TEXT
+  show_on_landing : BOOL
+  created_by : INT &lt;&lt;FK&gt;&gt;
+  created_at : DATETIME
+}
+entity notification_reads {
+  * notification_id : INT &lt;&lt;PK&gt;&gt; &lt;&lt;FK&gt;&gt;
+  * user_id : INT &lt;&lt;PK&gt;&gt; &lt;&lt;FK&gt;&gt;
+  read_at : DATETIME
+}
+entity email_tokens {
+  * id : INT &lt;&lt;PK&gt;&gt;
+  user_id : INT &lt;&lt;FK&gt;&gt;
+  purpose : ENUM
+  token_hash : CHAR(64)
+  expires_at : DATETIME
+  used_at : DATETIME
+  created_at : DATETIME
+}
+entity email_reminders {
+  * id : INT &lt;&lt;PK&gt;&gt;
+  loan_id : INT &lt;&lt;FK&gt;&gt;
+  type : ENUM
+  recipient_email : VARCHAR(150)
+  provider_id : VARCHAR(100)
+  sent_day : DATE
+  sent_at : DATETIME
+}
+entity settings {
+  * id : INT &lt;&lt;PK&gt;&gt;
+  loanDays
+  finePerDay
+  maxBooksPerReader
+  reservationHours
+}
+
+categories ||--o{ books : category_id
+books ||--o{ loans : book_id
+users ||--o{ loans : reader_id
+books ||--o{ reservations : book_id
+users ||--o{ reservations : reader_id
+users ||--o{ reservations : reviewed_by
+users ||--o{ notifications : created_by
+notifications ||--o{ notification_reads : notification_id
+users ||--o{ notification_reads : user_id
+users ||--o{ email_tokens : user_id
+loans ||--o{ email_reminders : loan_id
+@enduml
 </code></pre>
 <hr />
 
