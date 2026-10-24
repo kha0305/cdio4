@@ -173,7 +173,7 @@ Select the diagram type stated in the prompt title before pasting.</p>
 **Display requirement:** group the use cases by actor using boundary/package (Quản trị, Nghiệp vụ quầy, Độc giả) if the tool supports it; keep the use case names in Vietnamese with diacritics.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_1
+<pre><code class="language-plantuml">@startuml Overall_UseCase
 left to right direction
 actor Admin as Admin
 actor &quot;Thủ thư&quot; as ThuThu
@@ -242,7 +242,7 @@ UC15 .&gt; UC02 : &lt;&lt;extend&gt;&gt;
 <pre><code>Create exactly 1 Use Case Diagram. Actors: Admin, Thủ thư, Độc giả. A single use case: &quot;UC01 Đăng nhập&quot;. Draw associations from all 3 actors to the use case. Add a note: &quot;UC01 is Login only. Registration is a separate use case UC19; Admin and Thủ thư accounts are issued by the Admin (UC10)&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_2
+<pre><code class="language-plantuml">@startuml UC01_UseCase_Login
 left to right direction
 actor Admin as Admin
 actor &quot;Thủ thư&quot; as ThuThu
@@ -260,7 +260,7 @@ DocGia --&gt; UC01
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: &quot;UC02 Quản lý sách&quot;. Draw the association Thủ thư — UC02. Add a note: &quot;Includes: add (generates QR), edit, delete, search&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_3
+<pre><code class="language-plantuml">@startuml UC02_UseCase_Book_Management
 left to right direction
 actor &quot;Thủ thư&quot; as ThuThu
 rectangle &quot;Thư viện Đại học&quot; {
@@ -274,7 +274,7 @@ ThuThu --&gt; UC02
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: &quot;UC03 Quản lý độc giả&quot;. Draw the association Thủ thư — UC03. Add a note: &quot;Includes: add (default password 123456), edit, delete, search&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_4
+<pre><code class="language-plantuml">@startuml UC03_UseCase_Reader_Management
 left to right direction
 actor &quot;Thủ thư&quot; as ThuThu
 rectangle &quot;Thư viện Đại học&quot; {
@@ -288,7 +288,7 @@ ThuThu --&gt; UC03
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. Main use case: &quot;UC04 Mượn sách&quot;. Draw the association Thủ thư — UC04. Add the use case &quot;UC11 Đặt trước sách&quot; (no actor link) and a dashed dependency line from UC04 to UC11, with a note attached: &quot;UC04 checks and marks fulfilled the reservations created by UC11 (D13)&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_5
+<pre><code class="language-plantuml">@startuml UC04_UseCase_Borrow_Book
 left to right direction
 actor &quot;Thủ thư&quot; as ThuThu
 rectangle &quot;Thư viện Đại học&quot; {
@@ -304,7 +304,7 @@ UC04 ..&gt; UC11
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: &quot;UC05 Trả sách&quot;. Draw the association Thủ thư — UC05. Add a note: &quot;The fine-calculation step (D7) is an internal step of UC05; do not split it into a separate use case&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_6
+<pre><code class="language-plantuml">@startuml UC05_UseCase_Return_Book
 left to right direction
 actor &quot;Thủ thư&quot; as ThuThu
 rectangle &quot;Thư viện Đại học&quot; {
@@ -318,7 +318,7 @@ ThuThu --&gt; UC05
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: &quot;UC06 Danh sách quá hạn&quot;. Draw the association Thủ thư — UC06. Add a note: &quot;Read-only: lists borrowing loans whose due_at is before today&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_7
+<pre><code class="language-plantuml">@startuml UC06_UseCase_Overdue_List
 left to right direction
 actor &quot;Thủ thư&quot; as ThuThu
 rectangle &quot;Thư viện Đại học&quot; {
@@ -332,7 +332,7 @@ ThuThu --&gt; UC06
 <pre><code>Create exactly 1 Use Case Diagram. Actors: Thủ thư, Admin. A single use case: &quot;UC07 Thống kê&quot;. Draw associations from both actors to the use case. Add a note: &quot;4 stat cards + top-5 chart + borrow/return history&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_8
+<pre><code class="language-plantuml">@startuml UC07_UseCase_Statistics
 left to right direction
 actor &quot;Thủ thư&quot; as ThuThu
 actor Admin as Admin
@@ -348,7 +348,7 @@ Admin --&gt; UC07
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Độc giả. A single use case: &quot;UC08 Sách của tôi&quot;. Draw the association Độc giả — UC08. Add a note: &quot;3 tabs: Đang mượn / Đặt trước / Lịch sử; each reader sees only their own data&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_9
+<pre><code class="language-plantuml">@startuml UC08_UseCase_My_Books
 left to right direction
 actor &quot;Độc giả&quot; as DocGia
 rectangle &quot;Thư viện Đại học&quot; {
@@ -362,7 +362,7 @@ DocGia --&gt; UC08
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Admin. A single use case: &quot;UC09 Cấu hình hệ thống&quot;. Draw the association Admin — UC09. Add a note: &quot;4 parameters: loan_days, fine_per_day, max_books_per_reader, reservation_hours; apply to new loans only&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_10
+<pre><code class="language-plantuml">@startuml UC09_UseCase_System_Configuration
 left to right direction
 actor Admin as Admin
 rectangle &quot;Thư viện Đại học&quot; {
@@ -376,7 +376,7 @@ Admin --&gt; UC09
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Admin. A single use case: &quot;UC10 Quản lý tài khoản thủ thư&quot;. Draw the association Admin — UC10. Add a note: &quot;Includes: create, lock/unlock, delete; cannot delete your own account&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_11
+<pre><code class="language-plantuml">@startuml UC10_UseCase_Librarian_Account_Management
 left to right direction
 actor Admin as Admin
 rectangle &quot;Thư viện Đại học&quot; {
@@ -390,7 +390,7 @@ Admin --&gt; UC10
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Độc giả. Main use case: &quot;UC11 Đặt trước sách&quot;. Draw the association Độc giả — UC11. Add the use case &quot;UC04 Mượn sách&quot; (no actor link) and a dashed dependency line from UC11 to UC04, with a note attached: &quot;Pending reservations from UC11 are consumed by UC04 when the reader comes to the counter to pick up the book (D13)&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_12
+<pre><code class="language-plantuml">@startuml UC11_UseCase_Reserve_Book
 left to right direction
 actor &quot;Độc giả&quot; as DocGia
 rectangle &quot;Thư viện Đại học&quot; {
@@ -406,7 +406,7 @@ UC11 ..&gt; UC04
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Độc giả. Main use case: &quot;UC12 Hủy đặt trước&quot;. Draw the association Độc giả — UC12. Add the use case &quot;UC11 Đặt trước sách&quot; (no actor link) and a dashed dependency line from UC12 to UC11, with a note attached: &quot;UC12 turns UC11's pending reservations into cancelled&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_13
+<pre><code class="language-plantuml">@startuml UC12_UseCase_Cancel_Reservation
 left to right direction
 actor &quot;Độc giả&quot; as DocGia
 rectangle &quot;Thư viện Đại học&quot; {
@@ -431,7 +431,7 @@ Use cases:
 Note in the diagram: &quot;The system auto-generates notifications: new reservation → librarians; approve/reject → the reader; loan created → due-date reminder; overdue → red alert.&quot;
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_48
+<pre><code class="language-plantuml">@startuml UC13_UseCase_Notification_System
 left to right direction
 actor Admin as Admin
 actor &quot;Thủ thư&quot; as ThuThu
@@ -465,7 +465,7 @@ UC132 .&gt; UC131 : &lt;&lt;include&gt;&gt;
 Keep all existing actors and use cases unchanged.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_uc16_a
+<pre><code class="language-plantuml">@startuml UC16_UseCase
 left to right direction
 actor &quot;Độc giả&quot; as Reader
 actor &quot;Khách&quot; as Guest
@@ -489,7 +489,7 @@ Fallback .&gt; UC16 : &lt;&lt;extend&gt;&gt;
 Keep all existing actors and use cases unchanged.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_uc17_a
+<pre><code class="language-plantuml">@startuml UC17_UseCase
 left to right direction
 actor &quot;Time/Scheduler&quot; as Scheduler
 actor &quot;Độc giả&quot; as Reader
@@ -521,7 +521,7 @@ Resend --&gt; SendEmail
 <pre><code>Create exactly 1 Use Case Diagram. Actors: Reader, Librarian, Admin (any account that has an email). A single use case: &quot;UC18 Quên mật khẩu qua email&quot;. Draw associations from all 3 actors to the use case. Add the included use case &quot;Send reset email via Resend&quot; (external actor Resend email service outside the boundary, connected to the included use case). Add a note: &quot;The system always shows the same generic message and never reveals whether the email exists; the reset token is 30-minute, single-use, only its SHA-256 hash is stored&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_uc18_use_case
+<pre><code class="language-plantuml">@startuml UC18_UseCase_QuenMatKhau
 left to right direction
 actor Reader as Reader
 actor Librarian as Librarian
@@ -543,7 +543,7 @@ Resend --&gt; SendReset
 <pre><code>Create exactly 1 Use Case Diagram. Actors: Khách (Guest, not logged in), Độc giả (after registration). A single use case: &quot;UC19 Đăng ký bằng email thật &amp; xác thực email&quot;. Draw associations from Khách and Độc giả to the use case. Add the included use case &quot;Send verification email via Resend&quot; (external actor Resend email service outside the boundary, connected to the included use case). Add a note: &quot;Registration creates the account with email_verified = 0; a duplicate email returns 409; the verification token is 24-hour, single-use, only its SHA-256 hash is stored; until verified, the layout shows a reminder banner and the reader can change the email (resets to unverified) or resend the verification email (1 per minute)&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_uc19_use_case
+<pre><code class="language-plantuml">@startuml UC19_UseCase_DangKyVaXacThucEmail
 left to right direction
 actor &quot;Khách&quot; as Guest
 actor &quot;Độc giả&quot; as Reader
@@ -611,7 +611,7 @@ Background flows of the Hệ thống (no actor needed, run in parallel):
 - [Hệ thống] 'approved' reservations past pickup_at + 2 hours not yet picked up → [CSDL] UPDATE to 'expired'.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_0
+<pre><code class="language-plantuml">@startuml Overall_Activity
 |Actor|
 start
 :Khách mở trang chủ (không cần đăng nhập);
@@ -709,7 +709,7 @@ Activity flow:
 - End point.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_14
+<pre><code class="language-plantuml">@startuml UC01_Activity_Login
 |Actor|
 start
 :Người dùng mở trang đăng nhập;
@@ -773,7 +773,7 @@ Activity flow:
     - [Hệ thống] query the CSDL with the conditions; [Giao diện] display the result list, go to the end point.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_17
+<pre><code class="language-plantuml">@startuml UC02_Activity_Book_Management
 |Actor|
 start
 :Thủ thư mở trang Quản lý sách;
@@ -865,7 +865,7 @@ Activity flow:
       - Branch No: [CSDL] DELETE table users; [Giao diện] report success, go to the end point.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_20
+<pre><code class="language-plantuml">@startuml UC03_Activity_Reader_Management
 |Actor|
 start
 :Thủ thư mở trang Quản lý độc giả;
@@ -947,7 +947,7 @@ Activity flow:
 - End point.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_23
+<pre><code class="language-plantuml">@startuml UC04_Activity_Borrow_Book
 |Actor|
 start
 :Thủ thư bấm Mượn sách;
@@ -1035,7 +1035,7 @@ Activity flow:
 - End point.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_26
+<pre><code class="language-plantuml">@startuml UC05_Activity_Return_Book
 |Actor|
 start
 :Thủ thư bấm Trả sách;
@@ -1093,7 +1093,7 @@ Activity flow:
 - End point.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_29
+<pre><code class="language-plantuml">@startuml UC06_Activity_Overdue_List
 |Actor|
 start
 :Thủ thư mở trang Quá hạn;
@@ -1136,7 +1136,7 @@ Activity flow:
   - Branch &quot;No&quot;: go to the end point.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_32
+<pre><code class="language-plantuml">@startuml UC07_Activity_Statistics
 |Actor|
 start
 :Người dùng mở trang Thống kê;
@@ -1188,7 +1188,7 @@ Activity flow:
 - End point.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_35
+<pre><code class="language-plantuml">@startuml UC08_Activity_My_Books
 |Actor|
 start
 :Độc giả mở trang Sách của tôi;
@@ -1236,7 +1236,7 @@ Activity flow:
 - End point.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_38
+<pre><code class="language-plantuml">@startuml UC09_Activity_System_Configuration
 |Actor|
 start
 :Admin mở trang Cài đặt;
@@ -1286,7 +1286,7 @@ Activity flow:
 - End point.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_41
+<pre><code class="language-plantuml">@startuml UC10_Activity_Librarian_Account_Management
 |Actor|
 start
 :Admin mở trang Quản lý tài khoản;
@@ -1369,7 +1369,7 @@ Automatic system flow (no actor needed):
 - [Hệ thống] Reader scans the reservation QR code at the counter and is lent the book (UC04) → [CSDL] UPDATE to 'fulfilled'.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_44
+<pre><code class="language-plantuml">@startuml UC11_Activity_Reserve_Book
 start
 fork
   :Độc giả mở trang chi tiết của sách đang ở trạng thái Còn;
@@ -1426,7 +1426,7 @@ Activity flow:
 Additional note in the diagram (as a note): 'pending' reservations past 48 hours not yet reviewed, and 'approved' reservations past the appointment + 2 hours, automatically become 'expired' (lazy, no background process needed); the reader needs no action.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_47
+<pre><code class="language-plantuml">@startuml UC12_Activity_Cancel_Reservation
 |Actor|
 start
 :Độc giả mở tab Đặt trước trên trang Sách của tôi;
@@ -1493,7 +1493,7 @@ Reading flow (Độc giả/Thủ thư/Admin):
 - End point.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_49
+<pre><code class="language-plantuml">@startuml UC13_Activity_Notification_System
 start
 fork
   :Admin hoặc Thủ thư mở trang Thông báo và bấm Tạo thông báo;
@@ -1521,7 +1521,7 @@ stop
 Start -&gt; User selects &quot;Search by description (AI)&quot; mode on the landing page -&gt; Enter content description -&gt; Click &quot;Search with AI&quot; -&gt; System validates length (3-600 chars) [invalid -&gt; show error, back to Enter] -&gt; System checks rate limit [exceeded -&gt; show 429 message, end] -&gt; Load distinct titles catalog -&gt; Decision: Gemini API key configured and service responds within 15s? [yes -&gt; Send catalog + description to Gemini -&gt; Parse JSON result -&gt; Filter out ids not in catalog -&gt; Rank by score desc, max 8] [no/error -&gt; Keyword fallback scoring (diacritics-free tokens, weights title 3 / author 2 / category 2)] -&gt; Decision: any result? [yes -&gt; Display book grid with match % badge and reason] [no -&gt; Display empty state suggesting a clearer description] -&gt; End.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_uc16_b
+<pre><code class="language-plantuml">@startuml UC16_Activity
 |Actor|
 start
 :Người dùng chọn chế độ Tìm theo mô tả (AI) trên trang chủ;
@@ -1573,7 +1573,7 @@ stop
 5. On success, ReminderService writes a log row into email_reminders (prevents duplicates). On failure, it logs the error and continues with the next loan.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_uc17_b
+<pre><code class="language-plantuml">@startuml UC17_Activity_NhacHanQuaEmail
 |Scheduler|
 start
 :Kích hoạt quét lúc khởi động và mỗi 6 giờ;
@@ -1627,7 +1627,7 @@ Activity flow:
 - End point.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_uc18_activity
+<pre><code class="language-plantuml">@startuml UC18_Activity_QuenMatKhau
 |Actor|
 start
 :Người dùng mở trang Quên mật khẩu;
@@ -1691,7 +1691,7 @@ Activity flow:
 - End point.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_uc19_activity
+<pre><code class="language-plantuml">@startuml UC19_Activity_DangKyVaXacThucEmail
 |Actor|
 start
 :Khách mở trang đăng ký;
@@ -1759,7 +1759,7 @@ Message flow:
 8. Giao diện navigates by role: admin → admin page, librarian → Dashboard, reader → &quot;Sách của tôi&quot;.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_15
+<pre><code class="language-plantuml">@startuml UC01_Sequence_Login
 actor &quot;User&quot; as Actor
 participant &quot;LoginPage&quot; as GiaoDien
 participant &quot;Form đăng nhập&quot; as Form
@@ -1820,7 +1820,7 @@ Message flow:
 7. The list of created Books is returned to Giao diện; Giao diện displays the QR codes (per book_code) for the librarian to download/print and reports &quot;Đã tạo N bản&quot;.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_18
+<pre><code class="language-plantuml">@startuml UC02_Sequence_Add_Book
 actor &quot;Thủ thư&quot; as Actor
 participant &quot;BookPage&quot; as GiaoDien
 participant &quot;Form thêm sách&quot; as Form
@@ -1869,7 +1869,7 @@ Message flow:
 7. The User object is returned to Giao diện; Giao diện shows a success message along with the default password for the librarian to hand to the reader.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_21
+<pre><code class="language-plantuml">@startuml UC03_Sequence_Add_Reader
 actor &quot;Thủ thư&quot; as Actor
 participant &quot;ReaderPage&quot; as GiaoDien
 participant &quot;Form thêm độc giả&quot; as Form
@@ -1923,7 +1923,7 @@ Message flow:
 13. The result with the due date is returned to Giao diện; Giao diện shows the borrow-success message (format dd/mm/yyyy hh:mm).
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_24
+<pre><code class="language-plantuml">@startuml UC04_Sequence_Borrow_Book
 actor &quot;Thủ thư&quot; as Actor
 participant &quot;BorrowPage&quot; as GiaoDien
 participant &quot;Form mượn sách&quot; as Form
@@ -2004,7 +2004,7 @@ Message flow:
 8. Commit the transaction. The result is returned to Giao diện; Giao diện shows the return-success message.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_27
+<pre><code class="language-plantuml">@startuml UC05_Sequence_Return_Book
 actor &quot;Thủ thư&quot; as Actor
 participant &quot;ReturnPage&quot; as GiaoDien
 participant &quot;Form xác nhận trả sách&quot; as Form
@@ -2058,7 +2058,7 @@ Message flow:
 5. The list with overdue days and estimated fines is returned to Giao diện; Giao diện renders the table sorted by overdue days descending.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_30
+<pre><code class="language-plantuml">@startuml UC06_Sequence_Overdue_List
 actor &quot;Thủ thư&quot; as Actor
 participant &quot;OverduePage&quot; as GiaoDien
 participant &quot;Form lọc/tìm kiếm và sắp xếp&quot; as Form
@@ -2108,7 +2108,7 @@ Print/PDF flow (UC14):
 7. Actor clicks &quot;In / Lưu PDF&quot; → Giao diện calls window.print(); the @media print CSS prints only the report block.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_33
+<pre><code class="language-plantuml">@startuml UC07_Sequence_Statistics
 actor &quot;Thủ thư / Admin&quot; as Actor
 participant &quot;StatsPage&quot; as GiaoDien
 participant &quot;Form lọc lịch sử&quot; as Form
@@ -2157,7 +2157,7 @@ Message flow:
 6. The data is returned to Giao diện; Giao diện renders: the Borrowing tab (&quot;Sắp hết hạn&quot;/&quot;Quá hạn&quot; labels), the Reservations tab (status badge, appointment, QR code when approved, Cancel button when pending), the History tab (fine per loan).
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_36
+<pre><code class="language-plantuml">@startuml UC08_Sequence_My_Books
 actor &quot;Độc giả&quot; as Actor
 participant &quot;MyBooksPage&quot; as GiaoDien
 participant &quot;Form 3 tab&quot; as Form
@@ -2201,7 +2201,7 @@ Message flow:
 6. The result is returned to Giao diện; Giao diện shows the save-success message. (New parameters apply to newly created loans only — D10.)
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_39
+<pre><code class="language-plantuml">@startuml UC09_Sequence_System_Configuration
 actor &quot;Admin&quot; as Actor
 participant &quot;SettingsPage&quot; as GiaoDien
 participant &quot;Form cấu hình&quot; as Form
@@ -2246,7 +2246,7 @@ Message flow:
 7. The result is returned to Giao diện; Giao diện shows &quot;Thêm tài khoản thành công&quot; and reloads the list.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_42
+<pre><code class="language-plantuml">@startuml UC10_Sequence_Add_Librarian_Account
 actor &quot;Admin&quot; as Actor
 participant &quot;AccountsPage&quot; as GiaoDien
 participant &quot;Form thêm tài khoản&quot; as Form
@@ -2294,7 +2294,7 @@ Phase 2 — Librarian approves:
 12. The result is returned to Giao diện; the &quot;Chờ duyệt&quot; badge and the reader-side status update automatically (poll every 5 seconds).
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_45
+<pre><code class="language-plantuml">@startuml UC11_Sequence_Reserve_and_Approve
 actor &quot;Độc giả / Thủ thư&quot; as Actor
 participant &quot;BookDetailPage / ReservationsPage&quot; as GiaoDien
 participant &quot;Form đặt trước / Form duyệt&quot; as Form
@@ -2348,7 +2348,7 @@ Message flow:
 4. Actor (Độc giả) with the web open: Giao diện polls Hệ thống: NotificationController.unreadCount() every 5 seconds → CSDL: SELECT COUNT; the unread count on the bell increases; clicking the bell reveals the new yellow notification with the pickup QR code.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_50
+<pre><code class="language-plantuml">@startuml UC13_Sequence_Automatic_Notification_on_Reservation_Approval
 actor &quot;Thủ thư / Độc giả&quot; as Actor
 participant &quot;ReservationsPage&quot; as GiaoDien
 participant &quot;Form duyệt&quot; as Form
@@ -2386,7 +2386,7 @@ Flow:
 11. LandingPage --&gt; Guest: book grid with match % and reason
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_uc16_c
+<pre><code class="language-plantuml">@startuml UC16_Sequence
 actor Guest
 participant LandingPage
 participant PublicController
@@ -2423,7 +2423,7 @@ LandingPage --&gt; Guest : book grid with match % and reason
 5. alt [invalid/expired/used token]: return 400 &quot;link invalid or expired&quot;.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_uc18
+<pre><code class="language-plantuml">@startuml UC18_Sequence_QuenMatKhau
 actor Reader
 participant &quot;Giao dien&quot; as GiaoDien
 participant &quot;Form/Controller&quot; as Form
@@ -2461,7 +2461,7 @@ end
 5. alt [not verified yet]: the app layout shows a reminder banner; from the Profile page the reader can change email (resets to unverified + sends a new link) or resend the verification email (1 per minute).
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_uc19
+<pre><code class="language-plantuml">@startuml UC19_Sequence_XacThucEmail
 actor Reader
 participant &quot;Giao dien&quot; as GiaoDien
 participant &quot;Form/Controller&quot; as Form
@@ -2507,7 +2507,7 @@ Message flow:
 6. Hệ thống returns success → Giao diện reports the successful cancellation and refreshes the list.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_uc12_sequence
+<pre><code class="language-plantuml">@startuml UC12_Sequence_Cancel_Reservation
 actor &quot;Độc giả&quot; as Actor
 participant &quot;MyReservationsPage&quot; as GiaoDien
 participant &quot;Form xác nhận hủy&quot; as Form
@@ -2556,7 +2556,7 @@ Message flow:
 6. On success, Hệ thống → CSDL: INSERT table email_reminders (loan_id, type, recipient_email, provider_id, sent_day) (EmailReminderRepository.save). On failure, Hệ thống logs the error and continues with the next loan (no row is inserted, so the next scan retries it).
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_uc17_c
+<pre><code class="language-plantuml">@startuml UC17_Sequence_NhacHanQuaEmail
 actor Scheduler
 participant &quot;Hệ thống&quot; as HeThong
 database &quot;MySQL&quot; as CSDL
@@ -2603,7 +2603,7 @@ Relationships:
 - UserService → User, UserService → UserRepository
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_16
+<pre><code class="language-plantuml">@startuml UC01_Class
 class LoginPage &lt;&lt;boundary&gt;&gt; {
 }
 class AuthController &lt;&lt;control&gt;&gt; {
@@ -2656,7 +2656,7 @@ Relationships:
 - Category 1 — * Book
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_19
+<pre><code class="language-plantuml">@startuml UC02_Class
 class BookPage &lt;&lt;boundary&gt;&gt; {
 }
 class BookController &lt;&lt;control&gt;&gt; {
@@ -2739,7 +2739,7 @@ Relationships:
 - UserService → User, UserService → UserRepository
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_22
+<pre><code class="language-plantuml">@startuml UC03_Class
 class ReaderPage &lt;&lt;boundary&gt;&gt; {
 }
 class ReaderController &lt;&lt;control&gt;&gt; {
@@ -2802,7 +2802,7 @@ Relationships:
 - User 1 — * Loan, Book 1 — * Loan, User 1 — * Reservation, Book 1 — * Reservation
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_25
+<pre><code class="language-plantuml">@startuml UC04_Class
 class BorrowPage &lt;&lt;boundary&gt;&gt; {
 }
 class LoanController &lt;&lt;control&gt;&gt; {
@@ -2901,7 +2901,7 @@ Relationships:
 - LoanService → LoanRepository, LoanService → BookRepository, LoanService → SettingsRepository
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_28
+<pre><code class="language-plantuml">@startuml UC05_Class
 class ReturnPage &lt;&lt;boundary&gt;&gt; {
 }
 class LoanController &lt;&lt;control&gt;&gt; {
@@ -2973,7 +2973,7 @@ Relationships:
 - Each Loan is linked to one Book and one User
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_31
+<pre><code class="language-plantuml">@startuml UC06_Class
 class OverduePage &lt;&lt;boundary&gt;&gt; {
 }
 class LoanController &lt;&lt;control&gt;&gt; {
@@ -3031,7 +3031,7 @@ Relationships:
 - StatsService → BookRepository, StatsService → LoanRepository, StatsService → UserRepository
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_34
+<pre><code class="language-plantuml">@startuml UC07_Class
 class StatsPage &lt;&lt;boundary&gt;&gt; {
 }
 class StatsController &lt;&lt;control&gt;&gt; {
@@ -3089,7 +3089,7 @@ Relationships:
 - LoanService → Loan, ReservationService → Reservation
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_37
+<pre><code class="language-plantuml">@startuml UC08_Class
 class MyBooksPage &lt;&lt;boundary&gt;&gt; {
 }
 class LoanController &lt;&lt;control&gt;&gt; {
@@ -3156,7 +3156,7 @@ Relationships:
 - SettingsService → Settings, SettingsService → SettingsRepository
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_40
+<pre><code class="language-plantuml">@startuml UC09_Class
 class SettingsPage &lt;&lt;boundary&gt;&gt; {
 }
 class SettingsController &lt;&lt;control&gt;&gt; {
@@ -3201,7 +3201,7 @@ Relationships:
 - AccountService → User, AccountService → UserRepository
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_43
+<pre><code class="language-plantuml">@startuml UC10_Class
 class AccountsPage &lt;&lt;boundary&gt;&gt; {
 }
 class AccountController &lt;&lt;control&gt;&gt; {
@@ -3256,7 +3256,7 @@ Relationships:
 - Book 1 — * Reservation, User 1 — * Reservation, User 1 — * Notification
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_46
+<pre><code class="language-plantuml">@startuml UC11_Class
 class BookDetailPage &lt;&lt;boundary&gt;&gt; {
 }
 class ReservationsPage &lt;&lt;boundary&gt;&gt; {
@@ -3351,7 +3351,7 @@ Relationships:
 - Book 1 — * Reservation, User 1 — * Reservation, User 1 — * Notification
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_uc12_class
+<pre><code class="language-plantuml">@startuml UC12_Class
 class MyReservationsPage &lt;&lt;boundary&gt;&gt; {
 }
 class ReservationController &lt;&lt;control&gt;&gt; {
@@ -3436,7 +3436,7 @@ Relationships:
 - Notification 1 — * NotificationRead, User 1 — * NotificationRead, User 1 — * Notification (via createdBy)
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_uc13_class
+<pre><code class="language-plantuml">@startuml UC13_Class
 class NotificationsPage &lt;&lt;boundary&gt;&gt; {
 }
 class NotificationController &lt;&lt;control&gt;&gt; {
@@ -3509,7 +3509,7 @@ Relationships:
 - BookRepository → Book
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_uc16_d
+<pre><code class="language-plantuml">@startuml UC16_Class
 class LandingPage &lt;&lt;boundary&gt;&gt; {
 }
 class PublicController &lt;&lt;control&gt;&gt; {
@@ -3566,7 +3566,7 @@ Relationships:
 - Loan 1 — * EmailReminder, User 1 — * Loan
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_uc17_d
+<pre><code class="language-plantuml">@startuml UC17_Class
 class ReminderScheduler &lt;&lt;control&gt;&gt; {
   scan()
 }
@@ -3645,7 +3645,7 @@ Relationships:
 - User 1 — * EmailToken
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_uc18_class
+<pre><code class="language-plantuml">@startuml UC18_Class
 class ForgotPasswordPage &lt;&lt;boundary&gt;&gt; {
 }
 class ResetPasswordPage &lt;&lt;boundary&gt;&gt; {
@@ -3723,7 +3723,7 @@ Relationships:
 - User 1 — * EmailToken
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_uc19_class
+<pre><code class="language-plantuml">@startuml UC19_Class
 class RegisterPage &lt;&lt;boundary&gt;&gt; {
 }
 class VerifyEmailPage &lt;&lt;boundary&gt;&gt; {
@@ -3849,7 +3849,7 @@ Relationships:
 - users 1 — n email_tokens, loans 1 — n email_reminders
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml prompt_51
+<pre><code class="language-plantuml">@startuml System_ERD
 entity users {
   * id : INT &lt;&lt;PK&gt;&gt;
   username : VARCHAR(50) &lt;&lt;unique&gt;&gt;
