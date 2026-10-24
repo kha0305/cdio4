@@ -1,5 +1,5 @@
-# Tài liệu CDIO 4 — Website Quản lý Thư viện Mini
+# Tai lieu CDIO 4
 
-Trang tài liệu đồ án CDIO 4 của Bảo Kha, xem tại https://nanioe.me/cdio4/
+Web tai lieu do an CDIO 4 (Website Quan ly Thu vien Mini): https://nanioe.me/cdio4/
 
-Nội dung được xuất từ tài liệu gốc (Conceive, hồ sơ phân tích thiết kế, prompt UML, kịch bản kiểm thử, SQL) và cập nhật mỗi khi tài liệu gốc thay đổi.
+Trang duoc tao tu dong tu tai lieu goc; khong sua truc tiep cac file HTML o day.
