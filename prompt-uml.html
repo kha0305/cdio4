@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Prompt UML — 67 prompt cho Visual Paradigm — Tài liệu CDIO 4</title>
+<title>Prompt UML — 66 prompt cho Visual Paradigm — Tài liệu CDIO 4</title>
 <meta name="description" content="Tài liệu đồ án CDIO 4 — Website Quản lý Thư viện Đại học: conceive, phân tích thiết kế, prompt UML, kiểm thử, SQL.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>B</text></svg>">
 <link rel="stylesheet" href="style.css?v=9">
@@ -19,7 +19,7 @@
 <div class="side-label">Tài liệu</div>
 <nav class="doc-nav">
 <a href="index.html">Mục lục tổng</a>
-<div class="nav-group">Thiết kế &amp; phân tích</div><a href="conceive.html">Conceive</a><a href="ho-so-thiet-ke.html">Hồ sơ phân tích &amp; thiết kế</a><a href="prompt-uml.html" class="active">Prompt UML (67 prompt)</a><a href="phan-ra.html">Phân rã</a><a href="luong-hoat-dong.html">Luồng hoạt động</a><div class="nav-group">Kiểm thử</div><a href="kich-ban-kiem-thu.html">Kịch bản kiểm thử</a><div class="nav-group">Dữ liệu</div><a href="du-lieu-sql.html">SQL reset CSDL</a><div class="nav-group">Tiến độ</div><a href="tien-do.html">Tiến độ</a><a href="phan-cong.html">Phân công</a>
+<div class="nav-group">Thiết kế &amp; phân tích</div><a href="conceive.html">Conceive</a><a href="ho-so-thiet-ke.html">Hồ sơ phân tích &amp; thiết kế</a><a href="prompt-uml.html" class="active">Prompt UML (66 prompt)</a><a href="phan-ra.html">Phân rã</a><a href="luong-hoat-dong.html">Luồng hoạt động</a><div class="nav-group">Kiểm thử</div><a href="kich-ban-kiem-thu.html">Kịch bản kiểm thử</a><div class="nav-group">Dữ liệu</div><a href="du-lieu-sql.html">SQL reset CSDL</a><div class="nav-group">Tiến độ</div><a href="tien-do.html">Tiến độ</a><a href="phan-cong.html">Phân công</a>
 </nav>
 <div class="side-label">Trong trang này</div>
 <nav class="toc">
@@ -27,8 +27,7 @@
 <a href="#sequence-diagram-exactly-5-lifelines" class="lv3">Sequence diagram — exactly 5 lifelines</a>
 <a href="#activity-diagram-exactly-4-swimlanes" class="lv3">Activity diagram — exactly 4 swimlanes</a>
 <a href="#class-diagram-standard" class="lv3">Class diagram (standard)</a>
-<a href="#so-do-tong-the-2-prompt" class="toc-group">Sơ đồ tổng thể (2 prompt)</a>
-<a href="#prompt-0-overall-system-activity-diagram" class="toc-prompt">Prompt 0 — Sơ đồ Activity tổng thể</a>
+<a href="#so-do-tong-the-1-prompt" class="toc-group">Sơ đồ tổng thể (1 prompt)</a>
 <a href="#prompt-1-overall-system-use-case-diagram" class="toc-prompt">Prompt 1 — Sơ đồ Use Case tổng thể</a>
 <a href="#uc01-dang-nhap-4-prompt" class="toc-group">UC01 — Đăng nhập (4 prompt)</a>
 <a href="#prompt-2-uc01-use-case-diagram-login" class="toc-prompt">Prompt 2 — UC01 Sơ đồ Use Case: Đăng nhập</a>
@@ -116,10 +115,10 @@
 </aside>
 <div class="backdrop" id="backdrop"></div>
 <main class="content">
-<h1>Prompt UML — 67 prompt cho Visual Paradigm</h1>
-<p class="meta">Đồ án Website Quản lý Thư viện Đại học &middot; Cập nhật lần cuối: 24/10/2026</p>
+<h1>Prompt UML — 66 prompt cho Visual Paradigm</h1>
+<p class="meta">Đồ án Website Quản lý Thư viện Đại học &middot; Cập nhật lần cuối: 25/10/2026</p>
 <h1>UML PROMPT SET — University Library Management Web App</h1>
-<p>67 prompts; each prompt generates exactly 1 diagram in Visual Paradigm AI.
+<p>66 prompts; each prompt generates exactly 1 diagram in Visual Paradigm AI.
 Select the diagram type stated in the prompt title before pasting.</p>
 <h2 id="mandatory-drawing-conventions-apply-to-every-prompt">MANDATORY DRAWING CONVENTIONS (apply to every prompt)</h2>
 <h3 id="sequence-diagram-exactly-5-lifelines">Sequence diagram — exactly 5 lifelines</h3>
@@ -138,130 +137,7 @@ Select the diagram type stated in the prompt title before pasting.</p>
 <h3 id="class-diagram-standard">Class diagram (standard)</h3>
 <p>Only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes <code>&lt;&lt;boundary&gt;&gt;</code>, <code>&lt;&lt;control&gt;&gt;</code> or <code>&lt;&lt;entity&gt;&gt;</code> — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database. Relationships: Frm -- Controller is a solid line labeled "form uses controller", 1 - 1; Controller ..&gt; Entity is a dashed dependency labeled "uses Entity"; Entity -- Entity is a solid association with multiplicities where listed. External services (GeminiAPI, Resend) are plain classes used by the Controller with a dashed "uses ... (external)" dependency.</p>
 <hr />
-<h2 id="so-do-tong-the-2-prompt">Sơ đồ tổng thể (2 prompt)</h2><p>Các prompt tổng thể: Activity tổng thể (Prompt 0) và Use Case tổng thể (Prompt 1).</p><h2 id="prompt-0-overall-system-activity-diagram">Prompt 0 — Sơ đồ Activity tổng thể</h2>
-<pre><code>Draw ONE activity diagram covering the entire university library management system.
-
-Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
-- Actor: user actions — here including Khách (not logged in), Độc giả, Thủ thư, Admin (state the role in parentheses).
-- Giao diện: rendering pages/forms/notifications, navigation.
-- Hệ thống: data validation, business logic, code generation, calculations, automatic notifications.
-- CSDL: all data read/write operations.
-
-Overall flow:
-- [Actor (Khách)] Start point: Khách opens the landing page (no login required).
-- [Giao diện] Display the home page: search books by name, search books by description with AI (UC16), book catalog, overview statistics.
-- [Actor (Khách)] Look up books: view each book's status (Còn / Đang giữ chỗ / Đang mượn), view details + copy counts (Còn X/Y bản).
-- [Actor (Khách)] Search books by description with AI (UC16): enter a description (3-600 chars) → Gemini ranks the catalog (max 8, with match % and reason); if AI is unavailable or no key is configured, keyword fallback scoring over title/author/category is used instead.
-- [Hệ thống] Decision node: Does Khách want to borrow or reserve a book?
-  - Branch No: go to the end point (guest branch).
-  - Branch Yes: [Giao diện] navigate to the login/registration page.
-- [Actor] Log in (UC01, login only): enter username/password.
-- [Actor] Register (UC19, separate from UC01): enter full name, student code, phone, username, password and a real email on the registration page → account created with email_verified = 0 and a verification link sent via Resend.
-- [Actor] Forgot password (UC18): enter the account email on the Forgot Password page → the system always shows the same generic message (never reveals whether the email exists); if an active account with that email exists, a reset link (30-minute, single-use token, SHA-256 hash only) is sent via Resend → the reader opens the link and sets a new password.
-- [Hệ thống] Decision node: What is the role? (authenticate via the CSDL table users, create JWT)
-  - Branch &quot;Độc giả&quot;:
-    - [Actor (Độc giả)] Search books → [Actor (Độc giả)] reserve an available copy (UC11): enter the desired pickup time → [CSDL] INSERT table reservations (status = 'pending', generate code).
-    - [Actor (Độc giả)] Open &quot;My reservations&quot;: view status/appointment; approved reservations show the QR code + text code; can only cancel while still pending (UC12).
-    - [Actor (Độc giả)] Come to the counter with the reservation QR code → [Actor (Thủ thư)] scan → lend (UC04): [CSDL] INSERT table loans, UPDATE the book to 'borrowed', the reservation to 'fulfilled'.
-    - [Actor (Độc giả)] Open &quot;My books&quot;: track due dates; receive due-date reminders / overdue notifications (UC13).
-    - [Actor (Độc giả)] Verify email (UC19): if email_verified = 0, the layout shows a reminder banner; from the Profile page the reader can change the email (resets to unverified and sends a new link) or resend the verification email (1 per minute); clicking the link in the email sets email_verified = 1.
-    - End point (reader branch).
-  - Branch &quot;Thủ thư&quot;:
-    - [Actor (Thủ thư)] Manage books (UC02 + UC15): CRUD, generate book_code (&lt;MÃ_TL&gt;-&lt;seq&gt;), upload cover images, add N copies at once, import Excel, manage categories separately.
-    - [Actor (Thủ thư)] Open &quot;Reservation management&quot;: [Hệ thống] Decision node: approve or reject? (UC11)
-      - Branch &quot;Approve&quot;: confirm the appointment time → [CSDL] UPDATE reservations to 'approved' (hold until pickup_at + 2 hours).
-      - Branch &quot;Reject&quot;: enter the reason → [CSDL] UPDATE to 'rejected', unlock the book immediately.
-    - [Actor (Thủ thư)] Scan the book QR (or the reservation code / enter the code manually) → lend at the counter (UC04).
-    - [Actor (Thủ thư)] Scan the QR to receive returned books: [Hệ thống] calculate the late fine (D6, D7) → [CSDL] UPDATE loans (returned_at, fine_amount) (UC05).
-    - [Actor (Thủ thư)] Open &quot;Overdue&quot;: [Hệ thống] list overdue loans, auto-send overdue notifications to readers (UC06 + UC13).
-    - [Actor (Thủ thư)] Open &quot;Statistics&quot;: view figures/charts; export Excel (2 sheets) / print-save PDF (UC07 + UC14).
-    - [Actor (Thủ thư)] Manage readers (UC03): add (default password), edit, lock.
-    - End point (librarian branch).
-  - Branch &quot;Admin&quot;:
-    - [Actor (Admin)] Manage librarian accounts: add/lock/reset password (UC10).
-    - [Actor (Admin)] System configuration: edit loan days, fine per day, max books, reservation hold hours (UC09; applies to new loans only).
-    - [Actor (Admin)] View statistics, create general announcements (UC13).
-    - End point (admin branch).
-
-Background flows of the Hệ thống (no actor needed, run in parallel):
-- [Hệ thống] Automatic notifications (UC13): new reservation → all librarians; approve/reject → that reader; loan created → due-date reminder for the reader; overdue detected → red warning for the reader (once per loan).
-- [Hệ thống] Due-date reminder emails (UC17, Scheduler): on startup and every 6 hours, scan active loans with a reader email; due within 48h and never reminded → 'due soon' email; overdue and (never reminded OR last reminder &gt;= 3 days ago) → 'overdue' email including the fine estimate; on success INSERT a row into email_reminders (prevents duplicates), on failure log the error and continue with the next loan.
-- [Hệ thống] 'pending' reservations past expires_at (48 hours) not yet reviewed → [CSDL] UPDATE to 'expired'.
-- [Hệ thống] 'approved' reservations past pickup_at + 2 hours not yet picked up → [CSDL] UPDATE to 'expired'.
-</code></pre>
-<p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml Overall_Activity
-|Actor|
-start
-:Khách mở trang chủ (không cần đăng nhập);
-|Giao diện|
-:Hiển thị trang chủ: tìm sách theo tên, tìm sách theo mô tả bằng AI (UC16), danh mục sách, thống kê tổng quan;
-|Actor|
-:Khách tra cứu sách: xem trạng thái từng cuốn (Còn / Đang giữ chỗ / Đang mượn), xem chi tiết và số bản (Còn X/Y bản);
-:Khách tìm sách theo mô tả bằng AI (UC16): nhập mô tả 3-600 ký tự;
-|Hệ thống|
-:Gemini xếp hạng danh mục (tối đa 8 cuốn, kèm phần trăm khớp và lý do); nếu AI không khả dụng hoặc chưa cấu hình key thì dùng chấm điểm từ khóa dự phòng theo tiêu đề, tác giả, thể loại;
-if (Khách muốn mượn hoặc đặt trước sách?) then (không)
-  stop
-else (có)
-endif
-|Giao diện|
-:Chuyển tới trang đăng nhập hoặc đăng ký;
-|Actor|
-:Đăng nhập (UC01, chỉ đăng nhập): nhập tên đăng nhập và mật khẩu;
-:Đăng ký (UC19, tách riêng khỏi UC01): nhập họ tên, mã sinh viên, số điện thoại, tên đăng nhập, mật khẩu và email thật trên trang đăng ký; tài khoản tạo với email_verified bằng 0 và link xác thực gửi qua Resend;
-:Quên mật khẩu (UC18): nhập email tài khoản trên trang Quên mật khẩu; hệ thống luôn hiển thị cùng một thông báo chung, không tiết lộ email có tồn tại hay không; nếu tài khoản đang hoạt động có email đó thì link đặt lại mật khẩu (token 30 phút, dùng 1 lần, chỉ lưu hash SHA-256) gửi qua Resend; người đọc mở link và đặt mật khẩu mới;
-|Hệ thống|
-if (Vai trò là gì?) then (Độc giả)
-  |Actor|
-  :Độc giả tìm sách và đặt trước bản còn trống (UC11): nhập thời gian nhận mong muốn;
-  |CSDL|
-  :INSERT bảng reservations (status bằng pending, sinh code);
-  |Actor|
-  :Độc giả mở Đặt trước của tôi: xem trạng thái và lịch hẹn; đặt trước đã duyệt hiển thị mã QR và mã chữ; chỉ hủy được khi còn pending (UC12);
-  :Độc giả mang mã QR đặt trước tới quầy, Thủ thư quét và cho mượn (UC04);
-  |CSDL|
-  :INSERT bảng loans, UPDATE sách thành borrowed, UPDATE đặt trước thành fulfilled;
-  |Actor|
-  :Độc giả mở Sách của tôi: theo dõi hạn trả, nhận nhắc hạn và thông báo quá hạn (UC13);
-  :Độc giả xác thực email (UC19): nếu email_verified bằng 0 thì giao diện hiển thị banner nhắc; từ trang Hồ sơ có thể đổi email (trở về chưa xác thực và gửi link mới) hoặc gửi lại email xác thực (1 phút 1 lần); bấm link trong email thì email_verified bằng 1;
-elseif (Thủ thư) then
-  |Actor|
-  :Thủ thư quản lý sách (UC02 và UC15): CRUD, sinh book_code, tải ảnh bìa, thêm N bản cùng lúc, nhập Excel, quản lý thể loại riêng;
-  :Thủ thư mở Quản lý đặt trước;
-  |Hệ thống|
-  if (Duyệt hay từ chối? (UC11)) then (Duyệt)
-    |Actor|
-    :Thủ thư xác nhận thời gian hẹn nhận;
-    |CSDL|
-    :UPDATE reservations thành approved (giữ tới pickup_at cộng 2 giờ);
-  else (Từ chối)
-    |Actor|
-    :Thủ thư nhập lý do từ chối;
-    |CSDL|
-    :UPDATE reservations thành rejected, mở khóa sách ngay;
-  endif
-  |Actor|
-  :Thủ thư quét mã QR sách (hoặc mã đặt trước, hoặc nhập mã thủ công) và cho mượn tại quầy (UC04);
-  :Thủ thư quét mã QR nhận sách trả: tính tiền phạt trễ (D6, D7);
-  |CSDL|
-  :UPDATE loans (returned_at, fine_amount) (UC05);
-  |Actor|
-  :Thủ thư mở Quá hạn: liệt kê phiếu quá hạn, tự động gửi thông báo quá hạn cho độc giả (UC06 và UC13);
-  :Thủ thư mở Thống kê: xem số liệu và biểu đồ, xuất Excel (2 sheet) hoặc in và lưu PDF (UC07 và UC14);
-  :Thủ thư quản lý độc giả (UC03): thêm (mật khẩu mặc định), sửa, khóa;
-elseif (Admin) then
-  |Actor|
-  :Admin quản lý tài khoản thủ thư: thêm, khóa, đặt lại mật khẩu (UC10);
-  :Admin cấu hình hệ thống: sửa số ngày mượn, tiền phạt mỗi ngày, số sách tối đa, số giờ giữ đặt trước (UC09, chỉ áp dụng cho phiếu mới);
-  :Admin xem thống kê, tạo thông báo chung (UC13);
-endif
-|Hệ thống|
-stop
-@enduml
-</code></pre>
-<hr />
-<h2 id="prompt-1-overall-system-use-case-diagram">Prompt 1 — Sơ đồ Use Case tổng thể</h2>
+<h2 id="so-do-tong-the-1-prompt">Sơ đồ tổng thể (1 prompt)</h2><p>Prompt tổng thể duy nhất: Use Case tổng thể (Prompt 1).</p><h2 id="prompt-1-overall-system-use-case-diagram">Prompt 1 — Sơ đồ Use Case tổng thể</h2>
 <pre><code>Create exactly 1 Use Case Diagram. Use only the elements below; do not add any other actor or use case.
 
 **Actors:** Khách, Độc giả, Thủ Thư, Admin, Dịch vụ gửi email (secondary actor, external), Gemini API (secondary actor, external).
