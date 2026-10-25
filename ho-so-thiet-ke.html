@@ -42,6 +42,8 @@
 <a href="#uc10-quan-ly-tai-khoan-thu-thu">UC10 — Quản lý tài khoản thủ thư</a>
 <a href="#uc11-dat-truoc-sach-sua-16-10-2026-them-luong-duyet-cua-thu-thu">UC11 — Đặt trước sách (sửa 16/10/2026: thêm luồng duyệt của thủ thư)</a>
 <a href="#uc13-he-thong-thong-bao-moi-16-10-2026">UC13 — Hệ thống thông báo (mới 16/10/2026)</a>
+<a href="#uc13a-quan-ly-thong-bao-admin-thu-thu" class="lv3">UC13a — Quản lý thông báo (Admin, Thủ thư)</a>
+<a href="#uc13b-xem-thong-bao-doc-gia-khach-chi-xem-the-noi" class="lv3">UC13b — Xem thông báo (Độc giả; Khách chỉ xem thẻ nổi)</a>
 <a href="#uc16-tim-sach-bang-ai-theo-mo-ta-noi-dung-moi-23-10-2026">UC16 — Tìm sách bằng AI theo mô tả nội dung (mới 23/10/2026)</a>
 <a href="#uc17-nhac-han-tra-sach-qua-email-moi-23-10-2026">UC17 — Nhắc hạn trả sách qua email (mới 23/10/2026)</a>
 <a href="#uc18-quen-mat-khau-dat-lai-mat-khau-qua-email-moi-23-10-2026">UC18 — Quên mật khẩu / đặt lại mật khẩu qua email (mới 23/10/2026)</a>
@@ -103,7 +105,7 @@
 <a href="#uc10-quan-ly-tai-khoan-thu-thu-2" class="lv3">UC10 — Quản lý tài khoản thủ thư</a>
 <a href="#uc11-dat-truoc-sach-sua-16-10-2026-them-luong-duyet" class="lv3">UC11 — Đặt trước sách (sửa 16/10/2026: thêm luồng duyệt)</a>
 <a href="#uc12-huy-dat-truoc-gop-vao-uc08" class="lv3">UC12 — Hủy đặt trước (gộp vào UC08)</a>
-<a href="#uc13-he-thong-thong-bao" class="lv3">UC13 — Hệ thống thông báo</a>
+<a href="#uc13-he-thong-thong-bao-tach-2-muc-con-ma-test-giu-nguyen" class="lv3">UC13 — Hệ thống thông báo (tách 2 mục con, mã test giữ nguyên)</a>
 <a href="#uc14-xuat-bao-cao-gop-vao-uc07" class="lv3">UC14 — Xuất báo cáo (gộp vào UC07)</a>
 <a href="#uc15-quan-ly-sach-mo-rong-gop-vao-uc02" class="lv3">UC15 — Quản lý sách mở rộng (gộp vào UC02)</a>
 <a href="#uc16-tim-sach-bang-ai-theo-mo-ta" class="lv3">UC16 — Tìm sách bằng AI theo mô tả</a>
@@ -170,7 +172,7 @@
 <hr />
 <h1>3. Đặc tả chức năng (16 UC chính; UC12/14/15 gộp, xem ghi chú trong UC08/07/02)</h1>
 <blockquote>
-<p><strong>Các UC đã gộp (không có sơ đồ riêng):</strong> UC12 Hủy đặt trước → xem mục con trong UC08; UC14 Xuất báo cáo Excel / In PDF → xem mục con trong UC07; UC15 Quản lý sách mở rộng → xem mục con trong UC02. Số UC giữ nguyên để khỏi vỡ phân công, tiến độ và prompt.</p>
+<p><strong>Các UC đã gộp (không có sơ đồ riêng):</strong> UC12 Hủy đặt trước → xem mục con trong UC08; UC14 Xuất báo cáo Excel / In PDF → xem mục con trong UC07; UC15 Quản lý sách mở rộng → xem mục con trong UC02. Số UC giữ nguyên để khỏi vỡ phân công, tiến độ và prompt. UC13 cũng tách 2 mục con (UC13a Quản lý thông báo, UC13b Xem thông báo) nhưng vẫn tính là 1 UC, không tính thêm UC hay prompt.</p>
 </blockquote>
 <h2 id="uc01-dang-nhap">UC01 — Đăng nhập</h2>
 <ul>
@@ -418,22 +420,32 @@
 <hr />
 <h2 id="uc13-he-thong-thong-bao-moi-16-10-2026">UC13 — Hệ thống thông báo (mới 16/10/2026)</h2>
 <blockquote>
-<p>Ghi chú: ở sơ đồ tổng thể, UC13 tách thành 2 oval Xem thông báo (độc giả/khách xem thẻ nổi ở landing) và Quản lý thông báo (thủ thư/admin tạo).</p>
+<p>Ghi chú: ở sơ đồ tổng thể, UC13 tách thành 2 oval Xem thông báo và Quản lý thông báo. Từ 25/10/2026, đặc tả này cũng tách UC13 thành 2 mục con UC13a và UC13b dưới đây. Đây vẫn là 1 UC, không phải 2 UC mới: không đổi số prompt (vẫn 66), phân công hay tiến độ.</p>
 </blockquote>
 <ul>
-<li><strong>Tác nhân:</strong> Độc giả, Thủ thư, Admin (xem); Thủ thư, Admin (tạo); Hệ thống (tự động sinh)</li>
-<li><strong>Mô tả:</strong> Chuông thông báo ở topbar + badge số chưa đọc (poll 5 giây); trang "Thông báo" cho cả 3 vai trò; thông báo chung có thể hiện thẻ nổi ở landing page.</li>
+<li><strong>Chung cho cả 2 mục con:</strong> Chuông thông báo ở topbar + badge số chưa đọc (poll 5 giây); trang "Thông báo" dùng chung; thông báo chung có thể hiện thẻ nổi ở landing page.</li>
 <li><strong>Loại &amp; màu:</strong> đặt trước (vàng), mượn/trả (xanh dương), quá hạn (đỏ), chung (xanh lá), hệ thống (xám).</li>
-<li><strong>Tiền điều kiện:</strong> Đã đăng nhập (trừ xem thẻ nổi ở landing).</li>
-<li><strong>Luồng chính — Tự động:</strong>
+<li><strong>Bảng dùng chung:</strong> <code>notifications</code> (nội dung, đối tượng, loại, cờ <code>show_on_landing</code>, người tạo) và <code>notification_reads</code> (trạng thái đã đọc theo từng user).</li>
+</ul>
+<h3 id="uc13a-quan-ly-thong-bao-admin-thu-thu">UC13a — Quản lý thông báo (Admin, Thủ thư)</h3>
+<ul>
+<li><strong>Tác nhân:</strong> Thủ thư, Admin (tạo/gửi); Hệ thống (tự động sinh).</li>
+<li><strong>Tiền điều kiện:</strong> Đã đăng nhập với vai trò Admin hoặc Thủ thư.</li>
+<li><strong>Luồng chính — Tạo tay:</strong>
+  1. Thủ thư/Admin mở trang "Thông báo", bấm "Tạo thông báo".
+  2. Nhập tiêu đề, nội dung; chọn đối tượng (toàn hệ thống / tất cả độc giả / tất cả thủ thư / một độc giả cụ thể), chọn loại, chọn cờ hiện thẻ nổi ở landing (chỉ loại "chung").
+  3. Hệ thống lưu vào bảng <code>notifications</code>; badge chưa đọc trên chuông của người nhận tăng lên.</li>
+<li><strong>Luồng chính — Tự động (phía gửi):</strong>
   1. Lượt đặt trước mới được tạo → thông báo loại "đặt trước" gửi tất cả thủ thư.
   2. Thủ thư duyệt/từ chối → thông báo gửi đúng độc giả đó (kèm lịch hẹn hoặc lý do).
   3. Phiếu mượn được tạo → thông báo loại "mượn/trả" nhắc độc giả hạn trả.
   4. Mở trang Quá hạn → mỗi phiếu quá hạn chưa báo (<code>overdue_notified = 0</code>) → báo độc giả 1 lần rồi đánh dấu đã báo.</li>
-<li><strong>Luồng chính — Thủ công:</strong>
-  1. Thủ thư/Admin mở trang "Thông báo", bấm "Tạo thông báo".
-  2. Nhập tiêu đề, nội dung; chọn đối tượng (toàn hệ thống / tất cả độc giả / tất cả thủ thư / một độc giả cụ thể), chọn loại, chọn cờ hiện thẻ nổi ở landing (chỉ loại "chung").
-  3. Hệ thống lưu; badge chưa đọc trên chuông của người nhận tăng lên.</li>
+<li><strong>Xem khi quản lý:</strong> Admin/Thủ thư xem danh sách thông báo trên cùng trang "Thông báo" để quản lý; luồng đọc chung (chuông, đánh dấu đã đọc) áp cho cả 3 vai trò đã đăng nhập, nhưng không vẽ luồng riêng cho Admin/Thủ thư ở mục con này.</li>
+</ul>
+<h3 id="uc13b-xem-thong-bao-doc-gia-khach-chi-xem-the-noi">UC13b — Xem thông báo (Độc giả; Khách chỉ xem thẻ nổi)</h3>
+<ul>
+<li><strong>Tác nhân:</strong> Độc giả (xem, đánh dấu đã đọc); Khách (chỉ xem thẻ nổi ở landing, không cần đăng nhập).</li>
+<li><strong>Tiền điều kiện:</strong> Đã đăng nhập (trừ xem thẻ nổi ở landing).</li>
 <li><strong>Luồng chính — Đọc:</strong>
   1. Người dùng nhấn chuông (badge số chưa đọc, poll 5 giây) hoặc mở trang "Thông báo".
   2. Danh sách phân loại theo màu; bấm "Đánh dấu đã đọc" từng cái hoặc "Đánh dấu tất cả đã đọc".</li>
@@ -665,7 +677,7 @@
 </tbody>
 </table></div>
 <blockquote>
-<p>Ghi chú: UC12 gộp vào UC08, UC14 gộp vào UC07, UC15 gộp vào UC02 ở sơ đồ tổng thể; ma trận giữ lại để truy vết chức năng chi tiết. Cột Khách chỉ áp cho các oval công khai: đăng ký (UC19), tìm kiếm AI ở landing (UC16), xem thẻ nổi thông báo ở landing (UC13.4); Khách không dùng các chức năng cần đăng nhập.</p>
+<p>Ghi chú: UC12 gộp vào UC08, UC14 gộp vào UC07, UC15 gộp vào UC02 ở sơ đồ tổng thể; ma trận giữ lại để truy vết chức năng chi tiết. Cột Khách chỉ áp cho các oval công khai: đăng ký (UC19), tìm kiếm AI ở landing (UC16), xem thẻ nổi thông báo ở landing (UC13.4); Khách không dùng các chức năng cần đăng nhập. UC13 giữ 1 dòng trong ma trận nhưng tách 2 mục con: UC13a Quản lý thông báo (Admin, Thủ thư), UC13b Xem thông báo (Độc giả, Khách chỉ thẻ nổi).</p>
 <p>Ghi chú: UC02 có chức năng tìm kiếm; độc giả dùng chung API tìm kiếm sách (GET /api/books) ở chế độ chỉ đọc để phục vụ UC11 — không tính là use case riêng. UC16 dùng ở landing page nên Khách (chưa đăng nhập) cũng dùng được.</p>
 </blockquote>
 <h1>5. Thiết kế cơ sở dữ liệu (MySQL)</h1>
@@ -1930,7 +1942,27 @@ sai vai trò trả 403. Nhóm Public cố tình mở cho Khách, không yêu c�
 </tr>
 </tbody>
 </table></div>
-<h3 id="uc13-he-thong-thong-bao">UC13 — Hệ thống thông báo</h3>
+<h3 id="uc13-he-thong-thong-bao-tach-2-muc-con-ma-test-giu-nguyen">UC13 — Hệ thống thông báo (tách 2 mục con, mã test giữ nguyên)</h3>
+<h4>UC13a — Quản lý thông báo</h4>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mã</th>
+<th>Kịch bản</th>
+<th>Dữ liệu vào</th>
+<th>Kết quả mong đợi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TC13-2</td>
+<td>Tạo thông báo tay</td>
+<td>thủ thư/admin nhập tiêu đề + đối tượng + loại</td>
+<td>Thông báo lưu vào bảng notifications; badge chưa đọc của người nhận tăng</td>
+</tr>
+</tbody>
+</table></div>
+<h4>UC13b — Xem thông báo</h4>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -1946,12 +1978,6 @@ sai vai trò trả 403. Nhóm Public cố tình mở cho Khách, không yêu c�
 <td>Nhận thông báo tự động</td>
 <td>thủ thư duyệt đặt trước</td>
 <td>Độc giả nhận thông báo kèm lịch hẹn; chuông tăng sau tối đa 5 giây (poll)</td>
-</tr>
-<tr>
-<td>TC13-2</td>
-<td>Tạo thông báo tay</td>
-<td>thủ thư/admin nhập tiêu đề + đối tượng + loại</td>
-<td>Thông báo lưu vào bảng notifications; badge chưa đọc của người nhận tăng</td>
 </tr>
 <tr>
 <td>TC13-3</td>

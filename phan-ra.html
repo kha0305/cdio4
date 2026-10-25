@@ -29,7 +29,7 @@
 <a href="#2-bang-phan-ra-tung-uc">2. Bảng phân rã từng UC</a>
 <a href="#3-cach-doc-1-uc-mau-uc01-va-uc13">3. Cách đọc 1 UC — mẫu UC01 và UC13</a>
 <a href="#mau-don-gian-uc01-dang-nhap" class="lv3">Mẫu đơn giản: UC01 Đăng nhập</a>
-<a href="#mau-co-nhieu-luong-uc13-he-thong-thong-bao" class="lv3">Mẫu có nhiều luồng: UC13 Hệ thống thông báo</a>
+<a href="#mau-co-nhieu-luong-uc13-he-thong-thong-bao-2-muc-con" class="lv3">Mẫu có nhiều luồng: UC13 Hệ thống thông báo (2 mục con)</a>
 <a href="#4-quan-he-giua-cac-uc">4. Quan hệ giữa các UC</a>
 </nav>
 </aside>
@@ -64,7 +64,9 @@ có xếp lại cho dễ theo dõi.</p>
 </ul>
 <p>Vì vậy dòng UC chính chỉ còn: UC01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11,
 13, 16, 17, 18, 19. Ma trận truy vết vẫn giữ 19 dòng để truy vết actor,
-nhưng 3 dòng UC12/14/15 phải đọc kèm nhãn "(gộp)".</p>
+nhưng 3 dòng UC12/14/15 phải đọc kèm nhãn "(gộp)". UC13 tách 2 mục con
+(UC13a Quản lý thông báo, UC13b Xem thông báo) nhưng vẫn tính là 1 UC,
+vẫn 4 sơ đồ, tổng vẫn 66 prompt — không phải 2 UC mới.</p>
 <h3 id="cach-1-uc-phan-ra-thanh-4-so-do">Cách 1 UC phân rã thành 4 sơ đồ</h3>
 <ul>
 <li><strong>Use Case:</strong> UC đó gồm những việc nhỏ nào, ai được làm việc nào.</li>
@@ -172,7 +174,7 @@ Sequence → Class.</p>
 </tr>
 <tr>
 <td>UC13</td>
-<td>Hệ thống thông báo</td>
+<td>Hệ thống thông báo (2 mục con: UC13a Quản lý, UC13b Xem)</td>
 <td>Hướng</td>
 <td>48, 49, 50, UC13-Class</td>
 <td>notifications, notification_reads, users</td>
@@ -234,31 +236,37 @@ Sequence → Class.</p>
 <li><strong>Sequence:</strong> 5 lifeline Actor → LoginPage → Form → Backend → MySQL.</li>
 <li><strong>Class:</strong> FrmDangNhap → DangNhapController → User.</li>
 </ul>
-<h3 id="mau-co-nhieu-luong-uc13-he-thong-thong-bao">Mẫu có nhiều luồng: UC13 Hệ thống thông báo</h3>
+<h3 id="mau-co-nhieu-luong-uc13-he-thong-thong-bao-2-muc-con">Mẫu có nhiều luồng: UC13 Hệ thống thông báo (2 mục con)</h3>
 <ul>
-<li><strong>Use Case phân ra 4 việc:</strong> Nhận thông báo, Đánh dấu đã đọc (include
-  vào Nhận thông báo), Tạo thông báo (chỉ Admin và Thủ thư), Xem thông
-  báo ở trang chủ (chỉ Khách, thẻ nổi ở landing).</li>
-<li><strong>Activity phân ra 3 luồng:</strong> Tạo tay (thủ thư/admin nhập rồi gửi),
-  Tự động (hệ thống tự gửi khi có đặt trước mới, duyệt/từ chối, tạo phiếu
-  mượn, mở trang Quá hạn), Đọc (người dùng bấm chuông rồi đánh dấu đã
-  đọc). Chuông tự làm mới mỗi 5 giây, trạng thái đã đọc lưu theo từng
-  user ở bảng notification_reads.</li>
-<li><strong>Sequence chỉ vẽ 1 luồng mẫu:</strong> Thủ thư duyệt đặt trước thì hệ thống
-  tự gửi thông báo cho độc giả, độc giả thấy chuông tăng, bấm chuông thì
-  hiện thông báo vàng kèm QR nhận sách.</li>
-<li><strong>Class phân ra:</strong> FrmThongBao — ThongBaoController — 3 Entity
-  Notification, NotificationRead, User. Quan hệ: Notification 1 — *
-  NotificationRead, User 1 — * NotificationRead, User 1 — * Notification
-  (qua createdBy).</li>
+<li><strong>Use Case phân ra 4 việc, chia theo 2 mục con:</strong> UC13a Quản lý gồm
+  Tạo thông báo (chỉ Admin và Thủ thư); UC13b Xem gồm Nhận thông báo,
+  Đánh dấu đã đọc (include vào Nhận thông báo) và Xem thông báo ở trang
+  chủ (chỉ Khách, thẻ nổi ở landing).</li>
+<li><strong>Activity phân ra 3 luồng, chia theo 2 mục con:</strong> UC13a gồm Tạo tay
+  (thủ thư/admin nhập rồi gửi) và Tự động (hệ thống tự gửi khi có đặt
+  trước mới, duyệt/từ chối, tạo phiếu mượn, mở trang Quá hạn); UC13b gồm
+  Đọc (người dùng bấm chuông rồi đánh dấu đã đọc). Chuông tự làm mới mỗi
+  5 giây, trạng thái đã đọc lưu theo từng user ở bảng notification_reads.</li>
+<li><strong>Sequence chỉ vẽ 1 luồng mẫu, nối 2 mục con:</strong> phía gửi thuộc UC13a
+  (thủ thư duyệt đặt trước thì hệ thống tự sinh thông báo), phía nhận
+  thuộc UC13b (độc giả thấy chuông tăng, bấm chuông thì hiện thông báo
+  vàng kèm QR nhận sách).</li>
+<li><strong>Class phân ra (vẫn 1 sơ đồ chung, không vẽ Class riêng cho từng mục
+  con):</strong> FrmThongBao — ThongBaoController — 3 Entity Notification,
+  NotificationRead, User. Trong đó <code>nhanNutTao</code>, <code>taoThongBao</code>,
+  <code>thongBaoChoThuThu</code>, <code>thongBaoChoDocGia</code> thuộc UC13a; <code>danhSachThongBao</code>,
+  <code>demChuaDoc</code>, <code>danhDauDaDoc</code>, <code>danhDauTatCaDaDoc</code>,
+  <code>nhanNutDanhDauDaDoc</code>, <code>nhanNutDanhDauTatCa</code> thuộc UC13b. Quan hệ:
+  Notification 1 — * NotificationRead, User 1 — * NotificationRead,
+  User 1 — * Notification (qua createdBy).</li>
 </ul>
 <h2 id="4-quan-he-giua-cac-uc">4. Quan hệ giữa các UC</h2>
 <ul>
 <li><strong>Include vào Đăng nhập (12 đường):</strong> Đặt trước, Mượn, Sách của tôi,
   Nhắc hạn qua email, Cấu hình, Quản lý tài khoản thủ thư, Quản lý thông
-  báo, Thống kê, Quản lý sách, Quản lý độc giả, Trả sách, Danh sách quá
-  hạn. Không include: Đăng ký, Tìm kiếm sách, Xem thông báo, Quên mật
-  khẩu.</li>
+  báo (UC13a), Thống kê, Quản lý sách, Quản lý độc giả, Trả sách, Danh
+  sách quá hạn. Không include: Đăng ký, Tìm kiếm sách, Xem thông báo
+  (UC13b), Quên mật khẩu.</li>
 <li><strong>Mượn sách (UC04) gọi Đặt trước (UC11):</strong> sách có đặt trước đang hiệu
   lực của đúng độc giả đó thì cho mượn và chuyển đặt trước thành đã hoàn
   thành; đặt trước của người khác thì từ chối.</li>

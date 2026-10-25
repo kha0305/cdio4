@@ -85,7 +85,7 @@
 <a href="#prompt-45-uc11-sequence-reserve-and-approve-new-flow" class="toc-prompt">Prompt 45 — UC11 Sơ đồ Sequence: Đặt trước và duyệt (luồng mới)</a>
 <a href="#prompt-46-uc11-analysis-class-new-flow" class="toc-prompt">Prompt 46 — UC11 Sơ đồ Class: Đặt trước sách (luồng mới)</a>
 <a href="#uc12-huy-dat-truoc-gop-vao-uc08" class="toc-group">UC12 — Hủy đặt trước (gộp vào UC08)</a>
-<a href="#uc13-he-thong-thong-bao-4-prompt" class="toc-group">UC13 — Hệ thống thông báo (4 prompt)</a>
+<a href="#uc13-he-thong-thong-bao-uc13a-quan-ly-uc13b-xem-4-prompt" class="toc-group">UC13 — Hệ thống thông báo (UC13a Quản lý, UC13b Xem) (4 prompt)</a>
 <a href="#prompt-48-uc13-use-case-diagram-notification-system" class="toc-prompt">Prompt 48 — UC13 Sơ đồ Use Case: Hệ thống thông báo</a>
 <a href="#prompt-49-uc13-activity-notification-system" class="toc-prompt">Prompt 49 — UC13 Sơ đồ Activity: Hệ thống thông báo</a>
 <a href="#prompt-50-uc13-sequence-automatic-notification-on-reservation-approval" class="toc-prompt">Prompt 50 — UC13 Sơ đồ Sequence: Thông báo tự động khi duyệt đặt trước</a>
@@ -164,7 +164,7 @@ Select the diagram type stated in the prompt title before pasting.</p>
 - &quot;Trả sách&quot;
 - &quot;Danh sách quá hạn&quot;
 
-**Mapping to detailed UCs (do not draw extra ovals):** Đăng nhập = UC01, Quản lý sách = UC02, Quản lý độc giả = UC03, Mượn sách = UC04, Trả sách = UC05, Danh sách quá hạn = UC06, Thống kê = UC07, Sách của tôi = UC08, Cấu hình hệ thống = UC09, Quản lý tài khoản thủ thư = UC10, Đặt trước sách = UC11, Tìm kiếm sách covers UC16 (AI search), Nhắc hạn qua email = UC17, Quên mật khẩu qua email = UC18, Đăng ký = UC19, Xem thông báo + Quản lý thông báo are two views of UC13 (Hệ thống thông báo).
+**Mapping to detailed UCs (do not draw extra ovals):** Đăng nhập = UC01, Quản lý sách = UC02, Quản lý độc giả = UC03, Mượn sách = UC04, Trả sách = UC05, Danh sách quá hạn = UC06, Thống kê = UC07, Sách của tôi = UC08, Cấu hình hệ thống = UC09, Quản lý tài khoản thủ thư = UC10, Đặt trước sách = UC11, Tìm kiếm sách covers UC16 (AI search), Nhắc hạn qua email = UC17, Quên mật khẩu qua email = UC18, Đăng ký = UC19, Xem thông báo + Quản lý thông báo are the two subsections of UC13 (Hệ thống thông báo) — UC13a Quản lý thông báo and UC13b Xem thông báo — not two separate UCs; total prompts stay 66.
 
 **Association relationships (solid lines):**
 - Khách — Đăng ký, Tìm kiếm sách, Xem thông báo
@@ -2632,7 +2632,10 @@ User &quot;1&quot; -- &quot;*&quot; Notification
 @enduml
 </code></pre>
 <hr />
-<h2 id="uc12-huy-dat-truoc-gop-vao-uc08">UC12 — Hủy đặt trước (gộp vào UC08)</h2><p>Không có prompt riêng; xem các prompt của UC08.</p><h2 id="uc13-he-thong-thong-bao-4-prompt">UC13 — Hệ thống thông báo (4 prompt)</h2><p>Các prompt của UC13, giữ nguyên thứ tự Use Case → Activity → Sequence → Class.</p><h2 id="prompt-48-uc13-use-case-diagram-notification-system">Prompt 48 — UC13 Sơ đồ Use Case: Hệ thống thông báo</h2>
+<h2 id="uc12-huy-dat-truoc-gop-vao-uc08">UC12 — Hủy đặt trước (gộp vào UC08)</h2><p>Không có prompt riêng; xem các prompt của UC08.</p><h2 id="uc13-he-thong-thong-bao-uc13a-quan-ly-uc13b-xem-4-prompt">UC13 — Hệ thống thông báo (UC13a Quản lý, UC13b Xem) (4 prompt)</h2><p>Các prompt của UC13, giữ nguyên thứ tự Use Case → Activity → Sequence → Class.</p><h2 id="prompt-48-uc13-use-case-diagram-notification-system">Prompt 48 — UC13 Sơ đồ Use Case: Hệ thống thông báo</h2>
+<blockquote>
+<p>Tách 2 mục con trong UC13 (giữ 66 prompt, không vẽ thêm oval hay UC mới): UC13a Quản lý thông báo = UC13.3 Tạo thông báo (Admin, Thủ thư); UC13b Xem thông báo = UC13.1 Nhận thông báo, UC13.2 Đánh dấu đã đọc, UC13.4 Xem thông báo ở trang chủ (Độc giả, Khách chỉ thẻ nổi).</p>
+</blockquote>
 <pre><code>Create exactly 1 Use Case Diagram for &quot;UC13 — Hệ thống thông báo&quot; of the university library management system.
 
 Actors: Admin, Thủ thư, Độc giả.
@@ -2672,6 +2675,9 @@ UC132 .&gt; UC131 : &lt;&lt;include&gt;&gt;
 </code></pre>
 <hr />
 <h2 id="prompt-49-uc13-activity-notification-system">Prompt 49 — UC13 Sơ đồ Activity: Hệ thống thông báo</h2>
+<blockquote>
+<p>Tách 2 mục con trong UC13 (giữ 66 prompt): luồng Tạo tay và luồng Tự động thuộc UC13a Quản lý thông báo (phía gửi, Admin/Thủ thư/Hệ thống); luồng Đọc thuộc UC13b Xem thông báo (Độc giả, chuông poll 5 giây, đánh dấu đã đọc).</p>
+</blockquote>
 <pre><code>Draw an activity diagram for use case &quot;UC13 — Hệ thống thông báo&quot; of the university library management system.
 
 Mandatory requirement: use exactly 4 swimlanes: Actor (Admin / Thủ thư / Độc giả) | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
@@ -2728,6 +2734,9 @@ stop
 </code></pre>
 <hr />
 <h2 id="prompt-50-uc13-sequence-automatic-notification-on-reservation-approval">Prompt 50 — UC13 Sơ đồ Sequence: Thông báo tự động khi duyệt đặt trước</h2>
+<blockquote>
+<p>Luồng mẫu này nối 2 mục con trong UC13 (giữ 66 prompt): phía gửi thuộc UC13a Quản lý thông báo (hệ thống sinh thông báo khi thủ thư duyệt), phía nhận thuộc UC13b Xem thông báo (độc giả thấy chuông tăng, bấm chuông xem thông báo).</p>
+</blockquote>
 <pre><code>Draw a sequence diagram for the &quot;automatic notification when the librarian approves a reservation&quot; flow (part of UC13) in the university library management system.
 
 Mandatory requirements:
@@ -2763,6 +2772,9 @@ GiaoDien -&gt; GiaoDien : Số trên chuông tăng; bấm chuông hiện thông 
 </code></pre>
 <hr />
 <h2 id="prompt-uc13-analysis-class">Prompt UC13 — Sơ đồ Class: Hệ thống thông báo</h2>
+<blockquote>
+<p>Vẫn 1 sơ đồ Class chung cho UC13 (giữ 66 prompt, không vẽ Class riêng cho từng mục con): <code>nhanNutTao</code>, <code>taoThongBao</code>, <code>thongBaoChoThuThu</code>, <code>thongBaoChoDocGia</code> thuộc UC13a Quản lý thông báo; <code>danhSachThongBao</code>, <code>demChuaDoc</code>, <code>danhDauDaDoc</code>, <code>danhDauTatCaDaDoc</code>, <code>nhanNutDanhDauDaDoc</code>, <code>nhanNutDanhDauTatCa</code> thuộc UC13b Xem thông báo.</p>
+</blockquote>
 <pre><code>Draw an analysis class diagram for use case &quot;UC13 — Hệ thống thông báo&quot; of the university library management system, following the class standard: only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt; or &lt;&lt;entity&gt;&gt; — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database.
 
 Classes:

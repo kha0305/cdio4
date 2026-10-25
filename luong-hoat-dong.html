@@ -35,7 +35,7 @@
 <div class="backdrop" id="backdrop"></div>
 <main class="content">
 <h1>Luồng hoạt động toàn hệ thống</h1>
-<p class="meta">Đồ án Website Quản lý Thư viện Đại học &middot; Cập nhật lần cuối: 17/10/2026</p>
+<p class="meta">Đồ án Website Quản lý Thư viện Đại học &middot; Cập nhật lần cuối: 25/10/2026</p>
 <h1>LUỒNG HOẠT ĐỘNG TỔNG THỂ — HỆ THỐNG QUẢN LÝ THƯ VIỆN MINI</h1>
 <p>Activity diagram duy nhất bao quát toàn hệ thống.
 4 swimlane: <strong>Actor | Giao diện | Hệ thống | CSDL</strong>.
@@ -73,7 +73,7 @@ Mỗi bước ghi rõ làn trong ngoặc vuông. Hình thoi = điểm rẽ nhán
 <li>[Actor] Đến quầy, đưa QR → Thủ thư quét → "Cho mượn" → status = <strong>fulfilled</strong> → [CSDL] tạo <code>loans</code> (hạn trả = ngày mượn + số ngày mượn trong cấu hình)</li>
 <li>[Hệ thống] Gửi thông báo nhắc hạn trả → Độc giả</li>
 <li>[Actor] Xem "Sách của tôi": sách đang mượn, hạn trả, quá hạn + tiền phạt tự tính</li>
-<li>[Actor] Mở <code>/thong-bao</code>: xem theo màu loại (đặt trước vàng, mượn/trả xanh dương, quá hạn đỏ, chung xanh lá, hệ thống xám) → "Đánh dấu đã đọc" / "Đánh dấu tất cả"</li>
+<li>[Actor] Mở <code>/thong-bao</code> (UC13b — Xem thông báo): xem theo màu loại (đặt trước vàng, mượn/trả xanh dương, quá hạn đỏ, chung xanh lá, hệ thống xám) → "Đánh dấu đã đọc" / "Đánh dấu tất cả"</li>
 </ul>
 <h2 id="4-nhanh-thu-thu">4. Nhánh Thủ thư</h2>
 <ul>
@@ -101,7 +101,7 @@ Mỗi bước ghi rõ làn trong ngoặc vuông. Hình thoi = điểm rẽ nhán
 <ul>
 <li><strong>Quản lý tài khoản</strong>: [Actor] tạo/sửa/khóa tài khoản thủ thư (sort bắt buộc)</li>
 <li><strong>Cấu hình hệ thống</strong>: [Actor] sửa số ngày mượn, mức phạt/ngày, số sách tối đa/độc giả, giờ giữ đặt trước → [CSDL] bảng <code>settings</code></li>
-<li><strong>Soạn thông báo</strong>: [Actor] chọn đối tượng (tất cả / độc giả / thủ thư) + cờ <strong>hiện ở landing</strong> → [Hệ thống] gửi → [CSDL] <code>notifications</code></li>
+<li><strong>Soạn thông báo</strong> (UC13a — Quản lý thông báo): [Actor] chọn đối tượng (tất cả / độc giả / thủ thư) + cờ <strong>hiện ở landing</strong> → [Hệ thống] gửi → [CSDL] <code>notifications</code></li>
 <li><strong>Thống kê</strong>: xem toàn hệ thống + xuất Excel/PDF</li>
 </ul>
 <h2 id="6-luong-nen-he-thong-tu-chay-khong-can-actor">6. Luồng nền (Hệ thống tự chạy, không cần Actor)</h2>
