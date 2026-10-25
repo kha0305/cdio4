@@ -19,7 +19,7 @@
 <div class="side-label">Tài liệu</div>
 <nav class="doc-nav">
 <a href="index.html">Mục lục tổng</a>
-<div class="nav-group">Thiết kế &amp; phân tích</div><a href="conceive.html">Conceive</a><a href="ho-so-thiet-ke.html">Hồ sơ phân tích &amp; thiết kế</a><a href="prompt-uml.html">Prompt UML (66 prompt)</a><a href="phan-ra.html" class="active">Phân rã</a><a href="luong-hoat-dong.html">Luồng hoạt động</a><div class="nav-group">Kiểm thử</div><a href="kich-ban-kiem-thu.html">Kịch bản kiểm thử</a><div class="nav-group">Dữ liệu</div><a href="du-lieu-sql.html">SQL reset CSDL</a><div class="nav-group">Tiến độ</div><a href="tien-do.html">Tiến độ</a><a href="phan-cong.html">Phân công</a>
+<div class="nav-group">Thiết kế &amp; phân tích</div><a href="conceive.html">Conceive</a><a href="ho-so-thiet-ke.html">Hồ sơ phân tích &amp; thiết kế</a><a href="prompt-uml.html">Prompt UML (69 prompt)</a><a href="phan-ra.html" class="active">Phân rã</a><a href="luong-hoat-dong.html">Luồng hoạt động</a><div class="nav-group">Kiểm thử</div><a href="kich-ban-kiem-thu.html">Kịch bản kiểm thử</a><div class="nav-group">Dữ liệu</div><a href="du-lieu-sql.html">SQL reset CSDL</a><div class="nav-group">Tiến độ</div><a href="tien-do.html">Tiến độ</a><a href="phan-cong.html">Phân công</a>
 </nav>
 <div class="side-label">Trong trang này</div>
 <nav class="toc">
@@ -29,7 +29,7 @@
 <a href="#2-bang-phan-ra-tung-uc">2. Bảng phân rã từng UC</a>
 <a href="#3-cach-doc-1-uc-mau-uc01-va-uc13">3. Cách đọc 1 UC — mẫu UC01 và UC13</a>
 <a href="#mau-don-gian-uc01-dang-nhap" class="lv3">Mẫu đơn giản: UC01 Đăng nhập</a>
-<a href="#mau-co-nhieu-luong-uc13-he-thong-thong-bao-2-muc-con" class="lv3">Mẫu có nhiều luồng: UC13 Hệ thống thông báo (2 mục con)</a>
+<a href="#mau-co-nhieu-luong-uc13-he-thong-thong-bao-2-muc-con-7-so-do" class="lv3">Mẫu có nhiều luồng: UC13 Hệ thống thông báo (2 mục con, 7 sơ đồ)</a>
 <a href="#4-quan-he-giua-cac-uc">4. Quan hệ giữa các UC</a>
 </nav>
 </aside>
@@ -42,17 +42,21 @@
 &amp; thiết kế mà không bị lạc. Hồ sơ đặc tả chi tiết từng chức năng; tài liệu
 này chỉ cho thấy bức tranh tổng thể và cách 4 loại sơ đồ của cùng 1 UC nối
 nhau ra sao.</p>
-<p>Quy ước giữ nguyên trong toàn bộ tài liệu này: <strong>số UC và số prompt không
-đổi</strong>. UC19 vẫn là UC19, Prompt 16 vẫn là Prompt 16, dù thứ tự trình bày
-có xếp lại cho dễ theo dõi.</p>
+<p>Quy ước giữ nguyên trong toàn bộ tài liệu này: <strong>số UC không đổi</strong>.
+UC19 vẫn là UC19, Prompt 16 vẫn là Prompt 16, dù thứ tự trình bày
+có xếp lại cho dễ theo dõi. Ngoại lệ duy nhất: UC13 tách prompt
+(48/49/50 thành 48a/48b, 49a/49b, 50a/50b) nên tổng prompt tăng từ 66
+lên 69, các prompt khác giữ nguyên số.</p>
 <h2 id="1-phan-ra-tong-the">1. Phân rã tổng thể</h2>
 <p>Hệ thống chia thành:</p>
 <ul>
 <li><strong>1 sơ đồ tổng thể:</strong> Prompt 1 (Use Case tổng thể).</li>
-<li><strong>16 UC chức năng</strong>, mỗi UC phân rã thành đúng 4 sơ đồ: Use Case,
-  Activity, Sequence, Class. Tổng cộng 16 × 4 = 64 sơ đồ.</li>
+<li><strong>16 UC chức năng</strong>, trong đó 15 UC phân rã thành đúng 4 sơ đồ (Use Case,
+  Activity, Sequence, Class) = 60 sơ đồ, riêng UC13 tách 2 mục con nên có
+  7 sơ đồ (UC13a: Use Case, Activity, Sequence; UC13b: Use Case, Activity,
+  Sequence; Class dùng chung) = 67 sơ đồ.</li>
 <li><strong>1 sơ đồ ERD toàn hệ thống:</strong> Prompt 51.</li>
-<li>Tổng cộng: 1 + 64 + 1 = <strong>66 prompt</strong>.</li>
+<li>Tổng cộng: 1 + 67 + 1 = <strong>69 prompt</strong>.</li>
 </ul>
 <h3 id="cac-uc-da-gop-dung-tim-so-do-rieng-cua-3-uc-nay">Các UC đã gộp — đừng tìm sơ đồ riêng của 3 UC này</h3>
 <ul>
@@ -66,8 +70,10 @@ có xếp lại cho dễ theo dõi.</p>
 13, 16, 17, 18, 19. Ma trận truy vết vẫn giữ 19 dòng để truy vết actor,
 nhưng 3 dòng UC12/14/15 phải đọc kèm nhãn "(gộp)". UC13 tách 2 mục con
 (UC13a Quản lý thông báo, UC13b Xem thông báo) nhưng vẫn tính là 1 UC,
-vẫn 4 sơ đồ, tổng vẫn 66 prompt — không phải 2 UC mới.</p>
+7 sơ đồ (không phải 2 UC mới), tổng 69 prompt.</p>
 <h3 id="cach-1-uc-phan-ra-thanh-4-so-do">Cách 1 UC phân rã thành 4 sơ đồ</h3>
+<p>Ngoại lệ: UC13 tách 2 mục con nên có 7 sơ đồ (UC13a và UC13b mỗi bên
+Use Case, Activity, Sequence, Class dùng chung), các UC khác vẫn 4 sơ đồ.</p>
 <ul>
 <li><strong>Use Case:</strong> UC đó gồm những việc nhỏ nào, ai được làm việc nào.</li>
 <li><strong>Activity:</strong> các việc đó chạy theo luồng nào, qua 4 làn Actor | Giao diện
@@ -176,7 +182,7 @@ Sequence → Class.</p>
 <td>UC13</td>
 <td>Hệ thống thông báo (2 mục con: UC13a Quản lý, UC13b Xem)</td>
 <td>Hướng</td>
-<td>48, 49, 50, UC13-Class</td>
+<td>48a, 48b, 49a, 49b, 50a, 50b, UC13-Class</td>
 <td>notifications, notification_reads, users</td>
 </tr>
 <tr>
@@ -236,21 +242,23 @@ Sequence → Class.</p>
 <li><strong>Sequence:</strong> 5 lifeline Actor → LoginPage → Form → Backend → MySQL.</li>
 <li><strong>Class:</strong> FrmDangNhap → DangNhapController → User.</li>
 </ul>
-<h3 id="mau-co-nhieu-luong-uc13-he-thong-thong-bao-2-muc-con">Mẫu có nhiều luồng: UC13 Hệ thống thông báo (2 mục con)</h3>
+<h3 id="mau-co-nhieu-luong-uc13-he-thong-thong-bao-2-muc-con-7-so-do">Mẫu có nhiều luồng: UC13 Hệ thống thông báo (2 mục con, 7 sơ đồ)</h3>
 <ul>
-<li><strong>Use Case phân ra 4 việc, chia theo 2 mục con:</strong> UC13a Quản lý gồm
-  Tạo thông báo (chỉ Admin và Thủ thư); UC13b Xem gồm Nhận thông báo,
-  Đánh dấu đã đọc (include vào Nhận thông báo) và Xem thông báo ở trang
-  chủ (chỉ Khách, thẻ nổi ở landing).</li>
-<li><strong>Activity phân ra 3 luồng, chia theo 2 mục con:</strong> UC13a gồm Tạo tay
-  (thủ thư/admin nhập rồi gửi) và Tự động (hệ thống tự gửi khi có đặt
-  trước mới, duyệt/từ chối, tạo phiếu mượn, mở trang Quá hạn); UC13b gồm
-  Đọc (người dùng bấm chuông rồi đánh dấu đã đọc). Chuông tự làm mới mỗi
-  5 giây, trạng thái đã đọc lưu theo từng user ở bảng notification_reads.</li>
-<li><strong>Sequence chỉ vẽ 1 luồng mẫu, nối 2 mục con:</strong> phía gửi thuộc UC13a
-  (thủ thư duyệt đặt trước thì hệ thống tự sinh thông báo), phía nhận
-  thuộc UC13b (độc giả thấy chuông tăng, bấm chuông thì hiện thông báo
-  vàng kèm QR nhận sách).</li>
+<li><strong>Use Case (Prompt 48a, 48b):</strong> UC13a Quản lý gồm Tạo thông báo
+  (chỉ Admin và Thủ thư); UC13b Xem gồm Nhận thông báo, Đánh dấu đã đọc
+  (include vào Nhận thông báo) và Xem thông báo ở trang chủ (chỉ Khách,
+  thẻ nổi ở landing).</li>
+<li><strong>Activity (Prompt 49a, 49b):</strong> UC13a gồm Tạo tay (thủ thư/admin nhập
+  rồi gửi) và Tự động (hệ thống tự gửi khi có đặt trước mới, duyệt/từ
+  chối, tạo phiếu mượn, mở trang Quá hạn); UC13b gồm Đọc (người dùng bấm
+  chuông rồi đánh dấu đã đọc) và Xem thẻ nổi ở landing (Khách). Chuông
+  tự làm mới mỗi 5 giây, trạng thái đã đọc lưu theo từng user ở bảng
+  notification_reads.</li>
+<li><strong>Sequence (Prompt 50a, 50b):</strong> UC13a vẽ luồng Tạo thông báo tay
+  (nhập form, <code>taoThongBao</code>, INSERT <code>notifications</code>, chuông người nhận
+  tăng); UC13b vẽ luồng Thông báo tự động khi duyệt đặt trước (thủ thư
+  duyệt thì hệ thống tự sinh thông báo, độc giả thấy chuông tăng, bấm
+  chuông thì hiện thông báo vàng kèm QR nhận sách).</li>
 <li><strong>Class phân ra (vẫn 1 sơ đồ chung, không vẽ Class riêng cho từng mục
   con):</strong> FrmThongBao — ThongBaoController — 3 Entity Notification,
   NotificationRead, User. Trong đó <code>nhanNutTao</code>, <code>taoThongBao</code>,
@@ -288,7 +296,7 @@ Sequence → Class.</p>
   Đừng đánh lại số UC chỉ để số thứ tự trông liền mạch.</li>
 </ul>
 <div class="prevnext">
-<a class="pn prev" href="prompt-uml.html"><span>Trang trước</span><strong>Prompt UML (66 prompt)</strong></a>
+<a class="pn prev" href="prompt-uml.html"><span>Trang trước</span><strong>Prompt UML (69 prompt)</strong></a>
 <a class="pn next" href="luong-hoat-dong.html"><span>Trang sau</span><strong>Luồng hoạt động</strong></a>
 </div>
 <footer>Web tài liệu của đồ án CDIO 4 — nội dung luôn là bản mới nhất. Tài liệu của khoa (bài giảng CS353, SAD UML 2015, Systems Analysis &amp; Design UML 5th) là tài liệu nội bộ/bản quyền nên không đăng tại đây.</footer>

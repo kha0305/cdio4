@@ -19,7 +19,7 @@
 <div class="side-label">Tài liệu</div>
 <nav class="doc-nav">
 <a href="index.html">Mục lục tổng</a>
-<div class="nav-group">Thiết kế &amp; phân tích</div><a href="conceive.html">Conceive</a><a href="ho-so-thiet-ke.html" class="active">Hồ sơ phân tích &amp; thiết kế</a><a href="prompt-uml.html">Prompt UML (66 prompt)</a><a href="phan-ra.html">Phân rã</a><a href="luong-hoat-dong.html">Luồng hoạt động</a><div class="nav-group">Kiểm thử</div><a href="kich-ban-kiem-thu.html">Kịch bản kiểm thử</a><div class="nav-group">Dữ liệu</div><a href="du-lieu-sql.html">SQL reset CSDL</a><div class="nav-group">Tiến độ</div><a href="tien-do.html">Tiến độ</a><a href="phan-cong.html">Phân công</a>
+<div class="nav-group">Thiết kế &amp; phân tích</div><a href="conceive.html">Conceive</a><a href="ho-so-thiet-ke.html" class="active">Hồ sơ phân tích &amp; thiết kế</a><a href="prompt-uml.html">Prompt UML (69 prompt)</a><a href="phan-ra.html">Phân rã</a><a href="luong-hoat-dong.html">Luồng hoạt động</a><div class="nav-group">Kiểm thử</div><a href="kich-ban-kiem-thu.html">Kịch bản kiểm thử</a><div class="nav-group">Dữ liệu</div><a href="du-lieu-sql.html">SQL reset CSDL</a><div class="nav-group">Tiến độ</div><a href="tien-do.html">Tiến độ</a><a href="phan-cong.html">Phân công</a>
 </nav>
 <div class="side-label">Trong trang này</div>
 <nav class="toc">
@@ -135,7 +135,7 @@
 <li>Screenmap</li>
 <li>Yêu cầu phi chức năng</li>
 <li>Kịch bản kiểm thử</li>
-<li>Bộ prompt UML (66 prompt — chỉ là con trỏ sang trang Prompt UML, không liệt kê trong file)</li>
+<li>Bộ prompt UML (69 prompt — chỉ là con trỏ sang trang Prompt UML, không liệt kê trong file)</li>
 </ol>
 <hr />
 <h1>1. Tổng quan</h1>
@@ -172,7 +172,7 @@
 <hr />
 <h1>3. Đặc tả chức năng (16 UC chính; UC12/14/15 gộp, xem ghi chú trong UC08/07/02)</h1>
 <blockquote>
-<p><strong>Các UC đã gộp (không có sơ đồ riêng):</strong> UC12 Hủy đặt trước → xem mục con trong UC08; UC14 Xuất báo cáo Excel / In PDF → xem mục con trong UC07; UC15 Quản lý sách mở rộng → xem mục con trong UC02. Số UC giữ nguyên để khỏi vỡ phân công, tiến độ và prompt. UC13 cũng tách 2 mục con (UC13a Quản lý thông báo, UC13b Xem thông báo) nhưng vẫn tính là 1 UC, không tính thêm UC hay prompt.</p>
+<p><strong>Các UC đã gộp (không có sơ đồ riêng):</strong> UC12 Hủy đặt trước → xem mục con trong UC08; UC14 Xuất báo cáo Excel / In PDF → xem mục con trong UC07; UC15 Quản lý sách mở rộng → xem mục con trong UC02. Số UC giữ nguyên để khỏi vỡ phân công, tiến độ và prompt. UC13 cũng tách 2 mục con (UC13a Quản lý thông báo, UC13b Xem thông báo) nhưng vẫn tính là 1 UC; prompt của UC13 tách từ 4 thành 7 (48a/48b, 49a/49b, 50a/50b + Class dùng chung), tổng prompt thành 69.</p>
 </blockquote>
 <h2 id="uc01-dang-nhap">UC01 — Đăng nhập</h2>
 <ul>
@@ -420,7 +420,7 @@
 <hr />
 <h2 id="uc13-he-thong-thong-bao-moi-16-10-2026">UC13 — Hệ thống thông báo (mới 16/10/2026)</h2>
 <blockquote>
-<p>Ghi chú: ở sơ đồ tổng thể, UC13 tách thành 2 oval Xem thông báo và Quản lý thông báo. Từ 25/10/2026, đặc tả này cũng tách UC13 thành 2 mục con UC13a và UC13b dưới đây. Đây vẫn là 1 UC, không phải 2 UC mới: không đổi số prompt (vẫn 66), phân công hay tiến độ.</p>
+<p>Ghi chú: ở sơ đồ tổng thể, UC13 tách thành 2 oval Xem thông báo và Quản lý thông báo. Từ 25/10/2026, đặc tả này cũng tách UC13 thành 2 mục con UC13a và UC13b dưới đây. Đây vẫn là 1 UC, không phải 2 UC mới: prompt của UC13 là 7 (48a/48b, 49a/49b, 50a/50b + Class dùng chung), tổng prompt thành 69, phân công Hướng tăng thêm 3 sơ đồ.</p>
 </blockquote>
 <ul>
 <li><strong>Chung cho cả 2 mục con:</strong> Chuông thông báo ở topbar + badge số chưa đọc (poll 5 giây); trang "Thông báo" dùng chung; thông báo chung có thể hiện thẻ nổi ở landing page.</li>
@@ -2240,12 +2240,12 @@ sai vai trò trả 403. Nhóm Public cố tình mở cho Khách, không yêu c�
 </tr>
 </tbody>
 </table></div>
-<h1>12. Bộ prompt UML — 66 prompt</h1>
-<p>Danh sách prompt UML đầy đủ, cập nhật mới nhất (66 prompt; chuẩn Frm/Controller/Entity cho Class; Prompt 1 tổng thể 17 oval, 12 đường Include vào Đăng nhập, tác nhân phụ Dịch vụ gửi email + Gemini API) xem tại trang Prompt UML: https://nanioe.me/cdio4/prompt-uml.html</p>
+<h1>12. Bộ prompt UML — 69 prompt</h1>
+<p>Danh sách prompt UML đầy đủ, cập nhật mới nhất (69 prompt; chuẩn Frm/Controller/Entity cho Class; Prompt 1 tổng thể 17 oval, 12 đường Include vào Đăng nhập, tác nhân phụ Dịch vụ gửi email + Gemini API) xem tại trang Prompt UML: https://nanioe.me/cdio4/prompt-uml.html</p>
 <p>Không liệt kê lại danh sách prompt trong Hồ sơ này để tránh lệch phiên bản. Bản liệt kê cũ (51 prompt, dùng stereotype cũ, còn gộp UC01 Đăng nhập &amp; Đăng ký) đã được thay bằng tham chiếu này ngày 24/10/2026; bản cũ được lưu backup ở <code>cdio4-docs-build/ho-so-section12-old-backup.md</code>.</p>
 <div class="prevnext">
 <a class="pn prev" href="conceive.html"><span>Trang trước</span><strong>Conceive</strong></a>
-<a class="pn next" href="prompt-uml.html"><span>Trang sau</span><strong>Prompt UML (66 prompt)</strong></a>
+<a class="pn next" href="prompt-uml.html"><span>Trang sau</span><strong>Prompt UML (69 prompt)</strong></a>
 </div>
 <footer>Web tài liệu của đồ án CDIO 4 — nội dung luôn là bản mới nhất. Tài liệu của khoa (bài giảng CS353, SAD UML 2015, Systems Analysis &amp; Design UML 5th) là tài liệu nội bộ/bản quyền nên không đăng tại đây.</footer>
 </main>

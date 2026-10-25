@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Prompt UML — 66 prompt cho Visual Paradigm — Tài liệu CDIO 4</title>
+<title>Prompt UML — 69 prompt cho Visual Paradigm — Tài liệu CDIO 4</title>
 <meta name="description" content="Tài liệu đồ án CDIO 4 — Website Quản lý Thư viện Đại học: conceive, phân tích thiết kế, prompt UML, kiểm thử, SQL.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>B</text></svg>">
 <link rel="stylesheet" href="style.css?v=9">
@@ -19,7 +19,7 @@
 <div class="side-label">Tài liệu</div>
 <nav class="doc-nav">
 <a href="index.html">Mục lục tổng</a>
-<div class="nav-group">Thiết kế &amp; phân tích</div><a href="conceive.html">Conceive</a><a href="ho-so-thiet-ke.html">Hồ sơ phân tích &amp; thiết kế</a><a href="prompt-uml.html" class="active">Prompt UML (66 prompt)</a><a href="phan-ra.html">Phân rã</a><a href="luong-hoat-dong.html">Luồng hoạt động</a><div class="nav-group">Kiểm thử</div><a href="kich-ban-kiem-thu.html">Kịch bản kiểm thử</a><div class="nav-group">Dữ liệu</div><a href="du-lieu-sql.html">SQL reset CSDL</a><div class="nav-group">Tiến độ</div><a href="tien-do.html">Tiến độ</a><a href="phan-cong.html">Phân công</a>
+<div class="nav-group">Thiết kế &amp; phân tích</div><a href="conceive.html">Conceive</a><a href="ho-so-thiet-ke.html">Hồ sơ phân tích &amp; thiết kế</a><a href="prompt-uml.html" class="active">Prompt UML (69 prompt)</a><a href="phan-ra.html">Phân rã</a><a href="luong-hoat-dong.html">Luồng hoạt động</a><div class="nav-group">Kiểm thử</div><a href="kich-ban-kiem-thu.html">Kịch bản kiểm thử</a><div class="nav-group">Dữ liệu</div><a href="du-lieu-sql.html">SQL reset CSDL</a><div class="nav-group">Tiến độ</div><a href="tien-do.html">Tiến độ</a><a href="phan-cong.html">Phân công</a>
 </nav>
 <div class="side-label">Trong trang này</div>
 <nav class="toc">
@@ -85,10 +85,13 @@
 <a href="#prompt-45-uc11-sequence-reserve-and-approve-new-flow" class="toc-prompt">Prompt 45 — UC11 Sơ đồ Sequence: Đặt trước và duyệt (luồng mới)</a>
 <a href="#prompt-46-uc11-analysis-class-new-flow" class="toc-prompt">Prompt 46 — UC11 Sơ đồ Class: Đặt trước sách (luồng mới)</a>
 <a href="#uc12-huy-dat-truoc-gop-vao-uc08" class="toc-group">UC12 — Hủy đặt trước (gộp vào UC08)</a>
-<a href="#uc13-he-thong-thong-bao-uc13a-quan-ly-uc13b-xem-4-prompt" class="toc-group">UC13 — Hệ thống thông báo (UC13a Quản lý, UC13b Xem) (4 prompt)</a>
-<a href="#prompt-48-uc13-use-case-diagram-notification-system" class="toc-prompt">Prompt 48 — UC13 Sơ đồ Use Case: Hệ thống thông báo</a>
-<a href="#prompt-49-uc13-activity-notification-system" class="toc-prompt">Prompt 49 — UC13 Sơ đồ Activity: Hệ thống thông báo</a>
-<a href="#prompt-50-uc13-sequence-automatic-notification-on-reservation-approval" class="toc-prompt">Prompt 50 — UC13 Sơ đồ Sequence: Thông báo tự động khi duyệt đặt trước</a>
+<a href="#uc13-he-thong-thong-bao-uc13a-quan-ly-uc13b-xem-7-prompt" class="toc-group">UC13 — Hệ thống thông báo (UC13a Quản lý, UC13b Xem) (7 prompt)</a>
+<a href="#prompt-48a-uc13a-use-case-diagram-notification-management" class="toc-prompt">Prompt 48a — UC13a Sơ đồ Use Case: Quản lý thông báo</a>
+<a href="#prompt-48b-uc13b-use-case-diagram-view-notifications" class="toc-prompt">Prompt 48b — UC13b Sơ đồ Use Case: Xem thông báo</a>
+<a href="#prompt-49a-uc13a-activity-notification-management" class="toc-prompt">Prompt 49a — UC13a Sơ đồ Activity: Quản lý thông báo</a>
+<a href="#prompt-49b-uc13b-activity-view-notifications" class="toc-prompt">Prompt 49b — UC13b Sơ đồ Activity: Xem thông báo</a>
+<a href="#prompt-50a-uc13a-sequence-manual-notification-creation" class="toc-prompt">Prompt 50a — UC13a Sơ đồ Sequence: Tạo thông báo tay</a>
+<a href="#prompt-50b-uc13b-sequence-automatic-notification-on-reservation-approval" class="toc-prompt">Prompt 50b — UC13b Sơ đồ Sequence: Thông báo tự động khi duyệt đặt trước</a>
 <a href="#prompt-uc13-analysis-class" class="toc-prompt">Prompt UC13 — Sơ đồ Class: Hệ thống thông báo</a>
 <a href="#uc14-xuat-bao-cao-excel-in-pdf-gop-vao-uc07" class="toc-group">UC14 — Xuất báo cáo Excel / In PDF (gộp vào UC07)</a>
 <a href="#uc15-quan-ly-sach-mo-rong-gop-vao-uc02" class="toc-group">UC15 — Quản lý sách mở rộng (gộp vào UC02)</a>
@@ -118,10 +121,10 @@
 </aside>
 <div class="backdrop" id="backdrop"></div>
 <main class="content">
-<h1>Prompt UML — 66 prompt cho Visual Paradigm</h1>
+<h1>Prompt UML — 69 prompt cho Visual Paradigm</h1>
 <p class="meta">Đồ án Website Quản lý Thư viện Đại học &middot; Cập nhật lần cuối: 25/10/2026</p>
 <h1>UML PROMPT SET — University Library Management Web App</h1>
-<p>66 prompts; each prompt generates exactly 1 diagram in Visual Paradigm AI.
+<p>69 prompts; each prompt generates exactly 1 diagram in Visual Paradigm AI.
 Select the diagram type stated in the prompt title before pasting.</p>
 <h2 id="mandatory-drawing-conventions-apply-to-every-prompt">MANDATORY DRAWING CONVENTIONS (apply to every prompt)</h2>
 <h3 id="sequence-diagram-exactly-5-lifelines">Sequence diagram — exactly 5 lifelines</h3>
@@ -164,7 +167,7 @@ Select the diagram type stated in the prompt title before pasting.</p>
 - &quot;Trả sách&quot;
 - &quot;Danh sách quá hạn&quot;
 
-**Mapping to detailed UCs (do not draw extra ovals):** Đăng nhập = UC01, Quản lý sách = UC02, Quản lý độc giả = UC03, Mượn sách = UC04, Trả sách = UC05, Danh sách quá hạn = UC06, Thống kê = UC07, Sách của tôi = UC08, Cấu hình hệ thống = UC09, Quản lý tài khoản thủ thư = UC10, Đặt trước sách = UC11, Tìm kiếm sách covers UC16 (AI search), Nhắc hạn qua email = UC17, Quên mật khẩu qua email = UC18, Đăng ký = UC19, Xem thông báo + Quản lý thông báo are the two subsections of UC13 (Hệ thống thông báo) — UC13a Quản lý thông báo and UC13b Xem thông báo — not two separate UCs; total prompts stay 66.
+**Mapping to detailed UCs (do not draw extra ovals):** Đăng nhập = UC01, Quản lý sách = UC02, Quản lý độc giả = UC03, Mượn sách = UC04, Trả sách = UC05, Danh sách quá hạn = UC06, Thống kê = UC07, Sách của tôi = UC08, Cấu hình hệ thống = UC09, Quản lý tài khoản thủ thư = UC10, Đặt trước sách = UC11, Tìm kiếm sách covers UC16 (AI search), Nhắc hạn qua email = UC17, Quên mật khẩu qua email = UC18, Đăng ký = UC19, Xem thông báo + Quản lý thông báo are the two subsections of UC13 (Hệ thống thông báo) — UC13a Quản lý thông báo (Prompts 48a, 49a, 50a) and UC13b Xem thông báo (Prompts 48b, 49b, 50b) — not two separate UCs; total prompts are 69, with 1 shared UC13 Class diagram.
 
 **Association relationships (solid lines):**
 - Khách — Đăng ký, Tìm kiếm sách, Xem thông báo
@@ -2632,61 +2635,68 @@ User &quot;1&quot; -- &quot;*&quot; Notification
 @enduml
 </code></pre>
 <hr />
-<h2 id="uc12-huy-dat-truoc-gop-vao-uc08">UC12 — Hủy đặt trước (gộp vào UC08)</h2><p>Không có prompt riêng; xem các prompt của UC08.</p><h2 id="uc13-he-thong-thong-bao-uc13a-quan-ly-uc13b-xem-4-prompt">UC13 — Hệ thống thông báo (UC13a Quản lý, UC13b Xem) (4 prompt)</h2><p>Các prompt của UC13, giữ nguyên thứ tự Use Case → Activity → Sequence → Class.</p><h2 id="prompt-48-uc13-use-case-diagram-notification-system">Prompt 48 — UC13 Sơ đồ Use Case: Hệ thống thông báo</h2>
-<blockquote>
-<p>Tách 2 mục con trong UC13 (giữ 66 prompt, không vẽ thêm oval hay UC mới): UC13a Quản lý thông báo = UC13.3 Tạo thông báo (Admin, Thủ thư); UC13b Xem thông báo = UC13.1 Nhận thông báo, UC13.2 Đánh dấu đã đọc, UC13.4 Xem thông báo ở trang chủ (Độc giả, Khách chỉ thẻ nổi).</p>
-</blockquote>
-<pre><code>Create exactly 1 Use Case Diagram for &quot;UC13 — Hệ thống thông báo&quot; of the university library management system.
+<h2 id="uc12-huy-dat-truoc-gop-vao-uc08">UC12 — Hủy đặt trước (gộp vào UC08)</h2><p>Không có prompt riêng; xem các prompt của UC08.</p><h2 id="uc13-he-thong-thong-bao-uc13a-quan-ly-uc13b-xem-7-prompt">UC13 — Hệ thống thông báo (UC13a Quản lý, UC13b Xem) (7 prompt)</h2><p>Các prompt của UC13, giữ nguyên thứ tự Use Case → Activity → Sequence → Class.</p><h2 id="prompt-48a-uc13a-use-case-diagram-notification-management">Prompt 48a — UC13a Sơ đồ Use Case: Quản lý thông báo</h2>
+<pre><code>Create exactly 1 Use Case Diagram for &quot;UC13a — Quản lý thông báo&quot; of the university library management system.
 
-Actors: Admin, Thủ thư, Độc giả.
+Actors: Admin, Thủ thư.
 
 Use cases:
-- &quot;UC13.1 Nhận thông báo&quot; — linked to all 3 actors.
-- &quot;UC13.2 Đánh dấu đã đọc&quot; — linked to all 3 actors, with an &lt;&lt;include&gt;&gt; relationship to UC13.1.
 - &quot;UC13.3 Tạo thông báo&quot; — linked to Admin and Thủ thư only.
-- &quot;UC13.4 Xem thông báo ở trang chủ&quot; — linked to Khách only (extra actor, not logged in), representing the floating announcement on the landing page.
 
-Note in the diagram: &quot;The system auto-generates notifications: new reservation → librarians; approve/reject → the reader; loan created → due-date reminder; overdue → red alert.&quot;
+Note in the diagram: &quot;The system auto-generates notifications (part of UC13a, sending side): new reservation → librarians; approve/reject → the reader; loan created → due-date reminder; overdue → red alert. Receiving and marking as read are in UC13b, not drawn here.&quot;
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml UC13_UseCase_Notification_System
+<pre><code class="language-plantuml">@startuml UC13a_UseCase_Notification_Management
 left to right direction
 actor Admin as Admin
 actor &quot;Thủ thư&quot; as ThuThu
+rectangle &quot;Thư viện Đại học&quot; {
+  usecase &quot;UC13.3 Tạo thông báo&quot; as UC133
+}
+Admin --&gt; UC133
+ThuThu --&gt; UC133
+@enduml
+</code></pre>
+<hr />
+<h2 id="prompt-48b-uc13b-use-case-diagram-view-notifications">Prompt 48b — UC13b Sơ đồ Use Case: Xem thông báo</h2>
+<pre><code>Create exactly 1 Use Case Diagram for &quot;UC13b — Xem thông báo&quot; of the university library management system.
+
+Actors: Độc giả, Khách.
+
+Use cases:
+- &quot;UC13.1 Nhận thông báo&quot; — linked to Độc giả.
+- &quot;UC13.2 Đánh dấu đã đọc&quot; — linked to Độc giả, with an &lt;&lt;include&gt;&gt; relationship to UC13.1.
+- &quot;UC13.4 Xem thông báo ở trang chủ&quot; — linked to Khách only (extra actor, not logged in), representing the floating announcement on the landing page.
+
+Note: Admin and Thủ thư view the notification list on the same &quot;Thông báo&quot; page when managing (UC13a); no separate receiving flow is drawn for them here.
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml UC13b_UseCase_View_Notifications
+left to right direction
 actor &quot;Độc giả&quot; as DocGia
 actor &quot;Khách&quot; as Khach
 rectangle &quot;Thư viện Đại học&quot; {
   usecase &quot;UC13.1 Nhận thông báo&quot; as UC131
   usecase &quot;UC13.2 Đánh dấu đã đọc&quot; as UC132
-  usecase &quot;UC13.3 Tạo thông báo&quot; as UC133
   usecase &quot;UC13.4 Xem thông báo ở trang chủ&quot; as UC134
 }
-Admin --&gt; UC131
-ThuThu --&gt; UC131
 DocGia --&gt; UC131
-Admin --&gt; UC132
-ThuThu --&gt; UC132
 DocGia --&gt; UC132
-Admin --&gt; UC133
-ThuThu --&gt; UC133
 Khach --&gt; UC134
 UC132 .&gt; UC131 : &lt;&lt;include&gt;&gt;
 @enduml
 </code></pre>
 <hr />
-<h2 id="prompt-49-uc13-activity-notification-system">Prompt 49 — UC13 Sơ đồ Activity: Hệ thống thông báo</h2>
-<blockquote>
-<p>Tách 2 mục con trong UC13 (giữ 66 prompt): luồng Tạo tay và luồng Tự động thuộc UC13a Quản lý thông báo (phía gửi, Admin/Thủ thư/Hệ thống); luồng Đọc thuộc UC13b Xem thông báo (Độc giả, chuông poll 5 giây, đánh dấu đã đọc).</p>
-</blockquote>
-<pre><code>Draw an activity diagram for use case &quot;UC13 — Hệ thống thông báo&quot; of the university library management system.
+<h2 id="prompt-49a-uc13a-activity-notification-management">Prompt 49a — UC13a Sơ đồ Activity: Quản lý thông báo</h2>
+<pre><code>Draw an activity diagram for use case &quot;UC13a — Quản lý thông báo&quot; of the university library management system.
 
-Mandatory requirement: use exactly 4 swimlanes: Actor (Admin / Thủ thư / Độc giả) | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
-- Actor: user actions (clicking buttons, entering data, scanning QR codes).
+Mandatory requirement: use exactly 4 swimlanes: Actor (Admin / Thủ thư) | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
+- Actor: user actions (clicking buttons, entering data).
 - Giao diện: rendering pages/forms/notifications, navigation.
-- Hệ thống: data validation, business logic, code generation, calculations.
+- Hệ thống: data validation, business logic, calculations.
 - CSDL: all data read/write operations (state the table explicitly).
 
-Actor(s): Admin, Thủ thư, Độc giả, Hệ thống (automatic).
+Actor(s): Admin, Thủ thư, Hệ thống (automatic).
 
 Manual creation flow (Admin/Thủ thư):
 - [Actor] Start point: Admin/Thủ thư opens the &quot;Thông báo&quot; page and clicks &quot;Tạo thông báo&quot;.
@@ -2701,16 +2711,9 @@ Automatic flow (no actor needed):
 - [Hệ thống] Event &quot;loan created&quot; → [CSDL] INSERT a &quot;mượn-trả&quot; type notification (blue) reminding the reader of the due date.
 - [Hệ thống] Event &quot;Overdue page opened&quot;: for each overdue loan with overdue_notified = 0 → [CSDL] INSERT a &quot;quá hạn&quot; type notification (red) sent to the reader, then UPDATE overdue_notified = 1 (each loan is notified only once).
 - End point.
-
-Reading flow (Độc giả/Thủ thư/Admin):
-- [Actor] Start point: the user clicks the bell icon (shows the unread count, auto-refreshes every 5 seconds).
-- [Giao diện] Open the &quot;Thông báo&quot; page, show the list color-coded by type.
-- [Actor] Click &quot;Đánh dấu đã đọc&quot; per notification or &quot;Đánh dấu tất cả đã đọc&quot;.
-- [CSDL] INSERT/UPDATE table notification_reads; [Giao diện] the unread count on the bell decreases accordingly.
-- End point.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml UC13_Activity_Notification_System
+<pre><code class="language-plantuml">@startuml UC13a_Activity_Notification_Management
 start
 fork
   :Admin hoặc Thủ thư mở trang Thông báo và bấm Tạo thông báo;
@@ -2722,22 +2725,82 @@ fork again
   :Sự kiện thủ thư duyệt hoặc từ chối đặt trước thì INSERT thông báo gửi đúng độc giả đó (kèm lịch hẹn hoặc lý do);
   :Sự kiện tạo phiếu mượn thì INSERT thông báo loại mượn-trả (xanh) nhắc độc giả hạn trả;
   :Sự kiện mở trang Quá hạn: với mỗi phiếu quá hạn có overdue_notified bằng 0 thì INSERT thông báo loại quá hạn (đỏ) gửi độc giả, rồi UPDATE overdue_notified bằng 1 (mỗi phiếu chỉ thông báo 1 lần);
-fork again
-  :Người dùng bấm biểu tượng chuông (hiển thị số chưa đọc, tự làm mới mỗi 5 giây);
-  :Mở trang Thông báo, hiển thị danh sách tô màu theo loại;
-  :Bấm Đánh dấu đã đọc từng thông báo hoặc Đánh dấu tất cả đã đọc;
-  :INSERT hoặc UPDATE bảng notification_reads;
-  :Số chưa đọc trên chuông giảm tương ứng;
 end fork
 stop
 @enduml
 </code></pre>
 <hr />
-<h2 id="prompt-50-uc13-sequence-automatic-notification-on-reservation-approval">Prompt 50 — UC13 Sơ đồ Sequence: Thông báo tự động khi duyệt đặt trước</h2>
-<blockquote>
-<p>Luồng mẫu này nối 2 mục con trong UC13 (giữ 66 prompt): phía gửi thuộc UC13a Quản lý thông báo (hệ thống sinh thông báo khi thủ thư duyệt), phía nhận thuộc UC13b Xem thông báo (độc giả thấy chuông tăng, bấm chuông xem thông báo).</p>
-</blockquote>
-<pre><code>Draw a sequence diagram for the &quot;automatic notification when the librarian approves a reservation&quot; flow (part of UC13) in the university library management system.
+<h2 id="prompt-49b-uc13b-activity-view-notifications">Prompt 49b — UC13b Sơ đồ Activity: Xem thông báo</h2>
+<pre><code>Draw an activity diagram for use case &quot;UC13b — Xem thông báo&quot; of the university library management system.
+
+Mandatory requirement: use exactly 4 swimlanes: Actor (Độc giả / Khách) | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
+- Actor: user actions (clicking buttons, closing the announcement card).
+- Giao diện: rendering pages/notifications, navigation.
+- Hệ thống: data validation, business logic.
+- CSDL: all data read/write operations (state the table explicitly).
+
+Actor(s): Độc giả, Khách.
+
+Reading flow (Độc giả):
+- [Actor] Start point: the user clicks the bell icon (shows the unread count, auto-refreshes every 5 seconds).
+- [Giao diện] Open the &quot;Thông báo&quot; page, show the list color-coded by type.
+- [Actor] Click &quot;Đánh dấu đã đọc&quot; per notification or &quot;Đánh dấu tất cả đã đọc&quot;.
+- [CSDL] INSERT/UPDATE table notification_reads; [Giao diện] the unread count on the bell decreases accordingly.
+- End point.
+
+Landing announcement flow (Khách, not logged in):
+- [Giao diện] If a notification has type &quot;chung&quot; and show_on_landing = 1, show the floating announcement card on the landing page.
+- [Actor] Khách closes the card; the dismissal is remembered in the session, so the card does not reappear in the same session.
+- End point.
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml UC13b_Activity_View_Notifications
+start
+fork
+  :Người dùng bấm biểu tượng chuông (hiển thị số chưa đọc, tự làm mới mỗi 5 giây);
+  :Mở trang Thông báo, hiển thị danh sách tô màu theo loại;
+  :Bấm Đánh dấu đã đọc từng thông báo hoặc Đánh dấu tất cả đã đọc;
+  :INSERT hoặc UPDATE bảng notification_reads;
+  :Số chưa đọc trên chuông giảm tương ứng;
+fork again
+  :Thông báo loại chung có cờ hiện ở trang chủ thì hiển thị thẻ nổi ở landing;
+  :Khách tắt thẻ nổi, session ghi nhớ lần tắt này;
+end fork
+stop
+@enduml
+</code></pre>
+<hr />
+<h2 id="prompt-50a-uc13a-sequence-manual-notification-creation">Prompt 50a — UC13a Sơ đồ Sequence: Tạo thông báo tay</h2>
+<pre><code>Draw a sequence diagram for the &quot;manual notification creation&quot; flow (part of UC13a) in the university library management system.
+
+Mandatory requirements:
+- Exactly 5 lifelines in order from left to right: Actor (Admin / Thủ thư) → Giao diện (NotificationsPage) → Form (creation form: title, body, audience, type, show on landing) → Hệ thống (backend: NotificationService + Repository) → CSDL (MySQL). Do NOT draw any extra lifeline.
+- On every message arrow write the full function name with parameters; do not write generic descriptions. Backend steps follow the pattern &quot;Hệ thống: ServiceName.functionName(params)&quot;.
+
+Message flow:
+1. Actor opens the &quot;Thông báo&quot; page, clicks &quot;Tạo thông báo&quot;, enters the title, body, audience, type and show-on-landing flag on the Form → Giao diện → Hệ thống: NotificationController.create(title, body, audience, type, showOnLanding, createdBy).
+2. Hệ thống: NotificationService.createManual(createdBy, body) → CSDL: INSERT table notifications (NotificationRepository.save).
+3. Hệ thống returns the created notification; Giao diện updates the recipients' unread bell count; the recipients (UC13b) see the new notification in their list.
+</code></pre>
+<p>PlantUML:</p>
+<pre><code class="language-plantuml">@startuml UC13a_Sequence_Manual_Notification_Creation
+actor &quot;Admin / Thủ thư&quot; as Actor
+participant &quot;NotificationsPage&quot; as GiaoDien
+participant &quot;Form tạo thông báo&quot; as Form
+participant &quot;Hệ thống&quot; as HeThong
+database &quot;MySQL&quot; as CSDL
+Actor -&gt; Form : Mở trang Thông báo, bấm &quot;Tạo thông báo&quot;, nhập tiêu đề, nội dung, đối tượng, loại, cờ hiện ở trang chủ
+Form -&gt; GiaoDien : Dữ liệu đã nhập
+GiaoDien -&gt; HeThong : NotificationController.create(title, body, audience, type, showOnLanding, createdBy)
+HeThong -&gt; HeThong : NotificationService.createManual(createdBy, body)
+HeThong -&gt; CSDL : INSERT table notifications (NotificationRepository.save)
+HeThong --&gt; GiaoDien : Thông báo đã tạo
+GiaoDien -&gt; GiaoDien : Cập nhật số chưa đọc trên chuông của người nhận
+@enduml
+</code></pre>
+<hr />
+<h2 id="prompt-50b-uc13b-sequence-automatic-notification-on-reservation-approval">Prompt 50b — UC13b Sơ đồ Sequence: Thông báo tự động khi duyệt đặt trước</h2>
+<pre><code>Draw a sequence diagram for the &quot;automatic notification when the librarian approves a reservation&quot; flow (part of UC13b, receiving side; the sending side belongs to UC13a) in the university library management system.
 
 Mandatory requirements:
 - Exactly 5 lifelines in order from left to right: Actor (Thủ thư) → Giao diện (ReservationsPage) → Form (approval form: confirm appointment) → Hệ thống (backend: ReservationService + NotificationService + Repository) → CSDL (MySQL). Do NOT draw any extra lifeline.
@@ -2750,7 +2813,7 @@ Message flow:
 4. Actor (Độc giả) with the web open: Giao diện polls Hệ thống: NotificationController.unreadCount() every 5 seconds → CSDL: SELECT COUNT; the unread count on the bell increases; clicking the bell reveals the new yellow notification with the pickup QR code.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml UC13_Sequence_Automatic_Notification_on_Reservation_Approval
+<pre><code class="language-plantuml">@startuml UC13b_Sequence_Automatic_Notification_on_Reservation_Approval
 actor &quot;Thủ thư / Độc giả&quot; as Actor
 participant &quot;ReservationsPage&quot; as GiaoDien
 participant &quot;Form duyệt&quot; as Form
@@ -2773,7 +2836,7 @@ GiaoDien -&gt; GiaoDien : Số trên chuông tăng; bấm chuông hiện thông 
 <hr />
 <h2 id="prompt-uc13-analysis-class">Prompt UC13 — Sơ đồ Class: Hệ thống thông báo</h2>
 <blockquote>
-<p>Vẫn 1 sơ đồ Class chung cho UC13 (giữ 66 prompt, không vẽ Class riêng cho từng mục con): <code>nhanNutTao</code>, <code>taoThongBao</code>, <code>thongBaoChoThuThu</code>, <code>thongBaoChoDocGia</code> thuộc UC13a Quản lý thông báo; <code>danhSachThongBao</code>, <code>demChuaDoc</code>, <code>danhDauDaDoc</code>, <code>danhDauTatCaDaDoc</code>, <code>nhanNutDanhDauDaDoc</code>, <code>nhanNutDanhDauTatCa</code> thuộc UC13b Xem thông báo.</p>
+<p>Vẫn 1 sơ đồ Class chung cho UC13 (tổng 69 prompt sau khi tách Prompt 48/49/50, không vẽ Class riêng cho từng mục con): <code>nhanNutTao</code>, <code>taoThongBao</code>, <code>thongBaoChoThuThu</code>, <code>thongBaoChoDocGia</code> thuộc UC13a Quản lý thông báo; <code>danhSachThongBao</code>, <code>demChuaDoc</code>, <code>danhDauDaDoc</code>, <code>danhDauTatCaDaDoc</code>, <code>nhanNutDanhDauDaDoc</code>, <code>nhanNutDanhDauTatCa</code> thuộc UC13b Xem thông báo.</p>
 </blockquote>
 <pre><code>Draw an analysis class diagram for use case &quot;UC13 — Hệ thống thông báo&quot; of the university library management system, following the class standard: only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt; or &lt;&lt;entity&gt;&gt; — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database.
 
