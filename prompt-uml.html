@@ -621,11 +621,15 @@ Classes:
 - Category: id: int, name: String, code: String; +save(): boolean
   Note: kiểm tra phải được QuanLySachController uses (đường đứt) và Category 1 — * Book
 
-Relationships:
-- FrmQuanLySach -- QuanLySachController: solid line, labeled &quot;form uses controller&quot;, 1 - 1
+Class names must be used EXACTLY as listed above: FrmQuanLySach, QuanLySachController, Book, Category. Do NOT add numbers or suffixes (no Book2, Category2, FrmQuanLySach2, etc.). If a class with the same name already exists in the model, reuse it instead of creating a duplicate.
+
+Relationships — draw ALL 4, do not omit any:
+- FrmQuanLySach -- QuanLySachController: Association tool, solid line with NO arrowhead, labeled &quot;form uses controller&quot;, multiplicity 1 at the Frm end and 1 at the Controller end. Do NOT draw this as a Dependency (dashed arrow).
 - QuanLySachController ..&gt; Book: dashed dependency, labeled &quot;uses Book&quot;
 - QuanLySachController ..&gt; Category: dashed dependency, labeled &quot;uses Category&quot;
-- Category &quot;1&quot; -- &quot;*&quot; Book
+- Category &quot;1&quot; -- &quot;*&quot; Book: a SEPARATE solid Association line drawn directly between Category and Book, multiplicity 1 at the Category end and * at the Book end. Draw this line IN ADDITION to the two dashed uses lines from the Controller. Do NOT omit it even though Book already has a -category: String attribute and even though the Controller already uses Category — the Category-Book association is a different relationship and must still be drawn.
+
+Before finishing, verify all 4 relationships are present on the diagram: (1) Frm-Controller solid 1-1, (2) Controller dashed uses Book, (3) Controller dashed uses Category, (4) Category 1 — * Book solid. If any is missing, add it before finishing. Do NOT finish with only 3 relationships.
 </code></pre>
 <p>PlantUML:</p>
 <pre><code class="language-plantuml">@startuml UC02_Class
