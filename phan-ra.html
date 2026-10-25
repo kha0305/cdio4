@@ -256,9 +256,11 @@ Sequence → Class.</p>
   notification_reads.</li>
 <li><strong>Sequence (Prompt 50a, 50b):</strong> UC13a vẽ luồng Tạo thông báo tay
   (nhập form, <code>taoThongBao</code>, INSERT <code>notifications</code>, chuông người nhận
-  tăng); UC13b vẽ luồng Thông báo tự động khi duyệt đặt trước (thủ thư
-  duyệt thì hệ thống tự sinh thông báo, độc giả thấy chuông tăng, bấm
-  chuông thì hiện thông báo vàng kèm QR nhận sách).</li>
+  tăng); UC13b vẽ luồng Độc giả xem và đánh dấu đã đọc (tác nhân duy
+  nhất là Độc giả: poll <code>unreadCount</code> mỗi 5 giây, mở trang <code>listMine</code>,
+  bấm đánh dấu đã đọc / tất cả, ghi <code>notification_reads</code>, chuông giảm;
+  thông báo coi như đã được tạo từ UC13a/UC11 trước đó, không vẽ lại
+  bước duyệt đặt trước).</li>
 <li><strong>Class phân ra (vẫn 1 sơ đồ chung, không vẽ Class riêng cho từng mục
   con):</strong> FrmThongBao — ThongBaoController — 3 Entity Notification,
   NotificationRead, User. Trong đó <code>nhanNutTao</code>, <code>taoThongBao</code>,

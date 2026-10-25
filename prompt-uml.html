@@ -91,7 +91,7 @@
 <a href="#prompt-49a-uc13a-activity-notification-management" class="toc-prompt">Prompt 49a — UC13a Sơ đồ Activity: Quản lý thông báo</a>
 <a href="#prompt-49b-uc13b-activity-view-notifications" class="toc-prompt">Prompt 49b — UC13b Sơ đồ Activity: Xem thông báo</a>
 <a href="#prompt-50a-uc13a-sequence-manual-notification-creation" class="toc-prompt">Prompt 50a — UC13a Sơ đồ Sequence: Tạo thông báo tay</a>
-<a href="#prompt-50b-uc13b-sequence-automatic-notification-on-reservation-approval" class="toc-prompt">Prompt 50b — UC13b Sơ đồ Sequence: Thông báo tự động khi duyệt đặt trước</a>
+<a href="#prompt-50b-uc13b-sequence-reader-view-and-mark-read" class="toc-prompt">Prompt 50b — UC13b Sơ đồ Sequence: Độc giả xem và đánh dấu đã đọc</a>
 <a href="#prompt-uc13-analysis-class" class="toc-prompt">Prompt UC13 — Sơ đồ Class: Hệ thống thông báo</a>
 <a href="#uc14-xuat-bao-cao-excel-in-pdf-gop-vao-uc07" class="toc-group">UC14 — Xuất báo cáo Excel / In PDF (gộp vào UC07)</a>
 <a href="#uc15-quan-ly-sach-mo-rong-gop-vao-uc02" class="toc-group">UC15 — Quản lý sách mở rộng (gộp vào UC02)</a>
@@ -2799,38 +2799,46 @@ GiaoDien -&gt; GiaoDien : Cập nhật số chưa đọc trên chuông của ng�
 @enduml
 </code></pre>
 <hr />
-<h2 id="prompt-50b-uc13b-sequence-automatic-notification-on-reservation-approval">Prompt 50b — UC13b Sơ đồ Sequence: Thông báo tự động khi duyệt đặt trước</h2>
-<pre><code>Draw a sequence diagram for the &quot;automatic notification when the librarian approves a reservation&quot; flow (part of UC13b, receiving side; the sending side belongs to UC13a) in the university library management system.
+<h2 id="prompt-50b-uc13b-sequence-reader-view-and-mark-read">Prompt 50b — UC13b Sơ đồ Sequence: Độc giả xem và đánh dấu đã đọc</h2>
+<pre><code>Draw a sequence diagram for the &quot;reader views and marks notifications as read&quot; flow (part of UC13b) in the university library management system.
+
+Precondition (not drawn): the notification has already been created by UC13a (manual creation or an automatic event from UC11/UC04/UC06). This diagram covers only the receiving side, with exactly one actor: Độc giả.
 
 Mandatory requirements:
-- Exactly 5 lifelines in order from left to right: Actor (Thủ thư) → Giao diện (ReservationsPage) → Form (approval form: confirm appointment) → Hệ thống (backend: ReservationService + NotificationService + Repository) → CSDL (MySQL). Do NOT draw any extra lifeline.
+- Exactly 5 lifelines in order from left to right: Actor (Độc giả) → Giao diện (NotificationsPage) → Form (chuông thông báo + nút &quot;Đánh dấu đã đọc&quot; / &quot;Đánh dấu tất cả đã đọc&quot;) → Hệ thống (backend: NotificationService + Repository) → CSDL (MySQL). Do NOT draw any extra lifeline, and do NOT add Thủ thư as an actor in this diagram.
 - On every message arrow write the full function name with parameters; do not write generic descriptions. Backend steps follow the pattern &quot;Hệ thống: ServiceName.functionName(params)&quot;.
 
 Message flow:
-1. Actor confirms the appointment time on the Form, clicks &quot;Duyệt&quot; → Giao diện → Hệ thống: ReservationController.approve(id, pickupAt).
-2. Hệ thống: ReservationService.approve(id, pickupAt, reviewerId) → CSDL: UPDATE table reservations SET status = 'approved' (ReservationRepository.updateStatus).
-3. Hệ thống: NotificationService.notifyReader(readerId, 'Đặt trước được duyệt', body) — create Notification(audience = 'readers', type = 'reservation', userId = readerId) → CSDL: INSERT table notifications (NotificationRepository.save).
-4. Actor (Độc giả) with the web open: Giao diện polls Hệ thống: NotificationController.unreadCount() every 5 seconds → CSDL: SELECT COUNT; the unread count on the bell increases; clicking the bell reveals the new yellow notification with the pickup QR code.
+1. Actor (Độc giả) with the web open: Giao diện polls Hệ thống every 5 seconds: NotificationController.unreadCount() → Hệ thống: NotificationService.unreadCount(userId, role) → CSDL: SELECT COUNT (NotificationRepository.countUnread); the unread count on the bell increases when there is a new notification.
+2. Actor clicks the bell icon / opens the &quot;Thông báo&quot; page → Giao diện → Hệ thống: NotificationController.list() → Hệ thống: NotificationService.listMine(userId, role) → CSDL: SELECT notifications + notification_reads (NotificationRepository.listForUser); Giao diện shows the list color-coded by type.
+3. Actor clicks &quot;Đánh dấu đã đọc&quot; on one notification (or &quot;Đánh dấu tất cả đã đọc&quot;) on the Form → Giao diện → Hệ thống: NotificationController.markRead(id) (or NotificationController.markAllRead()) → Hệ thống: NotificationService.markRead(userId, notificationId) (or NotificationService.markAllRead(userId, role)) → CSDL: INSERT/UPDATE table notification_reads (NotificationRepository.markRead / NotificationRepository.markAllRead); Giao diện decreases the unread count on the bell accordingly.
 </code></pre>
 <p>PlantUML:</p>
-<pre><code class="language-plantuml">@startuml UC13b_Sequence_Automatic_Notification_on_Reservation_Approval
-actor &quot;Thủ thư / Độc giả&quot; as Actor
-participant &quot;ReservationsPage&quot; as GiaoDien
-participant &quot;Form duyệt&quot; as Form
+<pre><code class="language-plantuml">@startuml UC13b_Sequence_Reader_View_And_Mark_Read
+actor &quot;Độc giả&quot; as Actor
+participant &quot;NotificationsPage&quot; as GiaoDien
+participant &quot;Chuông / Nút đánh dấu&quot; as Form
 participant &quot;Hệ thống&quot; as HeThong
 database &quot;MySQL&quot; as CSDL
-Actor -&gt; Form : Xác nhận thời gian hẹn, bấm &quot;Duyệt&quot;
-Form -&gt; GiaoDien : Dữ liệu đã nhập
-GiaoDien -&gt; HeThong : ReservationController.approve(id, pickupAt)
-HeThong -&gt; HeThong : ReservationService.approve(id, pickupAt, reviewerId)
-HeThong -&gt; CSDL : UPDATE table reservations SET status = 'approved' (ReservationRepository.updateStatus)
-HeThong -&gt; HeThong : NotificationService.notifyReader(readerId, 'Đặt trước được duyệt', body)
-HeThong -&gt; CSDL : INSERT table notifications (NotificationRepository.save)
 Actor -&gt; GiaoDien : Độc giả đang mở web, Giao diện poll mỗi 5 giây
 GiaoDien -&gt; HeThong : NotificationController.unreadCount()
-HeThong -&gt; CSDL : SELECT COUNT
+HeThong -&gt; HeThong : NotificationService.unreadCount(userId, role)
+HeThong -&gt; CSDL : SELECT COUNT (NotificationRepository.countUnread)
 HeThong --&gt; GiaoDien : Số thông báo chưa đọc
-GiaoDien -&gt; GiaoDien : Số trên chuông tăng; bấm chuông hiện thông báo mới màu vàng kèm QR code nhận sách
+GiaoDien -&gt; GiaoDien : Số trên chuông tăng khi có thông báo mới
+Actor -&gt; GiaoDien : Bấm chuông / mở trang Thông báo
+GiaoDien -&gt; HeThong : NotificationController.list()
+HeThong -&gt; HeThong : NotificationService.listMine(userId, role)
+HeThong -&gt; CSDL : SELECT notifications + notification_reads (NotificationRepository.listForUser)
+HeThong --&gt; GiaoDien : Danh sách thông báo kèm trạng thái đã đọc
+GiaoDien -&gt; GiaoDien : Hiển thị danh sách tô màu theo loại
+Actor -&gt; Form : Bấm &quot;Đánh dấu đã đọc&quot; hoặc &quot;Đánh dấu tất cả đã đọc&quot;
+Form -&gt; GiaoDien : Lựa chọn đã bấm
+GiaoDien -&gt; HeThong : NotificationController.markRead(id) / NotificationController.markAllRead()
+HeThong -&gt; HeThong : NotificationService.markRead(userId, notificationId) / NotificationService.markAllRead(userId, role)
+HeThong -&gt; CSDL : INSERT/UPDATE table notification_reads (NotificationRepository.markRead / NotificationRepository.markAllRead)
+HeThong --&gt; GiaoDien : Đã ghi trạng thái đã đọc
+GiaoDien -&gt; GiaoDien : Số chưa đọc trên chuông giảm tương ứng
 @enduml
 </code></pre>
 <hr />
