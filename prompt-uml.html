@@ -44,16 +44,16 @@
 <a href="#prompt-20-uc03-activity-reader-management" class="toc-prompt">Prompt 20 — UC03 Sơ đồ Activity: Quản lý độc giả</a>
 <a href="#prompt-21-uc03-sequence-add-reader" class="toc-prompt">Prompt 21 — UC03 Sơ đồ Sequence: Thêm độc giả</a>
 <a href="#prompt-22-uc03-analysis-class" class="toc-prompt">Prompt 22 — UC03 Sơ đồ Class: Quản lý độc giả</a>
-<a href="#uc04-muon-sach-4-prompt" class="toc-group">UC04 — Mượn sách (4 prompt)</a>
-<a href="#prompt-5-uc04-use-case-diagram-borrow-book" class="toc-prompt">Prompt 5 — UC04 Sơ đồ Use Case: Mượn sách</a>
-<a href="#prompt-23-uc04-activity-borrow-book" class="toc-prompt">Prompt 23 — UC04 Sơ đồ Activity: Mượn sách</a>
-<a href="#prompt-24-uc04-sequence-borrow-book" class="toc-prompt">Prompt 24 — UC04 Sơ đồ Sequence: Mượn sách</a>
-<a href="#prompt-25-uc04-analysis-class" class="toc-prompt">Prompt 25 — UC04 Sơ đồ Class: Mượn sách</a>
-<a href="#uc05-tra-sach-4-prompt" class="toc-group">UC05 — Trả sách (4 prompt)</a>
-<a href="#prompt-6-uc05-use-case-diagram-return-book" class="toc-prompt">Prompt 6 — UC05 Sơ đồ Use Case: Trả sách</a>
-<a href="#prompt-26-uc05-activity-return-book" class="toc-prompt">Prompt 26 — UC05 Sơ đồ Activity: Trả sách</a>
-<a href="#prompt-27-uc05-sequence-return-book" class="toc-prompt">Prompt 27 — UC05 Sơ đồ Sequence: Trả sách</a>
-<a href="#prompt-28-uc05-analysis-class" class="toc-prompt">Prompt 28 — UC05 Sơ đồ Class: Trả sách</a>
+<a href="#uc04-lap-phieu-muon-sach-4-prompt" class="toc-group">UC04 — Lập phiếu mượn sách (4 prompt)</a>
+<a href="#prompt-5-uc04-so-do-use-case-muon-sach" class="toc-prompt">Prompt 5 — UC04 Sơ đồ Use Case: Mượn sách</a>
+<a href="#prompt-23-uc04-so-do-activity-muon-sach" class="toc-prompt">Prompt 23 — UC04 Sơ đồ Activity: Mượn sách</a>
+<a href="#prompt-24-uc04-so-do-sequence-muon-sach" class="toc-prompt">Prompt 24 — UC04 Sơ đồ Sequence: Mượn sách</a>
+<a href="#prompt-25-uc04-so-do-class-muon-sach" class="toc-prompt">Prompt 25 — UC04 Sơ đồ Class: Mượn sách</a>
+<a href="#uc05-duyet-tra-sach-4-prompt" class="toc-group">UC05 — Duyệt trả sách (4 prompt)</a>
+<a href="#prompt-6-uc05-so-do-use-case-tra-sach" class="toc-prompt">Prompt 6 — UC05 Sơ đồ Use Case: Trả sách</a>
+<a href="#prompt-26-uc05-so-do-activity-tra-sach" class="toc-prompt">Prompt 26 — UC05 Sơ đồ Activity: Trả sách</a>
+<a href="#prompt-27-uc05-so-do-sequence-tra-sach" class="toc-prompt">Prompt 27 — UC05 Sơ đồ Sequence: Trả sách</a>
+<a href="#prompt-28-uc05-so-do-class-tra-sach" class="toc-prompt">Prompt 28 — UC05 Sơ đồ Class: Trả sách</a>
 <a href="#uc06-danh-sach-qua-han-4-prompt" class="toc-group">UC06 — Danh sách quá hạn (4 prompt)</a>
 <a href="#prompt-7-uc06-use-case-diagram-overdue-list" class="toc-prompt">Prompt 7 — UC06 Sơ đồ Use Case: Xem danh sách quá hạn</a>
 <a href="#prompt-29-uc06-activity-overdue-list" class="toc-prompt">Prompt 29 — UC06 Sơ đồ Activity: Xem danh sách quá hạn</a>
@@ -899,7 +899,7 @@ QuanLyDocGiaController ..&gt; User : &quot;uses User&quot;
 @enduml
 </code></pre>
 <hr />
-<h2 id="uc04-muon-sach-4-prompt">UC04 — Mượn sách (4 prompt)</h2><p>Các prompt của UC04, giữ nguyên thứ tự Use Case → Activity → Sequence → Class.</p><h2 id="prompt-5-uc04-use-case-diagram-borrow-book">Prompt 5 — UC04 Sơ đồ Use Case: Mượn sách</h2>
+<h2 id="uc04-lap-phieu-muon-sach-4-prompt">UC04 — Lập phiếu mượn sách (4 prompt)</h2><p>Các prompt của UC04, giữ nguyên thứ tự Use Case → Activity → Sequence → Class.</p><h2 id="prompt-5-uc04-so-do-use-case-muon-sach">Prompt 5 — UC04 Sơ đồ Use Case: Mượn sách</h2>
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. Main use case: &quot;UC04 Mượn sách&quot;. Draw the association Thủ thư — UC04. Add the use case &quot;UC11 Đặt trước sách&quot; (no actor link) and a dashed dependency line from UC04 to UC11, with a note attached: &quot;UC04 checks and marks fulfilled the reservations created by UC11 (D13)&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
@@ -915,7 +915,7 @@ UC04 ..&gt; UC11
 @enduml
 </code></pre>
 <hr />
-<h2 id="prompt-23-uc04-activity-borrow-book">Prompt 23 — UC04 Sơ đồ Activity: Mượn sách</h2>
+<h2 id="prompt-23-uc04-so-do-activity-muon-sach">Prompt 23 — UC04 Sơ đồ Activity: Mượn sách</h2>
 <pre><code>Draw an activity diagram for use case &quot;UC04 — Mượn sách&quot; of the university library management system.
 
 Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
@@ -1014,7 +1014,7 @@ stop
 @enduml
 </code></pre>
 <hr />
-<h2 id="prompt-24-uc04-sequence-borrow-book">Prompt 24 — UC04 Sơ đồ Sequence: Mượn sách</h2>
+<h2 id="prompt-24-uc04-so-do-sequence-muon-sach">Prompt 24 — UC04 Sơ đồ Sequence: Mượn sách</h2>
 <pre><code>Draw a sequence diagram for use case &quot;UC04 — Mượn sách&quot; of the university library management system.
 
 Mandatory requirements:
@@ -1100,7 +1100,7 @@ end
 @enduml
 </code></pre>
 <hr />
-<h2 id="prompt-25-uc04-analysis-class">Prompt 25 — UC04 Sơ đồ Class: Mượn sách</h2>
+<h2 id="prompt-25-uc04-so-do-class-muon-sach">Prompt 25 — UC04 Sơ đồ Class: Mượn sách</h2>
 <pre><code>Draw an analysis class diagram for use case &quot;UC04 — Mượn sách&quot; of the university library management system, following the class standard: only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt; or &lt;&lt;entity&gt;&gt; — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database.
 
 Classes:
@@ -1223,7 +1223,7 @@ Book &quot;1&quot; -- &quot;*&quot; Reservation
 @enduml
 </code></pre>
 <hr />
-<h2 id="uc05-tra-sach-4-prompt">UC05 — Trả sách (4 prompt)</h2><p>Các prompt của UC05, giữ nguyên thứ tự Use Case → Activity → Sequence → Class.</p><h2 id="prompt-6-uc05-use-case-diagram-return-book">Prompt 6 — UC05 Sơ đồ Use Case: Trả sách</h2>
+<h2 id="uc05-duyet-tra-sach-4-prompt">UC05 — Duyệt trả sách (4 prompt)</h2><p>Các prompt của UC05, giữ nguyên thứ tự Use Case → Activity → Sequence → Class.</p><h2 id="prompt-6-uc05-so-do-use-case-tra-sach">Prompt 6 — UC05 Sơ đồ Use Case: Trả sách</h2>
 <pre><code>Create exactly 1 Use Case Diagram. Actor: Thủ thư. A single use case: &quot;UC05 Trả sách&quot;. Draw the association Thủ thư — UC05. Add a note: &quot;The fine-calculation step (D7) is an internal step of UC05; do not split it into a separate use case&quot;. Do not add any other use case.
 </code></pre>
 <p>PlantUML:</p>
@@ -1237,7 +1237,7 @@ ThuThu --&gt; UC05
 @enduml
 </code></pre>
 <hr />
-<h2 id="prompt-26-uc05-activity-return-book">Prompt 26 — UC05 Sơ đồ Activity: Trả sách</h2>
+<h2 id="prompt-26-uc05-so-do-activity-tra-sach">Prompt 26 — UC05 Sơ đồ Activity: Trả sách</h2>
 <pre><code>Draw an activity diagram for use case &quot;UC05 — Trả sách&quot; of the university library management system.
 
 Mandatory requirement: use exactly 4 swimlanes: Actor | Giao diện | Hệ thống | CSDL. Every activity and decision node must be placed in the correct lane (write the lane name in square brackets at the start of each step).
@@ -1302,7 +1302,7 @@ stop
 @enduml
 </code></pre>
 <hr />
-<h2 id="prompt-27-uc05-sequence-return-book">Prompt 27 — UC05 Sơ đồ Sequence: Trả sách</h2>
+<h2 id="prompt-27-uc05-so-do-sequence-tra-sach">Prompt 27 — UC05 Sơ đồ Sequence: Trả sách</h2>
 <pre><code>Draw a sequence diagram for use case &quot;UC05 — Trả sách&quot; of the university library management system.
 
 Mandatory requirements:
@@ -1360,7 +1360,7 @@ end
 @enduml
 </code></pre>
 <hr />
-<h2 id="prompt-28-uc05-analysis-class">Prompt 28 — UC05 Sơ đồ Class: Trả sách</h2>
+<h2 id="prompt-28-uc05-so-do-class-tra-sach">Prompt 28 — UC05 Sơ đồ Class: Trả sách</h2>
 <pre><code>Draw an analysis class diagram for use case &quot;UC05 — Trả sách&quot; of the university library management system, following the class standard: only Frm... (form), ...Controller (control) and Entity classes. Do NOT draw Service or Repository classes, and do NOT write stereotypes &lt;&lt;boundary&gt;&gt;, &lt;&lt;control&gt;&gt; or &lt;&lt;entity&gt;&gt; — the role is shown by the class name itself. Class, attribute and method names are in Vietnamese without diacritics, camelCase for attributes and methods, except entity names kept as in the database.
 
 Classes:
