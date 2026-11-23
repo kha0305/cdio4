@@ -1,7 +1,9 @@
 -- ============================================================================
 -- CDIO 4 - Web Quan Ly Thu Vien Mini: FILE RESET FULL (1 file duy nhat)
 -- Chay 1 lan trong phpMyAdmin (tab SQL) hoac: mysql -u root -p < cdio4-full-reset.sql
--- File nay: XOA SACH 8 bang cu -> tao moi -> nap san data mau.
+-- File nay: XOA SACH 11 bang cu -> tao moi -> nap san data mau.
+-- Schema lay tu library_mini.sql (dump that tu DB live ngay 10/11/2026),
+-- chi giu cau truc bang + data mau demo; KHONG mang du lieu that nguoi dung.
 -- CANH BAO: moi du lieu cu trong DB library_mini se MAT HOAN TOAN.
 -- MySQL: chay port 3307 (XAMPP cua kha).
 -- ============================================================================
@@ -15,6 +17,9 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS settings;
 DROP TABLE IF EXISTS notification_reads;
 DROP TABLE IF EXISTS notifications;
+DROP TABLE IF EXISTS email_tokens;
+DROP TABLE IF EXISTS email_reminders;
+DROP TABLE IF EXISTS returns;
 DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS reservations;
 DROP TABLE IF EXISTS loans;
@@ -22,115 +27,181 @@ DROP TABLE IF EXISTS books;
 DROP TABLE IF EXISTS users;
 SET FOREIGN_KEY_CHECKS = 1;
 
--- Tao moi 8 bang
+-- Tao moi 11 bang
 CREATE TABLE IF NOT EXISTS users (
-  id            INT AUTO_INCREMENT PRIMARY KEY,
-  username      VARCHAR(50) NOT NULL UNIQUE,
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  username VARCHAR(50) NOT NULL,
   password_hash VARCHAR(255) NOT NULL COMMENT 'bcrypt hash (D8)',
-  full_name     VARCHAR(100) NOT NULL,
-  role          ENUM('admin','librarian','reader') NOT NULL,
-  student_code  VARCHAR(20) NULL COMMENT 'chi dung cho reader',
-  phone         VARCHAR(20) NULL,
-  active        TINYINT(1) NOT NULL DEFAULT 1 COMMENT '1=hoat dong, 0=bi khoa',
-  created_at    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB;
+  full_name VARCHAR(100) NOT NULL,
+  role ENUM('admin','librarian','reader') NOT NULL,
+  student_code VARCHAR(20) DEFAULT NULL COMMENT 'chi dung cho reader',
+  phone VARCHAR(20) DEFAULT NULL,
+  email VARCHAR(150) DEFAULT NULL,
+  email_verified TINYINT(1) NOT NULL DEFAULT 0,
+  avatar_url VARCHAR(255) DEFAULT NULL COMMENT 'Đường dẫn ảnh đại diện (/uploads/avatars/...)',
+  active TINYINT(1) NOT NULL DEFAULT 1 COMMENT '1=hoat dong, 0=bi khoa',
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY username (username)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS books (
-  id           INT AUTO_INCREMENT PRIMARY KEY,
-  qr_code      VARCHAR(50) NOT NULL UNIQUE COMMENT 'UUID hex 32 ky tu, sinh 1 lan khong doi (D2)',
-  title        VARCHAR(255) NOT NULL,
-  author       VARCHAR(100) NULL,
-  category     VARCHAR(100) NULL,
-  publisher    VARCHAR(100) NULL,
-  publish_year INT NULL,
-  cover_url    VARCHAR(500) NULL COMMENT 'Duong dan anh bia, vd /uploads/covers/12-1699999999999.jpg',
-  book_code    VARCHAR(20) NULL UNIQUE COMMENT 'ma hien thi, vd VH-0001, sinh 1 lan khong doi',
-  status       ENUM('available','borrowed') NOT NULL DEFAULT 'available',
-  created_at   DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  INDEX idx_books_title (title),
-  INDEX idx_books_qr (qr_code)
-) ENGINE=InnoDB;
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  qr_code VARCHAR(50) NOT NULL COMMENT 'UUID hex 32 ky tu, sinh 1 lan khong doi (D2)',
+  title VARCHAR(255) NOT NULL,
+  author VARCHAR(100) DEFAULT NULL,
+  category VARCHAR(100) DEFAULT NULL,
+  publisher VARCHAR(100) DEFAULT NULL,
+  publish_year INT(11) DEFAULT NULL,
+  cover_url VARCHAR(500) DEFAULT NULL COMMENT 'Duong dan anh bia, vd /uploads/covers/12-1699999999999.jpg',
+  status ENUM('available','borrowed') NOT NULL DEFAULT 'available',
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  book_code VARCHAR(20) DEFAULT NULL COMMENT 'ma hien thi, vd VH-0001, sinh 1 lan khong doi',
+  PRIMARY KEY (id),
+  UNIQUE KEY qr_code (qr_code),
+  UNIQUE KEY book_code (book_code),
+  KEY idx_books_title (title),
+  KEY idx_books_qr (qr_code)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS loans (
-  id          INT AUTO_INCREMENT PRIMARY KEY,
-  book_id     INT NOT NULL,
-  reader_id   INT NOT NULL,
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  book_id INT(11) NOT NULL,
+  reader_id INT(11) NOT NULL,
   borrowed_at DATETIME NOT NULL,
-  due_at      DATETIME NOT NULL COMMENT 'borrowed_at + loan_days (D4)',
-  returned_at DATETIME NULL COMMENT 'NULL = chua tra',
-  fine_amount INT NOT NULL DEFAULT 0 COMMENT 'tien phat (dong), chot luc tra (D7)',
-  status      ENUM('borrowing','returned') NOT NULL DEFAULT 'borrowing',
+  due_at DATETIME NOT NULL COMMENT 'borrowed_at + loan_days (D4)',
+  returned_at DATETIME DEFAULT NULL COMMENT 'NULL = chua tra',
+  fine_amount INT(11) NOT NULL DEFAULT 0 COMMENT 'tien phat (dong), chot luc tra (D7)',
+  status ENUM('borrowing','returned') NOT NULL DEFAULT 'borrowing',
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   overdue_notified TINYINT(1) NOT NULL DEFAULT 0 COMMENT '1 = da gui thong bao qua han',
-  created_at  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  CONSTRAINT fk_loans_book   FOREIGN KEY (book_id)   REFERENCES books(id),
-  CONSTRAINT fk_loans_reader FOREIGN KEY (reader_id) REFERENCES users(id),
-  INDEX idx_loans_status (status),
-  INDEX idx_loans_reader (reader_id),
-  INDEX idx_loans_due (due_at)
-) ENGINE=InnoDB;
+  PRIMARY KEY (id),
+  KEY fk_loans_book (book_id),
+  KEY idx_loans_status (status),
+  KEY idx_loans_reader (reader_id),
+  KEY idx_loans_due (due_at),
+  CONSTRAINT fk_loans_book FOREIGN KEY (book_id) REFERENCES books (id),
+  CONSTRAINT fk_loans_reader FOREIGN KEY (reader_id) REFERENCES users (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS reservations (
-  id          INT AUTO_INCREMENT PRIMARY KEY,
-  book_id     INT NOT NULL,
-  reader_id   INT NOT NULL,
-  reader_note VARCHAR(255) NULL COMMENT 'ghi chu gio mong muon den lay cua doc gia',
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  book_id INT(11) NOT NULL,
+  reader_id INT(11) NOT NULL,
+  reader_note VARCHAR(255) DEFAULT NULL COMMENT 'ghi chu gio mong muon den lay cua doc gia',
   reserved_at DATETIME NOT NULL,
-  expires_at  DATETIME NOT NULL COMMENT 'han duyet: reserved_at + reservation_hours (D11)',
-  pickup_at   DATETIME NULL COMMENT 'lich hen den lay do thu thu chot khi duyet',
-  reviewed_by INT NULL COMMENT 'id thu thu duyet/tu choi',
-  reviewed_at DATETIME NULL,
-  reject_reason VARCHAR(255) NULL COMMENT 'ly do tu choi (optional)',
-  code        VARCHAR(16) NULL UNIQUE COMMENT 'ma QR dat truoc, 8 ky tu A-Z0-9, sinh khi tao',
-  status      ENUM('pending','approved','rejected','fulfilled','cancelled','expired') NOT NULL DEFAULT 'pending',
-  created_at  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  CONSTRAINT fk_res_book     FOREIGN KEY (book_id)     REFERENCES books(id),
-  CONSTRAINT fk_res_reader   FOREIGN KEY (reader_id)   REFERENCES users(id),
-  CONSTRAINT fk_res_reviewer FOREIGN KEY (reviewed_by) REFERENCES users(id),
-  INDEX idx_res_status (status),
-  INDEX idx_res_book (book_id)
-) ENGINE=InnoDB;
+  expires_at DATETIME NOT NULL COMMENT 'reserved_at + reservation_hours (D11)',
+  pickup_at DATETIME DEFAULT NULL COMMENT 'lich hen den lay do thu thu chot khi duyet',
+  reviewed_by INT(11) DEFAULT NULL COMMENT 'id thu thu duyet/tu choi',
+  reviewed_at DATETIME DEFAULT NULL,
+  reject_reason VARCHAR(255) DEFAULT NULL COMMENT 'ly do tu choi (optional)',
+  status ENUM('pending','approved','rejected','fulfilled','cancelled','expired') NOT NULL DEFAULT 'pending' COMMENT 'pending=cho duyet, approved=da duyet, rejected=khong duyet',
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  code VARCHAR(16) DEFAULT NULL COMMENT 'ma QR dat truoc, 8 ky tu A-Z0-9, sinh khi tao',
+  PRIMARY KEY (id),
+  UNIQUE KEY code (code),
+  KEY fk_res_reader (reader_id),
+  KEY idx_res_status (status),
+  KEY idx_res_book (book_id),
+  KEY fk_res_reviewer (reviewed_by),
+  CONSTRAINT fk_res_book FOREIGN KEY (book_id) REFERENCES books (id),
+  CONSTRAINT fk_res_reader FOREIGN KEY (reader_id) REFERENCES users (id),
+  CONSTRAINT fk_res_reviewer FOREIGN KEY (reviewed_by) REFERENCES users (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS categories (
-  id   INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(100) NOT NULL UNIQUE,
-  code VARCHAR(10) NOT NULL UNIQUE COMMENT 'ky hieu the loai, vd VH, dung de sinh ma sach'
-) ENGINE=InnoDB;
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL,
+  code VARCHAR(10) NOT NULL COMMENT 'ky hieu the loai, vd VH, dung de sinh ma sach',
+  PRIMARY KEY (id),
+  UNIQUE KEY name (name),
+  UNIQUE KEY code (code)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS notifications (
-  id             INT AUTO_INCREMENT PRIMARY KEY,
-  audience       ENUM('all','readers','librarians') NOT NULL DEFAULT 'all' COMMENT 'doi tuong nhan',
-  type           ENUM('reservation','loan','overdue','general','system') NOT NULL COMMENT 'loai thong bao (quyet dinh mau sac)',
-  title          VARCHAR(255) NOT NULL,
-  body           TEXT NULL,
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  audience ENUM('all','readers','librarians') NOT NULL DEFAULT 'all' COMMENT 'doi tuong nhan',
+  type ENUM('reservation','loan','overdue','general','system') NOT NULL COMMENT 'loai thong bao (quyet dinh mau sac)',
+  title VARCHAR(255) NOT NULL,
+  body TEXT DEFAULT NULL,
   show_on_landing TINYINT(1) NOT NULL DEFAULT 0 COMMENT '1 = hien dang the noi o landing page',
-  user_id         INT NULL COMMENT 'thong bao rieng cho 1 user (NULL = gui theo audience)',
-  created_by     INT NULL COMMENT 'id admin/thu thu tao (NULL = he thong tu dong)',
-  created_at     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  CONSTRAINT fk_notif_creator FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL,
-  CONSTRAINT fk_notif_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-  INDEX idx_notif_audience (audience),
-  INDEX idx_notif_type (type),
-  INDEX idx_notif_created (created_at)
-) ENGINE=InnoDB;
+  user_id INT(11) DEFAULT NULL COMMENT 'thong bao rieng cho 1 user (NULL = gui theo audience)',
+  created_by INT(11) DEFAULT NULL COMMENT 'id admin/thu thu tao (NULL = he thong tu dong)',
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY fk_notif_creator (created_by),
+  KEY fk_notif_user (user_id),
+  KEY idx_notif_audience (audience),
+  KEY idx_notif_type (type),
+  KEY idx_notif_created (created_at),
+  CONSTRAINT fk_notif_creator FOREIGN KEY (created_by) REFERENCES users (id) ON DELETE SET NULL,
+  CONSTRAINT fk_notif_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS notification_reads (
-  notification_id INT NOT NULL,
-  user_id         INT NOT NULL,
-  read_at         DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (notification_id, user_id),
-  CONSTRAINT fk_read_notif FOREIGN KEY (notification_id) REFERENCES notifications(id) ON DELETE CASCADE,
-  CONSTRAINT fk_read_user  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-) ENGINE=InnoDB;
+  notification_id INT(11) NOT NULL,
+  user_id INT(11) NOT NULL,
+  read_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (notification_id,user_id),
+  KEY fk_read_user (user_id),
+  CONSTRAINT fk_read_notif FOREIGN KEY (notification_id) REFERENCES notifications (id) ON DELETE CASCADE,
+  CONSTRAINT fk_read_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS settings (
-  id                 INT PRIMARY KEY COMMENT 'luon = 1, chi 1 dong cau hinh',
-  loan_days          INT NOT NULL DEFAULT 14 COMMENT 'so ngay duoc muon (D3)',
-  fine_per_day       INT NOT NULL DEFAULT 5000 COMMENT 'phat moi ngay tre, dong (D3)',
-  max_books_per_reader INT NOT NULL DEFAULT 5 COMMENT 'so cuon toi da cung luc (D3)',
-  reservation_hours  INT NOT NULL DEFAULT 48 COMMENT 'so gio giu sach khi dat truoc (D11)'
-) ENGINE=InnoDB;
+  id INT(11) NOT NULL COMMENT 'luon = 1, chi 1 dong cau hinh',
+  loan_days INT(11) NOT NULL DEFAULT 14 COMMENT 'so ngay duoc muon (D3)',
+  fine_per_day INT(11) NOT NULL DEFAULT 5000 COMMENT 'phat moi ngay tre, dong (D3)',
+  max_books_per_reader INT(11) NOT NULL DEFAULT 5 COMMENT 'so cuon toi da cung luc (D3)',
+  reservation_hours INT(11) NOT NULL DEFAULT 48 COMMENT 'so gio giu sach khi dat truoc (D11)',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- ----------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS returns (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  loan_id INT(11) NOT NULL,
+  returned_by INT(11) NOT NULL COMMENT 'id thu thu duyet tra',
+  returned_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  overdue_days INT(11) NOT NULL DEFAULT 0 COMMENT 'so ngay tre, chot luc tra (D6)',
+  fine_amount INT(11) NOT NULL DEFAULT 0 COMMENT 'tien phat (dong), chot luc tra (D7)',
+  note VARCHAR(255) DEFAULT NULL COMMENT 'ghi chu tinh trang sach khi tra',
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_returns_loan (loan_id),
+  KEY idx_returns_by (returned_by),
+  CONSTRAINT fk_returns_loan FOREIGN KEY (loan_id) REFERENCES loans (id) ON DELETE CASCADE,
+  CONSTRAINT fk_returns_by FOREIGN KEY (returned_by) REFERENCES users (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS email_reminders (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  loan_id INT(11) NOT NULL,
+  type ENUM('due_soon','overdue') NOT NULL,
+  recipient_email VARCHAR(150) NOT NULL,
+  provider_id VARCHAR(100) DEFAULT NULL COMMENT 'id email phía Resend',
+  sent_day DATE NOT NULL COMMENT 'ngày gửi (chống gửi trùng cùng ngày)',
+  sent_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_ereminder (loan_id,type,sent_day),
+  KEY idx_ereminder_loan (loan_id,type),
+  CONSTRAINT fk_ereminders_loan FOREIGN KEY (loan_id) REFERENCES loans (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS email_tokens (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  user_id INT(11) NOT NULL,
+  purpose ENUM('verify_email','reset_password') NOT NULL,
+  token_hash CHAR(64) NOT NULL COMMENT 'SHA-256 của token, không lưu token thô',
+  expires_at DATETIME NOT NULL,
+  used_at DATETIME DEFAULT NULL COMMENT 'NULL = chưa dùng',
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY idx_etokens_user_purpose (user_id,purpose),
+  KEY idx_etokens_hash (token_hash),
+  CONSTRAINT fk_etokens_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
 -- DATA MAU
 -- ----------------------------------------------------------------------------
 INSERT INTO settings (id, loan_days, fine_per_day, max_books_per_reader, reservation_hours)
