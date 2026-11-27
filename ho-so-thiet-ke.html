@@ -19,7 +19,7 @@
 <div class="side-label">Tài liệu</div>
 <nav class="doc-nav">
 <a href="index.html">Mục lục tổng</a>
-<div class="nav-group">Thiết kế &amp; phân tích</div><a href="conceive.html">Conceive</a><a href="ho-so-thiet-ke.html" class="active">Hồ sơ phân tích &amp; thiết kế</a><a href="prompt-uml.html">Prompt UML (69 prompt)</a><a href="phan-ra.html">Phân rã</a><a href="luong-hoat-dong.html">Luồng hoạt động</a><div class="nav-group">Kiểm thử</div><a href="kich-ban-kiem-thu.html">Kịch bản kiểm thử</a><div class="nav-group">Dữ liệu</div><a href="du-lieu-sql.html">SQL reset CSDL</a><div class="nav-group">Tiến độ</div><a href="tien-do.html">Tiến độ</a><a href="phan-cong.html">Phân công</a>
+<div class="nav-group">Thiết kế &amp; phân tích</div><a href="conceive.html">Conceive</a><a href="ho-so-thiet-ke.html" class="active">Hồ sơ phân tích &amp; thiết kế</a><a href="prompt-uml.html">Prompt UML (72 prompt)</a><a href="phan-ra.html">Phân rã</a><a href="luong-hoat-dong.html">Luồng hoạt động</a><div class="nav-group">Kiểm thử</div><a href="kich-ban-kiem-thu.html">Kịch bản kiểm thử</a><div class="nav-group">Dữ liệu</div><a href="du-lieu-sql.html">SQL reset CSDL</a><div class="nav-group">Tiến độ</div><a href="tien-do.html">Tiến độ</a><a href="phan-cong.html">Phân công</a>
 </nav>
 <div class="side-label">Trong trang này</div>
 <nav class="toc">
@@ -60,7 +60,8 @@
 <a href="#5-8-bang-settings" class="lv3">5.8 Bảng settings</a>
 <a href="#5-9-bang-email-tokens-moi-23-10-2026" class="lv3">5.9 Bảng email_tokens (mới 23/10/2026)</a>
 <a href="#5-10-bang-email-reminders-moi-23-10-2026" class="lv3">5.10 Bảng email_reminders (mới 23/10/2026)</a>
-<a href="#5-11-quan-he" class="lv3">5.11 Quan hệ</a>
+<a href="#5-11-bang-returns-moi-21-11-2026" class="lv3">5.11 Bảng returns (mới 21/11/2026)</a>
+<a href="#5-12-quan-he" class="lv3">5.12 Quan hệ</a>
 <a href="#6-thiet-ke-lop-huong-doi-tuong">6. Thiết kế lớp (hướng đối tượng)</a>
 <a href="#6-1-kien-truc-cai-dat-code-that-o-backend" class="lv3">6.1 Kiến trúc cài đặt (code thật ở backend)</a>
 <a href="#6-2-chuan-so-do-class-phan-tich-dung-de-ve" class="lv3">6.2 Chuẩn sơ đồ Class phân tích (dùng để vẽ)</a>
@@ -118,7 +119,7 @@
 <div class="backdrop" id="backdrop"></div>
 <main class="content">
 <h1>Hồ sơ phân tích &amp; thiết kế hệ thống</h1>
-<p class="meta">Đồ án Website Quản lý Thư viện Đại học &middot; Cập nhật lần cuối: 25/10/2026</p>
+<p class="meta">Đồ án Website Quản lý Thư viện Đại học &middot; Cập nhật lần cuối: 27/11/2026</p>
 <h1>HỒ SƠ PHÂN TÍCH &amp; THIẾT KẾ — Web Quản Lý Thư Viện Đại học</h1>
 <h2 id="do-an-cdio-4-nganh-cong-nghe-phan-mem">Đồ án CDIO 4 — Ngành Công nghệ Phần mềm</h2>
 <p>Tài liệu hợp nhất duy nhất của đồ án (thay thế mọi file .md rời rạc trước đây).</p>
@@ -135,7 +136,7 @@
 <li>Screenmap</li>
 <li>Yêu cầu phi chức năng</li>
 <li>Kịch bản kiểm thử</li>
-<li>Bộ prompt UML (69 prompt — chỉ là con trỏ sang trang Prompt UML, không liệt kê trong file)</li>
+<li>Bộ prompt UML (72 prompt — chỉ là con trỏ sang trang Prompt UML, không liệt kê trong file)</li>
 </ol>
 <hr />
 <h1>1. Tổng quan</h1>
@@ -172,7 +173,7 @@
 <hr />
 <h1>3. Đặc tả chức năng (16 UC chính; UC12/14/15 gộp, xem ghi chú trong UC08/07/02)</h1>
 <blockquote>
-<p><strong>Các UC đã gộp (không có sơ đồ riêng):</strong> UC12 Hủy đặt trước → xem mục con trong UC08; UC14 Xuất báo cáo Excel / In PDF → xem mục con trong UC07; UC15 Quản lý sách mở rộng → xem mục con trong UC02. Số UC giữ nguyên để khỏi vỡ phân công, tiến độ và prompt. UC13 cũng tách 2 mục con (UC13a Quản lý thông báo, UC13b Xem thông báo) nhưng vẫn tính là 1 UC; prompt của UC13 tách từ 4 thành 7 (48a/48b, 49a/49b, 50a/50b + Class dùng chung), tổng prompt thành 69.</p>
+<p><strong>Các UC đã gộp (không có sơ đồ riêng):</strong> UC12 Hủy đặt trước → xem mục con trong UC08; UC14 Xuất báo cáo Excel / In PDF → xem mục con trong UC07; UC15 Quản lý sách mở rộng → xem mục con trong UC02. Số UC giữ nguyên để khỏi vỡ phân công, tiến độ và prompt. UC13 cũng tách 2 mục con (UC13a Quản lý thông báo, UC13b Xem thông báo) nhưng vẫn tính là 1 UC; prompt của UC13 tách từ 4 thành 7 (48a/48b, 49a/49b, 50a/50b + Class dùng chung), tổng prompt thành 72 (69 sau lần tách UC13, +3 khi UC02 tách Activity thành 4 luồng 17/17b/17c/17d).</p>
 </blockquote>
 <h2 id="uc01-dang-nhap">UC01 — Đăng nhập</h2>
 <ul>
@@ -288,7 +289,7 @@
   1. Bấm "Trả sách" → quét mã QR <strong>hoặc</strong> nhập mã sách thủ công vào ô "Nhập mã sách thủ công" (có nút <strong>Dán</strong> lấy từ clipboard, giống trang Mượn sách).
   2. Hệ thống gọi xem trước (<code>GET /api/loans/return-preview</code>): tìm phiếu <code>borrowing</code> của sách; hiển thị: tên sách, độc giả, ngày mượn, hạn trả, số ngày trễ (D6) và tiền phạt dự kiến — <strong>chưa chốt, chưa đổi DB</strong>.
   3. Thủ thư bấm "Xác nhận trả".
-  4. Hệ thống gọi chốt trả (<code>POST /api/loans/return { loanId }</code>): <code>returned_at = NOW()</code>, <code>fine_amount = fine</code>, <code>status = 'returned'</code>; sách về <code>available</code>.
+  4. Hệ thống gọi chốt trả (<code>POST /api/loans/return { loanId }</code>): <code>returned_at = NOW()</code>, <code>fine_amount = fine</code>, <code>status = 'returned'</code>; ghi 1 dòng vào bảng <code>returns</code> (<code>loan_id</code>, <code>returned_by</code> = id thủ thư, <code>returned_at</code>, <code>overdue_days</code>, <code>fine_amount</code>, <code>note</code>); sách về <code>available</code>.
   5. Báo trả thành công (+ số tiền phạt nếu có).</li>
 <li><strong>Ngoại lệ:</strong></li>
 <li>2a. Không có phiếu borrowing → "Sách này không trong trạng thái cho mượn", kết thúc.</li>
@@ -420,7 +421,7 @@
 <hr />
 <h2 id="uc13-he-thong-thong-bao-moi-16-10-2026">UC13 — Hệ thống thông báo (mới 16/10/2026)</h2>
 <blockquote>
-<p>Ghi chú: ở sơ đồ tổng thể, UC13 tách thành 2 oval Xem thông báo và Quản lý thông báo. Từ 25/10/2026, đặc tả này cũng tách UC13 thành 2 mục con UC13a và UC13b dưới đây. Đây vẫn là 1 UC, không phải 2 UC mới: prompt của UC13 là 7 (48a/48b, 49a/49b, 50a/50b + Class dùng chung), tổng prompt thành 69, phân công Hướng tăng thêm 3 sơ đồ.</p>
+<p>Ghi chú: ở sơ đồ tổng thể, UC13 tách thành 2 oval Xem thông báo và Quản lý thông báo. Từ 25/10/2026, đặc tả này cũng tách UC13 thành 2 mục con UC13a và UC13b dưới đây. Đây vẫn là 1 UC, không phải 2 UC mới: prompt của UC13 là 7 (48a/48b, 49a/49b, 50a/50b + Class dùng chung), tổng prompt thành 72 (69 sau lần tách UC13, +3 khi UC02 tách Activity thành 4 luồng), phân công Hướng tăng thêm 3 sơ đồ.</p>
 </blockquote>
 <ul>
 <li><strong>Chung cho cả 2 mục con:</strong> Chuông thông báo ở topbar + badge số chưa đọc (poll 5 giây); trang "Thông báo" dùng chung; thông báo chung có thể hiện thẻ nổi ở landing page.</li>
@@ -1202,7 +1203,60 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="5-11-quan-he">5.11 Quan hệ</h3>
+<h3 id="5-11-bang-returns-moi-21-11-2026">5.11 Bảng returns (mới 21/11/2026)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Cột</th>
+<th>Kiểu</th>
+<th>Ghi chú</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>INT PK AUTO_INCREMENT</td>
+<td></td>
+</tr>
+<tr>
+<td>loan_id</td>
+<td>INT NOT NULL, FK → loans(id) ON DELETE CASCADE, UNIQUE</td>
+<td>một phiếu chỉ trả một lần</td>
+</tr>
+<tr>
+<td>returned_by</td>
+<td>INT NOT NULL, FK → users(id)</td>
+<td>id thủ thư duyệt trả</td>
+</tr>
+<tr>
+<td>returned_at</td>
+<td>DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP</td>
+<td>thời điểm trả</td>
+</tr>
+<tr>
+<td>overdue_days</td>
+<td>INT NOT NULL DEFAULT 0</td>
+<td>số ngày trễ, chốt lúc trả (D6)</td>
+</tr>
+<tr>
+<td>fine_amount</td>
+<td>INT NOT NULL DEFAULT 0</td>
+<td>tiền phạt (đồng), chốt lúc trả (D7)</td>
+</tr>
+<tr>
+<td>note</td>
+<td>VARCHAR(255) NULL</td>
+<td>ghi chú tình trạng sách khi trả</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>DATETIME DEFAULT CURRENT_TIMESTAMP</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>Bảng này lưu chi tiết từng lần trả sách. <code>loans</code> giữ nguyên <code>returned_at</code>, <code>fine_amount</code>, <code>status</code> làm snapshot của phiếu; <code>returns</code> là hồ sơ chi tiết của lần trả (ai duyệt, trễ bao nhiêu ngày, ghi chú).</p>
+<h3 id="5-12-quan-he">5.12 Quan hệ</h3>
 <ul>
 <li>users (1) — (n) loans (một độc giả có nhiều phiếu mượn)</li>
 <li>books (1) — (n) loans (một cuốn sách có nhiều lượt mượn theo thời gian)</li>
@@ -1211,6 +1265,7 @@
 <li>users (1) — (n) notifications qua <code>created_by</code> (người tạo) và qua <code>user_id</code> (thông báo riêng cho 1 user)</li>
 <li>notifications (1) — (n) notification_reads; users (1) — (n) notification_reads (trạng thái đã đọc theo từng user)</li>
 <li>users (1) — (n) email_tokens; loans (1) — (n) email_reminders</li>
+<li>loans (1) — (1) returns (một phiếu mượn có tối đa một lần trả); users (1) — (n) returns qua <code>returned_by</code> (thủ thư duyệt trả)</li>
 <li><strong>Không có quan hệ categories — books:</strong> <code>books.category</code> là VARCHAR text tự do, không có khóa ngoại tới <code>categories</code>. Bảng <code>categories</code> chỉ dùng để tra mã sinh <code>book_code</code> và kiểm tra trùng tên/ký hiệu; logic chặn xóa thể loại đang có sách dùng đếm theo tên thể loại, không phải ràng buộc FK.</li>
 </ul>
 <hr />
@@ -2240,12 +2295,12 @@ sai vai trò trả 403. Nhóm Public cố tình mở cho Khách, không yêu c�
 </tr>
 </tbody>
 </table></div>
-<h1>12. Bộ prompt UML — 69 prompt</h1>
-<p>Danh sách prompt UML đầy đủ, cập nhật mới nhất (69 prompt; chuẩn Frm/Controller/Entity cho Class; Prompt 1 tổng thể 17 oval, 12 đường Include vào Đăng nhập, tác nhân phụ Dịch vụ gửi email + Gemini API) xem tại trang Prompt UML: https://nanioe.me/cdio4/prompt-uml.html</p>
+<h1>12. Bộ prompt UML — 72 prompt</h1>
+<p>Danh sách prompt UML đầy đủ, cập nhật mới nhất (72 prompt; chuẩn Frm/Controller/Entity cho Class; Prompt 1 tổng thể 17 oval, 12 đường Include vào Đăng nhập, tác nhân phụ Dịch vụ gửi email + Gemini API) xem tại trang Prompt UML: https://nanioe.me/cdio4/prompt-uml.html</p>
 <p>Không liệt kê lại danh sách prompt trong Hồ sơ này để tránh lệch phiên bản. Bản liệt kê cũ (51 prompt, dùng stereotype cũ, còn gộp UC01 Đăng nhập &amp; Đăng ký) đã được thay bằng tham chiếu này ngày 24/10/2026; bản cũ được lưu backup ở <code>cdio4-docs-build/ho-so-section12-old-backup.md</code>.</p>
 <div class="prevnext">
 <a class="pn prev" href="conceive.html"><span>Trang trước</span><strong>Conceive</strong></a>
-<a class="pn next" href="prompt-uml.html"><span>Trang sau</span><strong>Prompt UML (69 prompt)</strong></a>
+<a class="pn next" href="prompt-uml.html"><span>Trang sau</span><strong>Prompt UML (72 prompt)</strong></a>
 </div>
 <footer>Web tài liệu của đồ án CDIO 4 — nội dung luôn là bản mới nhất. Tài liệu của khoa (bài giảng CS353, SAD UML 2015, Systems Analysis &amp; Design UML 5th) là tài liệu nội bộ/bản quyền nên không đăng tại đây.</footer>
 </main>

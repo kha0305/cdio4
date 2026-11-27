@@ -19,7 +19,7 @@
 <div class="side-label">Tài liệu</div>
 <nav class="doc-nav">
 <a href="index.html">Mục lục tổng</a>
-<div class="nav-group">Thiết kế &amp; phân tích</div><a href="conceive.html">Conceive</a><a href="ho-so-thiet-ke.html">Hồ sơ phân tích &amp; thiết kế</a><a href="prompt-uml.html">Prompt UML (69 prompt)</a><a href="phan-ra.html" class="active">Phân rã</a><a href="luong-hoat-dong.html">Luồng hoạt động</a><div class="nav-group">Kiểm thử</div><a href="kich-ban-kiem-thu.html">Kịch bản kiểm thử</a><div class="nav-group">Dữ liệu</div><a href="du-lieu-sql.html">SQL reset CSDL</a><div class="nav-group">Tiến độ</div><a href="tien-do.html">Tiến độ</a><a href="phan-cong.html">Phân công</a>
+<div class="nav-group">Thiết kế &amp; phân tích</div><a href="conceive.html">Conceive</a><a href="ho-so-thiet-ke.html">Hồ sơ phân tích &amp; thiết kế</a><a href="prompt-uml.html">Prompt UML (72 prompt)</a><a href="phan-ra.html" class="active">Phân rã</a><a href="luong-hoat-dong.html">Luồng hoạt động</a><div class="nav-group">Kiểm thử</div><a href="kich-ban-kiem-thu.html">Kịch bản kiểm thử</a><div class="nav-group">Dữ liệu</div><a href="du-lieu-sql.html">SQL reset CSDL</a><div class="nav-group">Tiến độ</div><a href="tien-do.html">Tiến độ</a><a href="phan-cong.html">Phân công</a>
 </nav>
 <div class="side-label">Trong trang này</div>
 <nav class="toc">
@@ -36,7 +36,7 @@
 <div class="backdrop" id="backdrop"></div>
 <main class="content">
 <h1>Tài liệu phân rã hệ thống</h1>
-<p class="meta">Đồ án Website Quản lý Thư viện Đại học &middot; Cập nhật lần cuối: 25/10/2026</p>
+<p class="meta">Đồ án Website Quản lý Thư viện Đại học &middot; Cập nhật lần cuối: 27/11/2026</p>
 <h1>TÀI LIỆU PHÂN RÃ — Web Quản Lý Thư Viện Đại học</h1>
 <p>Tài liệu này giải thích hệ thống được chia nhỏ ra sao, để đọc Hồ sơ phân tích
 &amp; thiết kế mà không bị lạc. Hồ sơ đặc tả chi tiết từng chức năng; tài liệu
@@ -44,19 +44,21 @@ này chỉ cho thấy bức tranh tổng thể và cách 4 loại sơ đồ củ
 nhau ra sao.</p>
 <p>Quy ước giữ nguyên trong toàn bộ tài liệu này: <strong>số UC không đổi</strong>.
 UC19 vẫn là UC19, Prompt 16 vẫn là Prompt 16, dù thứ tự trình bày
-có xếp lại cho dễ theo dõi. Ngoại lệ duy nhất: UC13 tách prompt
+có xếp lại cho dễ theo dõi. Ngoại lệ: UC13 tách prompt
 (48/49/50 thành 48a/48b, 49a/49b, 50a/50b) nên tổng prompt tăng từ 66
-lên 69, các prompt khác giữ nguyên số.</p>
+lên 69; UC02 tách Activity (17 thành 17, 17b, 17c, 17d) nên tổng tăng
+từ 69 lên 72. Các prompt khác giữ nguyên số.</p>
 <h2 id="1-phan-ra-tong-the">1. Phân rã tổng thể</h2>
 <p>Hệ thống chia thành:</p>
 <ul>
 <li><strong>1 sơ đồ tổng thể:</strong> Prompt 1 (Use Case tổng thể).</li>
-<li><strong>16 UC chức năng</strong>, trong đó 15 UC phân rã thành đúng 4 sơ đồ (Use Case,
-  Activity, Sequence, Class) = 60 sơ đồ, riêng UC13 tách 2 mục con nên có
-  7 sơ đồ (UC13a: Use Case, Activity, Sequence; UC13b: Use Case, Activity,
-  Sequence; Class dùng chung) = 67 sơ đồ.</li>
+<li><strong>16 UC chức năng</strong>, trong đó 14 UC phân rã thành đúng 4 sơ đồ (Use Case,
+  Activity, Sequence, Class) = 56 sơ đồ; UC02 tách Activity thành 4 luồng
+  nên có 7 sơ đồ (Use Case, Activity ×4, Sequence, Class); riêng UC13 tách
+  2 mục con nên có 7 sơ đồ (UC13a: Use Case, Activity, Sequence; UC13b:
+  Use Case, Activity, Sequence; Class dùng chung) = 70 sơ đồ.</li>
 <li><strong>1 sơ đồ ERD toàn hệ thống:</strong> Prompt 51.</li>
-<li>Tổng cộng: 1 + 67 + 1 = <strong>69 prompt</strong>.</li>
+<li>Tổng cộng: 1 + 70 + 1 = <strong>72 prompt</strong>.</li>
 </ul>
 <h3 id="cac-uc-da-gop-dung-tim-so-do-rieng-cua-3-uc-nay">Các UC đã gộp — đừng tìm sơ đồ riêng của 3 UC này</h3>
 <ul>
@@ -70,10 +72,13 @@ lên 69, các prompt khác giữ nguyên số.</p>
 13, 16, 17, 18, 19. Ma trận truy vết vẫn giữ 19 dòng để truy vết actor,
 nhưng 3 dòng UC12/14/15 phải đọc kèm nhãn "(gộp)". UC13 tách 2 mục con
 (UC13a Quản lý thông báo, UC13b Xem thông báo) nhưng vẫn tính là 1 UC,
-7 sơ đồ (không phải 2 UC mới), tổng 69 prompt.</p>
+7 sơ đồ (không phải 2 UC mới); UC02 tách Activity thành 4 luồng
+(Thêm/Sửa/Xóa/Tìm kiếm) nhưng vẫn tính là 1 UC, 7 sơ đồ. Tổng 72 prompt.</p>
 <h3 id="cach-1-uc-phan-ra-thanh-4-so-do">Cách 1 UC phân rã thành 4 sơ đồ</h3>
 <p>Ngoại lệ: UC13 tách 2 mục con nên có 7 sơ đồ (UC13a và UC13b mỗi bên
-Use Case, Activity, Sequence, Class dùng chung), các UC khác vẫn 4 sơ đồ.</p>
+Use Case, Activity, Sequence, Class dùng chung); UC02 tách Activity thành
+4 luồng nên có 7 sơ đồ (Use Case, Activity ×4, Sequence, Class); các UC
+khác vẫn 4 sơ đồ.</p>
 <ul>
 <li><strong>Use Case:</strong> UC đó gồm những việc nhỏ nào, ai được làm việc nào.</li>
 <li><strong>Activity:</strong> các việc đó chạy theo luồng nào, qua 4 làn Actor | Giao diện
@@ -112,7 +117,7 @@ Sequence → Class.</p>
 <td>UC02</td>
 <td>Quản lý sách (gồm UC15)</td>
 <td>Tuấn Anh</td>
-<td>3, 17, 18, 19</td>
+<td>3, 17, 17b, 17c, 17d, 18, 19</td>
 <td>books, categories</td>
 </tr>
 <tr>
@@ -298,7 +303,7 @@ Sequence → Class.</p>
   Đừng đánh lại số UC chỉ để số thứ tự trông liền mạch.</li>
 </ul>
 <div class="prevnext">
-<a class="pn prev" href="prompt-uml.html"><span>Trang trước</span><strong>Prompt UML (69 prompt)</strong></a>
+<a class="pn prev" href="prompt-uml.html"><span>Trang trước</span><strong>Prompt UML (72 prompt)</strong></a>
 <a class="pn next" href="luong-hoat-dong.html"><span>Trang sau</span><strong>Luồng hoạt động</strong></a>
 </div>
 <footer>Web tài liệu của đồ án CDIO 4 — nội dung luôn là bản mới nhất. Tài liệu của khoa (bài giảng CS353, SAD UML 2015, Systems Analysis &amp; Design UML 5th) là tài liệu nội bộ/bản quyền nên không đăng tại đây.</footer>
